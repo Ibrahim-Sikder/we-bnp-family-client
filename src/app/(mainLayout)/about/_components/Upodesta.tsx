@@ -4,10 +4,11 @@ import Link from "next/link";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 import cardimg1 from "../../../../assets/images/upodesta/rijbi.jpeg";
-import cardimg2 from "../../../../assets/images/upodesta/OIP.jpg";
+import cardimg2 from "../../../../assets/images/upodesta/millat.jpeg";
 import cardimg3 from "../../../../assets/images/upodesta/ani.jpeg";
 import cardimg4 from "../../../../assets/images/upodesta/asrafh.jpeg";
 import cardimg5 from "../../../../assets/images/upodesta/alomgir.jpeg";
+
 
 const cardData = [
   {
@@ -45,6 +46,7 @@ const cardData = [
     description: "উপদেষ্টা",
     profile: "/profile/tarek-rahman",
   },
+
 ];
 
 const Upodesta = () => {
