@@ -1,0 +1,33 @@
+.prisonCard {
+    width: 385px;
+    height: 560px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+}
+
+
+
+.prisonCard img {
+    scale: 1;
+    transition: all .5s cubic-bezier(0.57, 0.54, 0.76, 0.74);
+}
+
+.prisonCard:hover img {
+    scale: 1.3;
+}
+
+.prisonContent {
+    padding: 20px;
+
+}
+
+@media only screen and (max-width:1024px) {
+    .prisonCard {
+        width: 100%;
+        height: auto;
+    }
+
+}

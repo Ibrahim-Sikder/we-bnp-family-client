@@ -1,0 +1,73 @@
+.infoWraps {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 40px 20px;
+}
+
+.socialIconWrap {
+    width: 50px;
+    height: 50px;
+    background: #2B8444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.mailIconWrap , .mailIconWraps {
+    width: 70px;
+    height: 70px;
+    background: #2B8444;
+    border-radius: 100%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mailIconWraps{
+    width:87px;
+}
+
+.infoCard {
+    width: 350px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 20px 20px;
+    border-radius: 5px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.infoIcon {
+    font-size: 40px !important;
+}
+
+@media only screen and (max-width:1024px) {
+    .infoCard {
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width:768px) {
+    .infoCard {
+        padding: 10px 10px;
+    }
+
+    .mailIconWrap {
+        width: 40px;
+        height: 40px;
+    }
+
+    .infoIcon {
+        font-size: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .infoCard {
+        padding: 20px 10px;
+    }
+}

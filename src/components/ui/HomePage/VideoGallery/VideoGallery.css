@@ -1,0 +1,77 @@
+.videoCard {
+    width: 600px;
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 5px;
+    overflow: hidden;
+
+}
+
+.videoWraper {
+    width: 600px;
+    height: 300px;
+}
+
+.react-player {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-button-prev {
+    background: #2B8444;
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 100%;
+    position: absolute;
+    left: 645px !important;
+    top: 330px !important;
+    color: #fff;
+
+}
+
+.swiper-button-next {
+    background: #2B8444;
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 100%;
+    position: absolute;
+    right: 355px !important;
+    top: 330px !important;
+    color: #fff;
+
+}
+
+.swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after {
+    content: 'prev';
+    font-size: 20px;
+}
+
+.swiper-button-prev:after {
+    content: 'prev';
+    font-size: 20px;
+}
+
+.swiper-button-next:after {
+    content: 'next';
+    font-size: 20px;
+}
+
+@media only screen and (max-width:1024px) {
+
+    .videoWraper,
+    .videoCard {
+        width: 100%;
+    }
+
+
+}
+
+@media only screen and (max-width:500px) {
+
+    .videoCard,
+    .videoWraper {
+        height: auto;
+    }
+
+}

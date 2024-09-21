@@ -1,0 +1,52 @@
+@import url(../styles/style.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* html,
+body {
+  scroll-behavior: smooth;
+} */
+body {
+  overflow-x: hidden;
+  font-size: 16px;
+  font-family: var(--noto-sans-bengali), sans-serif;
+}
+
+@layer base {
+  h1 {
+    @apply text-2xl md:text-4xl  font-bold;
+  }
+  h2 {
+    @apply text-2xl md:text-3xl font-semibold;
+  }
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+  h4 {
+    @apply text-sm md:text-xl font-semibold;
+  }
+}
+
+.sectionMargin {
+  margin-top: 80px;
+}
+
+.custom-clip-path {
+  clip-path: polygon(0 0, 100% 16%, 100% 100%, 0 100%);
+}
+
+@media only screen and (max-width:500px){
+  .sectionMargin {
+    margin-top: 40px;
+  }
+}
+
+
