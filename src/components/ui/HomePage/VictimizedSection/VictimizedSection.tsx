@@ -7,7 +7,7 @@ import victime from "../../../../assets/images/victime/victime3.png";
 import img1 from "../../../../assets/images/flood/flood2.jpeg";
 import img2 from "../../../../assets/images/flood/floode3.jpeg";
 import img3 from "../../../../assets/images/flood/flood6.jpeg";
-import flood from "../../../../assets/images/flood/flood.webp";
+import flood from "../../../../assets/images/flood/new.jpg";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";

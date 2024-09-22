@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import banner2 from "../../../../assets/images/flood/flood.webp";
+import banner2 from "../../../../assets/images/flood/new.jpg";
 import banner1 from "../../../../assets/images/banner/banner7.jpg";
 import flood from "../../../../assets/images/flood/flood7.jpeg";
 import flood2 from "../../../../assets/images/flood/flood8.jpeg";
