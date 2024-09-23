@@ -11,7 +11,7 @@ import cardimg5 from "../../../../assets/images/committee/mustakimbillah.jpeg";
 import cardimg6 from "../../../../assets/images/committee/sajib.jpeg";
 import cardimg7 from "../../../../assets/images/committee/shakilahammed.jpeg";
 import cardimg8 from "../../../../assets/images/committee/rubelamin.jpeg";
-import cardimg9 from "../../../../assets/images/committee/shadat.jpeg";
+import cardimg9 from "../../../../assets/images/committee/sahadat.jpeg";
 
 const cardData = [
   {
