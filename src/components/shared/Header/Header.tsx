@@ -48,7 +48,7 @@ const Header = () => {
               />
               <Typography component="span" fontWeight={600} color="black">
                 <Box component="span" color="primary.main" fontWeight="bold">
-                  <b className="md:font-bold  text-[20px]">আমরা</b><b className="md:font-bold text-[20px]"> বিএনপি পরিবার</b>
+                  <b className="md:font-bold  md:text-[20px]">আমরা</b><b className="md:font-bold md:text-[20px]"> বিএনপি পরিবার</b>
                 </Box>{" "}
                 <Box fontWeight="bold" color="secondary.main">
 

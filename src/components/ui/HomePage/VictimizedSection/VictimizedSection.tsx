@@ -131,7 +131,7 @@ const VictimizedSection = () => {
             background: "linear-gradient(to right, #2B8444, #CB2D2E)",
           }}
         />
-        <p className="mt-5 md:w-[780px] mx-auto text-sm md:text-base">
+        <p className="mt-5 xl:w-[780px] mx-auto text-sm md:text-base">
           নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন দেশনায়ক তারেক রহমান। তার সহানুভূতি
           ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক
           কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে।
