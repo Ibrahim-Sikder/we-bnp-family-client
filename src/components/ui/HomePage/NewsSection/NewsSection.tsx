@@ -45,7 +45,7 @@ const NewsSection = () => {
   return (
     <div className="sectionMargin">
 
-      <div className="grid grid-cols-12 gap-10 ">
+      <div className="grid grid-cols-12 gap-x-5 ">
         <div className="hidden xl:block col-span-12 xl:col-span-5 ">
           <div className="newsLeftSide bg-gradient-to-r from-red-600 to-green-600 ">
             <div className="leftContent">
@@ -57,7 +57,7 @@ const NewsSection = () => {
             </div>
           </div>
         </div>
-        <div className="newsRightSide col-span-12 xl:col-span-7 ">
+        <div className="col-span-12 xl:col-span-7 ">
           <NewsSlider />
         </div>
       </div>

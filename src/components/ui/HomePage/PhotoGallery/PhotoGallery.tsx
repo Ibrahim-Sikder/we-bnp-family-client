@@ -315,7 +315,6 @@ export default function PhotoGallery() {
               classNames="fade"
             >
               <div>
-
                 <TabPanel value="1">
                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
                     {

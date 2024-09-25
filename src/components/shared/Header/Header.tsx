@@ -111,10 +111,10 @@ const Header = () => {
                       <span>শহীদদের তালিকা  </span> </Link>
                     <ul className=" submenu3">
                       <li>
-                        <Link onClick={toggleMobileMenu} href="/international-report"><span>আন্তর্জাতিক সংস্থা</span></Link>
+                        <Link onClick={toggleMobileMenu} href="/international-report"><span>শহীদদের তালিকা (২০০৯ - ২০২৪)</span></Link>
                       </li>
                       <li>
-                        <Link onClick={toggleMobileMenu} href="/media-info"><span>মিডিয়ায় প্রকাশিত তথ্য</span></Link>
+                        <Link onClick={toggleMobileMenu} href="/media-info"><span>আগস্ট গণ-অভ্যুত্থান</span></Link>
                       </li>
                     </ul>
                   </li>
