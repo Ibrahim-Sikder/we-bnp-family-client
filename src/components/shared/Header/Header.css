@@ -121,7 +121,8 @@
   transform: scaleY(0);
   opacity: 0;
   visibility: hidden;
-  width:290px;
+  width:200px;
+  height:100px;
 }
 
 
@@ -211,6 +212,9 @@
   opacity: 1;
   visibility: visible;
   color: black !important;
-  background: #CB2D2E;
 
+
+}
+.dropdownMenu li:hover a span{
+  color:#111 !important;
 }

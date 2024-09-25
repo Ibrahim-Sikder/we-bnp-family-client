@@ -9,6 +9,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import Container from "../Container";
 import logo from "../../../../src/assets/images/logo/logo.jpg";
 import { LocalPhone, LocalPostOffice, LocationOn } from "@mui/icons-material";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -17,7 +18,7 @@ const Footer = () => {
         <footer className="lg:relative w-full ">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 py-8">
             <div className="bg-red-600 p-5 text-center rounded">
-             
+
               <h2 className="text-2xl font-bold">সাবস্ক্রাইব নিউজলেটার</h2>
               <div className="mt-4 flex justify-center">
                 <input
@@ -99,8 +100,13 @@ const Footer = () => {
                       আমাদের ইতিহাস
                     </a>
                   </li>
-                  
+
                 </ul>
+                
+                  <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-4 rounded inline-block font-semibold mt-5">
+                    সহযোগিতা
+                  </button>
+         
               </div>
 
 

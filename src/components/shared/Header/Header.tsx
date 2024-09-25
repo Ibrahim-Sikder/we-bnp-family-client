@@ -34,7 +34,7 @@ const Header = () => {
   }
 
   return (
-    <div className="sticky top-0 w-full bg-white shadow-md py-3 md:p-7 z-50">
+    <div className="sticky top-0 w-full bg-white shadow-md py-3 md:p-7 z-[999999]">
       <Container>
         <div className="lg:flex justify-between items-center">
           <Box component={Link} href="/">
@@ -111,7 +111,7 @@ const Header = () => {
                       <span>শহীদদের তালিকা  </span> </Link>
                     <ul className=" submenu3">
                       <li>
-                        <Link onClick={toggleMobileMenu} href="/international-report"><span>শহীদদের তালিকা (২০০৯ - ২০২৪)</span></Link>
+                        <Link onClick={toggleMobileMenu} href="/international-report"><span>(২০০৯ - ২০২৪)</span></Link>
                       </li>
                       <li>
                         <Link onClick={toggleMobileMenu} href="/media-info"><span>আগস্ট গণ-অভ্যুত্থান</span></Link>
