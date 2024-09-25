@@ -38,7 +38,7 @@ const HistorySection = () => {
                     </div>
                     <div>
                       <h4 className="leading-8 ">
-                        দেশ গড়তে মানুষের প্রয়োজন আত্মসম্মান, দায়িত্ববোধ ও সংগঠন
+                        জনগণই সকল ক্ষমতার উৎস
                       </h4>
                       <div className="flex items-center">
                         <div className="dahsed"></div>
@@ -74,7 +74,7 @@ const HistorySection = () => {
                     </div>
                     <div>
                       <h4 className="leading-8 ">
-                        “ওদের হাতে গোলামীর জিঞ্জির, আমাদের হাতে স্বাধীনতার পতাকা”{" "}
+                        “দেশ বাঁচাও, মানুষ বাঁচাও”
                       </h4>
                       <div className="flex items-center">
                         <div className="dahsed"></div>
@@ -106,9 +106,7 @@ const HistorySection = () => {
                     </div>
                     <div>
                       <h4 className="leading-8 ">
-                        কারাগারে নির্যাতনের শিকার ব্যক্তিদের কষ্টের কথা বলে শেষ করা
-                        যায় না। এই নির্যাতন শুধু শারীরিক নয়, মানসিকভাবেও তারা তীব্র
-                        যন্ত্রণার সম্মুখীন হন।{" "}
+                        জনগণকে সঙ্গে রাখি, জনগণের সঙ্গে থাকি
                       </h4>
                       <div className="flex items-center">
                         <div className="dahsed"></div>
@@ -120,7 +118,7 @@ const HistorySection = () => {
               </div>
             </div>
           </div>
-          <div className=" text-[#fff] mt-14 flex   justify-between ">
+          <div className=" text-[#fff] mt-14 flex   items-center  justify-between ">
             <div className="historyContents hidden xl:block                                                ">
               <div className="flex gap-5">
                 <div>
@@ -128,7 +126,7 @@ const HistorySection = () => {
                 </div>
                 <div>
                   <h4 className="leading-8 ">
-                    দেশ গড়তে মানুষের প্রয়োজন আত্মসম্মান, দায়িত্ববোধ ও সংগঠন
+                    জনগণই সকল ক্ষমতার উৎস
                   </h4>
                   <div className="flex items-center">
                     <div className="dahsed"></div>
@@ -145,7 +143,7 @@ const HistorySection = () => {
                 </div>
                 <div>
                   <h4 className="leading-8 ">
-                    “ওদের হাতে গোলামীর জিঞ্জির, আমাদের হাতে স্বাধীনতার পতাকা”{" "}
+                    “দেশ বাঁচাও, মানুষ বাঁচাও”
                   </h4>
                   <div className="flex items-center">
                     <div className="dahsed"></div>
@@ -162,13 +160,11 @@ const HistorySection = () => {
                 </div>
                 <div>
                   <h4 className="leading-8 ">
-                    কারাগারে নির্যাতনের শিকার ব্যক্তিদের কষ্টের কথা বলে শেষ করা
-                    যায় না। এই নির্যাতন শুধু শারীরিক নয়, মানসিকভাবেও তারা তীব্র
-                    যন্ত্রণার সম্মুখীন হন।{" "}
+                    জনগণকে সঙ্গে রাখি, জনগণের সঙ্গে থাকি
                   </h4>
                   <div className="flex items-center">
                     <div className="dahsed"></div>
-                    <p className="ml-2">দেশনায়ক তারেক রহমান</p>
+                    <p className="ml-2">তারেক রহমান</p>
                   </div>
                 </div>
               </div>

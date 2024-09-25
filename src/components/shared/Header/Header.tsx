@@ -7,6 +7,7 @@ import { Box, Button, Typography } from "@mui/material";
 import logo from "../../../assets/images/logo/logo.jpg";
 import Container from "../Container";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { HiChevronRight } from "react-icons/hi";
 
 const Header = () => {
   const [open, setOpen] = useState(true);
@@ -79,21 +80,45 @@ const Header = () => {
               <li className="lg:border-none border-b lg:py-0 py-2">
                 <Link onClick={toggleMobileMenu} href="/">প্রচ্ছদ</Link>
               </li>
-
+              <li className="dropdownMenuWrap">
+                <Link href="#">
+                  আমাদের কার্যক্রম <KeyboardArrowDownIcon />
+                </Link>
+                <ul className="dropdownMenu submenu">
+                  <li>
+                    <Link onClick={toggleMobileMenu} href="/victim">
+                      <span > সাম্প্রতিক কার্যক্রম </span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link onClick={toggleMobileMenu} href="/press"><span>প্রোগ্রাম ও নোটিশ</span></Link>
+                  </li>
+                </ul>
+              </li>
               <li className="lg:border-none border-b lg:py-0 py-2">
                 <Link onClick={toggleMobileMenu} href="/about">আমাদের সম্পর্কে</Link>
               </li>
               <li className="dropdownMenuWrap">
                 <Link href="/about">
                   স্বৈরাচার হাসিনার দুঃশাসন <KeyboardArrowDownIcon />
-                </Link>
+                </Link>   
                 <ul className="dropdownMenu">
                   <li>
                     <Link onClick={toggleMobileMenu} href="/disappearances"><span>গুমের তালিকা</span></Link>
                   </li>
-                  <li>
-                    <Link onClick={toggleMobileMenu} href="/murdered"> <span>শহীদদের তালিকা</span> </Link>
+                  <li className=" murterDropDown">
+                    <Link onClick={toggleMobileMenu} href="/murdered">
+                      <span>শহীদদের তালিকা  </span> </Link>
+                    <ul className=" submenu3">
+                      <li>
+                        <Link onClick={toggleMobileMenu} href="/international-report"><span>আন্তর্জাতিক সংস্থা</span></Link>
+                      </li>
+                      <li>
+                        <Link onClick={toggleMobileMenu} href="/media-info"><span>মিডিয়ায় প্রকাশিত তথ্য</span></Link>
+                      </li>
+                    </ul>
                   </li>
+
 
                   <li>
                     <Link onClick={toggleMobileMenu} href="/torture"><span>আওয়ামী লীগের নির্যাতন</span></Link>
@@ -104,21 +129,7 @@ const Header = () => {
                 </ul>
               </li>
 
-              <li className="dropdownMenuWrap">
-                <Link href="#">
-                  আমাদের কার্যক্রম <KeyboardArrowDownIcon />
-                </Link>
-                <ul className="dropdownMenu submenu">
-                  <li>
-                    <Link onClick={toggleMobileMenu} href="/victim">
-                      <span className="text-sm"> সাম্প্রতিক কার্যক্রম </span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link onClick={toggleMobileMenu} href="/press"><span className="text-sm">প্রোগ্রাম ও নোটিশ</span></Link>
-                  </li>
-                </ul>
-              </li>
+
 
 
               <li className="dropdownMenuWrap">

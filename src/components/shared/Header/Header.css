@@ -1,5 +1,3 @@
-
-
 .navItems li {
   padding: 18px;
   position: relative;
@@ -31,24 +29,27 @@
   z-index: 99;
   transition: all 0.5s cubic-bezier(0.4, 0.43, 0.54, 0.54);
 }
-.navItems li:hover .dropdownMenu li a{
-  color:white !important;
+
+.navItems li:hover .dropdownMenu li a {
+  color: white !important;
 }
 
-.navItems li:hover .dropdownMenu li a{
-  color:black !important;
-}
-.dropdownMenu li:hover a span{
-  color:white !important;
+.navItems li:hover .dropdownMenu li a {
+  color: black !important;
 }
 
+.dropdownMenu li:hover a span {
+  color: white !important;
+}
 
 
 
-.dropdownMenu {
+
+.dropdownMenu,
+.submenu3 {
   background: #fff;
   width: 233px;
-  height: 230px;
+  height: 204px;
   border-radius: 5px;
   position: absolute;
   top: 94px;
@@ -64,15 +65,20 @@
   opacity: 0;
   visibility: hidden;
 }
-.submenu{
-  width: 316px;
-  height: 140px;
+
+
+.submenu {
+  width: 185px;
+  height: 86px;
 
 }
-.submenu2{
-  width: 250px;
-  height: 120px;
+
+.submenu2 {
+  width: 226px;
+  height: 112px;
 }
+
+
 
 .dropdownMenuWrap {
   position: relative;
@@ -82,7 +88,7 @@
   opacity: 1;
   transform: scaleY(1);
   visibility: visible;
-  color:#111;
+  color: #111;
 }
 
 .dropdownMenu li {
@@ -104,6 +110,20 @@
   margin-left: 10px;
   color: red;
 }
+
+.murterDropDown {
+  position: relative;
+}
+
+.submenu3 {
+  left: 234px;
+  top: -2px;
+  transform: scaleY(0);
+  opacity: 0;
+  visibility: hidden;
+}
+
+
 @media only screen and (max-width: 1024px) {
   .navItems {
     background: #CB2D2E;
@@ -174,11 +194,22 @@
   }
 }
 
-@media only screen and (max-width:500px){
-  .activeBar, .bar1 {
+@media only screen and (max-width:500px) {
+
+  .activeBar,
+  .bar1 {
     top: 29px;
     right: 9px;
+  }
+
+
 }
 
+.murterDropDown:hover .submenu3 {
+  transform: scaleY(1);
+  opacity: 1;
+  visibility: visible;
+  color: black !important;
+  background: #CB2D2E;
 
 }

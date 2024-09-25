@@ -150,8 +150,9 @@ const VictimizedSection = () => {
               />
             </div>
 
-            <div className="p-3">
+            <div className="p-3 space-y-2">
               <h3 className="text-xl md:text-2xl">ফেনীতে বন্যার্তদের পাশে ‘আমরা বিএনপি পরিবার</h3>
+              <p>ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল। মঙ্গলবার (২৭ আগস্ট) দিনব্যাপী ফেনী সদর উপজেলায় ‘আমরা বিএনপি পরিবার’ ব্যানারে ত্রাণ বিতরণ করেন।</p>
               <Button component={Link} href='/victim/1' sx={buttonStyle}>
                 আরও পড়ুন <KeyboardDoubleArrowRight sx={arrowStyle} />
               </Button>

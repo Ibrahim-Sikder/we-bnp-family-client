@@ -21,7 +21,7 @@ import toture3 from "../../../../assets/images/torture/toture3.jpg";
 import Image from "next/image";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import "./PhotoGallery.css";
-import { Button, Tabs } from "@mui/material";
+import { Button, Divider, Tabs } from "@mui/material";
 import Link from "next/link";
 import media2 from "../../../../assets/images/gum/gum3.jpeg";
 import media3 from "../../../../assets/images/media/media9.webp";
@@ -123,6 +123,8 @@ export default function PhotoGallery() {
 
   ];
 
+
+
   const tabStyle = {
     "& .MuiTabs-indicator": {
       display: "none",
@@ -134,7 +136,7 @@ export default function PhotoGallery() {
       padding: {
         sm: "auto",
         xs: "5px",
-        lg: '5px'
+        lg: '12px 16px'
       },
       borderRadius: {
         md: "30px",
@@ -173,19 +175,7 @@ export default function PhotoGallery() {
       },
     },
   };
-  const tabBtnStyle = {
-    padding: {
-      lg: '5px',
-      md: '0px',
-      xs: '5px'
-    },
-    fontSize: {
-      lg: "16px",
-      md: "15px",
-      xs: "12px",
-    },
 
-  };
   const boxStyle = {
     width: {
       lg: "100%",
@@ -275,6 +265,21 @@ export default function PhotoGallery() {
 
   return (
     <Container className="sectionMargin px-0">
+      <div className="md:w-full px-5 text-center mb-10 ">
+        <h3 className="text-xl md:text-3xl"> স্বৈরাচার হাসিনার দুঃশাসন</h3>
+        <Divider
+          sx={{
+            width: "200px",
+            height: "5px",
+            margin: '0 auto',
+            marginTop: "10px",
+            background: "linear-gradient(to right, #2B8444, #CB2D2E)",
+          }}
+        />
+        <p className="mt-5 md:w-[780px] mx-auto text-sm md:text-base">
+          বিএনপির উপর স্বৈরাচারী হাসিনার গুম, খুন, দুঃশাসন, অনাচার, অপকর্মের কিছু প্রতীক রয়েছে এখানে।
+        </p>
+      </div>
       <Box
         sx={boxStyle}
       >
@@ -294,11 +299,11 @@ export default function PhotoGallery() {
               scrollButtons="auto"
               aria-label="scrollable auto tabs example"
             >
-              <Tab sx={tabBtnStyle} label=" গুমের তালিকা  " value="1" />
-              <Tab sx={tabBtnStyle} label="শহীদদের তালিকা" value="2" />
-              <Tab sx={tabBtnStyle} label="কারা নির্যাতন" value="3" />
-              {/* <Tab sx={tabBtnStyle} label="মামলা" value="4" /> */}
-              <Tab sx={tabBtnStyle} label="আওয়ামী লীগের নির্যাতন" value="4" />
+              <Tab label=" গুমের তালিকা  " value="1" />
+              <Tab label="শহীদদের তালিকা (২০০৯ - ২০২৪)" value="2" />
+              <Tab label="আগস্ট গণ-অভ্যুত্থান" value="2" />
+              <Tab label="কারা নির্যাতন" value="3" />
+              <Tab label="আওয়ামী লীগের নির্যাতন" value="4" />
             </Tabs>
           </Box>
           <SwitchTransition mode="out-in">

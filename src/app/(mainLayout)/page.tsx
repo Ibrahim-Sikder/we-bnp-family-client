@@ -13,7 +13,6 @@ import HistorySection from "@/components/ui/HomePage/ServiceSection/HistorySecti
 
 import VictimizedSection from "@/components/ui/HomePage/VictimizedSection/VictimizedSection";
 import VideoGallery from "@/components/ui/HomePage/VideoGallery/VideoGallery";
-import Parallax from "@/components/ui/Parallax/Parallax";
 
 const page = () => {
   return (
