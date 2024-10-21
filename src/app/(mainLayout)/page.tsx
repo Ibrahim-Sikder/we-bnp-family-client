@@ -19,7 +19,7 @@ const page = () => {
     <div>
       <HeroSection />
       <HistorySection />
-      <VictimizedSection />
+      {/* <VictimizedSection /> */}
       <NewsSection/>
       {/* <PrisonTortureSection /> */}
       <PhotoGallery />

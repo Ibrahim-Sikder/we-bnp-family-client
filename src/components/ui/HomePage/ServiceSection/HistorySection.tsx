@@ -11,7 +11,10 @@ import { FaQuoteRight } from "react-icons/fa6";
 import { East } from "@mui/icons-material";
 import Link from "next/link";
 
-const HistorySection = () => {
+const HistorySection = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/leader`);
+  const leaders = await res.json();
+
   return (
     <div className="historyWrap">
       <Container>

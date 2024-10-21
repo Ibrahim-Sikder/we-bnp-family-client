@@ -1,4 +1,3 @@
-"use client";
 import * as React from "react";
 import Image from "next/image";
 import { Button } from "@mui/material";
@@ -6,25 +5,31 @@ import Link from "next/link";
 import Container from "@/components/shared/Container";
 import "./Press.css";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import news from '../../../assets/images/gallery/gallery17.png';
-import news2 from '../../../assets/images/gallery/gallery14.jpeg';
-import news3 from '../../../assets/images/gallery/gallery19.png';
-import news4 from '../../../assets/images/gallery/gallery19.png';
-import news5 from '../../../assets/images/gallery/gallery19.png';
 import flood from "../../../assets/images/flood/flood11.jpeg";
 import flood2 from "../../../assets/images/flood/flood15.jpeg";
 import treatement from "../../../assets/images/news/treatment.jpeg";
 import treatement2 from "../../../assets/images/news/treatment2.jpeg";
-import icon from '../../../assets/images/logo/logo.jpg';
+import icon from "../../../assets/images/logo/logo.jpg";
 
-export default function PhotoGallery() {
-  const [value, setValue] = React.useState("1");
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
+export type TProgramme = {
+  _id: string;
+  bangla_short_description: string;
+  bangla_title: string;
+  img_tagline_bangla: string;
+  img_bangla: string;
+};
+export default async function PressPage() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/programm`);
+  const data = await res.json();
+
+  if (!data) {
+    return {
+      title: "Data not found",
+      description: "The requested programm was not found.",
+    };
+  }
+
   const newsData = [
-
-
     {
       id: 1,
       title: "বন্যার্তদের পাশে ‘আমরা বিএনপি পরিবার",
@@ -51,68 +56,80 @@ export default function PhotoGallery() {
     },
     {
       id: 4,
-      title: "বাংলাদেশের গণতন্ত্র পুন:রুদ্ধারের আন্দোলনে গুম, খুন ও পঙ্গুত্বের শিকার",
+      title:
+        "বাংলাদেশের গণতন্ত্র পুন:রুদ্ধারের আন্দোলনে গুম, খুন ও পঙ্গুত্বের শিকার",
       img: treatement2,
       icon: icon,
       description:
         "বাংলাদেশের গণতন্ত্র পুন:রুদ্ধারের আন্দোলনে গুম, খুন ও পঙ্গুত্বের শিকার বিএনপি’র নেতাকর্মীদের পাশে থাকার প্রত্যয়ে আমরা বিএনপি পরিবার নামে সেল গঠন করা হয়, যার প্রধান পৃষ্ঠপোষক বাংলাদেশ জাতীয়তাবাদী দল (বিএনপি)’র ভারপ্রাপ্ত চেয়ারম্যান জনাব তারেক রহমান।এই সেলে নতুন ০২ (দুই) জন উপদেষ্টা অন্তর্ভুক্ত করা হয়েছে।",
     },
-    
-    
   ];
   const btnStyle = {
-    background: '#fff',
-    padding: '5px',
-    color: 'black',
-    fontSize: '12px',
-    borderRadius: '5px',
-    width: '100px',
-    transition: 'background 0.3s ease',
+    background: "#fff",
+    padding: "5px",
+    color: "black",
+    fontSize: "12px",
+    borderRadius: "5px",
+    width: "100px",
+    transition: "background 0.3s ease",
 
-    '&:hover': {
-      background: 'linear-gradient(45deg, red, green)',
-      color: '#fff',
+    "&:hover": {
+      background: "linear-gradient(45deg, red, green)",
+      color: "#fff",
     },
   };
 
+  console.log(data);
 
   return (
     <>
       <div className="bannerWrap">
         <div className="bannerContent">
-          <h3 className="text-xl md:text-4xl font-semibold text-center ">প্রোগ্রাম ও নোটিশ বিজ্ঞপ্তি</h3>
+          <h3 className="text-xl md:text-4xl font-semibold text-center ">
+            প্রোগ্রাম ও নোটিশ বিজ্ঞপ্তি
+          </h3>
         </div>
       </div>
       <Container className="my-10 ">
         <div className=" grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-3 gap-5  lg:gap-x-5">
-          {newsData.map((news) => (
-
-            <div key={news.id} className="upcommingNewsCardWrap ">
+          {data?.data?.programms?.map((programm: TProgramme) => (
+            <div key={programm._id} className="upcommingNewsCardWrap ">
               <div className="upcomingNewsCard relative ">
                 <div className="imgWrap">
-                  <Image className="rounded-md" src={news.img} alt="news" />
+                  <Image
+                    width={500}
+                    height={500}
+                    className="rounded-md"
+                    src={programm.img_bangla}
+                    alt="news"
+                  />
                 </div>
                 <div className="flex items-center w-full gap-3 mt-5">
-                  <Image className="w-10" src={news.icon} alt="news" />
-                  <h4>{news.title}</h4>
+                  <Image className="w-10" src={icon} alt="news" />
+                  <h4>{programm.bangla_title}</h4>
                 </div>
                 <div className="hoverCard">
                   <div className="hoverContent">
                     <div className="space-y-3">
                       <div className="flex items-center gap-3">
-                        <Image className="w-10 rounded-full" src={news.icon} alt="news" />
-                        <h4>{news.title.slice(0,30)}...</h4>
+                        <Image
+                          className="w-10 rounded-full"
+                          src={icon}
+                          alt="news"
+                        />
+                        <h4>{programm.bangla_title.slice(0, 30)}...</h4>
                       </div>
-                      <span className="block text-justify">{news.description.slice(0, 100)}...</span>
-                      <Button component={Link} href='/press/1' sx={btnStyle}>আরও পড়ুন</Button>
+                      <span className="block text-justify">
+                        {programm.bangla_short_description.slice(0, 100)}...
+                      </span>
+                      <Button component={Link} href="/press/1" sx={btnStyle}>
+                        আরও পড়ুন
+                      </Button>
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
-
-
           ))}
         </div>
         <div className="flex items-center justify-center mt-5 ">

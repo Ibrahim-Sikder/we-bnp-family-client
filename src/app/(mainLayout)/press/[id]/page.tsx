@@ -1,7 +1,5 @@
 import Container from "@/components/shared/Container";
 import React from "react";
-import image1 from "../../../../../src/assets/images/news/treate.webp";
-import flood from "../../../../../src/assets/images/flood/flood10.jpeg";
 import flood2 from "../../../../../src/assets/images/flood/flood13.jpeg";
 import flood3 from "../../../../../src/assets/images/flood/flood15.jpeg";
 import flood5 from "../../../../../src/assets/images/flood/flood4.jpeg";
@@ -13,110 +11,185 @@ import { TextField } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShareLink from "@/components/ShareLink/ShareLink";
 import Banner from "../_components/Banner";
+import ReactHtmlParser from "react-html-parser";
 
-const page = () => {
-  const humanRights = [
-    {
-      id: 1,
-      img: image1,
-      title: "আহতদের চিকিৎসা সহায়তা দিলেন তারেক রহমান",
-      description:
-        "বাংলাদেশের গণতন্ত্র পুন:রুদ্ধারের আন্দোলনে গুম, খুন ও পঙ্গুত্বের শিকার বিএনপি’র নেতাকর্মীদের পাশে থাকার প্রত্যয়ে আমরা বিএনপি পরিবার নামে সেল গঠন করা হয়, যার প্রধান পৃষ্ঠপোষক বাংলাদেশ জাতীয়তাবাদী দল (বিএনপি)’র ভারপ্রাপ্ত চেয়ারম্যান জনাব তারেক রহমান।এই সেলে নতুন ০২ (দুই) জন উপদেষ্টা অন্তর্ভুক্ত করা হয়েছে।",
-    },
-  ];
+interface victimId {
+  params: {
+    id: string;
+  };
+}
 
+const page = async ({ params }: victimId) => {
   const newsData = [
     {
       id: 1,
       description:
         "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-      img: flood2
+      img: flood2,
     },
     {
       id: 1,
       description:
         "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-      img: flood3
+      img: flood3,
     },
     {
       id: 1,
       description:
         "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-      img: flood5
+      img: flood5,
     },
     {
       id: 1,
       description:
         "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-      img: flood6
+      img: flood6,
     },
   ];
+  const { id } = params;
 
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/programm/${id}`
+  );
+  const data = await res.json();
+
+  if (!data) {
+    return {
+      title: "Data not found",
+      description: "The requested blog was not found.",
+    };
+  }
+  console.log(data);
+
+  const renderContent = (content: string) => {
+    const parsedContent = ReactHtmlParser(content);
+
+    return parsedContent.map((element, index) => {
+      if (element.type === "h1") {
+        return (
+          <h1 key={index} className="text-2xl font-bold mb-2 ">
+            {element.props.children}
+          </h1>
+        );
+      } else if (element.type === "h2") {
+        return (
+          <h2 key={index} className="text-xl font-bold mb-2 ">
+            {element.props.children}
+          </h2>
+        );
+      } else if (element.type === "h3") {
+        return (
+          <h3 key={index} className="text-xl font-bold mb-2 ">
+            {element.props.children}
+          </h3>
+        );
+      } else if (element.type === "p") {
+        return (
+          <p key={index} className="mb-2">
+            {element.props.children}
+          </p>
+        );
+      }
+
+      // else if (element.type === "img") {
+      //   return (
+      //     <img
+      //       key={index}
+      //       className="w-full h-auto object-cover mb-4 hidden "
+      //       src={element.props.src}
+      //       alt="Blog Image"
+      //     />
+      //   );
+      // }
+      else if (
+        element.type === "div" &&
+        element.props.className === "ql-align-center"
+      ) {
+        return (
+          <div key={index} className="text-center mb-2">
+            {element.props.children}
+          </div>
+        );
+      } else if (
+        element.type === "div" &&
+        element.props.className === "ql-align-right"
+      ) {
+        return (
+          <div key={index} className="text-right mb-2">
+            {element.props.children}
+          </div>
+        );
+      } else if (
+        element.type === "div" &&
+        element.props.className === "ql-align-left"
+      ) {
+        return (
+          <div key={index} className="text-left mb-2">
+            {element.props.children}
+          </div>
+        );
+      } else {
+        return null;
+      }
+    });
+  };
 
   return (
     <div>
-      <Banner title='প্রোগ্রাম ও  নোটিশ' text='নোটিশ' />
+      <Banner title="প্রোগ্রাম ও  নোটিশ" text="নোটিশ" />
       <Container>
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 my-20">
           <div className="xl:col-span-9">
-            {humanRights.map((data) => (
-              <div key={data.id} className="h-full w-full">
-                <div className="relative overflow-hidden">
-                  <Image
-                    src={data.img}
-                    alt={data.title}
-                    className="object-cover w-full h-full"
-                    layout="responsive"
-                  />
-                </div>
+            <div key={data.id} className="h-full w-full">
+              <div className="relative overflow-hidden">
+                <Image
+                  width={500}
+                  height={500}
+                  src={data?.data?.img_bangla}
+                  alt={data.data?.bangla_title}
+                  className="object-cover w-full h-[340px]"
+                  layout="responsive"
+                />
+              </div>
 
-                <div className="p-5">
-                  <h3 className="text-xl font-semibold">{data.title}</h3>
-                  <div className="mt-5 space-y-5">
-                    <p>বিএনপির ভারপ্রাপ্ত চেয়ারম্যান ও ‘আমরা বিএনপি পরিবার’-এর প্রধান পৃষ্ঠপোষক তারেক রহমানের নির্দেশনায় ছাত্র-জনতার বৈষম্যবিরোধী গণআন্দোলন চলাকালে আহতদের চিকিৎসা সহায়তা প্রদান করা হয়েছে।
-
-                      রোববার (২৫ আগস্ট) দুপুরে রাজধানীর আগারগাঁওয়ে পঙ্গু হাসপাতালে তারেক রহমানের পক্ষ থেকে ‘আমরা বিএনপি পরিবার’-এর আহ্বায়ক সাংবাদিক আতিকুর রহমান রুমনের নেতৃত্বে একটি প্রতিনিধি দল আহতদের মাঝে এই চিকিৎসা সহায়তা প্রদান করেন।
-
-                    </p>
-                    <p>এ সময় আতিকুর রহমান রুমন বলেন, বৈষম্যবিরোধী ছাত্র-জনতার আন্দোলনে হতাহতদের পাশে দাঁড়াবার জন্য বিএনপির ভারপ্রাপ্ত চেয়ারম্যান তারেক রহমান আমাদের নির্দেশ দিয়েছেন। সেভাবেই আমাদের কাজ চলছে। আমরা সবসময় নির্যাতিতদের পাশে আছি এবং আগামীতেও পাশে থাকব।
-
-                    </p>
-                    <p>এ সময় ‘আমরা বিএনপি পরিবার’-এর উপদেষ্টা ইঞ্জিনিয়ার আশরাফ উদ্দিন বকুল, সেলের সদস্য সচিব কৃষিবিদ মো. মোকছেদুল মোমিন (মিথুন)সহ সেলটির সদস্যরা উপস্থিত ছিলেন।
-
-                    </p>
-                  </div>
-                </div>
-                {/* share section */}
-                <ShareLink />
-                {/* user comment */}
-                <div className="p-5 bg-gray-100 mx-5 rounded mt-5 ">
-                  <div className="flex items-center gap-2">
-                    <AccountCircleIcon fontSize="large" />
-                    <p className="font-medium">John Doe</p>
-                  </div>
-                  <p className="mt-3">
-                    কারাগারে নির্যাতনের শিকার ব্যক্তিদের কষ্টের কথা বলে শেষ করা
-                    যায় না।
-                  </p>
-                </div>
-
-                {/* comment section */}
-                <div className="p-5">
-                  <TextField
-                    label="Add a comment"
-                    variant="outlined"
-                    fullWidth
-                    multiline
-                    rows={4}
-                  />
-                  <div className="flex justify-end mt-5">
-                    <button className="bg-gradient-to-r from-red-600 to-green-600 px-7 py-2 text-white font-medium rounded">
-                      Submit
-                    </button>
-                  </div>
+              <div className="p-5">
+                <h3 className="text-xl font-semibold">
+                  {data?.data?.bangla_title}
+                </h3>
+                <div className="mt-5 space-y-5">
+                  <div>{renderContent(data?.data?.bangla_description)}</div>
                 </div>
               </div>
-            ))}
+              {/* share section */}
+              <ShareLink />
+              {/* user comment */}
+              <div className="p-5 bg-gray-100 mx-5 rounded mt-5 ">
+                <div className="flex items-center gap-2">
+                  <AccountCircleIcon fontSize="large" />
+                  <p className="font-medium">John Doe</p>
+                </div>
+                <p className="mt-3">
+                  কারাগারে নির্যাতনের শিকার ব্যক্তিদের কষ্টের কথা বলে শেষ করা
+                  যায় না।
+                </p>
+              </div>
+
+              {/* comment section */}
+              <div className="p-5">
+                <TextField
+                  label="Add a comment"
+                  variant="outlined"
+                  fullWidth
+                  multiline
+                  rows={4}
+                />
+                <div className="flex justify-end mt-5">
+                  <button className="bg-gradient-to-r from-red-600 to-green-600 px-7 py-2 text-white font-medium rounded">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="xl:col-span-3">
             <div className="mb-10">
@@ -142,7 +215,7 @@ const page = () => {
                 <span className="block font-medium">(200)</span>
               </div>
               <hr />
-            
+
               <hr />
               <div className="flex justify-between my-3">
                 <button className="font-medium">আওয়ামী নির্যাতন</button>{" "}
@@ -173,9 +246,7 @@ const page = () => {
                         />
                       </div>
                     </div>
-                    <p>
-                      {data.description}
-                    </p>
+                    <p>{data.description}</p>
                   </div>
                 ))}
               </div>
@@ -186,6 +257,5 @@ const page = () => {
     </div>
   );
 };
-
 
 export default page;

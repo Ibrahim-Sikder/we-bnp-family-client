@@ -2,12 +2,9 @@
 "use client";
 import Container from "@/components/shared/Container";
 import "./VictimizedSection.css";
-import Image from "next/image";
-import victime from "../../../../assets/images/victime/victime3.png";
 import img1 from "../../../../assets/images/flood/flood2.jpeg";
 import img2 from "../../../../assets/images/flood/floode3.jpeg";
 import img3 from "../../../../assets/images/flood/flood6.jpeg";
-import flood from "../../../../assets/images/flood/new.jpg";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -19,6 +16,11 @@ import LatestNews from "../LatestNews/LatestNews";
 import React from "react";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import Link from "next/link";
+
+import dynamic from "next/dynamic";
+import ActivityCard from "./ActivityCard";
+
+const VictimCard = dynamic(() => import("./VictimCard"), { ssr: false });
 
 const VictimizedSection = () => {
   const images = [
@@ -38,9 +40,7 @@ const VictimizedSection = () => {
       title: "বন্যার্তদের জন্য আমরা বিএনপি পরিবার এর এান কার্যক্রম অব্যাহত ",
     },
   ];
-  const isSmallScreen = useMediaQuery('(max-width: 640px)');
-  const newsToShow = isSmallScreen ? images.slice(0, 1) : images;
-
+  const isSmallScreen = useMediaQuery("(max-width: 640px)");
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -68,8 +68,8 @@ const VictimizedSection = () => {
       transition: "all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57)",
       zIndex: 1,
       width: "70px",
-      padding: '0px',
-      height: '20px',
+      padding: "0px",
+      height: "20px",
       "&.Mui-selected": {
         backgroundColor: "#CB2D2E",
         color: "white",
@@ -106,27 +106,20 @@ const VictimizedSection = () => {
     background: "linear-gradient(to right, #2B8444, #CB2D2E)",
     color: "white",
   };
-  const smallBtnStyle = {
-    width: "70px",
-    height: "20px",
-    borderRadius: "2px",
-    padding: "3px",
-    fontSize: "8px",
-    background: "linear-gradient(to right, #2B8444, #CB2D2E)",
-    color: "white",
-    marginTop: '5px'
-  };
-  const arrowStyle = { fontSize: '13px', marginLeft: '3px' }
+
+  const arrowStyle = { fontSize: "13px", marginLeft: "3px" };
 
   return (
     <Container className="sectionMargin">
       <div className="md:w-full px-5 text-center ">
-        <h3 className="text-xl md:text-3xl">নির্যাতিত ও ক্ষতিগ্রস্ত পরিবারের পাশে আমরা বিএনপি পরিবার</h3>
+        <h3 className="text-xl md:text-3xl">
+          নির্যাতিত ও ক্ষতিগ্রস্ত পরিবারের পাশে আমরা বিএনপি পরিবার
+        </h3>
         <Divider
           sx={{
             width: "200px",
             height: "5px",
-            margin: '0 auto',
+            margin: "0 auto",
             marginTop: "10px",
             background: "linear-gradient(to right, #2B8444, #CB2D2E)",
           }}
@@ -140,49 +133,12 @@ const VictimizedSection = () => {
 
       <div className="grid grid-cols-12 mt-24   gap-x-5 ">
         <div className="col-span-12 xl:col-span-8 ">
-          <div className="victimCard">
-            <div className="imgWrap">
-              <Image
-                className="rounded-md object-cover w-full h-full"
-                src={flood}
-                alt="victime"
-                layout="responsive"
-              />
-            </div>
+          <ActivityCard />
 
-            <div className="p-3 space-y-2">
-              <h3 className="text-xl md:text-2xl">ফেনীতে বন্যার্তদের পাশে ‘আমরা বিএনপি পরিবার</h3>
-              <p>ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল। মঙ্গলবার (২৭ আগস্ট) দিনব্যাপী ফেনী সদর উপজেলায় ‘আমরা বিএনপি পরিবার’ ব্যানারে ত্রাণ বিতরণ করেন।</p>
-              <Button component={Link} href='/victim/1' sx={buttonStyle}>
-                আরও পড়ুন <KeyboardDoubleArrowRight sx={arrowStyle} />
-              </Button>
-            </div>
-          </div>
+          <VictimCard />
 
-          <div className="grid grid-cols-1 gap-y-8 xl:gap-y-0 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-x-3 ">
-            {newsToShow.map((data) => (
-              <div key={data.id}>
-                <div className="cardBox">
-                  <div className="lg:h-28 h-40 md:h-52">
-                    <Image
-                      className="rounded-md object-cover w-full h-full "
-                      src={data.img}
-                      alt="victim"
-                    />
-                  </div>
-
-                  <div className="mt-3 text-center flex flex-col p-3">
-                    <b className='text-sm text-left '>{data.title.slice(0, 28)}...</b>
-                    <Button component={Link} href='/victim/1' sx={smallBtnStyle}>
-                      আরও পড়ুন <KeyboardDoubleArrowRight sx={arrowStyle} />
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
           <div className="flex justify-end mt-3 ml-3 ">
-            <Button component={Link} href='/victim' sx={buttonStyle}>
+            <Button component={Link} href="/victim" sx={buttonStyle}>
               সবগুলো দেখুন <KeyboardDoubleArrowRight sx={arrowStyle} />
             </Button>
           </div>
@@ -220,7 +176,6 @@ const VictimizedSection = () => {
                 </div>
               </TabPanel>
             </TabContext>
-
           </Box>
         </div>
       </div>

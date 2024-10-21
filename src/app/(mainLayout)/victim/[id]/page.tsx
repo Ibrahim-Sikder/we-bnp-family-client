@@ -12,14 +12,110 @@ import Sidebar from "@/components/ui/HomePage/Sidebar/Sidebar";
 import ShareLink from "@/components/ShareLink/ShareLink";
 import Link from "next/link";
 import PublishInfo from "@/components/PublishInfo/PublishInfo";
+import ReactHtmlParser from "react-html-parser";
 
-const DetailsPage = () => {
+interface victimId {
+  params: {
+    id: string;
+  };
+}
+
+
+const DetailsPage = async ({ params }: victimId) => {
+  const { id } = params;
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/oppressed/${id}`
+  );
+  const data = await res.json();
+
+  if (!data) {
+    return {
+      title: "Data not found",
+      description: "The requested blog was not found.",
+    };
+  }
+
+  const renderContent = (content: string) => {
+    const parsedContent = ReactHtmlParser(content);
+
+    return parsedContent.map((element, index) => {
+      if (element.type === "h1") {
+        return (
+          <h1 key={index} className="text-2xl font-bold mb-2 ">
+            {element.props.children}
+          </h1>
+        );
+      } else if (element.type === "h2") {
+        return (
+          <h2 key={index} className="text-xl font-bold mb-2 ">
+            {element.props.children}
+          </h2>
+        );
+      } else if (element.type === "h3") {
+        return (
+          <h3 key={index} className="text-xl font-bold mb-2 ">
+            {element.props.children}
+          </h3>
+        );
+      } else if (element.type === "p") {
+        return (
+          <p key={index} className="mb-2">
+            {element.props.children}
+          </p>
+        );
+      }
+
+      // else if (element.type === "img") {
+      //   return (
+      //     <img
+      //       key={index}
+      //       className="w-full h-auto object-cover mb-4 hidden "
+      //       src={element.props.src}
+      //       alt="Blog Image"
+      //     />
+      //   );
+      // }
+      else if (
+        element.type === "div" &&
+        element.props.className === "ql-align-center"
+      ) {
+        return (
+          <div key={index} className="text-center mb-2">
+            {element.props.children}
+          </div>
+        );
+      } else if (
+        element.type === "div" &&
+        element.props.className === "ql-align-right"
+      ) {
+        return (
+          <div key={index} className="text-right mb-2">
+            {element.props.children}
+          </div>
+        );
+      } else if (
+        element.type === "div" &&
+        element.props.className === "ql-align-left"
+      ) {
+        return (
+          <div key={index} className="text-left mb-2">
+            {element.props.children}
+          </div>
+        );
+      } else {
+        return null;
+      }
+    });
+  };
   return (
     <>
       <div>
-        <div className='bannerWrap'>
+        <div className="bannerWrap">
           <div className="bannerContent">
-            <h3 className='text-xl w-full  md:text-4xl font-semibold '>নির্যাতিত ও অসহায় পরিবারের পাশে দেশনায়ক তারেক রহমান</h3>
+            <h3 className="text-xl w-full  md:text-4xl font-semibold ">
+              {data.data.bangla_title}
+            </h3>
           </div>
         </div>
         <Container>
@@ -28,23 +124,23 @@ const DetailsPage = () => {
               <div className=" h-full  text-lg ">
                 <div className="space-y-4 md:space-y-4 lg:space-y-8 xl:space-y-8">
                   <Image
-                    src={banner2}
-                    className="h-auto w-full rounded-lg"
+                    width={500}
+                    height={500}
+                    src={data.data.img_bangla}
+                    className="h-[400px] object-contain w-full rounded-lg"
                     alt="Cover Image"
                   />
-                  <h3>ফেনীতে বন্যার্তদের পাশে ‘আমরা বিএনপি পরিবার</h3>
-                  <p className="text-justify">
-                    ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল।
-
-                    মঙ্গলবার (২৭ আগস্ট) দিনব্যাপী ফেনী সদর উপজেলায় ‘আমরা বিএনপি পরিবার’ ব্যানারে ত্রাণ বিতরণ করেন।
-
-                    ‘আমরা বিএনপি পরিবার’র প্রধান পৃষ্ঠপোষক বিএনপির ভারপ্রাপ্ত চেয়ারম্যান তারেক রহমানের নির্দেশনায় শর্শদি বাজার এলাকায় শরিষাদী উচ্চ বিদ্যালয় প্রাঙ্গণে স্থানীয় বন্যার্তদের মাঝে ত্রাণ-সামগ্রী বিতরণ করেন সেলের সদস্য ও স্বেচ্ছাসেবকরা।
-                  </p>
+                  <h3>{data.data.bangla_title}</h3>
+                  <div className="text-justify">
+                    {renderContent(data?.data?.bangla_description)}
+                  </div>
 
                   <div className="bg-gray-100 rounded-lg p-4 md:p-6 lg:p-8 xl:p-8 space-y-2 lg:px-20 xl:px-20">
                     <p className="text-justify italic text-xl">
                       <FormatQuoteIcon className="rotate-180" />
-                      ত্রাণসামগ্রীর মধ্যে ছিল- চিড়া, গুড়, চাল, আলু, স্যালাইন, নাপা/প্যারাসিটামল, শিশু পোশাক, বড়দের জন্য শাড়ি, লুঙ্গি, গামছা, মোমবাতি, লাইটার, টর্চলাইট প্রভৃতি।
+                      ত্রাণসামগ্রীর মধ্যে ছিল- চিড়া, গুড়, চাল, আলু, স্যালাইন,
+                      নাপা/প্যারাসিটামল, শিশু পোশাক, বড়দের জন্য শাড়ি, লুঙ্গি,
+                      গামছা, মোমবাতি, লাইটার, টর্চলাইট প্রভৃতি।
                       <FormatQuoteIcon />
                     </p>
                   </div>
@@ -66,18 +162,14 @@ const DetailsPage = () => {
                       alt="this is cover img"
                     />
                   </div>
-                  <p className="text-justify">
-                    ত্রাণ বিতরণ কর্মসূচিতে উপস্থিত ছিলেন- ‘আমরা বিএনপি পরিবার’-এর উপদেষ্টা ইঞ্জিনিয়ার আশরাফ উদ্দিন বকুল, সেলটির আহ্বায়ক সাংবাদিক আতিকুর রহমান রুমন, সদস্য সচিব কৃষিবিদ মোকছেদুল মোমিন (মিথুন), সদস্য মাসুদ রানা লিটন, মুসতাকিম বিল্লাহ, শাকিল আহমেদ, শাহাদত হোসেন, জাতীয়তাবাদী ছাত্রদলের কেন্দ্রীয় সহ-সভাপতি হাবিবুল বাশার, সাবেক সহসভাপতি জামিল হোসেন, বেসরকারি বিশ্ববিদ্যালয় ছাত্রদলের সহসভাপতি শারিফুল ইসলাম, সহসাংগঠনিক মশিউর রহমান মহান প্রমুখ।
-                  </p>
+                  <p className="text-justify">{data.bangla_description}</p>
 
-                 <PublishInfo name="The Daily Star Bangla" time="" link=""/>
-
+                  <PublishInfo name={data.data.name_published_newspaper} time={data.data.news_release_date} link={data.data.Link_published_newspaper} />
                 </div>
 
-                  <ShareLink />
+                <ShareLink />
               </div>
             </div>
-
 
             <div className="xl:col-span-3">
               <div>

@@ -92,7 +92,7 @@ const page = () => {
                     {blog.title}
                   </h5>
                   <p>
-                    {blog.description.slice(0, 80)}
+                    {blog?.description?.slice(0, 80)}
                   </p>
                   <Link href="/media-info/sub-blog2">
                     <Button

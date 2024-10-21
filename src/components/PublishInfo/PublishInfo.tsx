@@ -16,9 +16,9 @@ const PublishInfo = ({name,time,link}:TPublish) => {
 
         </div>
         <div className="flex flex-col gap-2">
-          <small> : The Daily Star Bangla</small>
-          <small> : বুধবার নভেম্বর ৩০, ২০২২ ০৭:০৯ অপরাহ্ন</small>
-          <small>: <Link target="_blank" href="https://bangla.thedailystar.net/news/bangladesh/politics/news-423256">
+          <small> : {name}</small>
+          <small> : {time}</small>
+          <small>: <Link target="_blank" href={link}>
             <button className=" bg-gradient-to-r from-red-600 to-green-600 text-white py-0 text-[10px] px-2  rounded inline-block font-semibold uppercase">
               লিংক দেখুন
             </button>

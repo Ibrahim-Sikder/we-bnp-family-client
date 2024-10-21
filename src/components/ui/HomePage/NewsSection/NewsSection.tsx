@@ -1,50 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import "./NewsSection.css";
-import news from "../../../../assets/images/gallery/gallery17.png";
-import icon from "../../../../assets/images/icon/news.png";
-import { Divider } from "@mui/material";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import NewsSlider from "./NewsSlider";
 
 const NewsSection = () => {
-  const newsData = [
-    {
-      id: 1,
-      title: "Economic System",
-      img: news,
-      icon: icon,
-      description: "",
-    },
-    {
-      id: 1,
-      title: "Economic System",
-      img: news,
-      icon: icon,
-      description: "",
-    },
-    {
-      id: 1,
-      title: "Economic System",
-      img: news,
-      icon: icon,
-      description: "",
-    },
-  ];
-  const btnStyle = {
-    background: "#fff",
-    padding: "5px",
-    color: "black",
-    fontSize: "12px",
-    borderRadius: "5px",
-    width: "100px",
-  };
-  
+
   return (
     <div className="sectionMargin">
-
       <div className="grid grid-cols-12 gap-x-5 ">
         <div className="hidden xl:block col-span-12 xl:col-span-5 ">
           <div className="newsLeftSide bg-gradient-to-r from-red-600 to-green-600 ">
