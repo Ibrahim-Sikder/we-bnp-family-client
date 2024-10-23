@@ -10,16 +10,13 @@ import flood2 from "../../../assets/images/flood/flood15.jpeg";
 import treatement from "../../../assets/images/news/treatment.jpeg";
 import treatement2 from "../../../assets/images/news/treatment2.jpeg";
 import icon from "../../../assets/images/logo/logo.jpg";
+import { TProgramm } from "@/types";
 
-export type TProgramme = {
-  _id: string;
-  bangla_short_description: string;
-  bangla_title: string;
-  img_tagline_bangla: string;
-  img_bangla: string;
-};
+
 export default async function PressPage() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/programm`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/programm?limit=10000`, {
+    cache: 'no-cache'
+  });
   const data = await res.json();
 
   if (!data) {
@@ -79,7 +76,8 @@ export default async function PressPage() {
     },
   };
 
-  console.log(data);
+  console.log(data)
+
 
   return (
     <>
@@ -92,17 +90,19 @@ export default async function PressPage() {
       </div>
       <Container className="my-10 ">
         <div className=" grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-3 gap-5  lg:gap-x-5">
-          {data?.data?.programms?.map((programm: TProgramme) => (
+          {data?.data?.programms?.map((programm: TProgramm) => (
             <div key={programm._id} className="upcommingNewsCardWrap ">
               <div className="upcomingNewsCard relative ">
                 <div className="imgWrap">
-                  <Image
-                    width={500}
-                    height={500}
-                    className="rounded-md"
-                    src={programm.img_bangla}
-                    alt="news"
-                  />
+
+
+                  {programm?.bng_Images.slice(0, 1)?.map((img: any) => {
+
+                    return <Image src={img} alt="hero" width={500}
+                      height={500}
+                      className="rounded-md" key={img} />
+                  })}
+
                 </div>
                 <div className="flex items-center w-full gap-3 mt-5">
                   <Image className="w-10" src={icon} alt="news" />
@@ -122,7 +122,7 @@ export default async function PressPage() {
                       <span className="block text-justify">
                         {programm.bangla_short_description.slice(0, 100)}...
                       </span>
-                      <Button component={Link} href="/press/1" sx={btnStyle}>
+                      <Button component={Link} href={`/press/${programm._id}`} sx={btnStyle}>
                         আরও পড়ুন
                       </Button>
                     </div>

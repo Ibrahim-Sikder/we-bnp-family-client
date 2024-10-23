@@ -6,7 +6,7 @@ import React from "react";
 
 const Contact = () => {
   const handleSubmit = () => {
-    console.log();
+
   };
   return (
     <>

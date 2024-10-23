@@ -14,16 +14,36 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { TDisappearance } from "@/types/disappearance";
+import { TImgGallery } from "@/types/prison";
 
 const ImageGallery = () => {
-  const gallery = [
-    { id: 1, image: img1, date: "08-22-2024", title: "ফেনীতে বন্যার্তদের পাশে ‘আমরা বিএনপি পরিবার" },
-    { id: 3, image: img3, date: "08-22-2024", title: "ফেনীতে বন্যার্তদের পাশে ‘আমরা বিএনপি পরিবার" },
-    { id: 3, image: img4, date: "08-22-2024", title: "আন্দোলনে আহতদের পাশে 'আমরা বিএনপি পরিবার" },
-    { id: 3, image: img5, date: "08-22-2024", title: "আন্দোলনে আহতদের পাশে 'আমরা বিএনপি পরিবার" },
-    { id: 3, image: img6, date: "08-22-2024", title: "আন্দোলনে আহতদের পাশে 'আমরা বিএনপি পরিবার" },
-    { id: 3, image: img7, date: "08-22-2024", title: "আন্দোলনে আহতদের পাশে 'আমরা বিএনপি পরিবার" },
-  ];
+
+  const [galleryData, setGalleryData] = React.useState<TImgGallery[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+  const [value, setValue] = React.useState("1");
+
+  React.useEffect(() => {
+    const fetchAffiliationData = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/image-gallery?limit=10000`, {
+          cache: 'no-store'
+        });
+        const data = await response.json();
+        setGalleryData(data.data?.galleries || []);
+
+      } catch (err) {
+        setError('Failed to fetch gallery data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAffiliationData();
+  }, []);
+
+
 
   return (
     <div>
@@ -50,17 +70,20 @@ const ImageGallery = () => {
                 1024: { slidesPerView: 3, spaceBetween: 30 },
               }}
             >
-              {gallery.map((data) => (
-                <SwiperSlide key={data.id}>
+              {galleryData?.map((data: TImgGallery) => (
+                <SwiperSlide key={data._id}>
                   <div className="relative group overflow-hidden rounded">
-                    <Image
-                      src={data.image}
-                      alt={data.title}
-                      className="w-full h-[300px] object-cover transition-transform duration-300 transform group-hover:scale-110"
-                    />
+
+                    {data?.images.slice(0, 1)?.map((img) => {
+
+                      return <Image className="w-full h-[300px] object-cover transition-transform duration-300 transform group-hover:scale-110" src={img} alt="hero" width={500}
+                        height={500} key={img} />
+                    })}
+
+
                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded flex justify-center items-end p-5 cursor-pointer">
                       <div className="text-white text-center">
-                        <p className="text-sm">{data.date}</p>
+                        <p className="text-sm">{data.createdAt}</p>
                         <h3 className="text-xl font-bold">{data.title}</h3>
                       </div>
                     </div>

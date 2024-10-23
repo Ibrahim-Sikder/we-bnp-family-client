@@ -1,16 +1,10 @@
 import Image from "next/image";
 import React from "react";
 
-import flood from "../../../../assets/images/flood/flood7.jpeg";
-import flood2 from "../../../../assets/images/flood/flood8.jpeg";
-import flood3 from "../../../../assets/images/flood/flood9.jpeg";
-
 import Container from "@/components/shared/Container";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
-import Sidebar from "@/components/ui/HomePage/Sidebar/Sidebar";
 import ShareLink from "@/components/ShareLink/ShareLink";
 import Link from "next/link";
-import PublishInfo from "@/components/PublishInfo/PublishInfo";
 import ReactHtmlParser from "react-html-parser";
 
 interface victimId {

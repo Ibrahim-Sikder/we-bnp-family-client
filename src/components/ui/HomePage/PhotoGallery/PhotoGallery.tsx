@@ -7,75 +7,84 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabPanel from "@mui/lab/TabPanel";
 import Container from "@/components/shared/Container";
-import prison from "../../../../assets/images/prison/karagar.webp";
-import prison3 from "../../../../assets/images/prison/prison3.jpg";
-import murtyre from "../../../../assets/images/gum/gum.jpeg";
-import murtyre2 from "../../../../assets/images/murtyre/murtyre2.jpeg";
-import prison4 from "../../../../assets/images/murtyre/murtyre.jpeg";
-import toture from "../../../../assets/images/torture/torture3.jpg";
-import toture2 from "../../../../assets/images/torture/toture2.jpg";
-import toture3 from "../../../../assets/images/torture/toture3.jpg";
-
-import Image from "next/image";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import "./PhotoGallery.css";
-import { Button, Divider, Tabs } from "@mui/material";
-import Link from "next/link";
-import media2 from "../../../../assets/images/gum/gum3.jpeg";
-import media3 from "../../../../assets/images/media/media9.webp";
+import { Divider, Tabs } from "@mui/material";
+import DisappearanceCard from "./DisappearanceCard";
+import { TDisappearance } from "@/types/disappearance";
+import MurtyreCard from "./MurtyreCard";
+import PrisonCard from "./PrisonCard";
+import AwamiTortureCard from "./AwamiTortureCard";
+import { TPrison } from "@/types/prison";
 export default function PhotoGallery() {
+
+  const [disappearanceData, setDisappearanceData] = React.useState<TDisappearance[]>([]);
+  const [prisonData, setPrisonData] = React.useState<TPrison[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
   const [value, setValue] = React.useState("1");
+
+  React.useEffect(() => {
+    const fetchAffiliationData = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/disappearance`, {
+          cache: 'no-store'
+        });
+        const data = await response.json();
+        setDisappearanceData(data.data?.disappearances || []);
+
+      } catch (err) {
+        setError('Failed to fetch disappearance data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAffiliationData();
+  }, []);
+  React.useEffect(() => {
+    const fetchPrisonData = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/prison?limit=1000`, {
+          cache: 'no-store'
+        });
+        const data = await response.json();
+        setPrisonData(data.data?.prisons || []);
+
+      } catch (err) {
+        setError('Failed to fetch prison data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPrisonData();
+  }, []);
+
+  if (loading) {
+    return <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">Loading...</h1>;
+  }
+
+  if (error) {
+    return (
+      <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">
+        {error}
+      </h1>
+    );
+  }
+
+  if (!disappearanceData || !prisonData || disappearanceData.length === 0 || prisonData.length === 0) {
+    return (
+      <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">
+        Oops! disappearance data not found!
+      </h1>
+    );
+  }
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
-  const totureData = [
-    {
-      id: 1,
-      title: "পুলিশের সামনে বিএনপির ওপর যুবলীগ-ছাত্রলীগের হামলার অভিযোগ",
-      img: toture,
-      description:
-        "ফরিদপুরে যুবলীগ-ছাত্রলীগের বিরুদ্ধে বিএনপির বিক্ষোভ সমাবেশে হামলা, ককটেল বিস্ফোরণ ও চেয়ার ভাঙচুরের অভিযোগ পাওয়া গেছে।আজ বুধবার বিকেল ৪টার দিকে এ হামলার পর শহরের মুজিব সড়ক সংলগ্ন প্রেসক্লাব চত্বরে বিএনপির সমাবেশ পণ্ড হয়ে যায়। ",
-    },
-    {
-      id: 1,
-      title: "বিএনপির সমাবেশে আওয়ামী লীগের হামলা, আহত ৫ নেতা",
-      img: toture2,
-      description:
-        "নাটোরে বিএনপির সমাবেশ চলাকালে দুর্বৃত্তদের হামলায় বিএনপির কেন্দ্রীয় নেতা মোসাদ্দেক হোসেন বুলবুলসহ পাঁচজন আহত হয়েছেন। আজ সকাল সাড়ে নয়টায় জেলা বিএনপির অস্থায়ী কার্যালয়ের সামনে এই হামলার ঘটনা ঘটে। জেলা বিএনপি এই ঘটনার জন্য আওয়ামী লীগকে দায়ী করেছেন।",
-    },
-    {
-      id: 1,
-      title: "গাবতলীতে বিএনপির মিছিলে আওয়ামী লীগের হামলা",
-      img: toture3,
-      description:
-        "ঢাকার প্রবেশপথ গাবতলীতে বিএনপির মিছিলে হামলা চালিয়েছে আওয়ামী লীগের নেতাকর্মীরা। এতে ২ জন আহত হয়েছেন। আজ শনিবার দুপুর ১২টার দিকে গাবতলী বেড়িবাঁধ এলাকায় এ ঘটনা ঘটে।প্রত্যক্ষদর্শীদের বরাত দিয়ে দ্য ডেইলি স্টারের নিজস্ব প্রতিবেদক জানান, টেকনিক্যাল মোড় থেকে সাভারমুখী লেনে বেড়িবাঁধের দিকে বিএনপির একটি মিছিল যাচ্ছিল। সেই সময় পেছন থেকে আরেকটি মিছিল নিয়ে আওয়ামী লীগের নেতাকর্মীরা বিএনপি নেতাকর্মীদের ওপর অতর্কিত হামলা চালান। এতে রাজিব নামে এক কিশোরসহ ২ জন আহত হন।",
-    },
-  ];
-  const prisonData = [
-    {
-      id: 1,
-      title: "নয়াপল্টনে গ্রেপ্তার বিএনপি নেতার কারাগারে মৃত্যু",
-      img: prison,
-      description:
-        " বিএনপির গোলাপুর রহমান (৫৮) নামে এক নেতার কারাগারে মৃত্যু হয়েছে। ইন্না লিল্লাহি ওয়া ইন্না ইলাহি রাজিউন।",
-    },
-    {
-      id: 2,
-      title: "চট্টগ্রাম কারাগারে বিএনপি নেতার মৃত্যু",
-      img: prison4,
-      description:
-        "চট্টগ্রাম কেন্দ্রীয় কারাগারে মিরসরাই পৌরসভা বিএনপির আহ্বায়ক ফকির আহমদের (৬০) মৃত্যু হয়েছে। মঙ্গলবার (১৬ই নভেম্বর) সকালে তার মৃত্যু হয়।",
-    },
-    {
-      id: 3,
-      title: "কাশিমপুর কারাগারে বিএনপি নেতার মৃত্যু",
-      img: prison3,
-      description:
-        "২৮ অক্টোবর ঢাকায় বিএনপির মহাসমাবেশে যাওয়ার পর হিরা খান গ্রেপ্তার হন বলে জানিয়েছেন দলের নেতারা।",
-    },
-  ];
 
   const tabStyle = {
     "& .MuiTabs-indicator": {
@@ -150,70 +159,11 @@ export default function PhotoGallery() {
     background: "#2B8444",
     padding: "0px",
   };
-  const disappearanceData = [
-    {
-      id: 1,
-      title: "১০ বছরে গুম ১ হাজার ২০৯ জন: বিএনপি",
-      description:
-        "আওয়ামী লীগের শাসনামলে গত ১০ বছরে ১ হাজার ২০৯ জন গুম হয়েছেন দাবি করে বিএনপি বলছে, কোনো একদিন যথাযথ তদন্তের মাধ্যমে এ ধরনের মানবতাবিরোধী অপরাধের বিচার করা হবে।",
-      img: media3,
-      name: "এম ইলিয়াস আলী ",
-      designation: "সাংগঠনিক সম্পাদক ",
-      address: "বনানী, ঢাকা ",
-      short_description:
-        "২০১২ সালের ১৭ এপ্রিল রাতে গাড়িতে করে নিজের বনানীর বাসা থেকে বের হওয়া পরে নিখোঁজ হন বিএনপি’র সাবেক সাংগঠনিক সম্পাদক এম ইলিয়াস আলী।",
-    },
-    {
-      id: 1,
-      title: "গুম হওয়া সাবেক এমপি হিরু, বিএনপি নেতা পারভেজকে ফেরত চায় পরিবার",
-      description:
-        "২০১৩ সালে গুম হয়েছিলেন কুমিল্লার লাকসামের সাবেক সংসদ সদস্য ও উপজেলা বিএনপির সভাপতি সাইফুল হিরু। দীর্ঘ ১১ বছর অতিবাহিত হলেও তার কোনো খবর পায়নি পরিবার। তিনি বেঁচে আছেন নাকি মারা গেছেন এই তথ্যটুকুও জানেন না তারা।",
-      img: media2,
-      name: "সাইফুল ইসলাম হিরু",
-      designation: " লাকসাম উপজেলা বিএনপির সভাপতি",
-      address: "লাকসাম, কুমিল্লা",
-      short_description:
-        "২০১৩ সালের ২৭ নভেম্বর। এদিন কুমিল্লার লাকসাম উপজেলা বিএনপির তৎকালীন সভাপতি ও সাবেক সংসদ সদস্য মো.সাইফুল ইসলাম হিরুসহ দুই বিএনপি নেতাকে র‌্যাব পরিচয়ে অপহরণের পর গুম করা হয়েছিল",
-    },
-  ];
-  const murtyreData = [
-    {
-      id: 1,
-      title: "১০ বছরে গুম ১ হাজার ২০৯ জন: বিএনপি",
-      description:
-        "আওয়ামী লীগের শাসনামলে গত ১০ বছরে ১ হাজার ২০৯ জন গুম হয়েছেন দাবি করে বিএনপি বলছে, কোনো একদিন যথাযথ তদন্তের মাধ্যমে এ ধরনের মানবতাবিরোধী অপরাধের বিচার করা হবে।",
-      img: murtyre,
-      name: "সাইফুল ইসলাম হিরু",
-      designation: "ছাত্রদল নেতা",
-      address: "লক্ষ্মীপুর ",
-      short_description:
-        "২০১২ সালের ১৭ এপ্রিল রাতে গাড়িতে করে নিজের বনানীর বাসা থেকে বের হওয়া পরে নিখোঁজ হন বিএনপি’র সাবেক সাংগঠনিক সম্পাদক এম ইলিয়াস আলী।",
-    },
-    {
-      id: 1,
-      title: "গুম হওয়া সাবেক এমপি হিরু, বিএনপি নেতা পারভেজকে ফেরত চায় পরিবার",
-      description:
-        "২০১৩ সালে গুম হয়েছিলেন কুমিল্লার লাকসামের সাবেক সংসদ সদস্য ও উপজেলা বিএনপির সভাপতি সাইফুল হিরু। দীর্ঘ ১১ বছর অতিবাহিত হলেও তার কোনো খবর পায়নি পরিবার। তিনি বেঁচে আছেন নাকি মারা গেছেন এই তথ্যটুকুও জানেন না তারা।",
-      img: murtyre2,
-      name: "আসাদুজ্জামান হিরা খান",
-      designation: "কাওরাইদ ইউনিয়ন বিএনপির ৬ নম্বর ওয়ার্ডের সাধারণ সম্পাদক ",
-      address: "গাজীপুরের শ্রীপুর উপজেলার কাওরাইদ ইউনিয়ন ",
-      short_description:
-        "নাশকতা ও ভাঙচুর মামলার আসামি  বিএনপি নেতা আসাদুজ্জামান হিরা খান কাশিমপুর কেন্দ্রীয় কারাগারে মারা গেছেন।",
-    },
-  ];
-  const getLinkHref = (index: number) => {
-    switch (index) {
-      case 0:
-        return "/prison/1";
-      case 1:
-        return "/prison/prison-second";
-      case 2:
-        return "/prison/prison-third";
-      default:
-        return "/prison/1";
-    }
-  };
+
+  const disappearanceFilterData = disappearanceData.filter((item) => item.category === 'গুমের তালিকা')
+  const murtyreFilterData = disappearanceData.filter((item) => item.category === 'শহীদদের তালিকা')
+  const prisonFilterData = prisonData.filter((item) => item.category === 'কারাগারে নির্যাতন')
+  const tortureFilterData = prisonData.filter((item) => item.category === 'আওয়ামী লীগের নির্যাতন')
 
   return (
     <Container className="sectionMargin px-0">
@@ -267,281 +217,17 @@ export default function PhotoGallery() {
             >
               <div>
                 <TabPanel value="1">
-                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
-                    {disappearanceData.slice(0, 2).map((data) => (
-                      <div key={data.id} className="disappeareCard">
-                        <div className="flex gap-x-5 items-end justify-between flex-col md:flex-row ">
-                          <div className="disappeareImgWrap ">
-                            <Image
-                              src={data.img}
-                              alt="mambal"
-                              width={500}
-                              height={500}
-                            />
-                          </div>
-                          <div className="disappeareContent text-left items-end  justify-end ">
-                            <div className="flex text-left gap-x-8 items-center">
-                              <div className="flex items-center justify-between w-[60px]">
-                                <div className="flex flex-col  gap-y-2 text-sm ">
-                                  <b>নাম </b>
-                                </div>
-                                <div className="flex flex-col ">
-                                  <b> : </b>
-                                </div>
-                              </div>
-                              <div className="flex flex-col">
-                                <small> {data.name}</small>
-                              </div>
-                            </div>
-                            <div className="flex text-left gap-x-8 items-center ">
-                              <div className="flex justify-between w-[60px]">
-                                <div className=" text-sm ">
-                                  <b>পদবী </b>
-                                </div>
-                                <div>
-                                  <b>:</b>
-                                </div>
-                              </div>
-                              <div>
-                                <small className="text-justify">
-                                  {data.designation}{" "}
-                                </small>
-                              </div>
-                            </div>
-                            <div className="flex text-left gap-x-10 ">
-                              <div className="flex text-left items-center justify-between  w-[60px]">
-                                <div className=" text-sm ">
-                                  <b>ঠিকানা</b>
-                                </div>
-                                <div>
-                                  <b>:</b>
-                                </div>
-                              </div>
-                              <div className="text-left ">
-                                <small className="text-left">
-                                  {data.address}{" "}
-                                </small>
-                              </div>
-                            </div>
-                            {/* <div className="flex gap-x-10 ">
-                                <div className="flex items-center justify-between w-[60px]">
-                                  
-                                  <div className="flex flex-col  gap-y-2 text-sm ">
-                                    <b>নাম  </b>
-                                    <b>পদবী </b>
-                                    <b> ঠিকানা  </b>
-
-                                  </div>
-                                  <div className="flex flex-col ">
-                                    <b>  : </b>
-                                    <b> : </b>
-                                    <b>   : </b>
-                                  </div>
-                                </div>
-                                <div className="flex flex-col gap-y-2 ">
-
-                                  <small> {data.name}</small>
-                                  <small> {data.designation} </small>
-                                  <small>{data.address} </small>
-
-                                </div>
-
-                              </div> */}
-                            <span className="mt-3 block text-sm ">
-                              {" "}
-                              <b>সংক্ষিপ্ত বিবরণী:</b>
-                              {data.short_description}
-                              {/*                               
-                              <Link href="/disappearances/1">
-                                <button className="mt-3 bg-gradient-to-r from-red-600 to-green-600 text-white py-0 text-[10px] px-2  rounded inline-block font-semibold uppercase">
-                                  আরও পড়ুন
-                                </button>
-                              </Link>  */}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex justify-end items-end w-full mr-16 mt-5 ">
-                    <Link href="/disappearances">
-                      <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">
-                        সবগুলো দেখুন
-                      </button>
-                    </Link>
-                  </div>
+                  <DisappearanceCard disappearanceData={disappearanceFilterData} />
                 </TabPanel>
+                
                 <TabPanel value="2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    {murtyreData.slice(0, 2).map((data) => (
-                      <div key={data.id} className="disappeareCard">
-                        <div className="flex gap-x-5 items-end justify-between flex-col md:flex-row ">
-                          <div className="disappeareImgWrap ">
-                            <Image
-                              src={data.img}
-                              alt="mambal"
-                              width={500}
-                              height={500}
-                            />
-                          </div>
-                          <div className="disappeareContent text-left items-end  justify-end ">
-                            <div className="flex text-left gap-x-8 items-center">
-                              <div className="flex items-center justify-between w-[60px]">
-                                <div className="flex flex-col  gap-y-2 text-sm ">
-                                  <b>নাম </b>
-                                </div>
-                                <div className="flex flex-col ">
-                                  <b> : </b>
-                                </div>
-                              </div>
-                              <div className="flex flex-col">
-                                <small> {data.name}</small>
-                              </div>
-                            </div>
-                            <div className="flex text-left gap-x-8 items-center ">
-                              <div className="flex  justify-between w-[60px]">
-                                <div className=" text-sm ">
-                                  <b>পদবী </b>
-                                </div>
-                                <div>
-                                  <b>:</b>
-                                </div>
-                              </div>
-                              <div>
-                                <small className="text-justify">
-                                  {data.designation}{" "}
-                                </small>
-                              </div>
-                            </div>
-                            <div className="flex text-left gap-x-10 ">
-                              <div className="flex text-left items-center justify-between  w-[60px]">
-                                <div className=" text-sm ">
-                                  <b>ঠিকানা</b>
-                                </div>
-                                <div>
-                                  <b>:</b>
-                                </div>
-                              </div>
-                              <div className="text-left ">
-                                <small className="text-left">
-                                  {data.address}{" "}
-                                </small>
-                              </div>
-                            </div>
-
-                            <span className="mt-3 block text-sm ">
-                              {" "}
-                              <b>সংক্ষিপ্ত বিবরণী:</b>
-                              {data.short_description}
-                              {/*                               
-                              <Link href="/disappearances/1">
-                                <button className="mt-3 bg-gradient-to-r from-red-600 to-green-600 text-white py-0 text-[10px] px-2  rounded inline-block font-semibold uppercase">
-                                  আরও পড়ুন
-                                </button>
-                              </Link>  */}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex justify-end items-end w-full mr-16 mt-5 ">
-                    <Link href="/murdered">
-                      <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">
-                        সবগুলো দেখুন
-                      </button>
-                    </Link>
-                  </div>
+                  <MurtyreCard disappearanceData={murtyreFilterData} />
                 </TabPanel>
                 <TabPanel value="3">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {prisonData.slice(0, 3).map((data, index) => (
-                      <div key={data.id} className="imgGalleryImgWraps ">
-                        <div className="murtyreImgWraps">
-                          <Image
-                            src={data.img}
-                            alt="gallery"
-                            width={500}
-                            height={500}
-                          />
-                        </div>
-                        <div className="imgGalleryContent">
-                          <h3>{data.title}</h3>
-                          <Button
-                            component={Link}
-                            href={getLinkHref(index)}
-                            sx={buttonStyle}
-                          >
-                            আরও পড়ুন
-                          </Button>
-                        </div>
-
-                        <div className="galleryContent">
-                          <h3>{data.title}</h3>
-                          <p>{data.description}</p>
-                          <Button
-                            component={Link}
-                            href={getLinkHref(index)}
-                            sx={buttonStyle}
-                          >
-                            আরও পড়ুন
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex justify-end items-end w-full mr-16 mt-5 ">
-                    <Link href="/prison">
-                      <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">
-                        সবগুলো দেখুন
-                      </button>
-                    </Link>
-                  </div>
+                  <PrisonCard prisonData={prisonFilterData} />
                 </TabPanel>
                 <TabPanel value="4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {totureData.map((data) => (
-                      <div key={data.id} className="imgGalleryImgWraps ">
-                        <Image
-                          src={data.img}
-                          alt="gallery"
-                          width={500}
-                          height={500}
-                        />
-                        <div className="imgGalleryContent">
-                          <h4> {data.title}</h4>
-                          <Button
-                            component={Link}
-                            href="/torture/1"
-                            sx={buttonStyle}
-                          >
-                            আরও পড়ুন
-                          </Button>
-                        </div>
-
-                        <div className="galleryContent">
-                          <h4>{data.title}</h4>
-                          <p className="text-sm">
-                            {data.description.slice(0, 100)}...
-                          </p>
-                          <Button
-                            component={Link}
-                            href="/torture/1"
-                            sx={buttonStyle}
-                          >
-                            আরও পড়ুন
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex justify-end items-end w-full mr-16 mt-5 ">
-                    <Link href="/torture">
-                      <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">
-                        সবগুলো দেখুন
-                      </button>
-                    </Link>
-                  </div>
+                  <AwamiTortureCard tortureData={tortureFilterData} />
                 </TabPanel>
               </div>
             </CSSTransition>

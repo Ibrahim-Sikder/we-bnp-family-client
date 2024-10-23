@@ -11,7 +11,7 @@ import donate3 from '../../../../assets/images/donation/donation2.jpeg'
 import Container from '@/components/shared/Container';
 const DonationSection = () => {
     const handleSubmit = (data: any) => {
-        console.log(data);
+ 
     };
     const inputStyles = {
         input: {

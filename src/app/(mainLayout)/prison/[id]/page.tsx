@@ -2,26 +2,99 @@
 
 import Container from "@/components/shared/Container";
 import "../../murdered/Murder.css";
-import banner from "../../../../assets/images/prison/karagar.webp";
-import banner2 from "../../../../assets/images/gallery/gallery13.jpeg";
-import banner3 from "../../../../assets/images/gallery/gallery10.jpeg";
-
+import ReactHtmlParser from "react-html-parser";
 import Image from "next/image";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Button,
-  Checkbox,
-  Stack,
-  Typography,
-} from "@mui/material";
-import {
-  KeyboardArrowRight
-} from "@mui/icons-material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Typography} from "@mui/material";
+import { KeyboardArrowRight} from "@mui/icons-material";
 import Link from "next/link";
-const page = () => {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+const renderContent = (content: string) => {
+  const parsedContent = ReactHtmlParser(content);
+
+  return parsedContent.map((element, index) => {
+    if (element.type === "h1") {
+      return (
+        <h1 key={index} className="text-2xl font-bold mb-2 ">
+          {element.props.children}
+        </h1>
+      );
+    } else if (element.type === "h2") {
+      return (
+        <h2 key={index} className="text-xl font-bold mb-2 ">
+          {element.props.children}
+        </h2>
+      );
+    } else if (element.type === "h3") {
+      return (
+        <h3 key={index} className="text-xl font-bold mb-2 ">
+          {element.props.children}
+        </h3>
+      );
+    } else if (element.type === "p") {
+      return (
+        <p key={index} className="mb-2">
+          {element.props.children}
+        </p>
+      );
+    }
+
+
+    else if (
+      element.type === "div" &&
+      element.props.className === "ql-align-center"
+    ) {
+      return (
+        <div key={index} className="text-center mb-2">
+          {element.props.children}
+        </div>
+      );
+    } else if (
+      element.type === "div" &&
+      element.props.className === "ql-align-right"
+    ) {
+      return (
+        <div key={index} className="text-right mb-2">
+          {element.props.children}
+        </div>
+      );
+    } else if (
+      element.type === "div" &&
+      element.props.className === "ql-align-left"
+    ) {
+      return (
+        <div key={index} className="text-left mb-2">
+          {element.props.children}
+        </div>
+      );
+    } else {
+      return null;
+    }
+  });
+};
+
+
+
+const page = async ({ params }: PageProps) => {
+  const { id } = params
+
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/prison/${id}`, {
+    cache: 'no-store'
+  });
+  const prisonData = await res.json();
+  const formatDate = (dateString: string | number | Date) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+
   return (
     <>
       <div className="bannerWrap">
@@ -34,28 +107,23 @@ const page = () => {
           <div className="xl:col-span-9">
             <div className="murderRightSide">
               <div className="imgWrap">
-                <Image className="w-full" src={banner} alt="banner" />
+
+
+                {prisonData?.data?.bng_Images.slice(0, 1)?.map((img:any) => {
+
+                  return <Image src={img} alt="hero" className="w-full object-contain " width={500}
+                    height={500} key={img} />
+                })}
               </div>
               <div className="my-10">
                 <h2>
-                  নয়াপল্টনে গ্রেপ্তার বিএনপি নেতার কারাগারে মৃত্যু
+                  {prisonData?.data?.bangla_title}
                 </h2>
-                <div className="space-y-5">
+                <div className="space-y-5 mt-5 ">
+
+                  {renderContent(prisonData?.data?.bangla_description)}
 
 
-                  <p className="text-xl mt-3">
-                    <b>ঢাকা:</b>
-                    বিএনপির গোলাপুর রহমান (৫৮) নামে এক নেতার কারাগারে মৃত্যু হয়েছে। ইন্না লিল্লাহি ওয়া ইন্না ইলাহি রাজিউন।
-
-
-                  </p>
-                  <p>
-                    বিএনপির গত ২৮ অক্টোবর মহাসমাবেশের আগের দিন দলটির কেন্দ্রীয় কার্যালয়ের সামনে থেকে গ্রেপ্তার হওয়ার পর থেকে তিনি কারাগারে ছিলেন।</p>
-                  <p>শনিবার (২৫ নভেম্বর) বিকেলে গাজীপুরের কাশিমপুর কারাগারে তিনি মৃত্যুবরণ করেন বলে গণমাধ্যমকে জানিয়েছেন বিএনপি চেয়ারপারসনের প্রেস উইং কর্মকর্তা শামসুদ্দিন দিদার।  </p>
-                  <p>এই নেতার মৃত্যুর বিষয়টি নিশ্চিত করেছেন বিএনপি জাতীয় নির্বাহী কমিটির সাংগঠনিক সম্পাদক মাহবুবের রহমান শামীম। </p>
-                  <p>মৃত গোলাপুর রহমান ছিলেন চট্টগ্রাম মহানগরের চাঁন্দগাও থানার ৫ নম্বর মোহরা ওয়ার্ড বিএনপির সিনিয়র সহ-সভাপতি।</p>
-                  <p>বিএনপি চেয়ারপারসনের প্রেস উইং কর্মকর্তা শামসুদ্দিন দিদার জানান, গত ২৮ অক্টোবর ঢাকায় বিএনপির মহাসমাবেশের আগের দিন শুক্রবার (২৭ অক্টোবর), রাজধানীর নয়াপল্টনস্থ বিএনপির কেন্দ্রীয় কার্যালয়ের সামনে থেকে পল্টন থানা পুলিশ গোলাপুর রহমানকে গ্রেপ্তার করে।</p>
-                  <b>বাংলাদেশ সময়: ০৮৫৩ ঘণ্টা, নভেম্বর ২৬, ২০২৩</b>
                 </div>
                 <div className="flex gap-10">
                   <div className="flex flex-col mt-5 ">
@@ -64,13 +132,15 @@ const page = () => {
                     <b> পত্রিকার প্রকাশিত লিংক</b>
                   </div>
                   <div className="flex flex-col mt-5 ">
-                    <span>: Banlga News 24</span>
-                    <span>: নভেম্বর ২৬, ২০২৩</span>
-                    <span>: <Link target="_blank" href="https://www.banglanews24.com/politics/news/bd/1231669.details">
-                      <button className=" bg-gradient-to-r from-red-600 to-green-600 text-white py-1 text-[10px] px-3  rounded inline-block font-semibold uppercase">
-                      লিংক দেখুন
-                      </button>
-                    </Link>
+                    <span>: {prisonData?.data?.name_published_newspaper}</span>
+                    <span>: {formatDate(prisonData?.data?.news_release_date)}  </span>
+                    <span>:
+                      <Link href={`${prisonData?.data?.Link_published_newspaper}`} passHref>
+
+                        <button className=" bg-gradient-to-r from-red-600 to-green-600 text-white py-1 text-[10px] px-3  rounded inline-block font-semibold uppercase">
+                          লিংক দেখুন
+                        </button>
+                      </Link>
                     </span>
                   </div>
                 </div>
@@ -103,11 +173,11 @@ const page = () => {
                   </Typography>
                   <KeyboardArrowRight className="leftCard-icon" />
                 </div>
-                
+
 
                 <div className="leftCard">
                   <Typography variant="h6" className="leftCard-text">
-                  আওয়ামী লীগের নির্যাতন
+                    আওয়ামী লীগের নির্যাতন
                   </Typography>
                   <KeyboardArrowRight className="leftCard-icon" />
                 </div>

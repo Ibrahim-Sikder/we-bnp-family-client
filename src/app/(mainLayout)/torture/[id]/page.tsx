@@ -13,6 +13,7 @@ import { Button, TextField } from "@mui/material";
 import Link from "next/link";
 import ShareLink from "@/components/ShareLink/ShareLink";
 
+
 const page = () => {
   const newsData = [
     {

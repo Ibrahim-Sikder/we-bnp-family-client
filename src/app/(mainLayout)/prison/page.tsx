@@ -1,50 +1,21 @@
-'use client'
-import * as React from 'react';
-import gallery9 from '../../../assets/images/nirjaton/mabla4.jpeg';
 
+import * as React from 'react';
 import Image from 'next/image';
 import { Button, TextField } from '@mui/material';
 import Link from 'next/link';
 import Container from '@/components/shared/Container';
 import './prison.css'
-import { ArrowRightAlt, Search } from '@mui/icons-material';
+import { Search } from '@mui/icons-material';
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import prison from "../../../assets/images/prison/karagar.webp";
-import prison2 from "../../../assets/images/prison/prison2.jpg";
-import prison3 from "../../../assets/images/prison/prison3.jpg";
-import prison4 from "../../../assets/images/prison/prison2.webp";
-import prison5 from "../../../assets/images/prison/prison4.webp";
-import prison6 from "../../../assets/images/prison/prison5.jpg";
+import { TPrison } from '@/types/prison';
 
-export default function Prison() {
-    const [value, setValue] = React.useState('1');
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValue(newValue);
-    };
+export default async function Prison() {
 
-    const prisonData = [
-        {
-            id: 1,
-            title: "নয়াপল্টনে গ্রেপ্তার বিএনপি নেতার কারাগারে মৃত্যু",
-            img: prison,
-            description: ' বিএনপির গোলাপুর রহমান (৫৮) নামে এক নেতার কারাগারে মৃত্যু হয়েছে। ইন্না লিল্লাহি ওয়া ইন্না ইলাহি রাজিউন।'
-        },
-        {
-            id: 2,
-            title: "চট্টগ্রাম কারাগারে বিএনপি নেতার মৃত্যু",
-            img: prison4,
-            description: 'চট্টগ্রাম কেন্দ্রীয় কারাগারে মিরসরাই পৌরসভা বিএনপির আহ্বায়ক ফকির আহমদের (৬০) মৃত্যু হয়েছে। মঙ্গলবার (১৬ই নভেম্বর) সকালে তার মৃত্যু হয়।'
-        },
-        {
-            id: 3,
-            title: "কাশিমপুর কারাগারে বিএনপি নেতার মৃত্যু",
-            img: prison3,
-            description: '২৮ অক্টোবর ঢাকায় বিএনপির মহাসমাবেশে যাওয়ার পর হিরা খান গ্রেপ্তার হন বলে জানিয়েছেন দলের নেতারা।'
-        },
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/prison?limit=1000`, {
+        cache: 'no-store'
+    });
+    const prisonData = await res.json();
 
-
-
-    ];
 
     const getLinkHref = (index: number) => {
         switch (index) {
@@ -65,7 +36,9 @@ export default function Prison() {
         borderRadius: "30px",
         background: "#2B8444",
     };
+    const prisonFilterData = prisonData?.data?.prisons.filter((item:any) => item.category === 'কারাগারে নির্যাতন')
 
+    console.log(prisonFilterData)
     return (
         <>
             <div className='bannerWrap'>
@@ -80,29 +53,29 @@ export default function Prison() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {prisonData.slice(0, 3).map((data, index) => (
-                        <div key={data.id} className="imgGalleryImgWraps ">
+                    {prisonFilterData?.slice(0, 3).map((data: TPrison, index: number) => (
+                        <div key={data._id} className="imgGalleryImgWraps ">
                             <div className="murtyreImgWraps">
-                                <Image
-                                    src={data.img}
-                                    alt="gallery"
-                                    width={500}
-                                    height={500}
-                                />
+
+                                {data?.bng_Images.slice(0, 1)?.map((img) => {
+
+                                    return <Image src={img} alt="hero" width={500}
+                                        height={500} key={img} />
+                                })}
                             </div>
                             <div className="imgGalleryContent">
-                                <h3>{data.title}</h3>
+                                <h3>{data.bangla_title}</h3>
                                 <Button component={Link} href={getLinkHref(index)} sx={buttonStyle}>আরও পড়ুন</Button>
                             </div>
 
                             <div className="galleryContent">
                                 <h3>
-                                    {data.title}
+                                    {data.bangla_title}
                                 </h3>
                                 <p>
-                                    {data.description}
+                                    {data.bangla_short_description}
                                 </p>
-                                <Button component={Link} href={getLinkHref(index)} sx={buttonStyle}>আরও পড়ুন</Button>
+                                <Button component={Link} href={`/prison/${data._id}`} sx={buttonStyle}>আরও পড়ুন</Button>
                             </div>
                         </div>
                     ))}

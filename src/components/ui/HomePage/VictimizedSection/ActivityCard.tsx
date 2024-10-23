@@ -1,3 +1,5 @@
+
+import { TActivity } from "@/types";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import Image from "next/image";
@@ -16,35 +18,33 @@ const buttonStyle = {
 
 const arrowStyle = { fontSize: "13px", marginLeft: "3px" };
 
-type TVictim = {
-  img_bangla: string;
-  bangla_title: string;
-  _id: string;
-  bangla_short_description: string;
-};
-const ActivityCard = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/oppressed`);
-  const data = await res.json();
+
+interface MurtyreCardProps {
+  activityData: TActivity[];
+}
+
+
+const ActivityCard: React.FC<MurtyreCardProps> = ({ activityData }) => {
 
   return (
     <>
-      {data?.data?.oppresses?.slice(0, 1).map((data: TVictim) => (
+      {activityData?.slice(0, 1).map((data) => (
         <div key={data._id} className="victimCard">
           <div className="imgWrap">
-            <Image
-              width={500}
-              height={500}
-              className="rounded-md object-cover w-full h-full"
-              src={data?.img_bangla}
-              alt="victime"
-              layout="responsive"
-            />
+
+
+            {data?.bng_Images.slice(0, 1)?.map((img: any) => {
+
+              return <Image layout="responsive" src={img} alt="hero" width={500}
+                height={500}
+                className="rounded-md object-cover w-full h-full" key={img} />
+            })}
           </div>
 
           <div className="p-3 space-y-2">
-            <h3 className="text-xl md:text-2xl">{data.bangla_title}</h3>
+            <h3 className="text-xl md:text-2xl">{data?.bangla_title}</h3>
             <p>{data.bangla_short_description}</p>
-            <Button component={Link} href="/victim/1" sx={buttonStyle}>
+            <Button component={Link} href={`/activity/${data._id}`} sx={buttonStyle}>
               আরও পড়ুন <KeyboardDoubleArrowRight sx={arrowStyle} />
             </Button>
           </div>

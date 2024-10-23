@@ -24,10 +24,11 @@ import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import { useGetAllProgrammeQuery } from "@/redux/api/programmeApi";
 
 export type TNews = {
-  _id:string,
-  bangla_short_description:string,
-  bangla_title:string,
-  img_bangla:string,
+  _id: string,
+  bangla_short_description: string,
+  bangla_title: string,
+  bng_Images: string[],
+
 }
 
 const NewsSlider = () => {
@@ -85,18 +86,19 @@ const NewsSlider = () => {
             1024: { slidesPerView: 3, spaceBetween: 30 },
           }}
         >
-          {data.programms.map((news:TNews) => (
+          {data.programms.map((news: TNews) => (
             <SwiperSlide key={news._id} className="">
               <div className="upcommingNewsCardWrap ">
                 <div className="upcomingNewsCard relative ">
                   <div className="newsImgcardWrap">
-                    <Image
-                      width={500}
-                      height={500}
-                      className="rounded-md"
-                      src={news.img_bangla}
-                      alt="news"
-                    />
+
+
+                    {news?.bng_Images?.slice(0, 1)?.map((img: any) => {
+
+                      return <Image src={img} alt="hero" width={500}
+                        height={500}
+                        className="rounded-md" key={img} />
+                    })}
                   </div>
                   <div className="flex items-center justify-center w-full gap-3 px-2 mt-5">
                     <Image className="w-10" src={icon} alt="news" />

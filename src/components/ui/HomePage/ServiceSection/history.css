@@ -38,26 +38,22 @@
     position: absolute;
 }
 
-.dahsed,
-.dashed2 {
+
+.dashed {
+    rotate: 90deg;
     background: #fff;
     width: 70px;
     height: 1px;
-}
-
-.dashed2 {
-    rotate: 90deg;
-    width: 85px;
-    /* margin-right: 20px; */
-    margin-top: 3px;
-
-}
-
-.dashed3 {
-    right: 24px;
+    right: -340px;
     position: relative;
+    top: -30px;
 
 }
+
+/* .dashed:last-child {
+    display: none;
+} */
+
 
 .heroImgWrap img {
     width: 100%;
@@ -105,7 +101,7 @@
     .historyContent {
         position: relative;
         z-index: 5;
-        margin:0auto;
+        margin: 0auto;
     }
 
     .heroImgWrap {
@@ -121,11 +117,14 @@
 
 
 }
+
 @media only screen and (max-width:600px) {
 
-    .heroImgWrap, .historyContents {
+    .heroImgWrap,
+    .historyContents {
         width: 100%;
     }
+
     .heroImgWrap {
         height: 285px;
     }

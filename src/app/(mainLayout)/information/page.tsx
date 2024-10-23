@@ -27,7 +27,7 @@ import BNPFileUpload from '@/components/Forms/FileUpload';
 
 const Information = () => {
     const handleSubmit = (data: any) => {
-        console.log(data);
+ 
     };
 
     const inputStyles = {

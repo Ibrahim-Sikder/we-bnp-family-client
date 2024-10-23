@@ -86,7 +86,7 @@ const Header = () => {
                 </Link>
                 <ul className="dropdownMenu submenu">
                   <li>
-                    <Link onClick={toggleMobileMenu} href="/victim">
+                    <Link onClick={toggleMobileMenu} href="/activity">
                       <span > সাম্প্রতিক কার্যক্রম </span>
                     </Link>
                   </li>

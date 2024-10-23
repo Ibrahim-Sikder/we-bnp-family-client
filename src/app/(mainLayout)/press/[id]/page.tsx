@@ -51,15 +51,15 @@ const page = async ({ params }: victimId) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/programm/${id}`
   );
-  const data = await res.json();
+  const singlePressData = await res.json();
 
-  if (!data) {
+  if (!singlePressData) {
     return {
       title: "Data not found",
-      description: "The requested blog was not found.",
+      description: "The requested press was not found.",
     };
   }
-  console.log(data);
+
 
   const renderContent = (content: string) => {
     const parsedContent = ReactHtmlParser(content);
@@ -134,30 +134,32 @@ const page = async ({ params }: victimId) => {
     });
   };
 
+
+
   return (
     <div>
       <Banner title="প্রোগ্রাম ও  নোটিশ" text="নোটিশ" />
       <Container>
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 my-20">
           <div className="xl:col-span-9">
-            <div key={data.id} className="h-full w-full">
+            <div key={singlePressData?.data?._id} className="h-full w-full">
               <div className="relative overflow-hidden">
-                <Image
-                  width={500}
-                  height={500}
-                  src={data?.data?.img_bangla}
-                  alt={data.data?.bangla_title}
-                  className="object-cover w-full h-[340px]"
-                  layout="responsive"
-                />
+
+
+                {singlePressData?.data?.bng_Images?.slice(0, 1)?.map((img: any) => {
+
+                  return <Image width={500}
+                    height={500} src={img} alt="hero" className="object-cover w-full h-[340px]"
+                    layout="responsive" key={img} />
+                })}
               </div>
 
               <div className="p-5">
                 <h3 className="text-xl font-semibold">
-                  {data?.data?.bangla_title}
+                  {singlePressData?.data?.bangla_title}
                 </h3>
                 <div className="mt-5 space-y-5">
-                  <div>{renderContent(data?.data?.bangla_description)}</div>
+                  <div>{renderContent(singlePressData?.data?.bangla_description)}</div>
                 </div>
               </div>
               {/* share section */}

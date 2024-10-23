@@ -2,15 +2,11 @@
 "use client";
 import Container from "@/components/shared/Container";
 import "./VictimizedSection.css";
-import img1 from "../../../../assets/images/flood/flood2.jpeg";
-import img2 from "../../../../assets/images/flood/floode3.jpeg";
-import img3 from "../../../../assets/images/flood/flood6.jpeg";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-
 import { Button, Divider, useMediaQuery } from "@mui/material";
 import LatestNews from "../LatestNews/LatestNews";
 import React from "react";
@@ -19,29 +15,38 @@ import Link from "next/link";
 
 import dynamic from "next/dynamic";
 import ActivityCard from "./ActivityCard";
+import { TActivity } from "@/types";
 
 const VictimCard = dynamic(() => import("./VictimCard"), { ssr: false });
-
 const VictimizedSection = () => {
-  const images = [
-    {
-      id: 1,
-      img: img1,
-      title: "বন্যার্তদের জন্য আমরা বিএনপি পরিবার এর এান কার্যক্রম অব্যাহত ",
-    },
-    {
-      id: 2,
-      img: img2,
-      title: "বন্যার্তদের জন্য আমরা বিএনপি পরিবার এর এান কার্যক্রম অব্যাহত ",
-    },
-    {
-      id: 3,
-      img: img3,
-      title: "বন্যার্তদের জন্য আমরা বিএনপি পরিবার এর এান কার্যক্রম অব্যাহত ",
-    },
-  ];
-  const isSmallScreen = useMediaQuery("(max-width: 640px)");
+
+  const [activityData, setActivityData] = React.useState<TActivity[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
   const [value, setValue] = React.useState("1");
+  React.useEffect(() => {
+    const fetchAffiliationData = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/activity`, {
+          cache: 'no-store'
+        });
+        const data = await response.json();
+        setActivityData(data.data?.activities || []);
+
+      } catch (err) {
+        setError('Failed to fetch activity data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAffiliationData();
+  }, []);
+
+
+
+  const isSmallScreen = useMediaQuery("(max-width: 640px)");
+
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -133,12 +138,12 @@ const VictimizedSection = () => {
 
       <div className="grid grid-cols-12 mt-24   gap-x-5 ">
         <div className="col-span-12 xl:col-span-8 ">
-          <ActivityCard />
+          <ActivityCard activityData={activityData}/>
 
-          <VictimCard />
+          <VictimCard activityData={activityData}/>
 
           <div className="flex justify-end mt-3 ml-3 ">
-            <Button component={Link} href="/victim" sx={buttonStyle}>
+            <Button component={Link} href="/activity" sx={buttonStyle}>
               সবগুলো দেখুন <KeyboardDoubleArrowRight sx={arrowStyle} />
             </Button>
           </div>

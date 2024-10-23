@@ -1,80 +1,21 @@
-'use client'
-import * as React from 'react';
-import Image from 'next/image';
-import { Button, TextField } from '@mui/material';
-import Link from 'next/link';
-import Container from '@/components/shared/Container';
-import '../../../components/ui/HomePage/PhotoGallery/PhotoGallery.css'
-import { Search } from '@mui/icons-material';
-import { TDisappearance } from '@/types/disappearance';
-export default function Cases() {
-    const [disappearanceData, setDisappearanceData] = React.useState<TDisappearance[]>([]);
-    const [loading, setLoading] = React.useState(true);
-    const [error, setError] = React.useState<string | null>(null);
-    const [value, setValue] = React.useState("1");
-  
-    React.useEffect(() => {
-      const fetchAffiliationData = async () => {
-        try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/disappearance?limit=10000`, {
-            cache: 'no-store'
-          });
-          const data = await response.json();
-          setDisappearanceData(data.data?.disappearances || []);
-  
-        } catch (err) {
-          setError('Failed to fetch disappearance data.');
-        } finally {
-          setLoading(false);
-        }
-      };
-  
-      fetchAffiliationData();
-    }, []);
+import { TDisappearance } from "@/types/disappearance";
+import Image from "next/image";
+import Link from "next/link";
 
-    
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValue(newValue);
-    };
-    if (loading) {
-        return <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">Loading...</h1>;
-      }
-    
-      if (error) {
-        return (
-          <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">
-            {error}
-          </h1>
-        );
-      }
-    
-      if (!disappearanceData || disappearanceData.length === 0) {
-        return (
-          <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">
-            Oops! disappearance data not found!
-          </h1>
-        );
-      }
 
-      
-  const disappearanceFilterData = disappearanceData.filter((item) => item.category === 'গুমের তালিকা')
 
+
+interface AwamiTortureCardProps {
+    disappearanceData: TDisappearance[];
+  }
+  
+  const DisappearanceCard: React.FC<AwamiTortureCardProps> = ({ disappearanceData }) => {
 
 
     return (
         <>
-            <div className='bannerWrap'>
-                <div className="bannerContent">
-                    <h3 className='text-3xl md:text-4xl font-semibold '>গুম তালিকা </h3>
-                </div>
-            </div>
-            <Container className='my-10'>
-                <div className='mb-10 flex gap-2  '>
-                    <TextField label=' সার্চ করুন' size='small' />
-                    <Button><Search /></Button>
-                </div>
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
-                {disappearanceFilterData?.map((data: TDisappearance) => (
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+                {disappearanceData?.map((data: TDisappearance) => (
                     <div key={data._id} className="disappeareCard">
                         <div className="flex gap-x-5 items-end justify-between flex-col md:flex-row ">
                             <div className="disappeareImgWrap ">
@@ -169,11 +110,16 @@ export default function Cases() {
                         </div>
                     </div>
                 ))}
-                </div>
-                <div className="flex items-center justify-center mt-5 ">
-                    <Button>Load more </Button>
-                </div>
-            </Container>
+            </div>
+            <div className="flex justify-end items-end w-full mr-16 mt-5 ">
+                <Link href="/disappearances">
+                    <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">
+                        সবগুলো দেখুন
+                    </button>
+                </Link>
+            </div>
         </>
     );
-}
+};
+
+export default DisappearanceCard;

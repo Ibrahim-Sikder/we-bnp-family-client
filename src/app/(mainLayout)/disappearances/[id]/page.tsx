@@ -15,12 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import {
-  Facebook,
-  Instagram,
   KeyboardArrowRight,
-  SupportAgent,
-  X,
-  YouTube,
 } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
