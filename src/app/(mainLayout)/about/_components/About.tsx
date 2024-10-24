@@ -5,20 +5,18 @@ import Image from "next/image";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import banner1 from "../../../../assets/images/banner/banner7.jpg";
 import banner2 from "../../../../assets/images/banner/banner4.jpg";
-import cardimg1 from "../../../../assets/images/hero/hero.jpg";
-import cardimg2 from "../../../../assets/images/hero/hero2.jpg";
-import cardimg3 from "../../../../assets/images/hero/hero3.jpg";
 import Container from "@/components/shared/Container";
-import Link from "next/link";
 import { Button } from "@mui/material";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import CommitteeCard from "./CommitteeCard";
 
 import Founder from "./Founder";
 import Upodesta from "./Upodesta";
-import Banner from "./Banner";
+
+import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
+import { TPrison } from "@/types/prison";
+import { TCommitte } from "@/types";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -51,18 +49,53 @@ function a11yProps(index: number) {
 
 const About = () => {
   const [value, setValue] = React.useState(0);
+  const [committeeData, setCommitteeData] = React.useState<TCommitte[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const fetchPrisonData = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/committee?limit=1000`, {
+          cache: 'no-store'
+        });
+        const data = await response.json();
+        setCommitteeData(data.data?.committees || []);
+
+      } catch (err) {
+        setError('Failed to fetch committee data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPrisonData();
+  }, []);
+
+  if (loading) {
+    return <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">Loading...</h1>;
+  }
+
+  if (error) {
+    return (
+      <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">
+        {error}
+      </h1>
+    );
+  }
+
+  const committeeFilterData = committeeData.filter((item)=> item.category == 'Committee')
+  const upodestaFilterData = committeeData.filter((item)=> item.category == 'Upodesta')
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+
   return (
     <>
-      <Banner />
-      {/* <Image
-        src={banner1}
-        className="w-full h-[150px] md:h-[350px] lg:h-[400px] xl:h-[400px]"
-        alt="this is cover img"
-      /> */}
+      <CommonBanner title=" আমাদের সম্পর্কে" />
+
       <Container>
         <div className="mb-10">
           <div className="shadow-lg rounded-lg lg:rounded-3xl overflow-hidden flex flex-col lg:flex-row my-10 border">
@@ -166,32 +199,12 @@ const About = () => {
           </div>
 
           <div>
-            <Upodesta />
+            <Upodesta upodestaFilterData={upodestaFilterData}/>
           </div>
           <div>
-            <CommitteeCard />
+            <CommitteeCard  committeeFilterData={committeeFilterData} />
           </div>
-
-          {/* SpeechBubble */}
-          {/* <div className="w-full text-center">
-            <div className="pb-10 md:pb-20 lg:pb-32 xl:pb-32">
-              <div className="flex flex-row items-center justify-center content-center">
-                <h2 className="bg-gradient-to-r from-red-600 to-green-600 bg-clip-text text-transparent text-base mb-4 border rounded-full text-center w-[200px] bg-white">
-                  Organization journey
-                </h2>
-              </div>
-              <h1>Our evolutionary path</h1>
-              <h4 className="font-normal">
-                Tracing our journey from grassroots beginnings to global
-                influence, see how we&apos;ve evolved to create sustainable
-                change worldwide.
-              </h4>
-            </div> */}
-
-          {/* <SpeechBubble /> */}
-          {/* </div> */}
-
-          {/* Donation */}
+         
           <div className="w-full text-center lg:pt-10 xl:pt-4 space-y-5">
             <div className="flex flex-row items-center justify-center content-center">
               <h2 className="bg-gradient-to-r from-red-600 to-green-600 bg-clip-text text-transparent text-base border rounded-full text-center w-[105px] bg-white">

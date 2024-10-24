@@ -11,12 +11,9 @@ import '../../../components/ui/HomePage/DonationSection/DonationSection.css'
 import Iframe from "react-iframe";
 import BNPTextArea from '@/components/Forms/TextArea';
 import {
-    FaEnvelope,
     FaFacebookF,
     FaInstagram,
-    FaLinkedinIn,
     FaMapMarkerAlt,
-    FaPhoneVolume,
     FaRegEnvelope,
     FaTwitter,
     FaYoutube,
@@ -24,11 +21,22 @@ import {
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { AccessTime, LocalPhone } from '@mui/icons-material';
 import BNPFileUpload from '@/components/Forms/FileUpload';
+import { toast } from 'sonner';
+import axios from 'axios';
 
 const Information = () => {
-    const handleSubmit = (data: any) => {
- 
+    const handleSubmit = async (data: any) => {
+        try {
+            const res = await axios.post('http://localhost:5000/api/v1/information', data);
+            if (res.status === 200 || res.status === 201) {
+                toast.success('Form submitted successfully!');
+            }
+        } catch (err) {
+            toast.error('Something went wrong!!!');
+            console.error(err);
+        }
     };
+
 
     const inputStyles = {
         input: {
@@ -96,10 +104,7 @@ const Information = () => {
                     </div>
                 </div>
                 <div className="infoWraps grid grid-cols-1 md:grid-cols-2 gap-14 sectionMargin  ">
-                    <div >
-                        <div>
-
-                            <BNPForm onSubmit={handleSubmit}>
+                <BNPForm onSubmit={handleSubmit}>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12} md={6} lg={6}>
                                         <BNPInput name='name' label='নাম' size='medium' fullWidth />
@@ -111,10 +116,10 @@ const Information = () => {
                                         <BNPInput name='email' label='ইমেইল' size='medium' fullWidth />
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={6}>
-                                        <BNPInput name='amount' label='ঠিকানা' size='medium' fullWidth />
+                                        <BNPInput name='address' label='ঠিকানা' size='medium' fullWidth />
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={6}>
-                                        <BNPInput name='amount' label='ভিডিও লিংক' size='medium' fullWidth />
+                                        <BNPInput name='video_url' label='ভিডিও লিংক' size='medium' fullWidth />
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={6}>
                                         <BNPFileUpload name='file' sx={{ marginTop: '15px', height: '55px', width: '100%' }} />
@@ -127,9 +132,6 @@ const Information = () => {
                                     </Grid>
                                 </Grid>
                             </BNPForm>
-                        </div>
-
-                    </div>
                     <div className='mt-3'>
                         <h2 className='mb-5'>তথ্য পাঠান</h2>
                         <p className='leading-8 text-xl'>আমাদের তথ্য পাঠানোর মাধ্যম: আপনার ও আপনার পাশের নির্যাতিত তথ্য চিত্র, ভিডিও ডকুমেন্টস পাঠান আমাদেরকে। যেন আমরা সহজেই আমাদের ভাইদের পাশে দাঁড়াতে পারি।</p>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react'; // Correct import
 import { Autoplay, Navigation } from 'swiper/modules';
@@ -16,11 +16,35 @@ import zia from '../../../../assets/images/banner/zia.png';
 
 import Image from 'next/image';
 import Container from '@/components/shared/Container';
+import { TBanner } from '@/types';
 
 const HeroSection = () => {
-    const swiperRef = useRef<any>(null); // Use `any` for the ref if typing is problematic
-    const [fadeOut, setFadeOut] = useState(false);
 
+    const [bannerData, setBannerData] = React.useState<TBanner[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState<string | null>(null);
+
+    React.useEffect(() => {
+        const fetchAffiliationData = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/banner`, {
+                    cache: 'no-store'
+                });
+                const data = await response.json();
+                setBannerData(data.data?.banners || []);
+
+            } catch (err) {
+                setError('Failed to fetch banner data.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAffiliationData();
+    }, []);
+
+    const swiperRef = useRef<any>(null);
+    const [fadeOut, setFadeOut] = useState(false);
     const slides = [
         {
             id: 0,
@@ -71,7 +95,7 @@ const HeroSection = () => {
         if (swiperRef.current) {
             setFadeOut(true);
             setTimeout(() => {
-                swiperRef.current.swiper.slideTo(index); // Ensure swiper is available
+                swiperRef.current.swiper.slideTo(index);
                 setFadeOut(false);
             }, 500);
         }
@@ -93,20 +117,26 @@ const HeroSection = () => {
                 modules={[Autoplay, Navigation]}
                 className="mySwiper"
             >
-                {slides.map((slide) => (
-                    <SwiperSlide key={slide.id}>
+                {bannerData?.map((slide: TBanner, index:number) => (
+                    <SwiperSlide key={index}>
                         <Container>
-                            <div className={`sliderWraps fade-in ${slide.id === 1 ? 'secondSlide' : ''} ${slide.id === 2 ? 'thirdSlide' : ''}`} style={{ backgroundImage: `url(${slide.image})` }}>
+                            <div className={`sliderWraps fade-in ${index === 1 ? 'secondSlide' : ''} ${index === 2 ? 'thirdSlide' : ''}`} >
                                 <div className={`heroContent ${fadeOut ? 'fade-out zoom-out' : ''}`}>
                                     <div className="spacey-y-1 md:space-y-5">
-                                        <h1 className='capitalize text-[15px] md:text-[20px] lg:text-[60px] w-[850px] font-bold md:leading-10'>{slide.title}</h1>
-                                        <h2 className='capitalize text-[15px] md:text-3xl lg:text-5xl text-[#33c05b]'>{slide.subtitle}</h2>
+                                        <h1 className='capitalize text-[15px] md:text-[20px] lg:text-[60px] w-[850px] font-bold md:leading-10'>{slide.name}</h1>
+                                        <h2 className='capitalize text-[15px] md:text-3xl lg:text-5xl text-[#33c05b]'>{slide.designation}</h2>
                                         <p className='text-[15px] md:text-xl lg:text-2xl'>{slide.description}</p>
                                     </div>
                                     <Button sx={btnStyle}>যোগ দিন <ArrowForwardIos sx={{ fontSize: { md: '15px', sm: '10px', xs: '10px' } }} /> </Button>
                                 </div>
                                 <div className={`bannerImgWrap ${fadeOut ? 'fade-out' : ''}`}>
-                                    <Image src={slide.image} alt={slide.title} />
+
+                                    {slide?.images?.slice(0, 1)?.map((img: any) => {
+
+                                        return <Image src={img} alt="hero" width={1000}
+                                            height={500}
+                                            layout="responsive" key={img} />
+                                    })}
                                 </div>
                             </div>
                         </Container>

@@ -5,6 +5,7 @@ import Link from "next/link";
 
 
 
+
 interface MurtyreCardProps {
     disappearanceData: TDisappearance[];
 }

@@ -95,3 +95,20 @@ export type TProgramm = {
   slug:string,
 };
 
+export type TBanner = {
+  _id:string,
+  name: string;
+  images: string[],
+  designation: string;
+  description: string;
+  createdAt:string,
+};
+
+export type TCommitte = {
+  _id:string,
+  name: string;
+  designation: string;
+  images: string[];
+  category: string; 
+  createdAt:string,
+};
