@@ -61,7 +61,6 @@ const Information = () => {
         },
     };
 
-
     return (
         <>
             <div className="bannerWrap">

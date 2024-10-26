@@ -7,9 +7,11 @@ import { Box, Button, Typography } from "@mui/material";
 import logo from "../../../assets/images/logo/logo.jpg";
 import Container from "../Container";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { HiChevronRight } from "react-icons/hi";
+import { useLanguage } from "@/provider/LanguageProvider";
 
 const Header = () => {
+  const { language, setLanguage } = useLanguage();
+
   const [open, setOpen] = useState(true);
   const [mobileMenu, setMobileMenu] = useState(true)
   const handleOpen = () => setOpen(true);
@@ -48,7 +50,7 @@ const Header = () => {
               />
               <Typography component="span" fontWeight={600} color="black">
                 <Box component="span" color="primary.main" fontWeight="bold">
-                  <b className="md:font-bold  md:text-[20px]">আমরা</b><b className="md:font-bold md:text-[20px]"> বিএনপি পরিবার</b>
+                  <b className="md:font-bold  md:text-[20px]">{language === 'ENG' ? 'WE' : 'আমরা'}</b><b className="md:font-bold md:text-[20px]"> {language === 'ENG' ? 'BNP FAMILY' : 'বিএনপি পরিবার'} </b>
                 </Box>{" "}
                 <Box fontWeight="bold" color="secondary.main">
 
@@ -78,53 +80,67 @@ const Header = () => {
                 }`}
             >
               <li className="lg:border-none border-b lg:py-0 py-2">
-                <Link onClick={toggleMobileMenu} href="/">প্রচ্ছদ</Link>
+                <Link onClick={toggleMobileMenu} href="/">{language === 'ENG' ? 'Home' : 'প্রচ্ছদ'}</Link>
               </li>
               <li className="dropdownMenuWrap">
                 <Link href="#">
-                  আমাদের কার্যক্রম <KeyboardArrowDownIcon />
+                  {language === 'ENG' ? 'Our Activity' : ' আমাদের কার্যক্রম'}
+                  <KeyboardArrowDownIcon />
                 </Link>
                 <ul className="dropdownMenu submenu">
                   <li>
                     <Link onClick={toggleMobileMenu} href="/activity">
-                      <span > সাম্প্রতিক কার্যক্রম </span>
+                      <span >  {language === 'ENG' ? 'Recent Activities' : 'সাম্প্রতিক কার্যক্রম'}  </span>
                     </Link>
                   </li>
                   <li>
-                    <Link onClick={toggleMobileMenu} href="/press"><span>প্রোগ্রাম ও নোটিশ</span></Link>
+                    <Link onClick={toggleMobileMenu} href="/press">
+                      <span> {language === 'ENG' ? 'Programm & Notice ' : 'প্রোগ্রাম ও নোটিশ'}
+                      </span></Link>
                   </li>
                 </ul>
               </li>
               <li className="lg:border-none border-b lg:py-0 py-2">
-                <Link onClick={toggleMobileMenu} href="/about">আমাদের সম্পর্কে</Link>
+                <Link onClick={toggleMobileMenu} href="/about"> {language === 'ENG' ? 'About Us' : ' আমাদের সম্পর্কে'} </Link>
               </li>
               <li className="dropdownMenuWrap">
                 <Link href="/about">
-                  স্বৈরাচার হাসিনার দুঃশাসন <KeyboardArrowDownIcon />
-                </Link>   
+                  {language === 'ENG' ? "Dictatorship Hasina's misrule" : 'স্বৈরাচার হাসিনার দুঃশাসন'} <KeyboardArrowDownIcon />
+                </Link>
                 <ul className="dropdownMenu">
                   <li>
-                    <Link onClick={toggleMobileMenu} href="/disappearances"><span>গুমের তালিকা</span></Link>
+                    <Link onClick={toggleMobileMenu} href="/disappearances">
+                      <span> {language === 'ENG' ? 'Missing List' : 'গুমের তালিকা'}  </span></Link>
                   </li>
                   <li className=" murterDropDown">
                     <Link onClick={toggleMobileMenu} href="/murdered">
-                      <span>শহীদদের তালিকা  </span> </Link>
+                      <span> {language === 'ENG' ? 'List of Martyrs' : 'শহীদদের তালিকা '}   </span> </Link>
                     <ul className=" submenu3">
                       <li>
-                        <Link onClick={toggleMobileMenu} href="/international-report"><span>(২০০৯ - ২০২৪)</span></Link>
+                        <Link onClick={toggleMobileMenu} href="/international-report">
+
+                          {language === 'ENG' ? '(2009 - 2024)' : '(২০০৯ - ২০২৪) '}
+                        </Link>
                       </li>
                       <li>
-                        <Link onClick={toggleMobileMenu} href="/media-info"><span>আগস্ট গণ-অভ্যুত্থান</span></Link>
+                        <Link onClick={toggleMobileMenu} href="/media-info"><span> {language === 'ENG' ? 'August Mass Uprising' : 'আগস্ট গণ-অভ্যুত্থান'}  </span></Link>
                       </li>
                     </ul>
                   </li>
 
 
                   <li>
-                    <Link onClick={toggleMobileMenu} href="/torture"><span>আওয়ামী লীগের নির্যাতন</span></Link>
+                    <Link onClick={toggleMobileMenu} href="/torture"><span>
+
+
+                      {language === 'ENG' ? 'Awami League torture' : ' আওয়ামী লীগের নির্যাতন '}
+                    </span></Link>
                   </li>
                   <li>
-                    <Link onClick={toggleMobileMenu} href="/prison"><span>কারাগারে নির্যাতন</span></Link>
+                    <Link onClick={toggleMobileMenu} href="/prison"><span>
+                      {language === 'ENG' ? 'Torture in prison' : 'কারাগারে নির্যাতন'}
+
+                    </span></Link>
                   </li>
                 </ul>
               </li>
@@ -134,14 +150,21 @@ const Header = () => {
 
               <li className="dropdownMenuWrap">
                 <Link href="#">
-                  রিপোর্ট <KeyboardArrowDownIcon />
+                  {language === 'ENG' ? 'Report' : 'রিপোর্ট'}
+                  <KeyboardArrowDownIcon />
                 </Link>
                 <ul className="dropdownMenu submenu2">
                   <li>
-                    <Link onClick={toggleMobileMenu} href="/international-report"><span>আন্তর্জাতিক সংস্থা</span></Link>
+                    <Link onClick={toggleMobileMenu} href="/international-report">
+
+                      {language === 'ENG' ? 'International Organization' : 'আন্তর্জাতিক সংস্থা'}
+                    </Link>
                   </li>
                   <li>
-                    <Link onClick={toggleMobileMenu} href="/media-info"><span>মিডিয়ায় প্রকাশিত তথ্য</span></Link>
+                    <Link onClick={toggleMobileMenu} href="/media-info"><span>
+
+                      {language === 'ENG' ? 'International Organization' : 'Information published in the media'}
+                    </span></Link>
                   </li>
                 </ul>
               </li>
@@ -149,13 +172,22 @@ const Header = () => {
             </ul>
           </div>
           <div className="hidden xl:block space-x-3">
-            <button className="bg-gradient-to-r from-red-600 to-green-600 px-3 py-1 rounded text-white">
+            <button
+              onClick={() => setLanguage("ENG")}
+              className={`bg-gradient-to-r from-red-600 to-green-600 px-3 py-1 rounded text-white ${language === "ENG" ? "opacity-100" : "opacity-60"
+                }`}
+            >
               ENG
             </button>
-            <Button sx={btnStyle}>
+            {/* <Button
+              onClick={() => setLanguage("BNG")}
+              sx={{ backgroundColor: language === "BNG" ? "rgba(255,255,255,0.9)" : "transparent" }}
+            >
+              বাংলা
+            </Button> */}
+            <Button onClick={() => setLanguage("BNG")} sx={btnStyle}>
               বাংলা
             </Button>
-
 
 
 

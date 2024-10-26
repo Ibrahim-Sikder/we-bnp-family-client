@@ -1,3 +1,4 @@
+import { useLanguage } from "@/provider/LanguageProvider";
 import { TDisappearance } from "@/types/disappearance";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,9 +8,11 @@ import Link from "next/link";
 
 interface AwamiTortureCardProps {
     disappearanceData: TDisappearance[];
-  }
-  
-  const DisappearanceCard: React.FC<AwamiTortureCardProps> = ({ disappearanceData }) => {
+}
+
+const DisappearanceCard: React.FC<AwamiTortureCardProps> = ({ disappearanceData }) => {
+    const { language } = useLanguage();
+
 
 
     return (
@@ -22,7 +25,7 @@ interface AwamiTortureCardProps {
 
 
                                 {data?.bng_Images.slice(0, 1)?.map((img) => {
-                                    
+
                                     return <Image src={img} alt="hero" width={500}
                                         height={500} key={img} />
                                 })}
@@ -38,7 +41,8 @@ interface AwamiTortureCardProps {
                                         </div>
                                     </div>
                                     <div className="flex flex-col">
-                                        <small> {data.name_bangla}</small>
+                                        {/* <small> {data.name_bangla}</small> */}
+                                        <small>{language === "ENG" ? data.name_english : data.name_bangla}</small>
                                     </div>
                                 </div>
                                 <div className="flex text-left gap-x-8 items-center ">
@@ -67,34 +71,11 @@ interface AwamiTortureCardProps {
                                     </div>
                                     <div className="text-left ">
                                         <small className="text-left">
-                                            {data.address_bangla}{" "}
+                                            {language === "ENG" ? data.name_english : data.name_bangla}
                                         </small>
                                     </div>
                                 </div>
-                                {/* <div className="flex gap-x-10 ">
-                                <div className="flex items-center justify-between w-[60px]">
-                                  
-                                  <div className="flex flex-col  gap-y-2 text-sm ">
-                                    <b>নাম  </b>
-                                    <b>পদবী </b>
-                                    <b> ঠিকানা  </b>
 
-                                  </div>
-                                  <div className="flex flex-col ">
-                                    <b>  : </b>
-                                    <b> : </b>
-                                    <b>   : </b>
-                                  </div>
-                                </div>
-                                <div className="flex flex-col gap-y-2 ">
-
-                                  <small> {data.name}</small>
-                                  <small> {data.designation} </small>
-                                  <small>{data.address} </small>
-
-                                </div>
-
-                              </div> */}
                                 <span className="mt-3 block text-sm ">
                                     {" "}
                                     <b>সংক্ষিপ্ত বিবরণী:</b>

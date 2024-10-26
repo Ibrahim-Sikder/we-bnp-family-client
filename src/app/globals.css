@@ -43,6 +43,18 @@ body {
   clip-path: polygon(0 0, 100% 16%, 100% 100%, 0 100%);
 }
 
+.react-international-phone-input-container .react-international-phone-input {
+  width: 474px !important;
+  height: 50px !important;
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+}
+.react-international-phone-input-container .react-international-phone-country-selector-button {
+
+  height: 50px !important;
+  width: 54px !important;
+}
+
 @media only screen and (max-width:500px){
   .sectionMargin {
     margin-top: 40px;

@@ -4,9 +4,8 @@ import "./globals.css";
 import Providers from "@/lib/Providers";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Toaster } from "sonner";
-import dynamic from "next/dynamic";
 import BackTopButton from "@/components/BackTopButton/BackTopButton";
-
+import { LanguageProvider } from "@/provider/LanguageProvider";
 
 const notoSansBengali = Noto_Sans_Bengali({
   subsets: ["bengali"],
@@ -31,13 +30,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll="0">
-      <Providers>
-        <body className={notoSansBengali.className}>
-          <Toaster position="bottom-right" richColors />
-          <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
-        </body>
-      </Providers>
+      <LanguageProvider>
+        <Providers>
+          <body className={notoSansBengali.className}>
+            <Toaster position="bottom-right" richColors />
+            <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+          </body>
+        </Providers>
       <BackTopButton />
+      </LanguageProvider>
     </html>
   );
 }
