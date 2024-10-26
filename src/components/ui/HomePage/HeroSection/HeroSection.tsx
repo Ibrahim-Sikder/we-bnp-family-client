@@ -17,9 +17,11 @@ import zia from '../../../../assets/images/banner/zia.png';
 import Image from 'next/image';
 import Container from '@/components/shared/Container';
 import { TBanner } from '@/types';
+import { useLanguage } from '@/provider/LanguageProvider';
 
 const HeroSection = () => {
 
+    const { language, setLanguage } = useLanguage();
     const [bannerData, setBannerData] = React.useState<TBanner[]>([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState<string | null>(null);
@@ -45,29 +47,6 @@ const HeroSection = () => {
 
     const swiperRef = useRef<any>(null);
     const [fadeOut, setFadeOut] = useState(false);
-    const slides = [
-        {
-            id: 0,
-            title: 'দেশনায়ক তারেক রহমান',
-            subtitle: ' ভারপ্রাপ্ত চেয়ারম্যান',
-            description: '  বাংলাদেশ জাতীয়তাবাদী দল - বিএনপি',
-            image: tareque
-        },
-        {
-            id: 1,
-            title: 'দেশনেত্রী বেগম খালেদা জিয়া',
-            subtitle: 'চেয়ারপার্সন',
-            description: '  বাংলাদেশ জাতীয়তাবাদী দল - বিএনপি ',
-            image: khaleda
-        },
-        {
-            id: 2,
-            title: 'শহীদ প্রেসিডেন্ট জিয়াউর রহমান',
-            subtitle: 'প্রতিষ্ঠাতা',
-            description: ' বাংলাদেশ জাতীয়তাবাদী দল - বিএনপি',
-            image: zia
-        },
-    ];
 
     const btnStyle = {
         background: '#ffff', color: '#111', borderRadius: '10px', marginTop: '15px',
@@ -90,6 +69,7 @@ const HeroSection = () => {
             xs: '25px',
         }
     };
+    
 
     const handleSlideChange = (index: number) => {
         if (swiperRef.current) {
@@ -117,7 +97,7 @@ const HeroSection = () => {
                 modules={[Autoplay, Navigation]}
                 className="mySwiper"
             >
-                {bannerData?.map((slide: TBanner, index:number) => (
+                {bannerData?.map((slide: TBanner, index: number) => (
                     <SwiperSlide key={index}>
                         <Container>
                             <div className={`sliderWraps fade-in ${index === 1 ? 'secondSlide' : ''} ${index === 2 ? 'thirdSlide' : ''}`} >
