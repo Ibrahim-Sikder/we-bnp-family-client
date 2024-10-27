@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Container from "@/components/shared/Container";
-import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
 import { TActivity } from "@/types";
 import icon from "../../../../src/assets/images/logo/logo.jpg";
 
@@ -38,10 +37,7 @@ const ActivityPage = async () => {
               <div key={card._id}>
                 <Link href={`/victim/${card._id}`}>
                   <div key={card._id} className="max-w-lg ">
-
-
                     {data?.bng_Images?.slice(0, 1)?.map((img: any) => {
-
                       return <Image layout="responsive" src={img} alt="hero" width={500}
                         height={500}
                         className="h-[300px] w-full" key={img} />

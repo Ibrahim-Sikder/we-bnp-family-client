@@ -7,13 +7,8 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
 import './HeroSection.css';
 import { ArrowForwardIos } from '@mui/icons-material';
-import tareque from '../../../../assets/images/hero/Layer 0 copy.png';
-import khaleda from '../../../../assets/images/hero/pic 2.png';
-import zia from '../../../../assets/images/banner/zia.png';
-
 import Image from 'next/image';
 import Container from '@/components/shared/Container';
 import { TBanner } from '@/types';
@@ -69,7 +64,7 @@ const HeroSection = () => {
             xs: '25px',
         }
     };
-    
+
 
     const handleSlideChange = (index: number) => {
         if (swiperRef.current) {
@@ -80,6 +75,7 @@ const HeroSection = () => {
             }, 500);
         }
     };
+ 
 
     return (
         <div className="heroSectionWrap">
@@ -103,9 +99,12 @@ const HeroSection = () => {
                             <div className={`sliderWraps fade-in ${index === 1 ? 'secondSlide' : ''} ${index === 2 ? 'thirdSlide' : ''}`} >
                                 <div className={`heroContent ${fadeOut ? 'fade-out zoom-out' : ''}`}>
                                     <div className="spacey-y-1 md:space-y-5">
-                                        <h1 className='capitalize text-[15px] md:text-[20px] lg:text-[60px] w-[850px] font-bold md:leading-10'>{slide.name}</h1>
-                                        <h2 className='capitalize text-[15px] md:text-3xl lg:text-5xl text-[#33c05b]'>{slide.designation}</h2>
-                                        <p className='text-[15px] md:text-xl lg:text-2xl'>{slide.description}</p>
+                                        <h1 className='capitalize text-[15px] md:text-[20px] lg:text-[60px] w-[850px] font-bold md:leading-10'>{language === 'ENG' ? slide.eng_name : slide.bng_name}</h1>
+                                        <h2 className='capitalize text-[15px] md:text-3xl lg:text-5xl text-[#33c05b]'>
+                                            {language === 'ENG' ? slide.eng_designation : slide.bng_designation} </h2>
+                                        <p className='text-[15px] md:text-xl lg:text-2xl'>
+                                            {language === 'ENG' ? slide.eng_description : slide.bng_description}
+                                        </p>
                                     </div>
                                     <Button sx={btnStyle}>যোগ দিন <ArrowForwardIos sx={{ fontSize: { md: '15px', sm: '10px', xs: '10px' } }} /> </Button>
                                 </div>

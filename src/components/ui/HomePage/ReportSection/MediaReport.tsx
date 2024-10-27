@@ -7,10 +7,11 @@ import { TReport } from '@/types/report';
 
 interface MurtyreCardProps {
   mediaReportData: TReport[];
+  language: string;
 }
 
 
-const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData }) => {
+const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData, language }) => {
 
   const buttonStyle = {
     width: { xs: "120px", md: "140px", sm: "140px" },
@@ -52,11 +53,11 @@ const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData }) => {
                 <div className="blogCardContent">
 
                   <h5 className="font-semibold ">
-                    {report.bangla_title}
+                    {language === 'ENG' ? report.english_title : report.bangla_title}
 
                   </h5>
                   <p>
-                    {report?.bangla_short_description?.slice(0, 100)}
+                    {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}
                   </p>
                   <Link href={`/report/${report._id}`}>
                     <Button sx={smallBtnStyle}>
@@ -72,7 +73,7 @@ const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData }) => {
           <Box display="flex" justifyContent="center" alignItems="center">
             <Button component={Link} href="/international-report" sx={buttonStyle}>
               {" "}
-              <span>সবগুলো দেখুন </span>{" "}
+              <span>  {language === 'ENG' ? 'See All' : 'সবগুলো দেখুন'}  </span>{" "}
             </Button>
           </Box>
         </div>

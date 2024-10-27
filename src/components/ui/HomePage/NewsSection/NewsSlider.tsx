@@ -2,15 +2,6 @@
 
 import React from "react";
 import "./NewsSection.css";
-import news from "../../../../assets/images/press/press.jpg";
-import news2 from "../../../../assets/images/press/press2.jpeg";
-import news3 from "../../../../assets/images/press/press3.jpeg";
-import news4 from "../../../../assets/images/press/press4.jpeg";
-import news5 from "../../../../assets/images/press/pres5.jpg";
-import flood from "../../../../assets/images/flood/flood11.jpeg";
-import flood2 from "../../../../assets/images/flood/flood15.jpeg";
-import treatement from "../../../../assets/images/news/treatment.jpeg";
-import treatement2 from "../../../../assets/images/news/treatment2.jpeg";
 import icon from "../../../../assets/images/logo/logo.jpg";
 import Image from "next/image";
 import { Button } from "@mui/material";
@@ -22,16 +13,37 @@ import "swiper/css/navigation";
 import Link from "next/link";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import { useGetAllProgrammeQuery } from "@/redux/api/programmeApi";
+import { useLanguage } from "@/provider/LanguageProvider";
 
 export type TNews = {
   _id: string,
-  bangla_short_description: string,
-  bangla_title: string,
+  img_tagline_bangla: string;
+  img_tagline_english: string;
+  admin_name: string;
+  date: string;
+  bangla_title: string;
+  english_title: string;
+  category: string[];
+  bangla_short_description: string;
+  english_short_description: string;
+  bangla_description: string;
+  english_description: string;
+  name_published_newspaper: string;
+  news_release_date: string;
+  Link_published_newspaper: string;
+  meta_title: string;
+  meta_keywords: string[];
+  meta_description: string;
+  thumnail_images: string[],
+  eng_iamges: string[],
   bng_Images: string[],
+  slug: string,
 
 }
 
 const NewsSlider = () => {
+  const { language } = useLanguage();
+
   const { data, isLoading } = useGetAllProgrammeQuery({});
   if (isLoading) {
     return <p>Loading..........</p>;
@@ -103,7 +115,9 @@ const NewsSlider = () => {
                   <div className="flex items-center justify-center w-full gap-3 px-2 mt-5">
                     <Image className="w-10" src={icon} alt="news" />
                     <h2 className="text-xl md:text-xl ">
-                      {news?.bangla_title?.slice(0, 30)}...
+                      {
+                        language === 'ENG' ? news?.english_title?.slice(0, 30) : news?.bangla_title?.slice(0, 30)
+                      }...
                     </h2>
                   </div>
                 </div>
@@ -121,14 +135,19 @@ const NewsSlider = () => {
                         </h2>
                       </div>
                       <p className="text-justify text-sm md:text-balance">
-                        {news?.bangla_short_description?.slice(0, 200)}...
+                        {
+                          language === 'ENG' ? news?.english_short_description?.slice(0, 200) : news?.bangla_short_description?.slice(0, 200)
+                        }...
                       </p>
                       <Button
                         component={Link}
                         href={`/press/${news._id}`}
                         sx={btnStyle}
                       >
-                        আরও পড়ুন
+                        {
+                          language === 'ENG' ? 'Read More' : ' আরও পড়ুন'
+                        }
+
                       </Button>
                     </div>
                   </div>
@@ -139,7 +158,9 @@ const NewsSlider = () => {
         </Swiper>
         <div className="flex justify-end mt-3 mr-3  ">
           <Button component={Link} href="/press" sx={buttonStyle}>
-            সবগুলো দেখুন <KeyboardDoubleArrowRight sx={arrowStyle} />
+            {
+              language === 'ENG' ? 'See all' : ' সবগুলো দেখুন'
+            }  <KeyboardDoubleArrowRight sx={arrowStyle} />
           </Button>
         </div>
       </div>

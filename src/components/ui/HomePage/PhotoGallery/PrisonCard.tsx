@@ -8,11 +8,12 @@ import { TPrison } from '@/types/prison';
 
 interface PrisonCardProps {
   prisonData: TPrison[];
+  language: string,
 }
 
 
 
-const PrisonCard: React.FC<PrisonCardProps> = ({ prisonData }) => {
+const PrisonCard: React.FC<PrisonCardProps> = ({ prisonData, language }: PrisonCardProps) => {
 
 
   const getLinkHref = (index: number) => {
@@ -27,20 +28,7 @@ const PrisonCard: React.FC<PrisonCardProps> = ({ prisonData }) => {
         return "/prison/1";
     }
   };
-  const boxStyle = {
-    width: {
-      lg: "100%",
-      md: "100%",
-      sm: "100%",
-      xs: "100%",
-    },
-    margin: "auto",
-    typography: "body1",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-  };
+
   const buttonStyle = {
     width: { xs: "70px", md: "120px", sm: "120px" },
     height: { md: "30px", xs: "30px", lg: "50px" },
@@ -71,19 +59,23 @@ const PrisonCard: React.FC<PrisonCardProps> = ({ prisonData }) => {
                 href={getLinkHref(index)}
                 sx={buttonStyle}
               >
-                আরও পড়ুন
+                {language === 'ENG' ? 'Read More' : 'আরও পড়ুন'}
               </Button>
             </div>
 
             <div className="galleryContent">
-              <h3>{data.bangla_title}</h3>
-              <p>{data.bangla_short_description}</p>
+              <h3>   {language === 'ENG' ? data.english_title : data.bangla_title} </h3>
+              <p>
+
+                {language === 'ENG' ? data.english_short_description : data.bangla_short_description}
+              </p>
               <Button
                 component={Link}
                 href={`/prison/${data._id}`}
                 sx={buttonStyle}
               >
-                আরও পড়ুন
+                {language === 'ENG' ? 'Read More' : 'আরও পড়ুন'}
+
               </Button>
             </div>
           </div>
@@ -92,7 +84,7 @@ const PrisonCard: React.FC<PrisonCardProps> = ({ prisonData }) => {
       <div className="flex justify-end items-end w-full mr-16 mt-5 ">
         <Link href="/prison">
           <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">
-            সবগুলো দেখুন
+            {language === 'ENG' ? 'See All' : ' সবগুলো দেখুন'}
           </button>
         </Link>
       </div>

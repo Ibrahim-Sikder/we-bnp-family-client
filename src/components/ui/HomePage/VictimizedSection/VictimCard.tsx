@@ -3,19 +3,20 @@
 import { Button } from "@mui/material";
 import Image from "next/image";
 import React from "react";
-import { KeyboardDoubleArrowRight } from "@mui/icons-material";
+import { KeyboardDoubleArrowRight, Language } from "@mui/icons-material";
 import Link from "next/link";
 import { TActivity } from "@/types";
 
 interface MurtyreCardProps {
   activityData: TActivity[];
+  language: string,
 }
 
-const VictimCard: React.FC<MurtyreCardProps> = ({ activityData }) => {
+const VictimCard: React.FC<MurtyreCardProps> = ({ activityData, language }) => {
 
 
   const smallBtnStyle = {
-    width: "70px",
+    width: "75px",
     height: "20px",
     borderRadius: "2px",
     padding: "3px",
@@ -35,17 +36,21 @@ const VictimCard: React.FC<MurtyreCardProps> = ({ activityData }) => {
             <div className="cardBox">
               <div className="lg:h-28 h-40 md:h-52">
                 {data?.bng_Images.slice(0, 1)?.map((img: any) => {
-                  return <Image  src={img} alt="hero" width={500}
+                  return <Image src={img} alt="hero" width={500}
                     height={500}
                     className="rounded-md object-cover w-full h-full " key={img} />
                 })}
               </div>
               <div className="mt-3 text-center flex flex-col p-3">
                 <b className="text-sm text-left ">
-                  {data.bangla_title.slice(0, 28)}...
+                  {
+                    language === 'ENG' ? data.english_title.slice(0, 28) : data.bangla_title.slice(0, 28)
+                  }...
                 </b>
                 <Button component={Link} href={`/activity/${data._id}`} sx={smallBtnStyle}>
-                  আরও পড়ুন <KeyboardDoubleArrowRight sx={arrowStyle} />
+                  {
+                    language === 'ENG' ? 'Read More' : 'আরও পড়ুন'
+                  } <KeyboardDoubleArrowRight sx={arrowStyle} />
                 </Button>
               </div>
             </div>

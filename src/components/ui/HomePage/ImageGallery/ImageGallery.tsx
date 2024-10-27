@@ -1,12 +1,6 @@
 "use client";
 
 import React from "react";
-import img1 from "../../../../../src/assets/images/flood/flood10.jpeg";
-import img3 from "../../../../../src/assets/images/flood/flood12.jpeg";
-import img4 from "../../../../../src/assets/images/news/treate.webp";
-import img5 from "../../../../../src/assets/images/news/treatment.jpeg";
-import img6 from "../../../../../src/assets/images/news/treatment2.jpeg";
-import img7 from "../../../../../src/assets/images/news/treatment7.jpeg";
 import Image from "next/image";
 import Container from "@/components/shared/Container";
 import Link from "next/link";
@@ -14,11 +8,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { TDisappearance } from "@/types/disappearance";
 import { TImgGallery } from "@/types/prison";
+import { useLanguage } from "@/provider/LanguageProvider";
 
 const ImageGallery = () => {
-
+  const { language } = useLanguage()
   const [galleryData, setGalleryData] = React.useState<TImgGallery[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -49,7 +43,7 @@ const ImageGallery = () => {
     <div>
       <Container>
         <div className="my-16">
-          <h2>ফটো গ্যালারি</h2>
+          <h2>{language === 'ENG' ? 'Photo Gallery' : 'ফটো গ্যালারি'}</h2>
           <hr className="w-24 h-1 bg-gradient-to-r from-red-600 to-green-600 mt-2 rounded-full" />
           <div className="mt-10">
             <Swiper
@@ -84,7 +78,7 @@ const ImageGallery = () => {
                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded flex justify-center items-end p-5 cursor-pointer">
                       <div className="text-white text-center">
                         <p className="text-sm">{data.createdAt}</p>
-                        <h3 className="text-xl font-bold">{data.title}</h3>
+                        <h3 className="text-xl font-bold">{language === 'ENG' ? data.eng_title : data.bng_title}</h3>
                       </div>
                     </div>
                   </div>
@@ -95,7 +89,7 @@ const ImageGallery = () => {
           <div className="flex justify-center mt-7">
             <Link href="/gallery">
               <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">
-                সবগুলো দেখুন
+              {language === 'ENG' ? 'See All' : 'সবগুলো দেখুন'} 
               </button>
             </Link>
           </div>

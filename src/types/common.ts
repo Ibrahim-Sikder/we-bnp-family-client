@@ -97,10 +97,13 @@ export type TProgramm = {
 
 export type TBanner = {
   _id:string,
-  name: string;
+  bng_name: string;
+  eng_name: string;
   images: string[],
-  designation: string;
-  description: string;
+  bng_designation: string;
+  bng_description: string;
+  eng_description: string;
+  eng_designation: string;
   createdAt:string,
 };
 
@@ -112,3 +115,6 @@ export type TCommitte = {
   category: string; 
   createdAt:string,
 };
+export type LanguageProps = {
+  language:string
+}

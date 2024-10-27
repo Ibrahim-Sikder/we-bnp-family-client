@@ -1,0 +1,88 @@
+.iconWraps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid red;
+    border-radius: 3px;
+    padding: 15px;
+    background: #fff;
+  
+  }
+  
+  .victimIconWrap {
+    width: 100px;
+    height: 70px;
+    background: #fff;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .victimImgWraps {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .victimIconWrap img {
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+  
+  }
+  
+  .victime {
+    bottom: 0;
+    background: #2B8444;
+    width: 500px;
+    height: 150px;
+    position: absolute;
+    bottom: -74px;
+    z-index: 9;
+    right: 116px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    gap: 14px;
+    padding: 0 20px;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .experienceWraps {
+      height: 700px;
+    }
+  
+    .experienceContent {
+      width: 100%;
+    }
+  
+    .experienceContent {
+      top: 50%;
+    }
+  
+    .victime {
+      display: none;
+    }
+  
+  }
+  
+  @media only screen and (max-width: 500px) {
+    .experienceIcon {
+      font-size: 50px !important;
+    }
+  
+    .experienceContent {
+      padding: 0 20px;
+    }
+  
+    .iconWraps {
+      padding: 5px;
+    }
+  
+    .experienceWraps {
+      height: 488px;
+    }
+  
+  }

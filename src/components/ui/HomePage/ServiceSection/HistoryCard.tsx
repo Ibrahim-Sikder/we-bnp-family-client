@@ -1,16 +1,9 @@
-'use client'
-
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import "./history.css";
 import Container from "@/components/shared/Container";
-
 import Image from "next/image";
 import { FaQuoteRight } from "react-icons/fa6";
-import { East } from "@mui/icons-material";
-import Link from "next/link";
-import { useLanguage } from "@/provider/LanguageProvider";
-import { TBanner } from "@/types";
 
 type TLeader = {
   _id: string,
@@ -21,31 +14,15 @@ type TLeader = {
   images: string[];
   createdAt: string,
 }
-const HistorySection = () => {
-  const { language, setLanguage } = useLanguage();
+type TLeaderProps = {
+ language: string
+}
+const HistoryCard = async ({ language }:TLeaderProps) => {
 
-  const [bannerData, setBannerData] = React.useState<TLeader[]>([]);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
-  const [value, setValue] = React.useState("1");
-  React.useEffect(() => {
-    const fetchAffiliationData = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/leader`, {
-          cache: 'no-store'
-        });
-        const data = await response.json();
-        setBannerData(data.data?.leaders || []);
-
-      } catch (err) {
-        setError('Failed to fetch leader data.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAffiliationData();
-  }, []);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/leader`, {
+    cache: 'no-store'
+  });
+  const leadersData = await res.json();
 
 
   return (
@@ -54,7 +31,7 @@ const HistorySection = () => {
         <div className="historyContent">
           <div className="grid grid-cols-1  xl:grid-cols-3 xl:-mt-16 z-10 gap-5 ">
             {
-              bannerData?.map((leader: TLeader) => (
+              leadersData?.data?.leaders?.map((leader: TLeader) => (
                 <div key={leader._id}>
                   <div>
                     <div className="heroImgWrap relative">
@@ -105,7 +82,7 @@ const HistorySection = () => {
 
           <div className=" text-[#fff] mt-14 flex   items-center  justify-between ">
             {
-              bannerData.map((leader: TLeader, index: number) => (
+              leadersData?.data?.leaders.map((leader: TLeader, index: number) => (
                 <div key={index}>
                   <div className="historyContents hidden xl:block                                                ">
                     <div className="flex gap-5">
@@ -114,7 +91,7 @@ const HistorySection = () => {
                       </div>
                       <div>
                         <h4 className="leading-8 ">
-                          {language === 'ENG' ? leader.eng_qoute : leader.bng_qoute}
+                        {language === 'ENG' ? leader.eng_qoute : leader.bng_qoute}
                         </h4>
                         <div className="flex items-center">
                           <div className="dahsed"></div>
@@ -135,6 +112,6 @@ const HistorySection = () => {
   );
 };
 
-export default HistorySection;
+export default HistoryCard;
 
 

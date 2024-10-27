@@ -16,7 +16,10 @@ import MurtyreCard from "./MurtyreCard";
 import PrisonCard from "./PrisonCard";
 import AwamiTortureCard from "./AwamiTortureCard";
 import { TPrison } from "@/types/prison";
+import { useLanguage } from "@/provider/LanguageProvider";
+
 export default function PhotoGallery() {
+  const { language } = useLanguage()
 
   const [disappearanceData, setDisappearanceData] = React.useState<TDisappearance[]>([]);
   const [prisonData, setPrisonData] = React.useState<TPrison[]>([]);
@@ -168,7 +171,7 @@ export default function PhotoGallery() {
   return (
     <Container className="sectionMargin px-0">
       <div className="md:w-full px-5 text-center mb-10 ">
-        <h3 className="text-xl md:text-3xl"> স্বৈরাচার হাসিনার দুঃশাসন</h3>
+        <h3 className="text-xl md:text-3xl"> {language === 'ENG' ? "Dictatorship Hasina's misrule" : 'স্বৈরাচার হাসিনার দুঃশাসন'} </h3>
         <Divider
           sx={{
             width: "200px",
@@ -179,8 +182,9 @@ export default function PhotoGallery() {
           }}
         />
         <p className="mt-5 md:w-[780px] mx-auto text-sm md:text-base">
-          বিএনপির উপর স্বৈরাচারী হাসিনার গুম, খুন, দুঃশাসন, অনাচার, অপকর্মের
-          কিছু প্রতীক রয়েছে এখানে।
+          {
+            language === 'ENG' ? "Disappearance, murder, misrule, lawlessness, misdeeds of dictator Hasina on BNP. Here are some symbols." : 'বিএনপির উপর স্বৈরাচারী হাসিনার গুম, খুন, দুঃশাসন, অনাচার, অপকর্মের কিছু প্রতীক রয়েছে এখানে।'
+          }
         </p>
       </div>
       <Box sx={boxStyle}>
@@ -217,17 +221,17 @@ export default function PhotoGallery() {
             >
               <div>
                 <TabPanel value="1">
-                  <DisappearanceCard disappearanceData={disappearanceFilterData} />
+                  <DisappearanceCard language={language} disappearanceData={disappearanceFilterData} />
                 </TabPanel>
-                
+
                 <TabPanel value="2">
-                  <MurtyreCard disappearanceData={murtyreFilterData} />
+                  <MurtyreCard language={language} murtyreFilterData={murtyreFilterData} />
                 </TabPanel>
                 <TabPanel value="3">
-                  <PrisonCard prisonData={prisonFilterData} />
+                  <PrisonCard language={language} prisonData={prisonFilterData} />
                 </TabPanel>
                 <TabPanel value="4">
-                  <AwamiTortureCard tortureData={tortureFilterData} />
+                  <AwamiTortureCard language={language} tortureData={tortureFilterData} />
                 </TabPanel>
               </div>
             </CSSTransition>

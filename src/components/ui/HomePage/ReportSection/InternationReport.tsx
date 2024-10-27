@@ -9,10 +9,11 @@ import React from 'react';
   
 interface MurtyreCardProps {
   internationReportData: TReport[];
+  language:string,
 }
 
 
-const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData }) => {
+const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData,language }) => {
 
   const buttonStyle = {
     width: { xs: "120px", md: "140px", sm: "140px" },
@@ -54,11 +55,11 @@ const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData }
                 <div className="blogCardContent">
 
                   <h5 className="font-semibold ">
-                    {report.bangla_title}
+                  {language === 'ENG' ? report.english_title : report.bangla_title}
 
                   </h5>
                   <p>
-                    {report?.bangla_short_description?.slice(0, 100)}
+                  {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}
                   </p>
                   <Link href={`/report/${report._id}`}>
                     <Button sx={smallBtnStyle}>
@@ -74,7 +75,7 @@ const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData }
           <Box display="flex" justifyContent="center" alignItems="center">
             <Button component={Link} href="/international-report" sx={buttonStyle}>
               {" "}
-              <span>সবগুলো দেখুন </span>{" "}
+              <span>{language === 'ENG' ? 'See All' : 'সবগুলো দেখুন'} </span>{" "}
             </Button>
           </Box>
         </div>

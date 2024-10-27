@@ -21,10 +21,11 @@ const arrowStyle = { fontSize: "13px", marginLeft: "3px" };
 
 interface MurtyreCardProps {
   activityData: TActivity[];
+  language: string,
 }
 
 
-const ActivityCard: React.FC<MurtyreCardProps> = ({ activityData }) => {
+const ActivityCard: React.FC<MurtyreCardProps> = ({ activityData, language }) => {
 
   return (
     <>
@@ -42,10 +43,12 @@ const ActivityCard: React.FC<MurtyreCardProps> = ({ activityData }) => {
           </div>
 
           <div className="p-3 space-y-2">
-            <h3 className="text-xl md:text-2xl">{data?.bangla_title}</h3>
-            <p>{data.bangla_short_description}</p>
+            <h3 className="text-xl md:text-2xl">{language === 'ENG' ? data?.english_title : data?.bangla_title}</h3>
+            <p>{language === 'ENG' ? data?.english_short_description : data.bangla_short_description}</p>
             <Button component={Link} href={`/activity/${data._id}`} sx={buttonStyle}>
-              আরও পড়ুন <KeyboardDoubleArrowRight sx={arrowStyle} />
+              {
+                language === 'ENG' ? 'Read More' : 'আরও পড়ুন'
+              } <KeyboardDoubleArrowRight sx={arrowStyle} />
             </Button>
           </div>
         </div>

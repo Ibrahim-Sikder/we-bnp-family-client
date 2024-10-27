@@ -24,8 +24,9 @@ export type TPrison = {
   };
   export type TImgGallery = {
     _id:string,
-    title:string,
+    bng_title:string,
+    eng_title:string,
     slug:string,
     images:string[],
-    createdAt:string,
+    createdAt:string
 }

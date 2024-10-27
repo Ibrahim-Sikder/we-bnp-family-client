@@ -6,9 +6,10 @@ import React from 'react';
 
 interface AwamiTortureCardProps {
     tortureData: TPrison[];
-  }
-  
-  const AwamiTortureCard: React.FC<AwamiTortureCardProps> = ({ tortureData }) => {
+    language: string,
+}
+
+const AwamiTortureCard: React.FC<AwamiTortureCardProps> = ({ tortureData, language }: AwamiTortureCardProps) => {
 
     const getLinkHref = (index: number) => {
         switch (index) {
@@ -36,9 +37,10 @@ interface AwamiTortureCardProps {
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {tortureData.map((data, index: number) => (
+                {tortureData?.map((data: TPrison, index: number) => (
                     <div key={data._id} className="imgGalleryImgWraps ">
                         <div className="murtyreImgWraps">
+
                             {data?.bng_Images.slice(0, 1)?.map((img) => {
 
                                 return <Image src={img} alt="hero" width={500}
@@ -52,19 +54,23 @@ interface AwamiTortureCardProps {
                                 href={getLinkHref(index)}
                                 sx={buttonStyle}
                             >
-                                আরও পড়ুন
+                                {language === 'ENG' ? 'Read More' : 'আরও পড়ুন'}
                             </Button>
                         </div>
 
                         <div className="galleryContent">
-                            <h3>{data.bangla_title}</h3>
-                            <p>{data.bangla_short_description}</p>
+                            <h3>   {language === 'ENG' ? data.english_title : data.bangla_title} </h3>
+                            <p>
+
+                                {language === 'ENG' ? data.english_short_description : data.bangla_short_description}
+                            </p>
                             <Button
                                 component={Link}
-                                href={getLinkHref(index)}
+                                href={`/prison/${data._id}`}
                                 sx={buttonStyle}
                             >
-                                আরও পড়ুন
+                                {language === 'ENG' ? 'Read More' : 'আরও পড়ুন'}
+
                             </Button>
                         </div>
                     </div>
@@ -73,7 +79,7 @@ interface AwamiTortureCardProps {
             <div className="flex justify-end items-end w-full mr-16 mt-5 ">
                 <Link href="/prison">
                     <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">
-                        সবগুলো দেখুন
+                        {language === 'ENG' ? 'See All' : ' সবগুলো দেখুন'}
                     </button>
                 </Link>
             </div>
