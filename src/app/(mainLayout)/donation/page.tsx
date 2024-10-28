@@ -45,7 +45,7 @@ const DonationPage = () => {
       return;
     }
     try {
-      const res = await axios.post('http://localhost:5000/api/v1/donation', { ...data, phone });
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/donation`, { ...data, phone });
       if (res.status === 200 || res.status === 201) {
         toast.success('Donation pay successfully!');
         router.push('/')
