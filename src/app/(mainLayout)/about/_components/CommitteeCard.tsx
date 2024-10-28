@@ -5,10 +5,11 @@ import React from "react";
 
 interface CommitteeProp {
   committeeFilterData: TCommitte[];
+  language: string,
 }
 
 
-const CommitteeCard: React.FC<CommitteeProp> = ({ committeeFilterData }) => {
+const CommitteeCard: React.FC<CommitteeProp> = ({ committeeFilterData, language }) => {
 
 
 
@@ -17,13 +18,13 @@ const CommitteeCard: React.FC<CommitteeProp> = ({ committeeFilterData }) => {
       <div className="w-full text-center lg:pt-2 mb-10 lg:mb-16 xl:mb-16">
         <div className="flex flex-row items-center justify-center content-center">
           <h2 className="bg-gradient-to-r from-red-600 to-green-600 bg-clip-text text-transparent text-base mb-4 border rounded-full text-center w-[105px] bg-white">
-            কমিটি
+            {language === 'ENG' ? 'Committee' : ' কমিটি'}
           </h2>
         </div>
         <div className="w-full text-center space-y-4 mb-2">
           <h1 className="text-3xl lg:text-5xl xl:text-5xl">
-            কার্য নির্বাহী পরিষদ
 
+            {language === 'ENG' ? 'Executive Council' : ' কার্য নির্বাহী পরিষদ'}
           </h1>
 
         </div>
@@ -45,8 +46,8 @@ const CommitteeCard: React.FC<CommitteeProp> = ({ committeeFilterData }) => {
 
                 </div>
                 <div className="p-6">
-                  <h2 className="text-xl font-bold mb-2">{data.name}</h2>
-                  <p className="text-gray-700">{data.designation}</p>
+                  <h2 className="text-xl font-bold mb-2">{language === 'ENG' ? data.english_name : data.bangla_name}</h2>
+                  <p className="text-gray-700">{language === 'ENG' ? data.designation_english : data.designation_bangla}</p>
                 </div>
               </div>
 

@@ -5,6 +5,7 @@ import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import ReactHtmlParser from "react-html-parser";
 import Container from "@/components/shared/Container";
 import ShareLink from "@/components/ShareLink/ShareLink";
+import Category from "@/components/shared/Category/Category";
 
 
 type Idprops = {
@@ -181,30 +182,7 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                         </div>
 
                         <div className="xl:col-span-3">
-                            <div>
-                                <div className="flex justify-between my-3">
-                                    <button className="font-medium">গুমের তালিকা</button>{" "}
-                                    <span className="block font-medium">(3)</span>
-                                </div>
-
-                                <hr />
-                                <div className="flex justify-between my-3">
-                                    <button className="font-medium">শহীদদের তালিকা </button>{" "}
-                                    <span className="block font-medium">(3)</span>
-                                </div>
-                                <hr />
-
-                                <hr />
-                                <div className="flex justify-between my-3">
-                                    <button className="font-medium">আওয়ামী লীগের নির্যাতন</button>{" "}
-                                    <span className="block font-medium">(3)</span>
-                                </div>
-                                <hr />
-                                <div className="flex justify-between my-3">
-                                    <button className="font-medium">কারাগারে নির্যাতন</button>{" "}
-                                    <span className="block font-medium">(3)</span>
-                                </div>
-                            </div>
+                            <Category />
                         </div>
                     </div>
                 </Container>

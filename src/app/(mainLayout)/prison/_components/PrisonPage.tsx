@@ -15,7 +15,7 @@ type LanguageProps = {
 }
 export default function PrisonPage({ language, prisonData }: LanguageProps) {
 
- 
+
 
     const buttonStyle = {
         width: { xs: "50px", md: "140px", sm: "150px" },
@@ -25,8 +25,6 @@ export default function PrisonPage({ language, prisonData }: LanguageProps) {
         background: "#2B8444",
     };
     const prisonFilterData = prisonData?.filter((item: any) => item.category === 'কারাগারে নির্যাতন')
-
-    console.log('priosn filter data here ', prisonFilterData)
     return (
         <>
             <div className='bannerWrap'>

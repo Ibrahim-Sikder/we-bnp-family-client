@@ -11,7 +11,8 @@ import animation7 from '../../../../assets/images/icon/animation6.png'
 import animation8 from '../../../../assets/images/icon/animation.png'
 import animation9 from '../../../../assets/images/icon/animation.png'
 import Image from "next/image";
-const Contributor = () => {
+import { LanguageProps } from "@/types";
+const Contributor = ({ language }: LanguageProps) => {
   return (
     <>
 
@@ -52,18 +53,21 @@ const Contributor = () => {
           <div className="contributeContent">
             <div className="lg:max-w-3xl mx-auto ">
               <h1 className=" text-center text-xl md:text-3xl lg:text-5xl text-[#CB2D2E]">
-                আমাদের সহযোগিতা পাঠানোর মাধ্যম
+                {language === 'ENG' ? 'Our support means of sen' : ' আমাদের সহযোগিতা পাঠানোর মাধ্যম'}
               </h1>
               <p className="mt-5 text-sm md:text-xl text-center ">
-                আপনার ও আপনার পাশের নির্যাতিত তথ্য চিত্র, ভিডিও ডকুমেন্টস পাঠান আমাদেরকে। যেন আমরা সহজেই আমাদের ভাইদের পাশে দাঁড়াতে পারি।
+
+                {language === 'ENG' ? 'Send us pictures, video documents of you and your partner. So that we can easily stand by our brothers.' : ' আপনার ও আপনার পাশের নির্যাতিত তথ্য চিত্র, ভিডিও ডকুমেন্টস পাঠান আমাদেরকে। যেন আমরা সহজেই আমাদের ভাইদের পাশে দাঁড়াতে পারি।'}
               </p>
             </div>
             <div className="flex justify-center z-10">
-             
+
+              <Link href='/donation'>
                 <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-3 px-6 rounded inline-block font-semibold mt-5">
-                  সহযোগিতা
+                  {language === 'ENG' ? 'Donate' : 'সহযোগিতা'}
                 </button>
-       
+              </Link>
+
             </div>
           </div>
         </div>

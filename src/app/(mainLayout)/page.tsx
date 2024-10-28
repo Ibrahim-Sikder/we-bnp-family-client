@@ -1,3 +1,4 @@
+import ContributionSection from "@/components/ui/HomePage/Contributor/ContributionSection";
 import Contributor from "@/components/ui/HomePage/Contributor/Contributor";
 import DonationSection from "@/components/ui/HomePage/DonationSection/DonationSection";
 import HeroSection from "@/components/ui/HomePage/HeroSection/HeroSection";
@@ -8,7 +9,7 @@ import OverviewSection from "@/components/ui/HomePage/OverviewSection/OverviewSe
 import PhotoGallery from "@/components/ui/HomePage/PhotoGallery/PhotoGallery";
 import ReportSection from "@/components/ui/HomePage/ReportSection/ReportSection";
 import HistorySection from "@/components/ui/HomePage/ServiceSection/HistorySection";
-import VictimizedSection from "@/components/ui/HomePage/VictimizedSection/VictimizedSection";
+import VictimizedSection from "@/components/ui/HomePage/ActiveSection/ActiveSection";
 import VideoGallery from "@/components/ui/HomePage/VideoGallery/VideoGallery";
 
 const page = () => {
@@ -18,16 +19,16 @@ const page = () => {
       <HeroSection />
       <HistorySection />
       <VictimizedSection />
-      <NewsCard/>
+      <NewsCard />
       {/* <PrisonTortureSection /> */}
       <PhotoGallery />
       <VideoGallery />
       <ImageGallery />
       <OverviewSection />
       {/* <Parallax /> */}
-      <ReportSection/>
+      <ReportSection />
       {/* <DonationSection /> */}
-      <Contributor />
+      <ContributionSection />
     </div>
   );
 };

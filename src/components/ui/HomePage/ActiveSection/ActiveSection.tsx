@@ -1,14 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import Container from "@/components/shared/Container";
-import "./VictimizedSection.css";
+import "./ActiveSection.css";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Button, Divider, useMediaQuery } from "@mui/material";
-import LatestNews from "../LatestNews/LatestNews";
 import React from "react";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import Link from "next/link";
@@ -17,6 +16,10 @@ import dynamic from "next/dynamic";
 import ActivityCard from "./ActivityCard";
 import { TActivity } from "@/types";
 import { useLanguage } from "@/provider/LanguageProvider";
+import ImportantNews from "../ImportantNews/ImportantProgrammNews";
+import ImportantMediaNews from "../ImportantNews/ImportantMediaNews";
+import LatestMediaNews from "../LatestNews/LatestMediaNews";
+import LatestProgrammNews from "../LatestNews/LatestProgrammNews";
 
 const VictimCard = dynamic(() => import("./VictimCard"), { ssr: false });
 const VictimizedSection = () => {
@@ -179,12 +182,15 @@ const VictimizedSection = () => {
               </Box>
               <TabPanel sx={{ padding: "0px" }} value="1">
                 <div className="mt-10 lg:mt-0">
-                  <LatestNews />
+                  <ImportantNews />
+                  <ImportantMediaNews/>
                 </div>
               </TabPanel>
               <TabPanel sx={{ padding: "0px" }} value="2">
                 <div className="mt-10 lg:mt-0">
-                  <LatestNews />
+                  <LatestMediaNews />
+                  <LatestProgrammNews/>
+                  
                 </div>
               </TabPanel>
             </TabContext>

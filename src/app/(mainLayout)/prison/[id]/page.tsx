@@ -43,6 +43,7 @@ const Prison = ({ params }: pressId) => {
 
     </>
   );
+  
 };
 
 export default Prison;

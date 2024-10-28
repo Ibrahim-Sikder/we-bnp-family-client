@@ -16,6 +16,7 @@ import media4 from "../../../../assets/images/media/media4.jpg";
 import ReactHtmlParser from "react-html-parser";
 import CommonBanner from "../_component/Banner";
 import { TReport } from "@/types/report";
+import Category from "@/components/shared/Category/Category";
 type SinglePrisonProps = {
     singleReportData: TReport,
     language: string
@@ -86,7 +87,7 @@ const renderContent = (content: string) => {
 };
 
 
-    const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => {
+const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => {
     const newsData = [
         {
             id: 1,
@@ -116,6 +117,7 @@ const renderContent = (content: string) => {
 
 
 
+
     return (
         <div>
             <CommonBanner title={singleReportData?.category} />
@@ -127,7 +129,7 @@ const renderContent = (content: string) => {
                             <div className="relative overflow-hidden">
 
 
-                                {singleReportData?.bng_Images?.slice(0, 1)?.map((img:any) => {
+                                {singleReportData?.bng_Images?.slice(0, 1)?.map((img: any) => {
 
                                     return <Image src={img} alt="hero" width={1000}
                                         height={500} className="object-cover w-full h-full"
@@ -137,9 +139,9 @@ const renderContent = (content: string) => {
                             </div>
 
                             <div className="p-5">
-                                <h3 className="text-xl font-semibold">{singleReportData?.bangla_title}</h3>
+                                <h3 className="text-xl font-semibold">{language === 'ENG' ? singleReportData?.english_title : singleReportData?.bangla_title}</h3>
                                 <div className="space-y-5">
-                                    <div>{renderContent(singleReportData?.bangla_description)}</div>
+                                    <div> {language === 'ENG' ? renderContent(singleReportData?.english_description) : renderContent(singleReportData?.bangla_description)} </div>
                                 </div>
                             </div>
                             {/* share section */}
@@ -189,67 +191,7 @@ const renderContent = (content: string) => {
                         </div>
 
                     </div>
-                    <div className="w-full lg:w-[600px] lg:mt-0 md:mt-0 mt-5 bg-gray-100 p-5">
-                        <div className="mb-10">
-                            <TextField
-                                id="outlined-basic"
-                                label="Search Here"
-                                variant="outlined"
-                                fullWidth
-                                size="small"
-                            />
-                        </div>
-                        <h3>ক্যাটাগরি</h3>
-                        <hr className="w-16 h-1 bg-gradient-to-r from-red-600 to-green-600 border-0 rounded-full mb-5" />
-                        <div>
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">গুমের তালিকা</button>{" "}
-                                <span className="block font-medium">(3)</span>
-                            </div>
-
-                            <hr />
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">শহীদদের তালিকা </button>{" "}
-                                <span className="block font-medium">(3)</span>
-                            </div>
-                            <hr />
-
-                            <hr />
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">আওয়ামী লীগের নির্যাতন</button>{" "}
-                                <span className="block font-medium">(3)</span>
-                            </div>
-                            <hr />
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">কারাগারে নির্যাতন</button>{" "}
-                                <span className="block font-medium">(3)</span>
-                            </div>
-                        </div>
-                        {/* Recent Posts */}
-                        <div className="mt-16">
-                            <h3>সাম্প্রতিক পোস্ট</h3>
-                            <hr className="w-16 h-1 bg-gradient-to-r from-red-600 to-green-600 border-0 rounded-full mb-5" />
-                            <div className="flex flex-col gap-8 mt-5">
-                                {newsData?.map((data) => (
-                                    <div key={data.id} className="flex gap-5">
-
-                                        <Image
-                                            src={data.img}
-                                            width={50}
-                                            height={30}
-                                            alt="victime"
-                                            className="w-44 h-16 object-contain rounded-sm"
-                                        />
-
-
-                                        <p>
-                                            {data.description}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    <Category />
                 </div>
             </Container>
         </div>

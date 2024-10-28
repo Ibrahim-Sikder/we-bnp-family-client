@@ -8,6 +8,7 @@ import { Typography } from "@mui/material";
 import { KeyboardArrowRight } from "@mui/icons-material";
 import Link from "next/link";
 import { TPrison } from "@/types/prison";
+import Category from "@/components/shared/Category/Category";
 
 type SinglePrisonProps = {
     singlePrisonData: TPrison,
@@ -152,35 +153,7 @@ const SinglePrisonPage = ({ singlePrisonData, language }: SinglePrisonProps) => 
                     </div>
                     <div className="xl:col-span-3">
                         <div className="murderLeftSide">
-                            <div className="space-y-3">
-                                <div className="leftCard">
-                                    <Typography variant="h6" className="leftCard-text">
-                                        গুমের তালিকা
-                                    </Typography>
-                                    <KeyboardArrowRight className="leftCard-icon" />
-                                </div>
-                                <div className="leftCard">
-                                    <Typography variant="h6" className="leftCard-text">
-                                        শহীদদের তালিকা
-                                    </Typography>
-                                    <KeyboardArrowRight className="leftCard-icon" />
-                                </div>
-
-                                <div className="leftCard">
-                                    <Typography variant="h6" className="leftCard-text">
-                                        কারা নির্যাতন
-                                    </Typography>
-                                    <KeyboardArrowRight className="leftCard-icon" />
-                                </div>
-
-
-                                <div className="leftCard">
-                                    <Typography variant="h6" className="leftCard-text">
-                                        আওয়ামী লীগের নির্যাতন
-                                    </Typography>
-                                    <KeyboardArrowRight className="leftCard-icon" />
-                                </div>
-                            </div>
+                           <Category/>
                         </div>
 
                     </div>

@@ -11,18 +11,6 @@ interface AwamiTortureCardProps {
 
 const AwamiTortureCard: React.FC<AwamiTortureCardProps> = ({ tortureData, language }: AwamiTortureCardProps) => {
 
-    const getLinkHref = (index: number) => {
-        switch (index) {
-            case 0:
-                return "/prison/1";
-            case 1:
-                return "/prison/prison-second";
-            case 2:
-                return "/prison/prison-third";
-            default:
-                return "/prison/1";
-        }
-    };
 
     const buttonStyle = {
         width: { xs: "70px", md: "120px", sm: "120px" },
@@ -48,10 +36,10 @@ const AwamiTortureCard: React.FC<AwamiTortureCardProps> = ({ tortureData, langua
                             })}
                         </div>
                         <div className="imgGalleryContent">
-                            <h3>{data.bangla_title}</h3>
+                            <h3>{language === 'ENG' ? data.english_title : data.bangla_title} </h3>
                             <Button
                                 component={Link}
-                                href={getLinkHref(index)}
+                                href={`/torture/${data._id}`}
                                 sx={buttonStyle}
                             >
                                 {language === 'ENG' ? 'Read More' : 'আরও পড়ুন'}
@@ -66,7 +54,7 @@ const AwamiTortureCard: React.FC<AwamiTortureCardProps> = ({ tortureData, langua
                             </p>
                             <Button
                                 component={Link}
-                                href={`/prison/${data._id}`}
+                                href={`/torture/${data._id}`}
                                 sx={buttonStyle}
                             >
                                 {language === 'ENG' ? 'Read More' : 'আরও পড়ুন'}
@@ -77,7 +65,7 @@ const AwamiTortureCard: React.FC<AwamiTortureCardProps> = ({ tortureData, langua
                 ))}
             </div>
             <div className="flex justify-end items-end w-full mr-16 mt-5 ">
-                <Link href="/prison">
+                <Link href="/torture">
                     <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">
                         {language === 'ENG' ? 'See All' : ' সবগুলো দেখুন'}
                     </button>

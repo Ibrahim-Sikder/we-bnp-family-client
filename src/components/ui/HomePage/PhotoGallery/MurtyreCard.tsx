@@ -95,6 +95,7 @@ const MurtyreCard: React.FC<MurtyreCardProps> = ({ murtyreFilterData, language }
                     </div>
                 ))}
             </div>
+            
             <div className="flex justify-end items-end w-full mr-16 mt-5 ">
                 <Link href="/disappearances">
                     <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">

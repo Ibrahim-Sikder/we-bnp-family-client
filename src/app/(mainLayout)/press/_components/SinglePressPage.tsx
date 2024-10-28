@@ -13,6 +13,7 @@ import ShareLink from "@/components/ShareLink/ShareLink";
 import Banner from "../_components/Banner";
 import ReactHtmlParser from "react-html-parser";
 import { TProgramm } from "@/types";
+import Category from "@/components/shared/Category/Category";
 
 type SinglePressProps = {
     singlePressData: TProgramm,
@@ -197,32 +198,8 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
                                 size="small"
                             />
                         </div>
-                        <h3>ক্যাটাগরি</h3>
-                        <hr className="w-16 h-1 bg-gradient-to-r from-red-600 to-green-600 border-0 rounded-full mb-5" />
-                        <div>
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">গুমের তালিকা </button>{" "}
-                                <span className="block font-medium">(1000)</span>
-                            </div>
-
-                            <hr />
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">শহীদদের তালিকা</button>{" "}
-                                <span className="block font-medium">(200)</span>
-                            </div>
-                            <hr />
-
-                            <hr />
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">আওয়ামী নির্যাতন</button>{" "}
-                                <span className="block font-medium">(3)</span>
-                            </div>
-                            <hr />
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">কারাগারে নির্যাতন</button>{" "}
-                                <span className="block font-medium">(3)</span>
-                            </div>
-                        </div>
+                        
+                        <Category />
 
                         {/* Recent Posts */}
                         <div className="mt-16">

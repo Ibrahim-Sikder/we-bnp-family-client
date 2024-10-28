@@ -15,8 +15,7 @@ import Founder from "./Founder";
 import Upodesta from "./Upodesta";
 
 import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
-import { TPrison } from "@/types/prison";
-import { TCommitte } from "@/types";
+import { LanguageProps, TCommitte } from "@/types";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -47,7 +46,7 @@ function a11yProps(index: number) {
   };
 }
 
-const About = () => {
+const About = ({ language }: LanguageProps) => {
   const [value, setValue] = React.useState(0);
   const [committeeData, setCommitteeData] = React.useState<TCommitte[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -84,35 +83,34 @@ const About = () => {
     );
   }
 
-  const committeeFilterData = committeeData.filter((item)=> item.category == 'Committee')
-  const upodestaFilterData = committeeData.filter((item)=> item.category == 'Upodesta')
+  const committeeFilterData = committeeData.filter((item) => item.category == 'Committee')
+  const upodestaFilterData = committeeData.filter((item) => item.category == 'Upodesta')
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  const title = language === 'ENG' ? 'About Us' : 'আমাদের সম্পর্কে'
 
 
   return (
     <>
-      <CommonBanner title=" আমাদের সম্পর্কে" />
+      <CommonBanner title={title} />
 
       <Container>
         <div className="mb-10">
           <div className="shadow-lg rounded-lg lg:rounded-3xl overflow-hidden flex flex-col lg:flex-row my-10 border">
-            {/* Left Part */}
+
 
             <div className="lg:w-1/2 lg:h-[500px] p-3 lg:p-6 bg-[#fdf7f4] space-y-6">
               <div className="flex flex-row justify-center md:justify-start lg:justify-start lg:content-normal">
                 <h2 className="bg-gradient-to-r from-red-600 to-green-600 bg-clip-text text-transparent text-base lg:mb-4 border rounded-full text-center w-[105px] bg-white">
-                  ইতিহাস
+                  {language === 'ENG' ? 'History' : 'ইতিহাস'}
                 </h2>
               </div>
-              <h1>আমরা বিএনপি পরিবার</h1>
+              <h1> {language === 'ENG' ? 'We are BNP family' : 'আমরা বিএনপি পরিবার'}   </h1>
               <h4 className="font-normal">
-                বাংলাদেশের গণতন্ত্র পুনঃরুদ্ধারের আন্দোলনে গুম, খুন ও পঙ্গুত্বের
-                শিকার বিএনপির নেতাকর্মীদের পাশে থাকার প্রত্যয়ে আমরা বিএনপি
-                পরিবার নামে সেল গঠন করেছে বিএনপি। আমরা বিএনপি পরিবার সেলের
-                প্রধান পৃষ্ঠপোষক বিএনপির ভারপ্রাপ্ত চেয়ারম্যান দেশনায়ক তারেক রহমান।
+                {language === 'ENG' ? 'BNP has formed a cell called Amra BNP Parivar to stand by the BNP leaders and activists who are victims of disappearances, murders and paralysis in the movement to restore democracy in Bangladesh. We are the main sponsor of BNP Parivar Cell, Acting Chairman of BNP Deshanayak Tariq Rahman.' : ' বাংলাদেশের গণতন্ত্র পুনঃরুদ্ধারের আন্দোলনে গুম, খুন ও পঙ্গুত্বের শিকার বিএনপির নেতাকর্মীদের পাশে থাকার প্রত্যয়ে আমরা বিএনপি পরিবার নামে সেল গঠন করেছে বিএনপি। আমরা বিএনপি পরিবার সেলের প্রধান পৃষ্ঠপোষক বিএনপির ভারপ্রাপ্ত চেয়ারম্যান দেশনায়ক তারেক রহমান।'}
+
               </h4>
               <Box>
                 <Box
@@ -140,10 +138,10 @@ const About = () => {
                       },
                     }}
                   >
-                    <Tab label="প্রতিষ্ঠা" {...a11yProps(0)} />
-                    <Tab label="স্লোগান" {...a11yProps(1)} />
+                    <Tab label={language === 'ENG' ? 'Founder' : 'প্রতিষ্ঠা'}  {...a11yProps(0)} />
+                    <Tab label={language === 'ENG' ? 'Slogan' : 'স্লোগান'} {...a11yProps(1)} />
                     <Tab
-                      label="লক্ষ্য ও উদ্দেশ্য"
+                      label={language === 'ENG' ? 'Aims and Objectives' : 'লক্ষ্য ও উদ্দেশ্য'}
                       {...a11yProps(2)}
                       sx={{
                         borderBottomRightRadius: "8px",
@@ -154,16 +152,19 @@ const About = () => {
                 </Box>
                 <Box>
                   <CustomTabPanel value={value} index={0}>
-                    আমরা বিএনপি পরিবার  ২০২৪ খ্রিস্টাব্দে প্রতিষ্ঠিত হয়
+                    {language === 'ENG' ? 'We are BNP family established in 2024 AD' : 'আমরা বিএনপি পরিবার  ২০২৪ খ্রিস্টাব্দে প্রতিষ্ঠিত হয়'}
+
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={1}>
-                    গণতন্ত্র পুনরুদ্ধার আন্দোলনে গুম, খুন ও পঙ্গুত্বের শিকার
-                    বিএনপি&apos;র নেতাকর্মীদের পাশে আমরা বিএনপি পরিবার
+                    {language === 'ENG' ? "Victims of disappearances, murders and maiming in the movement to restore democracy We are the BNP family on the side of BNP's leaders and activists" : ' গণতন্ত্র পুনরুদ্ধার আন্দোলনে গুম, খুন ও পঙ্গুত্বের শিকার বিএনপি&apos;র নেতাকর্মীদের পাশে আমরা বিএনপি পরিবার'}
+
+
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={2}>
-                    বাংলাদেশের গণতন্ত্র পুনঃরুদ্ধারের আন্দোলনে গুম, খুন ও
-                    পঙ্গুত্বের শিকার বিএনপির নেতাকর্মীদের পাশে থাকার প্রত্যয়ে
-                    আমরা বিএনপি পরিবার
+                    {language === 'ENG' ? 'We the BNP family are determined to stand by the BNP leaders and activists who are victims of disappearances, murders and paralysis in the movement to restore democracy in Bangladesh.' : 'বাংলাদেশের গণতন্ত্র পুনঃরুদ্ধারের আন্দোলনে গুম, খুন ও পঙ্গুত্বের শিকার বিএনপির নেতাকর্মীদের পাশে থাকার প্রত্যয়ে আমরা বিএনপি পরিবার'}
+
+
+
                   </CustomTabPanel>
                 </Box>
               </Box>
@@ -184,44 +185,43 @@ const About = () => {
           <div className="w-full text-center lg:pt-10 mb-10">
             <div className="flex flex-row items-center justify-center content-center">
               <h2 className="bg-gradient-to-r from-red-600 to-green-600 bg-clip-text text-transparent text-base mb-4 border rounded-full text-center w-[105px] bg-white">
-                পৃষ্ঠপোষক
+                {language === 'ENG' ? 'Patron' : 'পৃষ্ঠপোষক'}
               </h2>
             </div>
             <div className="w-full text-center space-y-4 mb-2">
-              <h1 className="text-3xl lg:text-5xl xl:text-5xl">দেশনায়ক তারেক রহমান</h1>
+              <h1 className="text-3xl lg:text-5xl xl:text-5xl">  {language === 'ENG' ? 'Nationalist Tariq Rahman' : 'দেশনায়ক তারেক রহমান'} </h1>
               <h3 className="text-2xl ">
-                প্রধান পৃষ্ঠপোষক
-                {/* <span className="text-xl font-light"> আমরা বিএনপি পরিবার</span> */}
+                {language === 'ENG' ? 'Chief Patron' : 'প্রধান পৃষ্ঠপোষক'}
               </h3>
 
             </div>
-            <Founder />
+            <Founder language={language} />
           </div>
 
           <div>
-            <Upodesta upodestaFilterData={upodestaFilterData}/>
+            <Upodesta language={language} upodestaFilterData={upodestaFilterData} />
           </div>
           <div>
-            <CommitteeCard  committeeFilterData={committeeFilterData} />
+            <CommitteeCard   language={language} committeeFilterData={committeeFilterData} />
           </div>
-         
+
           <div className="w-full text-center lg:pt-10 xl:pt-4 space-y-5">
             <div className="flex flex-row items-center justify-center content-center">
               <h2 className="bg-gradient-to-r from-red-600 to-green-600 bg-clip-text text-transparent text-base border rounded-full text-center w-[105px] bg-white">
-                তথ্য পাঠান
+                {language === 'ENG' ? 'Send Information' : 'তথ্য পাঠান'}
               </h2>
             </div>
             <div className="w-full text-center space-y-2">
               <h1 className="text-3xl lg:text-5xl">
-                আমাদের তথ্য পাঠানোর মাধ্যম
+                {language === 'ENG' ? 'Our means of sending information' : 'আমাদের তথ্য পাঠানোর মাধ্যম'}
               </h1>
               <h5>
-                আপনার ও আপনার পাশের নির্যাতিত তথ্য চিত্র, ভিডিও ডকুমেন্টস পাঠান আমাদেরকে। যেন আমরা সহজেই আমাদের ভাইদের পাশে দাঁড়াতে পারি।
+                {language === 'ENG' ? 'Send us pictures, video documents of you and your partner. So that we can easily stand by our brothers.' : ' আপনার ও আপনার পাশের নির্যাতিত তথ্য চিত্র, ভিডিও ডকুমেন্টস পাঠান আমাদেরকে। যেন আমরা সহজেই আমাদের ভাইদের পাশে দাঁড়াতে পারি।'}
               </h5>
             </div>
             <div className="">
               <Button href="/information" className="bg-gradient-to-r from-red-600 to-green-600">
-                তথ্য পাঠান <ArrowRightAltIcon />
+                {language === 'ENG' ? 'Send Information' : 'তথ্য পাঠান'} <ArrowRightAltIcon />
               </Button>
             </div>
           </div>

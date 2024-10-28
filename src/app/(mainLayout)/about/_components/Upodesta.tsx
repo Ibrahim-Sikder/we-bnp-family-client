@@ -5,10 +5,12 @@ import React from "react";
 
 interface UpodestProps {
   upodestaFilterData: TCommitte[];
+  language: string,
 }
 
 
-const Upodesta: React.FC<UpodestProps> = ({ upodestaFilterData }) => {
+const Upodesta: React.FC<UpodestProps> = ({ upodestaFilterData, language }) => {
+  console.log(upodestaFilterData)
 
 
   return (
@@ -16,13 +18,13 @@ const Upodesta: React.FC<UpodestProps> = ({ upodestaFilterData }) => {
       <div className="w-full text-center lg:pt-2 mb-10 lg:mb-20 xl:mb-20">
         <div className="flex flex-row items-center justify-center content-center">
           <h2 className="bg-gradient-to-r from-red-600 to-green-600 bg-clip-text text-transparent text-base mb-4 border rounded-full text-center w-[105px] bg-white">
-            উপদেষ্টাগন
+            {language === 'ENG' ? 'Advisors' : 'উপদেষ্টাগন'}
           </h2>
         </div>
         <div className="w-full text-center space-y-4 mb-2">
           <h1 className="text-3xl lg:text-5xl xl:text-5xl">
-            উপদেষ্টা পরিষদ
 
+            {language === 'ENG' ? 'Advisory Council' : 'উপদেষ্টা পরিষদ'}
           </h1>
 
         </div>
@@ -33,15 +35,14 @@ const Upodesta: React.FC<UpodestProps> = ({ upodestaFilterData }) => {
               <div className="lg:max-w-sm max-h-full bg-[#fdf7f4] shadow-lg rounded-xl overflow-hidden">
                 <div className="relative">
                   {data?.images.slice(0, 1)?.map((img: any) => {
-
                     return <Image src={img} alt="hero" width={500}
                       height={500} className="h-[400px] w-full" key={img} />
                   })}
 
                 </div>
                 <div className="p-6">
-                  <h2 className="text-xl font-bold mb-2">{data.name}</h2>
-                  <p className="text-gray-700">{data.designation}</p>
+                  <h2 className="text-xl font-bold mb-2">{language === 'ENG' ? data.english_name : data.bangla_name}</h2>
+                  <p className="text-gray-700">{language === 'ENG' ? data.designation_english : data.designation_bangla}</p>
                 </div>
               </div>
             </div>

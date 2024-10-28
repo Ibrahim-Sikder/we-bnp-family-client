@@ -1,12 +1,14 @@
-import React from 'react';
+'use client'
 import About from './_components/About';
+import { useLanguage } from '@/provider/LanguageProvider';
 
-const page = () => {
+const AboutPage = () => {
+    const { language } = useLanguage()
     return (
         <div>
-            <About/>
+            <About language={language} />
         </div>
     );
 };
 
-export default page;
+export default AboutPage;

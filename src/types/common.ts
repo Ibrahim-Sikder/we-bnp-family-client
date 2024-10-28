@@ -109,8 +109,10 @@ export type TBanner = {
 
 export type TCommitte = {
   _id:string,
-  name: string;
-  designation: string;
+  bangla_name: string;
+  english_name: string;
+  designation_bangla: string;
+  designation_english: string;
   images: string[];
   category: string; 
   createdAt:string,

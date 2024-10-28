@@ -6,7 +6,8 @@ export type TReport = {
     date: string; 
     bangla_title: string;
     english_title: string;
-    category: string; 
+    category: string;
+    newsCategory:string, 
     bangla_short_description: string;
     english_short_description: string;
     bangla_description: string;
