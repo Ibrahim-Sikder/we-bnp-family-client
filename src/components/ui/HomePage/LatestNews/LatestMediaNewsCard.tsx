@@ -28,7 +28,6 @@ function LatestMediaNewsCard({ language, reportData }: LanguageProps) {
 
     const importantNewsFilterData = reportData.filter((item) => item.newsCategory == 'সর্বশেষ')
 
-    console.log('this is filter important news ', importantNewsFilterData)
     return (
         <div className="-mt-16">
             <div className="grid grid-cols-1 gap-y-[10px] mt-[105px] ">

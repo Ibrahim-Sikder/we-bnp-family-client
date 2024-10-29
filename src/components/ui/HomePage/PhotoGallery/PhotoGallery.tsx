@@ -76,13 +76,13 @@ export default function PhotoGallery() {
     );
   }
 
-  if (!disappearanceData || !prisonData || disappearanceData.length === 0 || prisonData.length === 0) {
-    return (
-      <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">
-        Oops! disappearance data not found!
-      </h1>
-    );
-  }
+  // if (!disappearanceData || !prisonData || disappearanceData.length === 0 || prisonData.length === 0) {
+  //   return (
+  //     <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">
+  //       Oops! disappearance data not found!
+  //     </h1>
+  //   );
+  // }
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -168,6 +168,7 @@ export default function PhotoGallery() {
   const prisonFilterData = prisonData.filter((item) => item.category === 'কারাগারে নির্যাতন')
   const tortureFilterData = prisonData.filter((item) => item.category === 'আওয়ামী লীগের নির্যাতন')
 
+  console.log('disappearance data ',disappearanceData)
   return (
     <Container className="sectionMargin px-0">
       <div className="md:w-full px-5 text-center mb-10 ">

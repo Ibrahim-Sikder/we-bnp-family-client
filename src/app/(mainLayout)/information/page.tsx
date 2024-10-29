@@ -27,7 +27,7 @@ import axios from 'axios';
 const Information = () => {
     const handleSubmit = async (data: any) => {
         try {
-            const res = await axios.post('http://localhost:5000/api/v1/information', data);
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/information`, data);
             if (res.status === 200 || res.status === 201) {
                 toast.success('Form submitted successfully!');
             }
@@ -103,34 +103,34 @@ const Information = () => {
                     </div>
                 </div>
                 <div className="infoWraps grid grid-cols-1 md:grid-cols-2 gap-14 sectionMargin  ">
-                <BNPForm onSubmit={handleSubmit}>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={12} md={6} lg={6}>
-                                        <BNPInput name='name' label='নাম' size='medium' fullWidth />
-                                    </Grid>
-                                    <Grid item xs={12} md={6} lg={6}>
-                                        <BNPInput name='phone' label='মোবাইল' size='medium' fullWidth />
-                                    </Grid>
-                                    <Grid item xs={12} md={6} lg={6}>
-                                        <BNPInput name='email' label='ইমেইল' size='medium' fullWidth />
-                                    </Grid>
-                                    <Grid item xs={12} md={6} lg={6}>
-                                        <BNPInput name='address' label='ঠিকানা' size='medium' fullWidth />
-                                    </Grid>
-                                    <Grid item xs={12} md={6} lg={6}>
-                                        <BNPInput name='video_url' label='ভিডিও লিংক' size='medium' fullWidth />
-                                    </Grid>
-                                    <Grid item xs={12} md={6} lg={6}>
-                                        <BNPFileUpload name='file' sx={{ marginTop: '15px', height: '55px', width: '100%' }} />
-                                    </Grid>
-                                    <Grid item xs={12} md={12} lg={12}>
-                                        <BNPTextArea placeholder='বিস্তারিত তথ্য দিন ' sx={{ color: 'black', padding: '10px', height: '300px', border: '1px solid #111', borderRadius: '3px' }} name='Informaton' />
-                                    </Grid>
-                                    <Grid item xs={12} md={12} lg={12}>
-                                        <Button sx={{ width: '150px', borderRadius: '5px', height: '50px' }}>সাবমিট করুন</Button>
-                                    </Grid>
-                                </Grid>
-                            </BNPForm>
+                    <BNPForm onSubmit={handleSubmit}>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} md={6} lg={6}>
+                                <BNPInput name='name' label='নাম' size='medium' fullWidth />
+                            </Grid>
+                            <Grid item xs={12} md={6} lg={6}>
+                                <BNPInput name='phone' label='মোবাইল' size='medium' fullWidth />
+                            </Grid>
+                            <Grid item xs={12} md={6} lg={6}>
+                                <BNPInput name='email' label='ইমেইল' size='medium' fullWidth />
+                            </Grid>
+                            <Grid item xs={12} md={6} lg={6}>
+                                <BNPInput name='address' label='ঠিকানা' size='medium' fullWidth />
+                            </Grid>
+                            <Grid item xs={12} md={6} lg={6}>
+                                <BNPInput name='video_url' label='ভিডিও লিংক' size='medium' fullWidth />
+                            </Grid>
+                            <Grid item xs={12} md={6} lg={6}>
+                                <BNPFileUpload name='file' sx={{ marginTop: '15px', height: '55px', width: '100%' }} />
+                            </Grid>
+                            <Grid item xs={12} md={12} lg={12}>
+                                <BNPTextArea placeholder='বিস্তারিত তথ্য দিন ' sx={{ color: 'black', padding: '10px', height: '300px', border: '1px solid #111', borderRadius: '3px' }} name='Informaton' />
+                            </Grid>
+                            <Grid item xs={12} md={12} lg={12}>
+                                <Button sx={{ width: '150px', borderRadius: '5px', height: '50px' }}>সাবমিট করুন</Button>
+                            </Grid>
+                        </Grid>
+                    </BNPForm>
                     <div className='mt-3'>
                         <h2 className='mb-5'>তথ্য পাঠান</h2>
                         <p className='leading-8 text-xl'>আমাদের তথ্য পাঠানোর মাধ্যম: আপনার ও আপনার পাশের নির্যাতিত তথ্য চিত্র, ভিডিও ডকুমেন্টস পাঠান আমাদেরকে। যেন আমরা সহজেই আমাদের ভাইদের পাশে দাঁড়াতে পারি।</p>

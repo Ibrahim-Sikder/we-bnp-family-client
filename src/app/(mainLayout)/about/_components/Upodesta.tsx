@@ -10,7 +10,7 @@ interface UpodestProps {
 
 
 const Upodesta: React.FC<UpodestProps> = ({ upodestaFilterData, language }) => {
-  console.log(upodestaFilterData)
+
 
 
   return (

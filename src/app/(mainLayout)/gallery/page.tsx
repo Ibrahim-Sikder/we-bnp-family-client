@@ -1,85 +1,99 @@
 "use client";
-import React from "react";
-import Banner from "./_components/Banner";
+import React, { useState } from "react";
 import Container from "@/components/shared/Container";
-import ModalImage from "react-modal-image";
-import image1 from "../../../assets/images/gallery/gallery10.jpeg";
-import image2 from "../../../assets/images/gallery/gallery11.jpeg";
-import image3 from "../../../assets/images/gallery/gallery12.jpeg";
-import image4 from "../../../assets/images/gallery/gallery13.jpeg";
-import image5 from "../../../assets/images/gallery/gallery14.jpeg";
-import image6 from "../../../assets/images/gallery/gallery15.jpeg";
-import image7 from "../../../assets/images/gallery/gallery16.png";
-
-const galleryItems = [
-  {
-    id: 1,
-    src: image1,
-    href: "https://i.ibb.co/ZHzrnmZ/gallery10.jpg",
-    alt: "tours1",
-  },
-  {
-    id: 2,
-    src: image2,
-    href: "https://i.ibb.co/dQSTPP6/gallery11.jpg",
-    alt: "tours2",
-  },
-  {
-    id: 3,
-    src: image3,
-    href: "https://i.ibb.co/37zc78w/gallery12.jpg",
-    alt: "tours3",
-  },
-  {
-    id: 4,
-    src: image4,
-    href: "https://i.ibb.co/ry2y5wx/gallery13.jpg",
-    alt: "tours4",
-  },
-  {
-    id: 5,
-    src: image5,
-    href: "https://i.ibb.co/Wc41M07/gallery14.jpg",
-    alt: "tours5",
-  },
-  {
-    id: 6,
-    src: image6,
-    href: "https://i.ibb.co/2y77c71/gallery15.jpg",
-    alt: "tours6",
-  },
-  {
-    id: 7,
-    src: image7,
-    href: "https://i.ibb.co/k8XsGC4/gallery16.png",
-    alt: "tours7",
-  },
-];
-
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
+import Image from "next/image";
+import { TImgGallery } from "@/types/prison";
+import { useLanguage } from "@/provider/LanguageProvider";
+import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
 
 const Page = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const { language } = useLanguage();
+  const [galleryData, setGalleryData] = React.useState<TImgGallery[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const fetchAffiliationData = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_API_URL}/image-gallery?limit=10000`,
+          { cache: 'no-store' }
+        );
+        const data = await response.json();
+        setGalleryData(data.data?.galleries || []);
+      } catch (err) {
+        setError('Failed to fetch gallery data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAffiliationData();
+  }, []);
+
+  const openLightbox = (index: number) => {
+    setCurrentIndex(index);
+    setIsOpen(true);
+  };
+
+  const nextImage = () =>
+    setCurrentIndex((currentIndex + 1) % galleryData.length);
+  const prevImage = () =>
+    setCurrentIndex(
+      (currentIndex + galleryData.length - 1) % galleryData.length
+    );
+
+  const title = language === 'ENG' ? 'Image Gallery' : 'ইমেজ গ্যালারি'
+
   return (
     <>
-      <Banner />
+      <CommonBanner title={title} />
       <div className="App my-10">
         <Container>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-            {galleryItems.map((item) => (
-              <div key={item.id} className="cursor-pointer">
-                <ModalImage
-                  small={item.href} 
-                  large={item.href} 
-                  alt={item.alt}
-                  hideDownload={false} 
-                  hideZoom={false} 
-                  showRotate
-                  className="w-full h-auto rounded-lg" 
-                />
+            {galleryData?.map((data, index) => (
+              <div
+                key={data._id}
+                className="cursor-pointer"
+                onClick={() => openLightbox(index)}
+              >
+                {/* Display the first image from the images array */}
+                {data.images.length > 0 && (
+                  <Image
+                    className="w-full h-auto rounded-lg"
+                    src={data.images[0]}
+                    alt={data.bng_title}
+                    width={500}
+                    height={500}
+                  />
+                )}
               </div>
             ))}
           </div>
         </Container>
       </div>
+
+      {/* Lightbox for full-screen image viewing */}
+      {isOpen && galleryData[currentIndex].images.length > 0 && (
+        <Lightbox
+          mainSrc={galleryData[currentIndex].images[0]}
+          nextSrc={
+            galleryData[(currentIndex + 1) % galleryData.length].images[0]
+          }
+          prevSrc={
+            galleryData[
+              (currentIndex + galleryData.length - 1) % galleryData.length
+            ].images[0]
+          }
+          onCloseRequest={() => setIsOpen(false)}
+          onMovePrevRequest={prevImage}
+          onMoveNextRequest={nextImage}
+        />
+      )}
     </>
   );
 };
