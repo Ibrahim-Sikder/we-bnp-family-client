@@ -98,7 +98,7 @@ const NewsSlider = () => {
             1024: { slidesPerView: 3, spaceBetween: 30 },
           }}
         >
-          {data.programms.map((news: TNews) => (
+          {data?.programms?.map((news: TNews) => (
             <SwiperSlide key={news._id} className="">
               <div className="upcommingNewsCardWrap ">
                 <div className="upcomingNewsCard relative ">

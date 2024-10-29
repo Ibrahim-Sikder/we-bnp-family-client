@@ -1,8 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-
 import { useLanguage } from '@/provider/LanguageProvider';
-import { TPrison } from '@/types/prison';
 import ActivityPage from './_components/ActivityPage';
 import { TActivity } from '@/types';
 

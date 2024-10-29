@@ -73,8 +73,6 @@ const ImageGallery = () => {
                       return <Image className="w-full h-[300px] object-cover transition-transform duration-300 transform group-hover:scale-110" src={img} alt="hero" width={500}
                         height={500} key={img} />
                     })}
-
-
                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded flex justify-center items-end p-5 cursor-pointer">
                       <div className="text-white text-center">
                         <p className="text-sm">{data.createdAt}</p>
@@ -89,7 +87,7 @@ const ImageGallery = () => {
           <div className="flex justify-center mt-7">
             <Link href="/gallery">
               <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-2 px-8 rounded inline-block font-semibold uppercase">
-              {language === 'ENG' ? 'See All' : 'সবগুলো দেখুন'} 
+                {language === 'ENG' ? 'See All' : 'সবগুলো দেখুন'}
               </button>
             </Link>
           </div>
