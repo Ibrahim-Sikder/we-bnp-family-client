@@ -89,7 +89,7 @@ const OverviewCard = ({ language }: LanguageProps) => {
                                 <Image className="rounded-full object-cover" src={icon} width={30} height={30} alt='victime' />
                             </div>
                         </div>
-                        <p> {language === 'ENG' ? 'Deshanayak Tariq Rahman, one of the political figures of Bangladesh, has long stood by the victimized family.' : 'দেশনায়ক তারেক রহমান, বাংলাদেশের অন্যতম রাজনৈতিক ব্যক্তিত্ব, দীর্ঘদিন ধরে নির্যাতিত পরিবারের পাশে দাঁড়িয়ে আসছেন।'}  </p>
+                        <p> {language === 'ENG' ? 'Deshanayak Tariq Rahman, one of the political figures of Bangladesh, has long stood by the victimized family.' : ' তারেক রহমান, বাংলাদেশের অন্যতম রাজনৈতিক ব্যক্তিত্ব, দীর্ঘদিন ধরে নির্যাতিত পরিবারের পাশে দাঁড়িয়ে আসছেন।'}  </p>
                     </div>
                 </Container>
             </div>

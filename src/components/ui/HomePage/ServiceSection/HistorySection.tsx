@@ -11,6 +11,7 @@ import { East } from "@mui/icons-material";
 import Link from "next/link";
 import { useLanguage } from "@/provider/LanguageProvider";
 import { TBanner } from "@/types";
+import Loading from "@/components/Loading/Loading";
 
 type TLeader = {
   _id: string,
@@ -46,6 +47,10 @@ const HistorySection = () => {
 
     fetchAffiliationData();
   }, []);
+
+  if(loading){
+    return <Loading/>
+  }
 
 
   return (

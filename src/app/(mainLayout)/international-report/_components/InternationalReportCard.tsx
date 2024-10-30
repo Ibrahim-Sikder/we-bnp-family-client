@@ -14,6 +14,7 @@ type LanguageProps = {
     internationalData: TReport[]
 }
 export default function InternationalReportCard({ language, internationalData }: LanguageProps) {
+    const [visibleCount, setVisibleCount] = React.useState(5);
 
     const smallBtnStyle = {
         background: "#2B8444",
@@ -25,16 +26,18 @@ export default function InternationalReportCard({ language, internationalData }:
         padding: '0px'
     }
     const filterInnternationReportData = internationalData.filter((item: any) => item.category === 'আর্ন্তজাতিক সংস্থার রিপোর্ট')
-    // const mediaReportData = reportData.filter((item: any) => item.category === 'মিডিয়ায় প্রকাশিত তথ্য')
+
 
     const title = language === 'ENG' ? 'International report' : 'আন্তর্জাতিক রিপোর্ট'
-
+    const handleLoadMore = () => {
+        setVisibleCount(prevCount => prevCount + 5);
+    };
     return (
         <div>
             <CommonBanner title={title} />
             <Container>
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-x-5 mt-10">
-                    {filterInnternationReportData?.slice(0, 3)?.map((report: TReport) => (
+                    {filterInnternationReportData?.slice(0, visibleCount)?.map((report: TReport) => (
                         <div key={report._id} className="blogCard mt-5">
                             <div className="blogImgWrap">
 
@@ -65,7 +68,13 @@ export default function InternationalReportCard({ language, internationalData }:
                     ))}
 
                 </div>
-
+                {visibleCount < filterInnternationReportData.length && (
+                    <div className="flex items-center justify-center mt-5">
+                        <Button onClick={handleLoadMore}>
+                            {language === 'ENG' ? 'Load More' : 'আরো লোড'}
+                        </Button>
+                    </div>
+                )}
 
             </Container>
         </div>

@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { TImgGallery } from "@/types/prison";
 import { useLanguage } from "@/provider/LanguageProvider";
+import Loading from "@/components/Loading/Loading";
 
 const ImageGallery = () => {
   const { language } = useLanguage()
@@ -37,6 +38,9 @@ const ImageGallery = () => {
     fetchAffiliationData();
   }, []);
 
+  if (loading) {
+    return <Loading />
+  }
 
 
   return (

@@ -61,10 +61,10 @@ const Page = () => {
                 className="cursor-pointer"
                 onClick={() => openLightbox(index)}
               >
-                {/* Display the first image from the images array */}
+
                 {data.images.length > 0 && (
                   <Image
-                    className="w-full h-auto rounded-lg"
+                    className="w-full h-[300px] object-cover transition-transform duration-300 transform group-hover:scale-110"
                     src={data.images[0]}
                     alt={data.bng_title}
                     width={500}

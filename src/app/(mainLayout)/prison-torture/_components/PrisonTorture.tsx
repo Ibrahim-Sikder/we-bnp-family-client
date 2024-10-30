@@ -6,7 +6,6 @@ import banner from "../../../../assets/images/banner/banner7.jpg";
 import victim1 from "../../../../assets/images/victime/help5.jpeg";
 import victim2 from "../../../../assets/images/victime/help2.jpeg";
 import victim3 from "../../../../assets/images/victime/help3.jpeg";
-import victim4 from "../../../../assets/images/victime/help4.jpeg";
 import icon1 from "../../../../assets/victimicon/rescue-icon-1.png";
 import icon2 from "../../../../assets/victimicon/rescue-icon-2.png";
 import icon3 from "../../../../assets/victimicon/rescue-icon-3.png";
@@ -17,7 +16,7 @@ const cardData = [
     id: 1,
     title: "Card Title 1",
     date: "August 18, 2024",
-    description: "নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন দেশনায়ক  তারেক রহমান। তার সহানুভূতি ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে..",
+    description: "নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন  তারেক রহমান। তার সহানুভূতি ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে..",
     imgSrc: victim1,
     icon: icon1,
   },
@@ -25,7 +24,7 @@ const cardData = [
     id: 2,
     title: "Card Title 2",
     date: "August 19, 2024",
-    description: "নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন দেশনায়ক  তারেক রহমান। তার সহানুভূতি ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে..",
+    description: "নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন তারেক রহমান। তার সহানুভূতি ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে..",
     imgSrc: victim2,
     icon: icon2,
   },
@@ -33,7 +32,7 @@ const cardData = [
     id: 3,
     title: "Card Title 1",
     date: "August 18, 2024",
-    description: "নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন দেশনায়ক  তারেক রহমান। তার সহানুভূতি ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে..",
+    description: "নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন  তারেক রহমান। তার সহানুভূতি ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে..",
     imgSrc: victim3,
     icon: icon3,
   },
@@ -54,8 +53,8 @@ const PrisonTorture = () => {
         <Container>
           <div className="mt-10">
             <SectionTitle
-              title="নির্যাতিত পরিবারের পাশে দেশনায়ক  তারেক রহমান"
-              subtitle=' "নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন দেশনায়ক  তারেক রহমান। তার সহানুভূতি ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে।"'
+              title="নির্যাতিত পরিবারের পাশে  তারেক রহমান"
+              subtitle=' "নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন  তারেক রহমান। তার সহানুভূতি ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে।"'
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 my-2 py-10 items-center ">

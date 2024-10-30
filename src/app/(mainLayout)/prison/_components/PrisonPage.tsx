@@ -18,7 +18,7 @@ export default function PrisonPage({ language, prisonData }: LanguageProps) {
 
 
     const buttonStyle = {
-        width: { xs: "50px", md: "140px", sm: "150px" },
+        width: { xs: "100px", md: "140px", sm: "150px" },
         height: { md: "30px", xs: "35px" },
         fontSize: { md: "12px", xs: "9px", xl: "13px" },
         borderRadius: "30px",
@@ -50,13 +50,13 @@ export default function PrisonPage({ language, prisonData }: LanguageProps) {
                                 })}
                             </div>
                             <div className="imgGalleryContent">
-                                <h3>  {language === 'ENG' ? data.english_title : data.bangla_title}</h3>
+                                <h3 className='text-xl mb-2 '>  {language === 'ENG' ? data.english_title : data.bangla_title}</h3>
                                 <Button component={Link} href={`/prison/${data._id}`} sx={buttonStyle}> {
                                     language === 'ENG' ? 'Read More' : 'আরও পড়ুন'}</Button>
                             </div>
 
-                            <div className="galleryContent">
-                                <h3>
+                            <div className="galleryContent space-y-2 ">
+                                <h3 className='text-xl'>
 
                                     {language === 'ENG' ? data.english_title : data.bangla_title}
                                 </h3>

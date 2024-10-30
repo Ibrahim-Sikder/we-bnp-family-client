@@ -20,6 +20,7 @@ import ImportantNews from "../ImportantNews/ImportantProgrammNews";
 import ImportantMediaNews from "../ImportantNews/ImportantMediaNews";
 import LatestMediaNews from "../LatestNews/LatestMediaNews";
 import LatestProgrammNews from "../LatestNews/LatestProgrammNews";
+import Loading from "@/components/Loading/Loading";
 
 const VictimCard = dynamic(() => import("./VictimCard"), { ssr: false });
 const VictimizedSection = () => {
@@ -49,8 +50,6 @@ const VictimizedSection = () => {
   }, []);
 
 
-
-  const isSmallScreen = useMediaQuery("(max-width: 640px)");
 
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -119,9 +118,12 @@ const VictimizedSection = () => {
 
   const arrowStyle = { fontSize: "13px", marginLeft: "3px" };
 
+  if (loading) {
+    return <Loading />
+  }
   return (
     <Container className="sectionMargin">
-      <div className="md:w-full px-5 text-center ">
+      <div className="md:w-full md:px-5 text-center ">
         <h3 className="text-xl md:text-3xl">
           {
             language === 'ENG' ? 'We are the BNP family on the side of the oppressed and affected families' : ' নির্যাতিত ও ক্ষতিগ্রস্ত পরিবারের পাশে আমরা বিএনপি পরিবার'
@@ -139,12 +141,12 @@ const VictimizedSection = () => {
         <p className="mt-5 xl:w-[780px] mx-auto text-sm md:text-base">
 
           {
-            language === 'ENG' ? "Deshanayak Tarek Rahman stands next to the victimized family. With his compassion and support, families have found new hope to live. Tariq Rahman's humanitarian work has become an inspiration to many." : 'নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন দেশনায়ক তারেক রহমান। তার সহানুভূতি ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে।'
+            language === 'ENG' ? "Deshanayak Tarek Rahman stands next to the victimized family. With his compassion and support, families have found new hope to live. Tariq Rahman's humanitarian work has become an inspiration to many." : 'নির্যাতিত পরিবারের পাশে দাঁড়িয়েছেন  তারেক রহমান। তার সহানুভূতি ও সহায়তায় পরিবারগুলো নতুন করে বাঁচার আশা পেয়েছে। তারেক রহমানের মানবিক কাজগুলো অনেকের অনুপ্রেরণা হয়ে দাঁড়িয়েছে।'
           }
         </p>
       </div>
 
-      <div className="grid grid-cols-12 mt-24   gap-x-5 ">
+      <div className="grid grid-cols-12 mt-10 md:mt-24   gap-x-5 ">
         <div className="col-span-12 xl:col-span-8 ">
           <ActivityCard language={language} activityData={activityData} />
 
@@ -183,14 +185,14 @@ const VictimizedSection = () => {
               <TabPanel sx={{ padding: "0px" }} value="1">
                 <div className="mt-10 lg:mt-0">
                   <ImportantNews />
-                  <ImportantMediaNews/>
+                  <ImportantMediaNews />
                 </div>
               </TabPanel>
               <TabPanel sx={{ padding: "0px" }} value="2">
                 <div className="mt-10 lg:mt-0">
                   <LatestMediaNews />
-                  <LatestProgrammNews/>
-                  
+                  <LatestProgrammNews />
+
                 </div>
               </TabPanel>
             </TabContext>

@@ -23,7 +23,7 @@ const NewsSection = ({ language }: LanguageProps) => {
                 }  </h2>
               <p className="mt-5">
                 {
-                  language === 'ENG' ? 'Under the guidance of Deshanayak Tariq Rahman, "We are BNP family" is always cheerfully working for the oppressed and helpless families.' : ' দেশনায়ক তারেক রহমান এর নির্দেশনায় "আমরা বিএনপি পরিবার" সর্বদা প্রফুল্লচিত্তে নির্যাতিত ও অসহায় পরিবারের জন্য কাজ করে যাচ্ছি।'
+                  language === 'ENG' ? 'Under the guidance of Deshanayak Tariq Rahman, "We are BNP family" is always cheerfully working for the oppressed and helpless families.' : ' তারেক রহমান এর নির্দেশনায় "আমরা বিএনপি পরিবার" সর্বদা প্রফুল্লচিত্তে নির্যাতিত ও অসহায় পরিবারের জন্য কাজ করে যাচ্ছি।'
                 }
 
               </p>

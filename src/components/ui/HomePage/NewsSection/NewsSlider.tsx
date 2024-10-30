@@ -14,6 +14,7 @@ import Link from "next/link";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import { useGetAllProgrammeQuery } from "@/redux/api/programmeApi";
 import { useLanguage } from "@/provider/LanguageProvider";
+import Loading from "@/components/Loading/Loading";
 
 export type TNews = {
   _id: string,
@@ -46,7 +47,7 @@ const NewsSlider = () => {
 
   const { data, isLoading } = useGetAllProgrammeQuery({});
   if (isLoading) {
-    return <p>Loading..........</p>;
+    return <Loading />;
   }
 
 

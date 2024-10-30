@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import bannerImage from "../../../../src/assets/images/banner/top-banner.jpeg";
+import bannerImage from "../../../../src/assets/images/banner/newSlider.jpeg";
 
 
 type TProps = {

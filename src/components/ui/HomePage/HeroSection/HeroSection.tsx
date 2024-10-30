@@ -13,6 +13,7 @@ import Image from 'next/image';
 import Container from '@/components/shared/Container';
 import { TBanner } from '@/types';
 import { useLanguage } from '@/provider/LanguageProvider';
+import Loading from '@/components/Loading/Loading';
 
 const HeroSection = () => {
 
@@ -75,59 +76,68 @@ const HeroSection = () => {
             }, 500);
         }
     };
- 
+
 
     return (
-        <div className="heroSectionWrap">
-            <Swiper
-                ref={swiperRef}
-                speed={4500}
-                loop={true}
-                spaceBetween={30}
-                centeredSlides={true}
-                pagination={{ clickable: true }}
-                navigation={{
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                }}
-                modules={[Autoplay, Navigation]}
-                className="mySwiper"
-            >
-                {bannerData?.map((slide: TBanner, index: number) => (
-                    <SwiperSlide key={index}>
-                        <Container>
-                            <div className={`sliderWraps fade-in ${index === 1 ? 'secondSlide' : ''} ${index === 2 ? 'thirdSlide' : ''}`} >
-                                <div className={`heroContent ${fadeOut ? 'fade-out zoom-out' : ''}`}>
-                                    <div className="spacey-y-1 md:space-y-5">
-                                        <h1 className='capitalize text-[15px] md:text-[20px] lg:text-[60px] w-[850px] font-bold md:leading-10'>{language === 'ENG' ? slide.eng_name : slide.bng_name}</h1>
-                                        <h2 className='capitalize text-[15px] md:text-3xl lg:text-5xl text-[#33c05b]'>
-                                            {language === 'ENG' ? slide.eng_designation : slide.bng_designation} </h2>
-                                        <p className='text-[15px] md:text-xl lg:text-2xl'>
-                                            {language === 'ENG' ? slide.eng_description : slide.bng_description}
-                                        </p>
-                                    </div>
-                                    <Button sx={btnStyle}>যোগ দিন <ArrowForwardIos sx={{ fontSize: { md: '15px', sm: '10px', xs: '10px' } }} /> </Button>
-                                </div>
-                                <div className={`bannerImgWrap ${fadeOut ? 'fade-out' : ''}`}>
+        <>
+            {
+                bannerData?.length < 0 ? (
+                    <Loading />
 
-                                    {slide?.images?.slice(0, 1)?.map((img: any) => {
+                ) : (
+                    <div className="heroSectionWrap">
+                        <Swiper
+                            ref={swiperRef}
+                            speed={4500}
+                            loop={true}
+                            spaceBetween={30}
+                            centeredSlides={true}
+                            pagination={{ clickable: true }}
+                            navigation={{
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            }}
+                            modules={[Autoplay, Navigation]}
+                            className="mySwiper"
+                        >
+                            {bannerData?.map((slide: TBanner, index: number) => (
+                                <SwiperSlide key={index}>
+                                    <Container>
+                                        <div className={`sliderWraps fade-in ${index === 1 ? 'secondSlide' : ''} ${index === 2 ? 'thirdSlide' : ''}`} >
+                                            <div className={`heroContent ${fadeOut ? 'fade-out zoom-out' : ''}`}>
+                                                <div className="spacey-y-1 md:space-y-5">
+                                                    <h1 className='capitalize text-[15px] md:text-[20px] lg:text-[60px] w-[850px] font-bold  lg:leading-[70px]'>{language === 'ENG' ? slide.eng_name : slide.bng_name}</h1>
+                                                    <h2 className='capitalize text-[15px] md:text-3xl lg:text-5xl text-[#33c05b]'>
+                                                        {language === 'ENG' ? slide.eng_designation : slide.bng_designation} </h2>
+                                                    <p className='text-[15px] md:text-xl lg:text-2xl'>
+                                                        {language === 'ENG' ? slide.eng_description : slide.bng_description}
+                                                    </p>
+                                                </div>
+                                                <Button sx={btnStyle}>যোগ দিন <ArrowForwardIos sx={{ fontSize: { md: '15px', sm: '10px', xs: '10px' } }} /> </Button>
+                                            </div>
+                                            <div className={`bannerImgWrap ${fadeOut ? 'fade-out' : ''}`}>
 
-                                        return <Image src={img} alt="hero" width={1000}
-                                            height={500}
-                                            layout="responsive" key={img} />
-                                    })}
-                                </div>
-                            </div>
-                        </Container>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-            <div className="slideNumber flex items-center gap-3 mt-10">
-                <div className='slide' onClick={() => handleSlideChange(0)}>01</div>
-                <div className='slide' onClick={() => handleSlideChange(1)}>02</div>
-                <div className='slide' onClick={() => handleSlideChange(2)}>03</div>
-            </div>
-        </div>
+                                                {slide?.images?.slice(0, 1)?.map((img: any) => {
+
+                                                    return <Image src={img} alt="hero" width={1000}
+                                                        height={500}
+                                                        layout="responsive" key={img} />
+                                                })}
+                                            </div>
+                                        </div>
+                                    </Container>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                        <div className="slideNumber flex items-center gap-3 mt-10">
+                            <div className='slide' onClick={() => handleSlideChange(0)}>01</div>
+                            <div className='slide' onClick={() => handleSlideChange(1)}>02</div>
+                            <div className='slide' onClick={() => handleSlideChange(2)}>03</div>
+                        </div>
+                    </div>
+                )
+            }
+        </>
     );
 };
 

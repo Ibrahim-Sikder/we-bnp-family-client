@@ -4,6 +4,11 @@ import { useLanguage } from '@/provider/LanguageProvider';
 import ActivityPage from './_components/ActivityPage';
 import { TActivity } from '@/types';
 
+
+
+
+
+
 const Activity = () => {
     const { language } = useLanguage();
     const [activityData, setActivityData] = useState<TActivity[]>([]);

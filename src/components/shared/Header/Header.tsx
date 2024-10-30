@@ -117,13 +117,13 @@ const Header = () => {
                       <span> {language === 'ENG' ? 'List of Martyrs' : 'শহীদদের তালিকা '}   </span> </Link>
                     <ul className=" submenu3">
                       <li>
-                        <Link onClick={toggleMobileMenu} href="/international-report">
+                        <Link onClick={toggleMobileMenu} href="/murdered">
 
                           {language === 'ENG' ? '(2009 - 2024)' : '(২০০৯ - ২০২৪) '}
                         </Link>
                       </li>
                       <li>
-                        <Link onClick={toggleMobileMenu} href="/media-info"><span> {language === 'ENG' ? 'August Mass Uprising' : 'আগস্ট গণ-অভ্যুত্থান'}  </span></Link>
+                        <Link onClick={toggleMobileMenu} href="/murdered"><span> {language === 'ENG' ? 'August Mass Uprising' : 'আগস্ট গণ-অভ্যুত্থান'}  </span></Link>
                       </li>
                     </ul>
                   </li>
@@ -163,7 +163,7 @@ const Header = () => {
                   <li>
                     <Link onClick={toggleMobileMenu} href="/media-info"><span>
 
-                      {language === 'ENG' ? 'International Organization' : 'Information published in the media'}
+                      {language === 'ENG' ? 'Information published in the media' : 'মিডিয়ায় প্রকাশিত তথ্য'}
                     </span></Link>
                   </li>
                 </ul>
