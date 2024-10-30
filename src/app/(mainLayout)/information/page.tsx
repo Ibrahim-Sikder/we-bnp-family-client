@@ -3,7 +3,6 @@
 import React from 'react';
 import './information.css'
 import Container from '@/components/shared/Container';
-import Image from 'next/image';
 import BNPForm from '@/components/Forms/Form';
 import { Button, Grid } from '@mui/material';
 import BNPInput from '@/components/Forms/Input';
@@ -26,7 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 
-export const informationSchema = z.object({
+const informationSchema = z.object({
     name: z.string().min(1, 'Name is required'),
     phone: z.string().min(1, 'Phone is required').regex(/^\d+$/, 'Phone must be numeric'),
     email: z.string().email('Invalid email format').min(1, 'Email is required'),
@@ -35,6 +34,8 @@ export const informationSchema = z.object({
     message: z.string().min(1, 'Message is required'),
     images: z.array(z.instanceof(File)).optional(),
 });
+
+type InformationFormData = z.infer<typeof informationSchema>;
 
 const Information = () => {
     const router = useRouter()

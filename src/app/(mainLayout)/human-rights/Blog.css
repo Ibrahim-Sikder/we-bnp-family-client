@@ -1,0 +1,30 @@
+.blogCard {
+  /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding:10px; */
+  width: 450px;
+}
+
+.blogCardContent {
+  width: 350px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 18px;
+  border-radius: 14px;
+  position: relative;
+  top: -58px;
+  z-index: 5 !important;
+  background: #fff;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.recentBlogImgwrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+}
+.recentBlogImgwrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  object-fit: cover;
+}
