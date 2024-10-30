@@ -46,7 +46,7 @@ export default function TortureCard({ language, tortureData }: LanguageProps) {
                                 })}
                             </div>
                             <div className="imgGalleryContent">
-                                <h3>{language === 'ENG' ? data.english_title : data.bangla_title} </h3>
+                                <h3 className='text-[18px] md:text-xl'>{language === 'ENG' ? data.english_title : data.bangla_title} </h3>
                                 <Button
                                     component={Link}
                                     href=''
@@ -56,9 +56,9 @@ export default function TortureCard({ language, tortureData }: LanguageProps) {
                                 </Button>
                             </div>
 
-                            <div className="galleryContent">
-                                <h3>   {language === 'ENG' ? data.english_title : data.bangla_title} </h3>
-                                <p>
+                            <div className="galleryContent space-y-2 ">
+                                <h3 className='text-[18px] md:text-xl'>   {language === 'ENG' ? data.english_title : data.bangla_title} </h3>
+                                <p className='text-sm '>
 
                                     {language === 'ENG' ? data.english_short_description : data.bangla_short_description}
                                 </p>

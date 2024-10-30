@@ -21,7 +21,7 @@ const page = () => {
             </div>
             <div className="p-2 md:p-8">
               <h1 className="text-2xl md:text-4xl font-bold text-white mb-5 text-center">
-              দেশনায়ক তারেক রহমান
+               তারেক রহমান
               </h1>
               <ul className="list-disc pl-5 space-y-3 text-white">
                 <li>

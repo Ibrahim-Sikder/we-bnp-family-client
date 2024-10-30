@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import "./Blog.css";
 import Link from "next/link";
-import bannerImage from "../../../assets/images/banner/top-banner.jpeg";
+import bannerImage from "../../../assets/images/banner/newSlider.jpeg";
 import { Button } from "@mui/material";
 import { East } from "@mui/icons-material";
 import '../../../components/ui/HomePage/BlogSection/BlogSection.css'

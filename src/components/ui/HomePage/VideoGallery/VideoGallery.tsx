@@ -9,6 +9,7 @@ import Link from "next/link";
 import ReactPlayer from "react-player";
 import { TVideo } from "@/types/videio";
 import { useLanguage } from "@/provider/LanguageProvider";
+import Loading from "@/components/Loading/Loading";
 
 const VideoGallery = () => {
   const { language } = useLanguage()
@@ -42,16 +43,18 @@ const VideoGallery = () => {
     background: "#2B8444",
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading/>;
   if (error) return <div>{error}</div>;
   const title = language === 'ENG' ? 'Video Gallery' : 'ভিডিও গ্যালারি'
 
+
+  
   return (
     <Container className="sectionMargin">
       <SectionTitle title={title} subtitle="" />
       <div className="grid grid-cols-1 gap-y-5 xl:grid-cols-2 gap-5 mt-10 ">
         {videoData.length > 0 ? (
-          videoData.map((video: TVideo) => (
+          videoData.slice(0, 2).map((video: TVideo) => (
             <div key={video._id} className="videoCard">
               <div className="videoWraper">
                 <ReactPlayer
@@ -61,7 +64,7 @@ const VideoGallery = () => {
                   controls
                 />
               </div>
-              <h3 className="p-3">{language === 'ENG' ? video.video_title_english : video.video_title_bangla}</h3>
+              <h3 className="p-3 text-sm md:text-xl ">{language === 'ENG' ? video.video_title_english : video.video_title_bangla}</h3>
             </div>
           ))
         ) : (

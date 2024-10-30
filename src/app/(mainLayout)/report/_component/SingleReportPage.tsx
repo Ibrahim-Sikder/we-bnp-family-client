@@ -138,7 +138,7 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
 
                             </div>
 
-                            <div className="p-5">
+                            <div className="md:p-5 mt-5 ">
                                 <h3 className="text-xl font-semibold">{language === 'ENG' ? singleReportData?.english_title : singleReportData?.bangla_title}</h3>
                                 <div className="space-y-5">
                                     <div> {language === 'ENG' ? renderContent(singleReportData?.english_description) : renderContent(singleReportData?.bangla_description)} </div>

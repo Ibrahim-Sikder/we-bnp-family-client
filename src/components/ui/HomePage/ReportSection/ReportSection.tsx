@@ -8,6 +8,7 @@ import MediaReport from "./MediaReport";
 import { useLanguage } from "@/provider/LanguageProvider";
 import { useEffect, useState } from "react";
 import { TReport } from "@/types/report";
+import Loading from "@/components/Loading/Loading";
 
 const ReportSection = () => {
     // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/report?limit=100000`, {
@@ -52,6 +53,7 @@ const ReportSection = () => {
         background: "linear-gradient(to right, #2B8444, #CB2D2E)",
     };
 
+ 
 
     return (
         <Container className="mt-14 lg:mt-44">

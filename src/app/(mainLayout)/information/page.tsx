@@ -18,48 +18,62 @@ import {
     FaTwitter,
     FaYoutube,
 } from "react-icons/fa";
-import { HiOutlineLocationMarker } from "react-icons/hi";
 import { AccessTime, LocalPhone } from '@mui/icons-material';
 import BNPFileUpload from '@/components/Forms/FileUpload';
 import { toast } from 'sonner';
 import axios from 'axios';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from 'zod';
+import { useRouter } from 'next/navigation';
+
+export const informationSchema = z.object({
+    name: z.string().min(1, 'Name is required'),
+    phone: z.string().min(1, 'Phone is required').regex(/^\d+$/, 'Phone must be numeric'),
+    email: z.string().email('Invalid email format').min(1, 'Email is required'),
+    address: z.string().min(1, 'Address is required'),
+    video_url: z.string().url('Invalid URL format').optional(),
+    message: z.string().min(1, 'Message is required'),
+    images: z.array(z.instanceof(File)).optional(),
+});
 
 const Information = () => {
+    const router = useRouter()
     const handleSubmit = async (data: any) => {
+        const formData = new FormData();
+        formData.append('name', data.name || '');
+        formData.append('phone', data.phone.replace(/\D/g, '') || '');
+        formData.append('email', data.email || '');
+        formData.append('address', data.address || '');
+        formData.append('video_url', data.video_url || '');
+        formData.append('message', data.message || '');
+
+        if (data.images && data.images.length > 0) {
+            const imageNames = data.images.map((image: File) => image.name).join(', ');
+            formData.append('images', imageNames); 
+        } else {
+            formData.append('images', ''); 
+        }
+    
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/information`, data);
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/information`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+    
             if (res.status === 200 || res.status === 201) {
-                toast.success('Form submitted successfully!');
+                toast.success('Your document submitted successfully!');
+                router.push('/')
             }
         } catch (err) {
-            toast.error('Something went wrong!!!');
+            toast.error('Something went wrong!');
             console.error(err);
         }
     };
+    
 
 
-    const inputStyles = {
-        input: {
-            color: 'white',
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: 'white',
-            },
-            '&:hover fieldset': {
-                borderColor: 'white',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: 'white',
-            },
-        },
-        '& .MuiInputLabel-root': {
-            color: 'white',
-        },
-        '& .MuiInputLabel-root.Mui-focused': {
-            color: 'white',
-        },
-    };
+
 
     return (
         <>
@@ -103,7 +117,7 @@ const Information = () => {
                     </div>
                 </div>
                 <div className="infoWraps grid grid-cols-1 md:grid-cols-2 gap-14 sectionMargin  ">
-                    <BNPForm onSubmit={handleSubmit}>
+                    <BNPForm onSubmit={handleSubmit} resolver={zodResolver(informationSchema)}>
                         <Grid container spacing={1}>
                             <Grid item xs={12} md={6} lg={6}>
                                 <BNPInput name='name' label='নাম' size='medium' fullWidth />
@@ -121,13 +135,13 @@ const Information = () => {
                                 <BNPInput name='video_url' label='ভিডিও লিংক' size='medium' fullWidth />
                             </Grid>
                             <Grid item xs={12} md={6} lg={6}>
-                                <BNPFileUpload name='file' sx={{ marginTop: '15px', height: '55px', width: '100%' }} />
+                                <BNPFileUpload name='images' sx={{ marginTop: '15px', height: '55px', width: '100%' }} />
                             </Grid>
                             <Grid item xs={12} md={12} lg={12}>
-                                <BNPTextArea placeholder='বিস্তারিত তথ্য দিন ' sx={{ color: 'black', padding: '10px', height: '300px', border: '1px solid #111', borderRadius: '3px' }} name='Informaton' />
+                                <BNPTextArea placeholder='বিস্তারিত তথ্য দিন ' sx={{ color: 'black', padding: '10px', height: '300px', border: '1px solid #111', borderRadius: '3px' }} name='message' />
                             </Grid>
                             <Grid item xs={12} md={12} lg={12}>
-                                <Button sx={{ width: '150px', borderRadius: '5px', height: '50px' }}>সাবমিট করুন</Button>
+                                <Button type='submit' sx={{ width: '150px', borderRadius: '5px', height: '50px' }}>সাবমিট করুন</Button>
                             </Grid>
                         </Grid>
                     </BNPForm>
@@ -137,7 +151,7 @@ const Information = () => {
                         <div className="flex space-x-5 mt-8">
                             <div className="socialIconWrap">
                                 <a
-                                    href="https://www.facebook.com/bnpbd.org"
+                                    href="https://www.facebook.com/webnpfamily"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -166,7 +180,7 @@ const Information = () => {
                             </div>
                             <div className="socialIconWrap">
                                 <a
-                                    href="https://www.youtube.com/@bdbnp"
+                                    href="https://www.youtube.com/@webnpfamily"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import banner2 from "../../../../assets/images/banner/banner4.jpg";
+import banner2 from "../../../../assets/images/banner/newSlider.jpeg";
 import Container from "@/components/shared/Container";
 import { Button } from "@mui/material";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
@@ -16,6 +16,7 @@ import Upodesta from "./Upodesta";
 
 import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
 import { LanguageProps, TCommitte } from "@/types";
+import Loading from "@/components/Loading/Loading";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -72,7 +73,7 @@ const About = ({ language }: LanguageProps) => {
   }, []);
 
   if (loading) {
-    return <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">Loading...</h1>;
+    return <Loading/>;
   }
 
   if (error) {
@@ -109,7 +110,7 @@ const About = ({ language }: LanguageProps) => {
               </div>
               <h1> {language === 'ENG' ? 'We are BNP family' : 'আমরা বিএনপি পরিবার'}   </h1>
               <h4 className="font-normal">
-                {language === 'ENG' ? 'BNP has formed a cell called Amra BNP Parivar to stand by the BNP leaders and activists who are victims of disappearances, murders and paralysis in the movement to restore democracy in Bangladesh. We are the main sponsor of BNP Parivar Cell, Acting Chairman of BNP Deshanayak Tariq Rahman.' : ' বাংলাদেশের গণতন্ত্র পুনঃরুদ্ধারের আন্দোলনে গুম, খুন ও পঙ্গুত্বের শিকার বিএনপির নেতাকর্মীদের পাশে থাকার প্রত্যয়ে আমরা বিএনপি পরিবার নামে সেল গঠন করেছে বিএনপি। আমরা বিএনপি পরিবার সেলের প্রধান পৃষ্ঠপোষক বিএনপির ভারপ্রাপ্ত চেয়ারম্যান দেশনায়ক তারেক রহমান।'}
+                {language === 'ENG' ? 'BNP has formed a cell called Amra BNP Parivar to stand by the BNP leaders and activists who are victims of disappearances, murders and paralysis in the movement to restore democracy in Bangladesh. We are the main sponsor of BNP Parivar Cell, Acting Chairman of BNP Deshanayak Tariq Rahman.' : ' বাংলাদেশের গণতন্ত্র পুনঃরুদ্ধারের আন্দোলনে গুম, খুন ও পঙ্গুত্বের শিকার বিএনপির নেতাকর্মীদের পাশে থাকার প্রত্যয়ে আমরা বিএনপি পরিবার নামে সেল গঠন করেছে বিএনপি। আমরা বিএনপি পরিবার সেলের প্রধান পৃষ্ঠপোষক বিএনপির ভারপ্রাপ্ত চেয়ারম্যান  তারেক রহমান।'}
 
               </h4>
               <Box>
@@ -189,7 +190,7 @@ const About = ({ language }: LanguageProps) => {
               </h2>
             </div>
             <div className="w-full text-center space-y-4 mb-2">
-              <h1 className="text-3xl lg:text-5xl xl:text-5xl">  {language === 'ENG' ? 'Nationalist Tariq Rahman' : 'দেশনায়ক তারেক রহমান'} </h1>
+              <h1 className="text-3xl lg:text-5xl xl:text-5xl">  {language === 'ENG' ? 'Nationalist Tariq Rahman' : ' তারেক রহমান'} </h1>
               <h3 className="text-2xl ">
                 {language === 'ENG' ? 'Chief Patron' : 'প্রধান পৃষ্ঠপোষক'}
               </h3>

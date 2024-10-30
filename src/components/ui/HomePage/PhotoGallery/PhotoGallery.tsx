@@ -17,6 +17,8 @@ import PrisonCard from "./PrisonCard";
 import AwamiTortureCard from "./AwamiTortureCard";
 import { TPrison } from "@/types/prison";
 import { useLanguage } from "@/provider/LanguageProvider";
+import AughustFilterCard from "./AughustFilterCard";
+import Loading from "@/components/Loading/Loading";
 
 export default function PhotoGallery() {
   const { language } = useLanguage()
@@ -65,7 +67,7 @@ export default function PhotoGallery() {
   }, []);
 
   if (loading) {
-    return <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">Loading...</h1>;
+    return <Loading/>;
   }
 
   if (error) {
@@ -167,8 +169,9 @@ export default function PhotoGallery() {
   const murtyreFilterData = disappearanceData.filter((item) => item.category === 'শহীদদের তালিকা')
   const prisonFilterData = prisonData.filter((item) => item.category === 'কারাগারে নির্যাতন')
   const tortureFilterData = prisonData.filter((item) => item.category === 'আওয়ামী লীগের নির্যাতন')
+  const augostilterData = prisonData.filter((item) => item.category === 'আগস্ট গণ-অভ্যুত্থান')
 
-  console.log('disappearance data ',disappearanceData)
+  console.log('disappearance data ', disappearanceData)
   return (
     <Container className="sectionMargin px-0">
       <div className="md:w-full px-5 text-center mb-10 ">
@@ -207,9 +210,9 @@ export default function PhotoGallery() {
             >
               <Tab label=" গুমের তালিকা  " value="1" />
               <Tab label="শহীদদের তালিকা (২০০৯ - ২০২৪)" value="2" />
-              <Tab label="আগস্ট গণ-অভ্যুত্থান" value="2" />
-              <Tab label="কারা নির্যাতন" value="3" />
-              <Tab label="আওয়ামী লীগের নির্যাতন" value="4" />
+              <Tab label="আগস্ট গণ-অভ্যুত্থান" value="3" />
+              <Tab label="কারা নির্যাতন" value="4" />
+              <Tab label="আওয়ামী লীগের নির্যাতন" value="5" />
             </Tabs>
           </Box>
           <SwitchTransition mode="out-in">
@@ -229,9 +232,12 @@ export default function PhotoGallery() {
                   <MurtyreCard language={language} murtyreFilterData={murtyreFilterData} />
                 </TabPanel>
                 <TabPanel value="3">
-                  <PrisonCard language={language} prisonData={prisonFilterData} />
+                  <AughustFilterCard language={language} augostilterData={augostilterData} />
                 </TabPanel>
                 <TabPanel value="4">
+                  <PrisonCard language={language} prisonData={prisonFilterData} />
+                </TabPanel>
+                <TabPanel value="5">
                   <AwamiTortureCard language={language} tortureData={tortureFilterData} />
                 </TabPanel>
               </div>
