@@ -84,18 +84,18 @@ const Header = () => {
               </li>
               <li className="dropdownMenuWrap">
                 <Link href="#">
-                  {language === 'ENG' ? 'Our Activity' : ' আমাদের কার্যক্রম'}
+                  {language === 'ENG' ? 'Our Activities' : ' আমাদের কার্যক্রম'}
                   <KeyboardArrowDownIcon />
                 </Link>
                 <ul className="dropdownMenu submenu">
                   <li>
                     <Link onClick={toggleMobileMenu} href="/activity">
-                      <span >  {language === 'ENG' ? 'Recent Activities' : 'সাম্প্রতিক কার্যক্রম'}  </span>
+                      <span >  {language === 'ENG' ? ' Recent Activities' : 'সাম্প্রতিক কার্যক্রম'}  </span>
                     </Link>
                   </li>
                   <li>
                     <Link onClick={toggleMobileMenu} href="/press">
-                      <span> {language === 'ENG' ? 'Programm & Notice ' : 'প্রোগ্রাম ও নোটিশ'}
+                      <span> {language === 'ENG' ? ' Programs and Notices ' : 'প্রোগ্রাম ও নোটিশ'}
                       </span></Link>
                   </li>
                 </ul>
@@ -105,16 +105,16 @@ const Header = () => {
               </li>
               <li className="dropdownMenuWrap">
                 <Link href="/about">
-                  {language === 'ENG' ? "Dictatorship Hasina's misrule" : 'স্বৈরাচার হাসিনার দুঃশাসন'} <KeyboardArrowDownIcon />
+                  {language === 'ENG' ? "Oppressive Rule of Dictator Hasina" : 'স্বৈরাচার হাসিনার দুঃশাসন'} <KeyboardArrowDownIcon />
                 </Link>
                 <ul className="dropdownMenu">
                   <li>
                     <Link onClick={toggleMobileMenu} href="/disappearances">
-                      <span> {language === 'ENG' ? 'Missing List' : 'গুমের তালিকা'}  </span></Link>
+                      <span> {language === 'ENG' ? 'Disappeared List' : 'গুমের তালিকা'}  </span></Link>
                   </li>
                   <li className=" murterDropDown">
                     <Link onClick={toggleMobileMenu} href="/murdered">
-                      <span> {language === 'ENG' ? 'List of Martyrs' : 'শহীদদের তালিকা '}   </span> </Link>
+                      <span> {language === 'ENG' ? 'Martyrs List' : 'শহীদদের তালিকা '}   </span> </Link>
                     <ul className=" submenu3">
                       <li>
                         <Link onClick={toggleMobileMenu} href="/murdered">
@@ -133,12 +133,12 @@ const Header = () => {
                     <Link onClick={toggleMobileMenu} href="/torture"><span>
 
 
-                      {language === 'ENG' ? 'Awami League torture' : ' আওয়ামী লীগের নির্যাতন '}
+                      {language === 'ENG' ? 'Awami League Torture' : ' আওয়ামী লীগের নির্যাতন '}
                     </span></Link>
                   </li>
                   <li>
                     <Link onClick={toggleMobileMenu} href="/prison"><span>
-                      {language === 'ENG' ? 'Torture in prison' : 'কারাগারে নির্যাতন'}
+                      {language === 'ENG' ? 'Prison Torture' : 'কারাগারে নির্যাতন'}
 
                     </span></Link>
                   </li>
@@ -150,20 +150,20 @@ const Header = () => {
 
               <li className="dropdownMenuWrap">
                 <Link href="#">
-                  {language === 'ENG' ? 'Report' : 'রিপোর্ট'}
+                  {language === 'ENG' ? 'Reports' : 'রিপোর্ট'}
                   <KeyboardArrowDownIcon />
                 </Link>
                 <ul className="dropdownMenu submenu2">
                   <li>
                     <Link onClick={toggleMobileMenu} href="/international-report">
 
-                      {language === 'ENG' ? 'International Organization' : 'আন্তর্জাতিক সংস্থা'}
+                      {language === 'ENG' ? 'International Organizations' : 'আন্তর্জাতিক সংস্থা'}
                     </Link>
                   </li>
                   <li>
                     <Link onClick={toggleMobileMenu} href="/media-info"><span>
 
-                      {language === 'ENG' ? 'Information published in the media' : 'মিডিয়ায় প্রকাশিত তথ্য'}
+                      {language === 'ENG' ? 'Media Published Information' : 'মিডিয়ায় প্রকাশিত তথ্য'}
                     </span></Link>
                   </li>
                 </ul>
