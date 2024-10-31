@@ -18,13 +18,13 @@ const Upodesta: React.FC<UpodestProps> = ({ upodestaFilterData, language }) => {
       <div className="w-full text-center lg:pt-2 mb-10 lg:mb-20 xl:mb-20">
         <div className="flex flex-row items-center justify-center content-center">
           <h2 className="bg-gradient-to-r from-red-600 to-green-600 bg-clip-text text-transparent text-base mb-4 border rounded-full text-center w-[105px] bg-white">
-            {language === 'ENG' ? 'Advisors' : 'উপদেষ্টাগন'}
+            {language === 'ENG' ? 'Advisors' : 'উপদেষ্টাগন '}
           </h2>
         </div>
         <div className="w-full text-center space-y-4 mb-2">
           <h1 className="text-3xl lg:text-5xl xl:text-5xl">
 
-            {language === 'ENG' ? 'Advisory Council' : 'উপদেষ্টা পরিষদ'}
+            {language === 'ENG' ? 'Advisory Council' : 'উপদেষ্টা পরিষদ '}
           </h1>
 
         </div>

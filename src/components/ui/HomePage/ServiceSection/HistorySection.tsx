@@ -48,8 +48,8 @@ const HistorySection = () => {
     fetchAffiliationData();
   }, []);
 
-  if(loading){
-    return <Loading/>
+  if (loading) {
+    return <Loading />
   }
 
 
@@ -123,7 +123,7 @@ const HistorySection = () => {
                         </h4>
                         <div className="flex items-center">
                           <div className="dahsed"></div>
-                          <p className="ml-2"> {language === 'ENG' ? leader.eng_qoute : leader.bng_qoute}</p>
+                          <p className="ml-2"> {language === 'ENG' ? leader.eng_name : leader.bng_name}</p>
                         </div>
                       </div>
                     </div>

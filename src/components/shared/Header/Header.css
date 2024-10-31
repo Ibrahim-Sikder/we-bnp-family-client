@@ -48,7 +48,7 @@
 .dropdownMenu,
 .submenu3 {
   background: #fff;
-  width: 233px;
+  width: 290px;
   height: 204px;
   border-radius: 5px;
   position: absolute;
@@ -68,7 +68,7 @@
 
 
 .submenu {
-  width: 213px;
+  width: 245px;
   height: 86px;
 
 
@@ -117,12 +117,12 @@
 }
 
 .submenu3 {
-  left: 234px;
-  top: -2px;
+  left: 290px;
+  top: 30px;
   transform: scaleY(0);
   opacity: 0;
   visibility: hidden;
-  width: 200px;
+  width: 243px;
   height: 100px;
 }
 

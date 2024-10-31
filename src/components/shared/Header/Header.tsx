@@ -179,15 +179,16 @@ const Header = () => {
             >
               ENG
             </button>
-            {/* <Button
+            <button
               onClick={() => setLanguage("BNG")}
-              sx={{ backgroundColor: language === "BNG" ? "rgba(255,255,255,0.9)" : "transparent" }}
+              className={`bg-gradient-to-r from-red-600 to-green-600 px-3 py-1 rounded text-white ${language === "BNG" ? "opacity-100" : "opacity-60"
+                }`}
             >
+              ENG
+            </button>
+            {/* <Button onClick={() => setLanguage("BNG")} sx={btnStyle}>
               বাংলা
             </Button> */}
-            <Button onClick={() => setLanguage("BNG")} sx={btnStyle}>
-              বাংলা
-            </Button>
 
 
 
