@@ -34,7 +34,7 @@ WORKDIR /app
 
 # Set the production environment variables
 ENV NODE_ENV=production
-ENV NEXT_PUBLIC_BASE_API_URL=https://api.amrabnpporibar.org
+ENV NEXT_PUBLIC_BASE_API_URL=https://api.amrabnpporibar.org/api/v1
 
 # Add non-root user for security
 RUN addgroup --system --gid 1001 nodejs
