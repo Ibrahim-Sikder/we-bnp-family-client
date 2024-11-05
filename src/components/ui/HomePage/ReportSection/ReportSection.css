@@ -83,6 +83,8 @@
 
     .blogCardContent {
         top: -19px;
+ 
+        padding: 20px !important;
     }
 
 
@@ -90,10 +92,10 @@
     .blogImgWrap img {
         width: 100%;
     }
-    .blogImgWrap {
-        height: 150px;
-    }
 
+    .blogImgWrap {
+        height: 192px;
+    }
 
 
 }

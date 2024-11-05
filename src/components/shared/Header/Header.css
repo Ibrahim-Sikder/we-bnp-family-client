@@ -140,6 +140,10 @@
     transition: all 0.5s cubic-bezier(0.43, 0.38, 0.68, 0.63);
     z-index: 999;
   }
+  .navItems li {
+    padding-bottom: 16px;
+    border-bottom: none;
+}
 
   .activeMenu {
     left: 0px;
@@ -212,8 +216,8 @@
 
   .activeBar,
   .bar1 {
-    top: 25px;
-    right: 0px;
+    top: 23px;
+    right: -5px;
   }
 
   .dropdownMenu,

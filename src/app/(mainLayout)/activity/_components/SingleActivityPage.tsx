@@ -125,66 +125,68 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                     </div>
                 </div>
                 <Container>
-                    <div className=" grid grid-cols-12 gap-10 my-20">
-                        <div className="xl:col-span-9">
-                            <div className=" h-full  text-lg ">
-                                <div className="space-y-4 md:space-y-4 lg:space-y-8 xl:space-y-8">
-
-                                    {singleActivity?.bng_Images?.slice(0, 1)?.map((img: any) => {
-
-                                        return <Image
-
+                    <div className="grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 my-8 md:my-12 lg:my-16 xl:my-20">
+                        <div className="col-span-12 xl:col-span-9">
+                            <div className="h-full text-base sm:text-lg">
+                                <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+                                    {/* Main Image */}
+                                    {singleActivity?.bng_Images?.slice(0, 1)?.map((img) => (
+                                        <Image
+                                            key={img}
+                                            src={img}
                                             width={500}
                                             height={500}
-                                            src={img}
-                                            className="h-[400px] object-contain w-full rounded-lg"
+                                            className="w-full h-auto sm:h-[300px] md:h-[350px] lg:h-[400px] object-contain rounded-lg"
                                             alt="Cover Image"
-                                            layout="responsive" key={img} />
-                                    })}
+                                            layout="responsive"
+                                        />
+                                    ))}
 
-                                    <h3>{language === 'ENG' ? singleActivity?.english_title : singleActivity?.bangla_title}</h3>
+                                    {/* Title */}
+                                    <h3 className="text-xl md:text-2xl font-semibold">
+                                        {language === 'ENG' ? singleActivity?.english_title : singleActivity?.bangla_title}
+                                    </h3>
+
+                                    {/* Description */}
                                     <div className="text-justify">
                                         {language === 'ENG' ? renderContent(singleActivity?.english_description) : renderContent(singleActivity?.bangla_description)}
                                     </div>
 
-                                    <div className="bg-gray-100 rounded-lg p-4 md:p-6 lg:p-8 xl:p-8 space-y-2 lg:px-20 xl:px-20">
-                                        <p className="text-justify italic text-xl">
+                                    {/* Quote Section */}
+                                    <div className="bg-gray-100 rounded-lg p-4 md:p-6 lg:p-8 space-y-2 lg:px-12 xl:px-16">
+                                        <p className="text-justify italic text-lg md:text-xl">
                                             <FormatQuoteIcon className="rotate-180" />
                                             {language === 'ENG' ? singleActivity?.english_short_description : singleActivity?.bangla_short_description}
-
                                             <FormatQuoteIcon />
                                         </p>
                                     </div>
 
-                                    <div className="lg:flex xl:flex lg:gap-5 xl:gap-5 my-2 space-y-4 md:space-y-0 lg:space-y-0 xl:space-y-0 ">
-
-
-
-                                        {singleActivity?.bng_Images?.slice(1, 4)?.map((img: any) => {
-
-                                            return <Image
-
+                                    {/* Additional Images */}
+                                    <div className="flex flex-col md:flex-row md:gap-4 lg:gap-5 space-y-4 md:space-y-0">
+                                        {singleActivity?.bng_Images?.slice(1, 4)?.map((img) => (
+                                            <Image
+                                                key={img}
+                                                src={img}
                                                 width={500}
                                                 height={500}
-                                                src={img}
-                                                className="lg:w-[260px] h-[300px] object-cover rounded-lg"
-                                                alt="this is cover img" key={img} />
-                                        })}
-
+                                                className="w-full md:w-[48%] lg:w-[32%] h-auto object-cover rounded-lg"
+                                                alt="Additional Image"
+                                            />
+                                        ))}
                                     </div>
-                                    {/* <div className="text-justify">{renderContent(singleActivity?.bangla_description)}</div> */}
-
-                                    {/* <PublishInfo name={singleData?.name_published_newspaper} time={singleData?.news_release_date} link={singleData?.Link_published_newspaper} /> */}
                                 </div>
 
+                                {/* Share Links */}
                                 <ShareLink />
                             </div>
                         </div>
 
-                        <div className="xl:col-span-3">
+                        {/* Category Section */}
+                        <div className="col-span-12 xl:col-span-3 mt-8 xl:mt-0">
                             <Category />
                         </div>
                     </div>
+
                 </Container>
             </div>
         </>

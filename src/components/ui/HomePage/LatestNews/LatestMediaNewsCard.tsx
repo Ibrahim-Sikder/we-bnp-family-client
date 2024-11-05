@@ -30,7 +30,7 @@ function LatestMediaNewsCard({ language, reportData }: LanguageProps) {
 
     return (
         <div className="-mt-16">
-            <div className="grid grid-cols-1 gap-y-[10px] mt-[105px] ">
+            <div className="grid grid-cols-1 gap-y-[10px] mt-[80px] md:mt-[105px] ">
                 {importantNewsFilterData.slice(0, 3).map((data) => (
                     <div key={data._id} className="newsCard">
                         <div className="flex md:flex-row items-center justify-between">

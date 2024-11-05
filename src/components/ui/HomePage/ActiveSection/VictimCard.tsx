@@ -42,10 +42,10 @@ const VictimCard: React.FC<MurtyreCardProps> = ({ activityData, language }) => {
                 })}
               </div>
               <div className="mt-3 text-center flex flex-col p-3">
-                <b className="text-sm text-left ">
+                <b className="text-[12px] text-left ">
                   {
-                    language === 'ENG' ? data.english_title.slice(0, 28) : data.bangla_title.slice(0, 28)
-                  }...
+                    language === 'ENG' ? data.english_title : data.bangla_title
+                  }
                 </b>
                 <Button component={Link} href={`/activity/${data._id}`} sx={smallBtnStyle}>
                   {

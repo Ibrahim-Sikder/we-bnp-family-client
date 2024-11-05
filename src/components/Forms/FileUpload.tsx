@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "@mui/material";
+import { useLanguage } from "@/provider/LanguageProvider";
 
 type TProps = {
     name: string;
@@ -13,6 +14,7 @@ type TProps = {
 
 export default function BNPFileUpload({ name, label, sx }: TProps) {
     const { control } = useFormContext();
+    const { language } = useLanguage()
 
     return (
         <Controller
@@ -25,15 +27,15 @@ export default function BNPFileUpload({ name, label, sx }: TProps) {
                     startIcon={<CloudUploadIcon />}
                     sx={{ ...sx }}
                 >
-                    {label || "Upload File"}
+                    {label || (language === 'ENG' ? 'Upload File' : 'ফাইল আপলোড করুন')}
                     <Input
                         type="file"
                         onChange={(e) => {
                             const files = Array.from((e.target as HTMLInputElement).files || []);
-                            onChange(files); // Update form control with the files array
+                            onChange(files);
                         }}
                         inputProps={{ multiple: true }}
-                        style={{ display: 'none' }} // Hide the input
+                        style={{ display: 'none' }}
                     />
                 </Button>
             )}

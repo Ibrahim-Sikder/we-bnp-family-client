@@ -54,12 +54,12 @@ const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData,l
                 </div>
                 <div className="blogCardContent">
 
-                  <h5 className="font-semibold ">
+                  <h4 className="font-semibold ">
                   {language === 'ENG' ? report.english_title : report.bangla_title}
 
-                  </h5>
+                  </h4>
                   <p>
-                  {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}
+                  {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}...
                   </p>
                   <Link href={`/report/${report._id}`}>
                     <Button sx={smallBtnStyle}>

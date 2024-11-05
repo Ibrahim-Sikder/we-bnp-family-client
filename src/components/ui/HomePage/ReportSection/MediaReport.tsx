@@ -50,14 +50,14 @@ const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData, language }) 
                       height={500} key={img} />
                   })}
                 </div>
-                <div className="blogCardContent">
+                <div className="blogCardContent spacy-y-3 ">
 
-                  <h5 className="font-semibold ">
+                  <h4 className="font-semibold ">
                     {language === 'ENG' ? report.english_title : report.bangla_title}
 
-                  </h5>
-                  <p>
-                    {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}
+                  </h4>
+                  <p className='text-sm'>
+                    {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}...
                   </p>
                   <Link href={`/report/${report._id}`}>
                     <Button sx={smallBtnStyle}>

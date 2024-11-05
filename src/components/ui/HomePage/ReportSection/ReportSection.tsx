@@ -73,6 +73,7 @@ const ReportSection = () => {
                     <MediaReport language={language} mediaReportData={mediaReportData} />
                 </div>
             </div>
+            
         </Container>
     );
 };

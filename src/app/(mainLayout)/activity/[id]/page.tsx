@@ -44,4 +44,5 @@ const ActivityPage = ({ params }: victimId) => {
   );
 };
 
+
 export default ActivityPage;

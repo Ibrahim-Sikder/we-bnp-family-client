@@ -80,17 +80,17 @@ const HistorySection = () => {
                     </div>
                     <div className="mt-5 block xl:hidden">
                       <div className="historyContents text-white                                                 ">
-                        <div className="flex gap-5">
+                        <div className="flex gap-x-2 md:gap-5">
                           <div>
                             <FaQuoteRight size={30} />
                           </div>
                           <div>
-                            <h4 className="leading-8 ">
+                            <h4  className="leading-8 text-[18px] md:text-[20px]">
                               {language === 'ENG' ? leader.eng_qoute : leader.bng_qoute}
                             </h4>
                             <div className="flex items-center">
                               <div className="dahsed"></div>
-                              <p className="ml-2">
+                              <p className="ml-2 text-[12px] md:text-sm">
 
                                 {language === 'ENG' ? leader.eng_name : leader.bng_name}
                               </p>

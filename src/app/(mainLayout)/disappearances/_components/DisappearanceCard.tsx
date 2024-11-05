@@ -32,7 +32,7 @@ export default function DisappearanceCard({ language, disappearanceData }: Langu
       </div>
       <Container className='my-10'>
         <div className='mb-10 flex gap-2'>
-          <TextField label='সার্চ করুন' size='small' />
+          <TextField label={language === 'ENG' ? 'Search here' : 'সার্চ করুন'} size='small' />
           <Button><Search /></Button>
         </div>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">

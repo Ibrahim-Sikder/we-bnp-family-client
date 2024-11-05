@@ -67,7 +67,7 @@ export default function PhotoGallery() {
   }, []);
 
   if (loading) {
-    return <Loading/>;
+    return <Loading />;
   }
 
   if (error) {
@@ -208,11 +208,11 @@ export default function PhotoGallery() {
               scrollButtons="auto"
               aria-label="scrollable auto tabs example"
             >
-              <Tab label=" গুমের তালিকা  " value="1" />
-              <Tab label="শহীদদের তালিকা (২০০৯ - ২০২৪)" value="2" />
-              <Tab label="আগস্ট গণ-অভ্যুত্থান" value="3" />
-              <Tab label="কারা নির্যাতন" value="4" />
-              <Tab label="আওয়ামী লীগের নির্যাতন" value="5" />
+              <Tab label={language === 'ENG' ? 'Disappeared List' : 'গুমের তালিকা'} value="1" />
+              <Tab label={language === 'ENG' ? 'Martyrs List' : 'শহীদদের তালিকা (২০০৯ - ২০২৪)'} value="2" />
+              <Tab label={language === 'ENG' ? 'August Mass Uprising' : 'আগস্ট গণ-অভ্যুত্থান'} value="3" />
+              <Tab label={language === 'ENG' ? 'Prison Torture' : 'কারা নির্যাতন'} value="4" />
+              <Tab label={language === 'ENG' ? 'Awami League Torture' : 'আওয়ামী লীগের নির্যাতন'} value="5" />
             </Tabs>
           </Box>
           <SwitchTransition mode="out-in">

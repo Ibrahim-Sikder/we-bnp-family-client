@@ -24,6 +24,7 @@ import axios from 'axios';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import { useLanguage } from '@/provider/LanguageProvider';
 
 const informationSchema = z.object({
     name: z.string().min(1, 'Name is required'),
@@ -38,6 +39,7 @@ const informationSchema = z.object({
 type InformationFormData = z.infer<typeof informationSchema>;
 
 const Information = () => {
+    const { language } = useLanguage()
     const router = useRouter()
     const handleSubmit = async (data: any) => {
         const formData = new FormData();
@@ -50,18 +52,18 @@ const Information = () => {
 
         if (data.images && data.images.length > 0) {
             const imageNames = data.images.map((image: File) => image.name).join(', ');
-            formData.append('images', imageNames); 
+            formData.append('images', imageNames);
         } else {
-            formData.append('images', ''); 
+            formData.append('images', '');
         }
-    
+
         try {
             const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/information`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-    
+
             if (res.status === 200 || res.status === 201) {
                 toast.success('Your document submitted successfully!');
                 router.push('/')
@@ -71,7 +73,7 @@ const Information = () => {
             console.error(err);
         }
     };
-    
+
 
 
 
@@ -80,7 +82,7 @@ const Information = () => {
         <>
             <div className="bannerWrap">
                 <div className="bannerContent">
-                    <h3 className="text-4xl font-semibold "> আমাদের তথ্য পাঠানোর মাধ্যম </h3>
+                    <h3 className="text-4xl font-semibold ">{language === 'ENG' ? 'Our means of sending information' : 'আমাদের তথ্য পাঠানোর মাধ্যম'}  </h3>
                 </div>
             </div>
             <Container >
@@ -90,7 +92,7 @@ const Information = () => {
                             <FaRegEnvelope className='infoIcon' />
                         </div>
                         <div>
-                            <h4>ইমেইল</h4>
+                            <h4> {language === 'ENG' ? 'Email' : 'ইমেইল'}</h4>
                             <p className='text-sm md:text-[15px]'>webnpfamily@gmail.com</p>
                         </div>
                     </div>
@@ -100,8 +102,8 @@ const Information = () => {
 
                         </div>
                         <div>
-                            <h4>ঠিকানা</h4>
-                            <p className='text-sm md:text-[15px]'>২৮/১ ভিআইপি রোড, নয়াপল্টন, ঢাকা, বাংলাদেশ</p>
+                            <h4>{language === 'ENG' ? 'Address' : 'ঠিকানা'}</h4>
+                            <p className='text-sm md:text-[15px]'> {language === 'ENG' ? '28/1 VIP Road, Nayapalton, Dhaka, Bangladesh' : '২৮/১ ভিআইপি রোড, নয়াপল্টন, ঢাকা, বাংলাদেশ'} </p>
                         </div>
                     </div>
                     <div className="infoCard px-10 ">
@@ -110,8 +112,8 @@ const Information = () => {
 
                         </div>
                         <div>
-                            <h4>ফোন নাম্বার</h4>
-                            <p className='text-sm md:text-[15px]'>৯৩৬১০৬৪
+                            <h4>{language === 'ENG' ? 'Phone Number' : 'ফোন নাম্বার'} </h4>
+                            <p className='text-sm md:text-[15px]'>{language === 'ENG' ? '9361064' : '৯৩৬১০৬৪'} 
                             </p>
 
                         </div>
@@ -121,34 +123,34 @@ const Information = () => {
                     <BNPForm onSubmit={handleSubmit} resolver={zodResolver(informationSchema)}>
                         <Grid container spacing={1}>
                             <Grid item xs={12} md={6} lg={6}>
-                                <BNPInput name='name' label='নাম' size='medium' fullWidth />
+                                <BNPInput name='name' label={language === 'ENG' ? 'Name' : 'নাম'} size='medium' fullWidth />
                             </Grid>
                             <Grid item xs={12} md={6} lg={6}>
-                                <BNPInput name='phone' label='মোবাইল' size='medium' fullWidth />
+                                <BNPInput name='phone' label={language === 'ENG' ? 'Mobile' : 'মোবাইল'} size='medium' fullWidth />
                             </Grid>
                             <Grid item xs={12} md={6} lg={6}>
-                                <BNPInput name='email' label='ইমেইল' size='medium' fullWidth />
+                                <BNPInput name='email' label={language === 'ENG' ? 'Email' : 'ইমেইল'} size='medium' fullWidth />
                             </Grid>
                             <Grid item xs={12} md={6} lg={6}>
-                                <BNPInput name='address' label='ঠিকানা' size='medium' fullWidth />
+                                <BNPInput name='address' label={language === 'ENG' ? 'Address' : 'ঠিকানা'} size='medium' fullWidth />
                             </Grid>
                             <Grid item xs={12} md={6} lg={6}>
-                                <BNPInput name='video_url' label='ভিডিও লিংক' size='medium' fullWidth />
+                                <BNPInput name='video_url' label={language === 'ENG' ? 'Video Link' : 'ভিডিও লিংক'} size='medium' fullWidth />
                             </Grid>
                             <Grid item xs={12} md={6} lg={6}>
                                 <BNPFileUpload name='images' sx={{ marginTop: '15px', height: '55px', width: '100%' }} />
                             </Grid>
                             <Grid item xs={12} md={12} lg={12}>
-                                <BNPTextArea placeholder='বিস্তারিত তথ্য দিন ' sx={{ color: 'black', padding: '10px', height: '300px', border: '1px solid #111', borderRadius: '3px' }} name='message' />
+                                <BNPTextArea placeholder={language === 'ENG' ? 'Give details' : 'বিস্তারিত তথ্য দিন'} sx={{ color: 'black', padding: '10px', height: '300px', border: '1px solid #111', borderRadius: '3px' }} name='message' />
                             </Grid>
                             <Grid item xs={12} md={12} lg={12}>
-                                <Button type='submit' sx={{ width: '150px', borderRadius: '5px', height: '50px' }}>সাবমিট করুন</Button>
+                                <Button type='submit' sx={{ width: '150px', borderRadius: '5px', height: '50px' }}>{language === 'ENG' ? 'Submit' : 'সাবমিট করুন'}  </Button>
                             </Grid>
                         </Grid>
                     </BNPForm>
                     <div className='mt-3'>
-                        <h2 className='mb-5'>তথ্য পাঠান</h2>
-                        <p className='leading-8 text-xl'>আমাদের তথ্য পাঠানোর মাধ্যম: আপনার ও আপনার পাশের নির্যাতিত তথ্য চিত্র, ভিডিও ডকুমেন্টস পাঠান আমাদেরকে। যেন আমরা সহজেই আমাদের ভাইদের পাশে দাঁড়াতে পারি।</p>
+                        <h2 className='mb-5'>{language === 'ENG' ? 'Send Information' : 'তথ্য পাঠান'}</h2>
+                        <p className='leading-8 text-xl'>{language === 'ENG' ? "Ways to send us information: Send us your and your partner's abusive information images, video documents. So that we can easily stand by our brothers." : 'আমাদের তথ্য পাঠানোর মাধ্যম: আপনার ও আপনার পাশের নির্যাতিত তথ্য চিত্র, ভিডিও ডকুমেন্টস পাঠান আমাদেরকে। যেন আমরা সহজেই আমাদের ভাইদের পাশে দাঁড়াতে পারি।'}  </p>
                         <div className="flex space-x-5 mt-8">
                             <div className="socialIconWrap">
                                 <a

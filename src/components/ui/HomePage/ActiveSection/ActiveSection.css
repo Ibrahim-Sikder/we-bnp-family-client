@@ -1,7 +1,7 @@
 .victimCard {
     box-shadow: 0 1px 3px #00000005, 0 0 0 1px #1b1f2326;
     border-radius: 10px;
-    height: 645px;
+    height: 600px;
 }
 
 .imgWrap {
@@ -25,7 +25,7 @@
 .cardBox {
     box-shadow: 0 1px 3px #00000005, 0 0 0 1px #1b1f2326;
     border-radius: 5px;
-    height: 191px;
+    height: 210px;
     width: 268px;
 }
 

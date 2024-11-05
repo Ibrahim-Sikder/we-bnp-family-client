@@ -44,7 +44,8 @@ const ActivityCard: React.FC<MurtyreCardProps> = ({ activityData, language }) =>
 
           <div className="p-3 space-y-2">
             <h3 className="text-xl md:text-2xl">{language === 'ENG' ? data?.english_title : data?.bangla_title}</h3>
-            <p>{language === 'ENG' ? data?.english_short_description : data.bangla_short_description}</p>
+            <p className="hidden md:block">{language === 'ENG' ? data?.english_short_description?.slice(0, 200) : data.bangla_short_description?.slice(0, 200)}...</p>
+            <p className="md:hidden block">{language === 'ENG' ? data?.english_short_description?.slice(0, 100) : data.bangla_short_description?.slice(0, 100)}...</p>
             <Button component={Link} href={`/activity/${data._id}`} sx={buttonStyle}>
               {
                 language === 'ENG' ? 'Read More' : 'আরও পড়ুন'

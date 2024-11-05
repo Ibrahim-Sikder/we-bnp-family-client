@@ -267,4 +267,7 @@
   .bg-image {
     height: 300px;
   }
+  .contributeContent {
+    padding: 0 15px;
+}
 }

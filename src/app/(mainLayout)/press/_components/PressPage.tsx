@@ -36,7 +36,7 @@ export default function PressPage({ programmData, language }: ProgrammProps) {
                 <div className="bannerContent">
                     <h3 className="text-xl md:text-4xl font-semibold text-center ">
                         {
-                            language === 'ENG' ? 'Program and Notice Notification' : ' প্রোগ্রাম ও নোটিশ বিজ্ঞপ্তি'
+                            language === 'ENG' ? 'Program & Notice' : ' প্রোগ্রাম ও নোটিশ'
                         }
                     </h3>
                 </div>

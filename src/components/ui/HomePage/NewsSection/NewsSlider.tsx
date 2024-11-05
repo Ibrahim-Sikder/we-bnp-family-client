@@ -93,6 +93,7 @@ const NewsSlider = () => {
 
           loop={true}
           breakpoints={{
+            300: { slidesPerView: 1, spaceBetween: 10 },
             320: { slidesPerView: 1, spaceBetween: 10 },
             640: { slidesPerView: 1, spaceBetween: 10 },
             768: { slidesPerView: 2, spaceBetween: 20 },

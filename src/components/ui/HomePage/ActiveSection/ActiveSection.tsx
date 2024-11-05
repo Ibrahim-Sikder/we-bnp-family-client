@@ -130,6 +130,7 @@ const VictimizedSection = () => {
           }
         </h3>
         <Divider
+
           sx={{
             width: "200px",
             height: "5px",
@@ -168,7 +169,10 @@ const VictimizedSection = () => {
                   borderColor: "divider",
                   display: "flex",
                   justifyContent: "flex-end",
-                  marginRight: "20px",
+                  marginRight: {
+                    xs: '0px',
+                    md: '20px'
+                  },
                   padding: "0px",
                 }}
               >
