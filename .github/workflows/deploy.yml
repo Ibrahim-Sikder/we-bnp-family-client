@@ -16,7 +16,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            # Navigate to the project directory on the admin
+            # Navigate to the project directory on the client
             cd /var/www/html/bnp/client
 
             # Fetch all updates from the remote repository
@@ -28,18 +28,12 @@ jobs:
             # Ensure environment variables are set up correctly
             cp .env.example .env
 
-            # Install necessary dependencies
-            npm install
+            # Build the Docker image
+            docker build -t bnp-client .
 
-            # Build the project
-            npm run build
+            # Stop and remove any existing Docker container
+            docker stop bnp-client || true
+            docker rm bnp-client || true
 
-            # Check if PM2 process exists, if so, restart it, otherwise start a new one
-            if pm2 describe bnp-client > /dev/null; then
-              pm2 restart bnp-client
-            else
-              pm2 start npm --name "bnp-client" -- start
-            fi
-
-            # Save PM2 process list to ensure process persists
-            pm2 save
+            # Run the Docker container
+            docker run -d --name bnp-client -p 4000:3000 bnp-client

@@ -1,37 +1,38 @@
-# Ignore node_modules as it will be installed inside the container
-node_modules
-npm-debug.log
-yarn-error.log
-pnpm-debug.log
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Ignore local environment files
-.env
-.env.local
-.env.*.local
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
 
-# Ignore build directories (Next.js and other build outputs)
-.next
-out
+# testing
+/coverage
 
-# Ignore logs
-logs
-*.log
-*.log.*
+# next.js
+/.next/
+/out/
 
-# Ignore git files and directories
-.git
-.gitignore
+# production
+/build
 
-# Ignore Docker files that shouldn’t be copied
-Dockerfile
-Dockerfile.*
+# misc
+.DS_Store
+*.pem
 
-# Ignore IDE and editor config files
-.vscode
-.idea
-*.sublime*
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Ignore temporary files
-*.swp
-*.DS_Store
-*.cache
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+.vercel
