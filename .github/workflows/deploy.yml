@@ -36,4 +36,4 @@ jobs:
             docker rm bnp-client || true
 
             # Run the Docker container
-            docker run -d --name bnp-client -p 4000:3000 bnp-client
+            docker run -d --name bnp-client -p 4002:3000 bnp-client
