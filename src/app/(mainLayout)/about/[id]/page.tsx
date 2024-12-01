@@ -32,7 +32,7 @@ const socialLinks = [
   },
 ];
 
-const CommitteeDetails = () => {
+const AboutDetails  = () => {
   return (
     <>
       <Image
@@ -195,7 +195,7 @@ const CommitteeDetails = () => {
   );
 };
 
-export default CommitteeDetails;
+export default AboutDetails ;
 
 
 

@@ -1,46 +1,45 @@
-name: Build and Push Docker Image to ECR
+name: Node.js CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  build-and-push:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Deploy to VPS using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            # Navigate to the project directory on the admin
+            cd /var/www/html/bnp/client
 
-      - name: Log in to Amazon ECR
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-          aws configure set default.region $AWS_REGION
-          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY_URI }}
+            # Fetch all updates from the remote repository
+            git fetch --all
 
-      - name: Build Docker image
-        run: docker build -t bnp-family-client .
+            # Reset the current branch to match the remote main branch
+            git reset --hard origin/main
 
-      - name: Tag Docker image
-        env:
-          ECR_REPOSITORY_URI: ${{ secrets.ECR_REPOSITORY_URI }}
-        run: docker tag bnp-family-client:latest $ECR_REPOSITORY_URI
+            # Ensure environment variables are set up correctly
+            cp .env.example .env
 
-      - name: Push Docker image to ECR
-        env:
-          ECR_REPOSITORY_URI: ${{ secrets.ECR_REPOSITORY_URI }}
-        run: docker push $ECR_REPOSITORY_URI
+            # Install necessary dependencies
+            npm install
 
-      - name: Update ECS service
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-        run: |
-          aws ecs update-service --cluster bnp-family-client-cluster --service bnp-family-client-service --force-new-deployment
+            # Build the project
+            npm run build
+
+            # Check if PM2 process exists, if so, restart it, otherwise start a new one
+            if pm2 describe bnp-client > /dev/null; then
+              pm2 restart bnp-client
+            else
+              pm2 start npm --name "bnp-client" -- start
+            fi
+
+            # Save PM2 process list to ensure process persists
+            pm2 save

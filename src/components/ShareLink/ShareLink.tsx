@@ -1,18 +1,9 @@
 'use client'
 
 import { Share } from '@mui/icons-material';
-import Image from 'next/image';
-import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from 'react-share';
-import facebook from '../../assets/icon/facebook.png';
-import linkedIn from '../../assets/icon/linkedin.png';
-import instagram from '../../assets/icon/instagram.png';
 import { useState } from 'react';
 import ShareModal from './ShareModal';
-import FacebookIcon from "@mui/icons-material/Facebook";
-import XIcon from "@mui/icons-material/X";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import Link from 'next/link';
+
 
 
 const ShareLink = () => {
@@ -31,23 +22,6 @@ const ShareLink = () => {
 
                     <div className="flex gap-5 mt-5">
                         <span onClick={handleOpen} className='cursor-pointer'><Share /> <b>Share</b></span>
-                        <span className="cursor-pointer">
-                            <Link href='https://www.facebook.com/webnpfamily'>
-                                <FacebookIcon fontSize="small" />
-                            </Link>
-                        </span>
-                        <span className="cursor-pointer">
-                            <Link href='https://x.com/i/flow/login?redirect_after_login=%2Fwebnpfamily'>
-                                <XIcon fontSize="small" />
-                            </Link>
-
-                        </span>
-                        <span className="cursor-pointer">
-                            <InstagramIcon fontSize="small" />
-                        </span>
-                        <span className="cursor-pointer">
-                            <LinkedInIcon fontSize="small" />
-                        </span>
                     </div>
                 </div>
             </div>

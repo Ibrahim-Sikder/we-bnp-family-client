@@ -15,7 +15,6 @@ import media2 from "../../../../assets/images/media/media2.jpeg";
 import media3 from "../../../../assets/images/media/media3.jpeg";
 import media4 from "../../../../assets/images/media/media4.jpg";
 import media5 from "../../../../assets/images/media/media6.jpeg";
-import international3 from "../../../../assets/images/international/internationl2.webp";
 
 const page = () => {
   const interNaionalData = [
