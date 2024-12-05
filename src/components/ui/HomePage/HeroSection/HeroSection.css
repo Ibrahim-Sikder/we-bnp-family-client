@@ -156,8 +156,10 @@
     }
 
     .heroContent {
-        left: 39%;
+        left: 41%;
         top: 21%;
+
+        padding: 21px;
     }
 
     .slideNumber {

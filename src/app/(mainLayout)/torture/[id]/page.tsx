@@ -9,6 +9,7 @@ interface pressId {
     id: string;
   };
 }
+
 const Torture = ({ params }: pressId) => {
   const { language } = useLanguage();
   const { id } = params;

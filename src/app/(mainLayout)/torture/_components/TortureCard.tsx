@@ -16,12 +16,21 @@ export default function TortureCard({ language, tortureData }: LanguageProps) {
 
 
     const buttonStyle = {
-        width: { xs: '100px', md: '150px', sm: '140px' },
-        height: { md: '40px', xs: '30px' },
-        fontSize: { md: '14px', xs: '9px', xl: '16px' },
+        width: { xs: '120px', sm: '150px', md: '150px', lg: '170px' },
+        height: { xs: '30px', sm: '35px', md: '40px', lg: '45px' },
+        fontSize: { xs: '10px', sm: '12px', md: '14px', lg: '16px' },
         borderRadius: '30px',
         background: '#2B8444',
+        color: '#fff', 
+        textTransform: 'none', 
+        '&:hover': {
+            background: '#256d37',
+        },
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     };
+    
 
 
     const tortureFilterData = tortureData.filter((item: any) => item.category === 'আওয়ামী লীগের নির্যাতন')

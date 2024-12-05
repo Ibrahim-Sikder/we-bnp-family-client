@@ -19,10 +19,11 @@ import { TPrison } from "@/types/prison";
 import { useLanguage } from "@/provider/LanguageProvider";
 import AughustFilterCard from "./AughustFilterCard";
 import Loading from "@/components/Loading/Loading";
+import { useSectionData } from "@/hooks/useSectionData";
 
 export default function PhotoGallery() {
   const { language } = useLanguage()
-
+  const { sectionData } = useSectionData()
   const [disappearanceData, setDisappearanceData] = React.useState<TDisappearance[]>([]);
   const [prisonData, setPrisonData] = React.useState<TPrison[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -78,13 +79,6 @@ export default function PhotoGallery() {
     );
   }
 
-  // if (!disappearanceData || !prisonData || disappearanceData.length === 0 || prisonData.length === 0) {
-  //   return (
-  //     <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">
-  //       Oops! disappearance data not found!
-  //     </h1>
-  //   );
-  // }
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -171,26 +165,30 @@ export default function PhotoGallery() {
   const tortureFilterData = prisonData.filter((item) => item.category === 'আওয়ামী লীগের নির্যাতন')
   const augostilterData = prisonData.filter((item) => item.category === 'আগস্ট গণ-অভ্যুত্থান')
 
-  console.log('disappearance data ', disappearanceData)
+
   return (
     <Container className="sectionMargin px-0">
-      <div className="md:w-full px-5 text-center mb-10 ">
-        <h3 className="text-xl md:text-3xl"> {language === 'ENG' ? "Dictatorship Hasina's misrule" : 'স্বৈরাচার হাসিনার দুঃশাসন'} </h3>
-        <Divider
-          sx={{
-            width: "200px",
-            height: "5px",
-            margin: "0 auto",
-            marginTop: "10px",
-            background: "linear-gradient(to right, #2B8444, #CB2D2E)",
-          }}
-        />
-        <p className="mt-5 md:w-[780px] mx-auto text-sm md:text-base">
-          {
-            language === 'ENG' ? "Disappearance, murder, misrule, lawlessness, misdeeds of dictator Hasina on BNP. Here are some symbols." : 'বিএনপির উপর স্বৈরাচারী হাসিনার গুম, খুন, দুঃশাসন, অনাচার, অপকর্মের কিছু প্রতীক রয়েছে এখানে।'
-          }
-        </p>
-      </div>
+      {
+        sectionData.map((data) => (
+          <div key={data._id} className="md:w-full px-5 text-center mb-10 ">
+            <h3 className="text-xl md:text-3xl"> {language === 'ENG' ? data.history_title_english : data.history_title_english} </h3>
+            <Divider
+              sx={{
+                width: "200px",
+                height: "5px",
+                margin: "0 auto",
+                marginTop: "10px",
+                background: "linear-gradient(to right, #2B8444, #CB2D2E)",
+              }}
+            />
+            <p className="mt-5 md:w-[780px] mx-auto text-sm md:text-base">
+              {
+                language === 'ENG' ? data.history_description_english : data.history_description_bangla
+              }
+            </p>
+          </div>
+        ))
+      }
       <Box sx={boxStyle}>
         <TabContext value={value}>
           <Box

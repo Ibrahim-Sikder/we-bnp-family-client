@@ -76,9 +76,8 @@
         overflow: hidden;
     }
 
-    .blogCard,
-    .blogCardContent {
-        width: 100%;
+    .blogCard, .blogCardContent {
+        width: 90%;
     }
 
     .blogCardContent {

@@ -42,7 +42,6 @@ body {
 .custom-clip-path {
   clip-path: polygon(0 0, 100% 16%, 100% 100%, 0 100%);
 }
-
 .react-international-phone-input-container .react-international-phone-input {
   width: 474px !important;
   height: 50px !important;
@@ -59,6 +58,10 @@ body {
   .sectionMargin {
     margin-top: 40px;
   }
+  .react-international-phone-input-container .react-international-phone-input {
+    width: 166px !important;
+
+}
 }
 
 

@@ -100,7 +100,7 @@ const HistoryCard = async ({ language }:TLeaderProps) => {
                       </div>
                     </div>
                   </div>
-                  <div className="dashed hidden xl:block "></div>
+                  {/* <div className="dashed hidden xl:block "></div> */}
                 </div>
               ))
             }

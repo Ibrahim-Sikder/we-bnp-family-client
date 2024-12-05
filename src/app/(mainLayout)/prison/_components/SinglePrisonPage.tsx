@@ -152,7 +152,7 @@ const SinglePrisonPage = ({ singlePrisonData, language }: SinglePrisonProps) => 
                         </div>
                     </div>
                     <div className="xl:col-span-3">
-                        <div className="murderLeftSide">
+                        <div className="murderLeftSide sticky top-32 ">
                            <Category/>
                         </div>
 

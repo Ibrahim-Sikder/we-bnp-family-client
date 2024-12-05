@@ -20,6 +20,7 @@ import 'react-international-phone/style.css';
 import Image from 'next/image';
 import './Donation.css'
 import { useRouter } from 'next/navigation';
+import BNPTextArea from '@/components/Forms/TextArea';
 const steps = ['Give Your Information', 'Donate Now ',];
 
 
@@ -79,7 +80,7 @@ const DonationPage = () => {
 
   return (
     <>
-      <div className="relative h-80 md:h-96 lg:h-[700px] bg-gray-800 overflow-hidden">
+      <div className="relative h-80 md:h-96  bg-gray-800  ">
         <Image
           src={bannerImage}
           alt="Blog Banner"
@@ -133,6 +134,9 @@ const DonationPage = () => {
                       </Grid>
                       <Grid item xs={12}>
                         <BNPInput name="amount" label="Amount" size="medium" fullWidth />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <BNPTextArea minRows={5} name="comment" placeholder="Comment"  sx={{border:'1px solid black', padding:'5px'}} />
                       </Grid>
 
                     </Grid>

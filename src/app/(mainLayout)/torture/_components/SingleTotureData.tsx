@@ -2,17 +2,12 @@
 
 import Container from "@/components/shared/Container";
 import "../../murdered/Murder.css";
-import toture from "../../../../assets/images/torture/torture3.jpg";
-import flood2 from "../../../../assets/images/flood/flood13.jpeg";
-import flood3 from "../../../../assets/images/flood/flood15.jpeg";
-import flood5 from "../../../../assets/images/flood/flood4.jpeg";
-import flood6 from "../../../../assets/images/flood/flood2.jpeg";
 import ReactHtmlParser from "react-html-parser";
 import Image from "next/image";
-import { TextField } from "@mui/material";
 import Link from "next/link";
 import ShareLink from "@/components/ShareLink/ShareLink";
 import { TPrison } from "@/types/prison";
+import RecentTorturePost from "./RecentTorturePost";
 
 type SingleTortureProps = {
     singleTortureData: TPrison,
@@ -85,35 +80,6 @@ const renderContent = (content: string) => {
 
 
 const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) => {
-
-    const newsData = [
-        {
-            id: 1,
-            description:
-                "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-            img: flood2
-        },
-        {
-            id: 1,
-            description:
-                "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-            img: flood3
-        },
-        {
-            id: 1,
-            description:
-                "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-            img: flood5
-        },
-        {
-            id: 1,
-            description:
-                "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-            img: flood6
-        },
-    ];
-
-
     const formatDate = (dateString: string | number | Date) => {
         const date = new Date(dateString);
         const day = date.getDate().toString().padStart(2, "0");
@@ -129,7 +95,7 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
                 </div>
             </div>
             <Container>
-                <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 my-20">
+                <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 my-5 md:my-20  ">
                     <div className="xl:col-span-9">
                         <div className="murderRightSide">
                             <div className="imgWrap">
@@ -140,8 +106,8 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
                                         layout="responsive" key={img} />
                                 })}
                             </div>
-                            <div className="mt-12 ">
-                                <h3 className="text-xl font-semibold">{language === 'ENG' ? singleTortureData?.english_title : singleTortureData?.bangla_title}</h3>
+                            <div className="mt-10 md:mt-16 ">
+                                <h3 className="text-xl md:text-3xl font-semibold ">{language === 'ENG' ? singleTortureData?.english_title : singleTortureData?.bangla_title}</h3>
                                 <div className="mt-5">
                                     <div> {language === 'ENG' ? renderContent(singleTortureData?.english_description) : renderContent(singleTortureData?.bangla_description)} </div>
                                 </div>
@@ -172,66 +138,13 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
                         </div>
                         <ShareLink />
                     </div>
-                    <div className="xl:col-span-3">
-                        <div className="mb-10">
-                            <TextField
-                                id="outlined-basic"
-                                label="Search Here"
-                                variant="outlined"
-                                fullWidth
-                                size="small"
-                            />
-                        </div>
-                        <h3>ক্যাটাগরি</h3>
-                        <hr className="w-16 h-1 bg-gradient-to-r from-red-600 to-green-600 border-0 rounded-full mb-5" />
-                        <div>
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">গুমের তালিকা </button>{" "}
-                                <span className="block font-medium">(1000)</span>
-                            </div>
+                    <div className="xl:col-span-3  ">
 
-                            <hr />
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">শহীদদের তালিকা</button>{" "}
-                                <span className="block font-medium">(200)</span>
-                            </div>
-                            <hr />
-
-                            <hr />
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">আওয়ামী নির্যাতন</button>{" "}
-                                <span className="block font-medium">(3)</span>
-                            </div>
-                            <hr />
-                            <div className="flex justify-between my-3">
-                                <button className="font-medium">কারাগারে নির্যাতন</button>{" "}
-                                <span className="block font-medium">(3)</span>
-                            </div>
-                        </div>
-
-                        {/* Recent Posts */}
-                        <div className="mt-16">
-                            <h3>সাম্প্রতিক পোস্ট</h3>
-                            <hr className="w-16 h-1 bg-gradient-to-r from-red-600 to-green-600 border-0 rounded-full mb-5" />
-                            <div className="flex flex-col gap-8 mt-5">
-                                {newsData?.map((data) => (
-                                    <div key={data.id} className="flex gap-5">
-                                        <div className="">
-                                            <div className="">
-                                                <Image
-                                                    src={data.img}
-                                                    width={50}
-                                                    height={30}
-                                                    alt="victime"
-                                                    className="w-44 h-16 object-fill rounded-sm"
-                                                />
-                                            </div>
-                                        </div>
-                                        <p>
-                                            {data.description}
-                                        </p>
-                                    </div>
-                                ))}
+                        <div className="sticky top-32">
+                            <div >
+                                <h3>সাম্প্রতিক পোস্ট</h3>
+                                <hr className="w-16 h-1 bg-gradient-to-r from-red-600 to-green-600 border-0 rounded-full mb-5" />
+                                <RecentTorturePost />
                             </div>
                         </div>
                     </div>

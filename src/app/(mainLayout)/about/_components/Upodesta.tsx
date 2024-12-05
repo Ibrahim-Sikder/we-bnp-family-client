@@ -36,7 +36,7 @@ const Upodesta: React.FC<UpodestProps> = ({ upodestaFilterData, language }) => {
                 <div className="relative">
                   {data?.images.slice(0, 1)?.map((img: any) => {
                     return <Image src={img} alt="hero" width={500}
-                      height={500} className="h-[400px] w-full" key={img} />
+                      height={500} className="h-[250px] md:h-[400px] w-full" key={img} />
                   })}
 
                 </div>

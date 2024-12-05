@@ -2,12 +2,14 @@
 
 import { useLanguage } from '@/provider/LanguageProvider';
 import Footer from './Footer';
+import { useSectionData } from '@/hooks/useSectionData';
 
 const FooterSection = () => {
     const {language} = useLanguage()
+    const {sectionData} = useSectionData()
     return (
         <>
-          <Footer language={language}/>  
+          <Footer sectionData={sectionData} language={language}/>  
         </>
     );
 };

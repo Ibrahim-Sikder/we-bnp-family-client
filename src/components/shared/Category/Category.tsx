@@ -6,7 +6,7 @@ import React from 'react';
 const Category = () => {
     const { language } = useLanguage()
     return (
-        <div>
+        <div  className='-[300px]'>
             <Link href='/disappearances'>
                 <div className="flex justify-between my-3">
                     <button className="font-medium">{language === 'ENG' ? 'Missing List' : 'গুমের তালিকা'}</button>{" "}

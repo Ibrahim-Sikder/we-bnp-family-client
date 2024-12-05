@@ -45,25 +45,26 @@
 
 
 
-.dropdownMenu,
-.submenu3 {
+.dropdownMenu, .submenu3 {
   background: #fff;
   width: 290px;
   height: 204px;
   border-radius: 5px;
   position: absolute;
-  top: 94px;
+  top: 59px;
   box-shadow: 0 5px 15px #00000026;
   transform-origin: top;
   transition: all .5s cubic-bezier(.44, .47, .64, .65);
-  display: flex;
+  display: flex
+;
   flex-direction: column;
   justify-content: center;
   border-top: 3px solid red;
-  color: #111 !important;
   transform: scaleY(0);
   opacity: 0;
   visibility: hidden;
+  color: #111 !important;
+  z-index: 99999999999999;
 }
 
 
@@ -226,12 +227,18 @@
     left: 0px;
     width: 100%;
   }
+  .submenu2 {
+    width: 240px;
+
+}
 
   .navItems li {
     padding: 10px 0px;
     border: none;
   }
-
+  .navItems {
+    width: 250px;
+}
 
 }
 

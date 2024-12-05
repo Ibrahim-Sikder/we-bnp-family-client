@@ -1,33 +1,62 @@
+'use client'
 import Image from "next/image";
-import cardimg3 from "../../../../assets/images/founder/founder.jpeg";
 import { LanguageProps } from "@/types";
+import { useHistoryData } from "@/hooks/useHistoryData";
 
 const Founder = ({ language }: LanguageProps) => {
+  const { historyData, loading } = useHistoryData()
+  const filterHistoryData = historyData.filter((data) => data.category === "Patron")
+
   return (
     <div>
-      <div className="shadow-lg rounded-lg lg:rounded-3xl overflow-hidden grid grid-cols-12 my-10 border place-items-center ">
-        {/* Left Part */}
-        <div className="col-span-12 md:col-span-4">
-          <div className=" bg-[#fdf7f4] shadow-lg rounded-xl ">
-            <div className=" ">
-              <Image
-                src={cardimg3}
-                alt={" তারেক রহমান"}
-                className="w-[300px] h-full lg:h-[500px] md:w-full"
-              />
+
+      {
+        filterHistoryData?.map((data) => (
+          <div key={data._id}>
+            <div className="flex flex-row items-center justify-center content-center">
+              <h2 className="bg-gradient-to-r from-red-600 to-green-600 bg-clip-text text-transparent text-base mb-4 border rounded-full text-center w-[105px] bg-white">
+                {language === 'ENG' ? 'Patron' : 'পৃষ্ঠপোষক'}
+              </h2>
+            </div>
+            <div className="w-full text-center space-y-4 mb-2">
+              <h1 className="text-3xl lg:text-5xl xl:text-5xl">  {language === 'ENG' ? data.english_title : data.bangla_title} </h1>
+              <h3 className="text-2xl ">
+                {language === 'ENG' ? data.english_subtitle : data.bangla_subtitle}
+              </h3>
+
+            </div>
+            <div className="shadow-lg rounded-lg lg:rounded-3xl overflow-hidden grid grid-cols-12 my-10 border place-items-center ">
+              <div className="col-span-12 md:col-span-4">
+                <div className=" bg-[#fdf7f4] shadow-lg rounded-xl ">
+                  <div className=" ">
+                    {
+                      data.images?.slice(0, 1).map((img) => (
+                        <Image
+                          width={500}
+                          height={500}
+                          key={img}
+                          src={img}
+                          alt={" তারেক রহমান"}
+                          className="w-[300px] h-full lg:h-[500px] md:w-full"
+                        />
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+              {/* Right Part */}
+
+              <div className="col-span-12 md:col-span-8 lg:h-[500px] p-3 lg:p-6 bg-[#fdf7f4] space-y-6">
+                <p className="text-justify text-xl">
+                  {
+                    language === 'ENG' ? data.english_description : data.bangla_description
+                  }
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        {/* Right Part */}
-
-        <div className="col-span-12 md:col-span-8 lg:h-[500px] p-3 lg:p-6 bg-[#fdf7f4] space-y-6">
-          <p className="text-justify text-xl">
-            {
-              language === 'ENG' ? "Under the leadership of BNP's Acting Chairman Tarique Rahman, one of Bangladesh's prominent political figures, he has been standing by the oppressed families for a long time. He has actively participated in various social and humanitarian activities over time. Tarique Rahman's initiatives have played a significant role in providing justice, support, and rehabilitation for the oppressed families. Legal assistance, financial support, and moral backing are being provided to the affected families under his leadership. His efforts have raised awareness in society and delivered a powerful message of solidarity with those who have been victimized. Through these humanitarian activities, Tarique Rahman continues to strive to uplift marginalized communities towards a better life. " : " বিএনপি'র ভারপ্রাপ্ত চেয়ারম্যান তারেক রহমান, বাংলাদেশের অন্যতম রাজনৈতিক ব্যক্তিত্ব, দীর্ঘদিন ধরে নির্যাতিত পরিবারের পাশে দাঁড়িয়ে আসছেন। তিনি বিভিন্ন সময়ে সামাজিক ও মানবিক কার্যক্রমে সক্রিয়ভাবে অংশগ্রহণ করেছেন। তারেক রহমানের এ উদ্যোগগুলো নির্যাতিত পরিবারদের ন্যায়বিচার, সহায়তা ও পুনর্বাসনে উল্লেখযোগ্য ভূমিকা পালন করেছে। তারেক রহমানের নেতৃত্বে নির্যাতিত পরিবারগুলোকে আইনি সহায়তা, আর্থিক সহায়তা, এবং নৈতিক সমর্থন প্রদান করা হচ্ছে। তাঁর এ কাজগুলো সমাজে সচেতনতা বৃদ্ধি করেছে এবং নির্যাতনের শিকার ব্যক্তিদের পাশে দাঁড়ানোর একটি শক্তিশালী বার্তা প্রদান করেছে। এ ধরনের মানবিক কার্যক্রমগুলোর মাধ্যমে তারেক রহমান সমাজের পিছিয়ে পড়া জনগোষ্ঠীকে উন্নত জীবনের দিকে এগিয়ে নিয়ে যাওয়ার প্রচেষ্টা চালিয়ে যাচ্ছেন "
-            }
-          </p>
-        </div>
-      </div>
+        ))
+      }
     </div>
   );
 };

@@ -26,7 +26,7 @@ export default function DisappearanceCard({ language, disappearanceData }: Langu
       <div className='bannerWrap'>
         <div className="bannerContent">
           <h3 className='text-3xl md:text-4xl font-semibold '>
-            {language === 'ENG' ? 'Disappearance List' : 'গুম তালিকা'}
+            {language === 'ENG' ? 'Martyre List 2009-2024/August Uprising' : 'গুম তালিকা'}
           </h3>
         </div>
       </div>

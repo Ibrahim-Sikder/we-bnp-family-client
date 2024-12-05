@@ -128,7 +128,8 @@ const HistorySection = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="dashed hidden xl:block "></div>
+                  <div className="dashed  hidden xl:block "></div>
+                  <div className="dashed2  hidden xl:block "></div>
                 </div>
               ))
             }

@@ -1,11 +1,5 @@
 import Container from "@/components/shared/Container";
 import React from "react";
-import flood2 from "../../../../../src/assets/images/flood/flood13.jpeg";
-import flood3 from "../../../../../src/assets/images/flood/flood15.jpeg";
-import flood5 from "../../../../../src/assets/images/flood/flood4.jpeg";
-import flood6 from "../../../../../src/assets/images/flood/flood2.jpeg";
-
-import Image from "next/image";
 import "../../human-rights/Blog.css";
 import { TextField } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -14,6 +8,8 @@ import Banner from "../_components/Banner";
 import ReactHtmlParser from "react-html-parser";
 import { TProgramm } from "@/types";
 import Category from "@/components/shared/Category/Category";
+import RecentPressPost from "./RecentPressPost";
+import Image from "next/image";
 
 type SinglePressProps = {
     singlePressData: TProgramm,
@@ -23,32 +19,7 @@ type SinglePressProps = {
 
 
 const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
-    const newsData = [
-        {
-            id: 1,
-            description:
-                "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-            img: flood2,
-        },
-        {
-            id: 1,
-            description:
-                "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-            img: flood3,
-        },
-        {
-            id: 1,
-            description:
-                "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-            img: flood5,
-        },
-        {
-            id: 1,
-            description:
-                "ফেনীতে বন্যাদুর্গত মানুষের পাশে দাঁড়িয়েছে ‘আমরা বিএনপি পরিবার’ সেল",
-            img: flood6,
-        },
-    ];
+
 
 
 
@@ -132,7 +103,7 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
         <div>
             <Banner title={bannerTitle} text={bannerText} />
             <Container>
-                <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 my-20">
+                <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 my-5 md:my-20">
                     <div className="xl:col-span-9">
                         <div key={singlePressData?._id} className="h-full w-full">
                             <div className="relative overflow-hidden">
@@ -146,8 +117,8 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
                                 })}
                             </div>
 
-                            <div className="p-5">
-                                <h3 className="text-xl font-semibold">
+                            <div className="mt-5  md:mt-10 ">
+                                <h3 className="text-xl md:text-3xl font-semibold">
                                     {language === 'ENG' ? singlePressData?.english_title : singlePressData?.bangla_title}
                                 </h3>
                                 <div className="mt-5 space-y-5">
@@ -157,10 +128,10 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
                                     </div>
                                 </div>
                             </div>
-                            {/* share section */}
+               
                             <ShareLink />
-                            {/* user comment */}
-                            <div className="p-5 bg-gray-100 mx-5 rounded mt-5 ">
+               
+                            <div className="p-5 bg-gray-100  rounded mt-5 ">
                                 <div className="flex items-center gap-2">
                                     <AccountCircleIcon fontSize="large" />
                                     <p className="font-medium">John Doe</p>
@@ -171,8 +142,8 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
                                 </p>
                             </div>
 
-                            {/* comment section */}
-                            <div className="p-5">
+                  
+                            <div className="flex flex-col gap-5 mt-5  ">
                                 <TextField
                                     label="Add a comment"
                                     variant="outlined"
@@ -198,31 +169,12 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
                                 size="small"
                             />
                         </div>
-                        
-                        <Category />
 
-                        {/* Recent Posts */}
+                        <Category />
                         <div className="mt-16">
-                            <h3>সাম্প্রতিক পোস্ট</h3>
+                            <h3>{language === 'ENG' ? 'Recent Post ' : 'সাম্প্রতিক পোস্ট'}</h3>
                             <hr className="w-16 h-1 bg-gradient-to-r from-red-600 to-green-600 border-0 rounded-full mb-5" />
-                            <div className="flex flex-col gap-8 mt-5">
-                                {newsData?.map((data) => (
-                                    <div key={data.id} className="flex gap-5">
-                                        <div className="">
-                                            <div className="">
-                                                <Image
-                                                    src={data.img}
-                                                    width={50}
-                                                    height={30}
-                                                    alt="victime"
-                                                    className="w-44 h-16 object-fill rounded-sm"
-                                                />
-                                            </div>
-                                        </div>
-                                        <p>{data.description}</p>
-                                    </div>
-                                ))}
-                            </div>
+                            <RecentPressPost />
                         </div>
                     </div>
                 </div>

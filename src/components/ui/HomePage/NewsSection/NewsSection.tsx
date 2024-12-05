@@ -5,29 +5,38 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import NewsSlider from "./NewsSlider";
+import { useSectionData } from "@/hooks/useSectionData";
 
 type LanguageProps = {
   language: string
 }
 const NewsSection = ({ language }: LanguageProps) => {
 
+  const { sectionData } = useSectionData()
   return (
     <div className="sectionMargin">
       <div className="grid grid-cols-12 gap-x-5 ">
         <div className="hidden xl:block col-span-12 xl:col-span-5 ">
           <div className="newsLeftSide bg-gradient-to-r from-red-600 to-green-600 ">
-            <div className="leftContent">
-              <h2 className="text-5xl">
-                {
-                  language === 'ENG' ? 'Programm & Notice ' : 'প্রোগ্রাম ও নোটিশ'
-                }  </h2>
-              <p className="mt-5">
-                {
-                  language === 'ENG' ? 'Under the guidance of Deshanayak Tariq Rahman, "We are BNP family" is always cheerfully working for the oppressed and helpless families.' : ' তারেক রহমান এর নির্দেশনায় "আমরা বিএনপি পরিবার" সর্বদা প্রফুল্লচিত্তে নির্যাতিত ও অসহায় পরিবারের জন্য কাজ করে যাচ্ছি।'
-                }
+            {
+              sectionData.map((data) => (
+                <div key={data._id}>
 
-              </p>
-            </div>
+                  <div className="leftContent">
+                    <h2 className="text-5xl">
+                      {
+                        language === 'ENG' ? data.programm_title_english : data.programm_title_bangla
+                      }  </h2>
+                    <p className="mt-5">
+                      {
+                        language === 'ENG' ? data.programm_description_english : data.programm_description_bangla
+                      }
+
+                    </p>
+                  </div>
+                </div>
+              ))
+            }
           </div>
         </div>
         <div className="col-span-12 xl:col-span-7 ">         <NewsSlider />

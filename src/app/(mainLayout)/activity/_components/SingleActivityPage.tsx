@@ -6,6 +6,7 @@ import ReactHtmlParser from "react-html-parser";
 import Container from "@/components/shared/Container";
 import ShareLink from "@/components/ShareLink/ShareLink";
 import Category from "@/components/shared/Category/Category";
+import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
 
 
 type Idprops = {
@@ -39,7 +40,7 @@ export type TOppressed = {
 
 
 const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
-
+    const title = language === 'ENG' ? 'Recent Activity' : 'সাম্প্রতিক কার্যকলাপ'
 
     const renderContent = (content: string) => {
         const parsedContent = ReactHtmlParser(content);
@@ -117,19 +118,12 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
     return (
         <>
             <div>
-                <div className="bannerWrap">
-                    <div className="bannerContent">
-                        <h3 className="text-xl w-full  md:text-4xl font-semibold ">
-                            {language === 'ENG' ? singleActivity?.english_title : singleActivity?.bangla_title}
-                        </h3>
-                    </div>
-                </div>
+                <CommonBanner title={title} />
                 <Container>
                     <div className="grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 my-8 md:my-12 lg:my-16 xl:my-20">
                         <div className="col-span-12 xl:col-span-9">
                             <div className="h-full text-base sm:text-lg">
                                 <div className="space-y-4 sm:space-y-6 lg:space-y-8">
-                                    {/* Main Image */}
                                     {singleActivity?.bng_Images?.slice(0, 1)?.map((img) => (
                                         <Image
                                             key={img}
@@ -142,17 +136,17 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                                         />
                                     ))}
 
-                                    {/* Title */}
+
                                     <h3 className="text-xl md:text-2xl font-semibold">
                                         {language === 'ENG' ? singleActivity?.english_title : singleActivity?.bangla_title}
                                     </h3>
 
-                                    {/* Description */}
+
                                     <div className="text-justify">
                                         {language === 'ENG' ? renderContent(singleActivity?.english_description) : renderContent(singleActivity?.bangla_description)}
                                     </div>
 
-                                    {/* Quote Section */}
+
                                     <div className="bg-gray-100 rounded-lg p-4 md:p-6 lg:p-8 space-y-2 lg:px-12 xl:px-16">
                                         <p className="text-justify italic text-lg md:text-xl">
                                             <FormatQuoteIcon className="rotate-180" />
@@ -160,8 +154,6 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                                             <FormatQuoteIcon />
                                         </p>
                                     </div>
-
-                                    {/* Additional Images */}
                                     <div className="flex flex-col md:flex-row md:gap-4 lg:gap-5 space-y-4 md:space-y-0">
                                         {singleActivity?.bng_Images?.slice(1, 4)?.map((img) => (
                                             <Image
@@ -176,14 +168,16 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                                     </div>
                                 </div>
 
-                                {/* Share Links */}
+
                                 <ShareLink />
                             </div>
                         </div>
 
-                        {/* Category Section */}
+
                         <div className="col-span-12 xl:col-span-3 mt-8 xl:mt-0">
-                            <Category />
+                            <div className="sticky top-32">
+                                <Category />
+                            </div>
                         </div>
                     </div>
 

@@ -9,15 +9,13 @@ import { useLanguage } from "@/provider/LanguageProvider";
 import { useEffect, useState } from "react";
 import { TReport } from "@/types/report";
 import Loading from "@/components/Loading/Loading";
+import { useSectionData } from "@/hooks/useSectionData";
 
 const ReportSection = () => {
-    // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/report?limit=100000`, {
-    //     cache: 'no-store'
-    // });
-    // const data = await res.json();
-    // const reportData = data?.data?.reports
+
 
     const { language } = useLanguage();
+    const { sectionData } = useSectionData()
     const [reportData, setReportData] = useState<TReport[]>([]);
     const [error, setError] = useState<string | null>(null);
 
@@ -53,27 +51,35 @@ const ReportSection = () => {
         background: "linear-gradient(to right, #2B8444, #CB2D2E)",
     };
 
- 
+
 
     return (
         <Container className="mt-14 lg:mt-44">
-            <div className=" mb-10 ">
-                <h2> {language === 'ENG' ? 'Reports of international organizations' : 'আর্ন্তজাতিক সংস্থার রিপোর্ট'} </h2>
-                <Divider sx={dividerStyle} />
-            </div>
+            {
+                sectionData.map((data) => (
+                    <div key={data._id} className=" mb-10 ">
+                        <h2> {language === 'ENG' ? data.internation_report_title_english : data.internation_report_title_bangla} </h2>
+                        <Divider sx={dividerStyle} />
+                    </div>
+                ))
+            }
             <InternationReport language={language} internationReportData={internationReportData} />
             <div>
 
                 <div className=" sectionMargin ">
-                    <div className=" mb-10">
-                        <h2> {language === 'ENG' ? 'Information published in the media' : 'মিডিয়ায় প্রকাশিত তথ্য'} </h2>
-                        <Divider sx={dividerStyle} />
-                    </div>
+                    {
+                        sectionData.map((data) => (
+                            <div key={data._id} className=" mb-10 ">
+                                <h2> {language === 'ENG' ? data.media_report_title_english : data.media_report_title_bangla} </h2>
+                                <Divider sx={dividerStyle} />
+                            </div>
+                        ))
+                    }
 
                     <MediaReport language={language} mediaReportData={mediaReportData} />
                 </div>
             </div>
-            
+
         </Container>
     );
 };

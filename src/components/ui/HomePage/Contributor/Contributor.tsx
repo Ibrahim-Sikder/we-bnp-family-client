@@ -11,8 +11,15 @@ import animation7 from '../../../../assets/images/icon/animation6.png'
 import animation8 from '../../../../assets/images/icon/animation.png'
 import animation9 from '../../../../assets/images/icon/animation.png'
 import Image from "next/image";
-import { LanguageProps } from "@/types";
-const Contributor = ({ language }: LanguageProps) => {
+import { TSection } from "@/types/type";
+
+export type LanguageProps = {
+  language: string;
+  sectionData: TSection[];
+}
+
+
+const Contributor = ({ language, sectionData }: LanguageProps) => {
   return (
     <>
 
@@ -50,26 +57,30 @@ const Contributor = ({ language }: LanguageProps) => {
           <div className="animationIcon10">
             <Image src={animation9} alt='animation' />
           </div>
-          <div className="contributeContent">
-            <div className="lg:max-w-3xl mx-auto ">
-              <h1 className=" text-center text-xl md:text-3xl lg:text-5xl text-[#CB2D2E]">
-                {language === 'ENG' ? 'Our means of sending information' : 'আমাদের তথ্য পাঠানোর মাধ্যম'}
-              </h1>
-              <p className="mt-5 text-sm md:text-xl text-center ">
+          {
+            sectionData.map((data) => (
+              <div key={data._id} className="contributeContent">
+                <div className="lg:max-w-3xl mx-auto ">
+                  <h1 className=" text-center text-xl md:text-3xl lg:text-5xl text-[#CB2D2E]">
+                    {language === 'ENG' ? data.information_title_english : data.information_title_bangla}
+                  </h1>
+                  <p className="mt-5 text-sm md:text-xl text-center ">
 
-                {language === 'ENG' ? 'Send us pictures, video documents of you and your partner. So that we can easily stand by our brothers.' : 'আপনার ও আপনার পাশের নির্যাতিত তথ্য চিত্র, ভিডিও ডকুমেন্টস পাঠান আমাদেরকে। যেন আমরা সহজেই আমাদের ভাইদের পাশে দাঁড়াতে পারি।'}
-              </p>
-            </div>
-            <div className="flex justify-center z-10">
+                    {language === 'ENG' ? data.information_description_english : data.information_description_bangla}
+                  </p>
+                </div>
+                <div className="flex justify-center z-10">
 
-              <Link href='/information'>
-                <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-3 px-6 rounded inline-block font-semibold mt-5">
-                  {language === 'ENG' ? 'Send Information' : 'তথ্য পাঠান'}
-                </button>
-              </Link>
+                  <Link href='/information'>
+                    <button className="bg-gradient-to-r from-red-600 to-green-600 text-white py-3 px-6 rounded inline-block font-semibold mt-5">
+                      {language === 'ENG' ? data.buttontext_english : data.buttontext_bangla}
+                    </button>
+                  </Link>
 
-            </div>
-          </div>
+                </div>
+              </div>
+            ))
+          }
         </div>
       </div>
     </>

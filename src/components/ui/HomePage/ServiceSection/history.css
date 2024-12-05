@@ -39,7 +39,8 @@
 }
 
 
-.dashed {
+.dashed,
+.dashed2 {
     rotate: 90deg;
     background: #fff;
     width: 70px;
@@ -122,10 +123,22 @@
 
     .heroImgWrap,
     .historyContents {
-        width: 100%;
+        width: 83%;
     }
 
     .heroImgWrap {
-        height: 285px;
+        height: 330px;
+    }
+}
+@media only screen and (max-width:400px) {
+
+    .heroImgWrap {
+        height: 300px;
+    }
+}
+@media only screen and (max-width:350px) {
+
+    .heroImgWrap {
+        height: 280px;
     }
 }
