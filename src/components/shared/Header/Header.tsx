@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./Header.css";
 import Link from "next/link";
 import Image from "next/image";
-import { Box, Button, Typography } from "@mui/material";
+import { Box,  Typography } from "@mui/material";
 import logo from "../../../assets/images/logo/logo.jpg";
 import Container from "../Container";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -20,23 +20,10 @@ const Header = () => {
     setOpen((open) => !open)
   }
 
-  const btnStyle = {
-    color: 'black',
-    background: 'white',
-    padding: '0px',
-    boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-    width: '40px',
-    minWidth: '56px',
-    height: '33px',
-    transition: 'background 0.3s ease',
-    '&:hover': {
-      background: 'linear-gradient(to right, #dc2626, #16a34a)',
-      color: 'white'
-    }
-  }
+
 
   return (
-    <div className="sticky top-0 w-full bg-white shadow-md py-3 md:p-7 z-[999999]">
+    <div className="sticky top-0 w-full bg-white shadow-md py-3 md:p-4 z-[999999]">
       <Container>
         <div className="flex justify-between items-center">
           <Box component={Link} href="/">

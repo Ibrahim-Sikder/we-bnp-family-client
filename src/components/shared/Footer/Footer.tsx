@@ -8,9 +8,9 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import Container from "../Container";
 import logo from "../../../../src/assets/images/logo/logo.jpg";
 import { LocalPhone, LocalPostOffice, LocationOn } from "@mui/icons-material";
-import Link from "next/link";
 import { TSection } from "@/types/type";
 import DonationButton from "./DonationButton";
+import Subscribe from "./Subscribe";
 
 
 
@@ -24,12 +24,10 @@ const Footer = ({ language, sectionData }: LanguageProps) => {
   const breakAfterWords = (text: string, maxWordsPerLine: number) => {
     const words = text.split(' ');
 
-    // If there are 8 or fewer words, return the whole text as a single line
     if (words.length <= maxWordsPerLine) {
       return <>{text}</>;
     }
 
-    // Split into two lines: first `maxWordsPerLine` words and the rest
     const firstLine = words.slice(0, maxWordsPerLine).join(' ');
     const secondLine = words.slice(maxWordsPerLine).join(' ');
 
@@ -53,16 +51,7 @@ const Footer = ({ language, sectionData }: LanguageProps) => {
                 <div className="bg-red-600 p-5 text-center rounded">
 
                   <h2 className="text-2xl font-bold"> {language === 'ENG' ? data.subscribe_title_english : data.subscribe_title_bangla}  </h2>
-                  <div className="mt-4 flex justify-center">
-                    <input
-                      type="email"
-                      placeholder={placeholder}
-                      className="p-3 rounded-l-md w-2/3 focus:outline-none text-black"
-                    />
-                    <button className="bg-white text-red-600 font-semibold px-4 py-3 rounded-r-md">
-                      {language === 'ENG' ? 'Subscribe' : 'সাবস্ক্রাইব'}
-                    </button>
-                  </div>
+                  <Subscribe/>
                 </div>
 
                 <div className="bg-red-600 p-5 text-center rounded">
