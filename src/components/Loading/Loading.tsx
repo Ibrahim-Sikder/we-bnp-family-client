@@ -1,20 +1,18 @@
+import * as React from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
-'use client'
-import React from 'react';
-import Lottie from 'lottie-react';
-import loadingAnimation from '../../../public/loading.json';
-
-const Loading = () => {
+export default function CircularIndeterminate() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <Lottie
-        animationData={loadingAnimation}
-        loop={true}
-        style={{ width: '200px', height: '150px' }}
-      />
-
-    </div>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+      }}
+    >
+      <CircularProgress />
+    </Box>
   );
-};
-
-export default Loading;
+}
