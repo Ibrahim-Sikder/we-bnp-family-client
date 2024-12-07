@@ -26,13 +26,13 @@ const Subscribe = () => {
     };
 
     return (
-        <div className="bg-red-600 p-5 text-center rounded">
+        <div className="bg-red-600 md:p-5 text-center rounded">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mt-4 flex justify-center">
                     <input
                         type="email"
                         placeholder={placeholder}
-                        className="p-3 rounded-l-md w-2/3 focus:outline-none text-black"
+                        className="p-2 md:p-3 rounded-l-md md:w-2/3 focus:outline-none text-black"
                         {...register('email', {
                             required: 'Email is required',
                             pattern: {

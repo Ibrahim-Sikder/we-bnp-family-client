@@ -11,7 +11,7 @@ const DonationModal: React.FC<DonationModalProps> = ({ onClose }) => {
     return (
         <div className="fixed inset-0 z-[99999999999] flex items-center justify-center bg-black bg-opacity-50">
             <div className="relative bg-white py-8 px-1 md:p-6 shadow-lg rounded w-[90%]  
-                      sm:w-[600px] sm:h-auto h-auto
+                      sm:w-[600px] sm:h-auto h-auto 
                       md:w-[700px] md:h-[700px] 
                       lg:w-[800px] lg:h-[800px] 
                       xl:w-[900px] xl:h-[850px] 

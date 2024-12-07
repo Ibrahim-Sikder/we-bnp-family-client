@@ -68,27 +68,63 @@ const DonationForm = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
     const buttonStyle = {
-        width: '45px',
-        height: '50px',
-        fontSize: '12px',
+        width: {
+          md: '45px',
+          sm: '30px',
+          xs: '30px',
+        },
+        height: {
+          md: '50px',
+          xs: '48px',
+        },
+        fontSize: {
+          md: '12px',
+          xs: '9px',
+        },
         padding: '0px',
         backgroundImage: 'linear-gradient(to right, #DC2626, #16A34A)',
         color: 'white',
         borderRadius: '5px',
         textTransform: 'none',
         '&:hover': {
-            backgroundImage: 'linear-gradient(to right, #B91C1C, #15803D)',
-        }
+          backgroundImage: 'linear-gradient(to right, #B91C1C, #15803D)',
+        },
+      };
+      
+
+    const textStyle = {
+        fontSize: {
+            xs: '12px',
+            sm: '14px',
+            md: '16px',
+            lg: '18px',
+        },
+        lineHeight: {
+            xs: '1.2',
+            sm: '1.4',
+            md: '1.6',
+            lg: '1.8',
+        },
+        textAlign: 'justify',
     }
 
     return (
         <>
             <Container>
-                <Box width={{ xs: '100%', sm: '90%', md: '650px' }}
-                    margin="40px auto"
+                <Box sx={{
+                    padding: {
+                        md: '20px',
+                        sm: '10px'
+                    },
+                    margin: {
+                        md: '40px auto',
+                        sm: '10px auto'
+                    }
+                }} width={{ xs: '100%', sm: '90%', md: '650px', }}
+
                     bgcolor="white"
                     borderRadius="5px"
-                    padding="20px" >
+                >
                     <Stepper activeStep={activeStep} alternativeLabel>
                         {steps.map((label) => (
                             <Step key={label}>
@@ -114,9 +150,12 @@ const DonationForm = () => {
                                         <Box
                                             sx={{
                                                 display: "flex",
-                                                gap: "8px",
+                                                gap: {
+                                                    md: '8px',
+                                                    xs: '2px'
+                                                },
                                                 alignItems: "center",
-                                                flexDirection: { xs: "column", md: "row" }, 
+
                                             }}
                                         >
                                             <PhoneInput
@@ -125,12 +164,12 @@ const DonationForm = () => {
                                                 onChange={(phone) => setPhone(phone)}
                                                 name="phone"
                                                 placeholder={language === 'ENG' ? 'Phone' : 'ফোন'}
-                                                style={{ flex: 1, width: "100%" }} 
+                                                style={{ flex: 1, width: "100%" }}
                                             />
                                             <Button
                                                 sx={{
                                                     ...buttonStyle,
-                                                    width: { xs: "100%", md: "auto" }, 
+
                                                 }}
                                                 variant="contained"
                                                 onClick={handleVerifyPhone}
@@ -154,13 +193,13 @@ const DonationForm = () => {
                                 <Box marginTop="10px">
                                     <div className="flex items-center">
                                         <Checkbox defaultChecked />
-                                        <Typography>
+                                        <Typography sx={textStyle}>
                                             {language === 'ENG' ? 'I certify that above provided information is correct.' : 'আমি প্রত্যয়িত করছি যে উপরে প্রদত্ত তথ্য সঠিক।'}
                                         </Typography>
                                     </div>
                                     <div className="flex items-center">
                                         <Checkbox defaultChecked />
-                                        <Typography>
+                                        <Typography sx={textStyle}>
                                             {language === 'ENG' ? 'I do hereby declare that the contributions are from my personal fund and also I agree to all policy of BNP.' : 'আমি এতদ্বারা ঘোষণা করছি যে অবদানগুলি আমার থেকে ব্যক্তিগত তহবিল এবং আমি BNP এর সমস্ত নীতিতে সম্মত।'}
                                         </Typography>
                                     </div>
