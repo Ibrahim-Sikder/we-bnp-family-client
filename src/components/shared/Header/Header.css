@@ -22,23 +22,24 @@
   color: #fff;
 }
 
-.navItems li:hover a {
+.navItems li:hover a, .navItems li:hover small {
   color: #fff;
   width: 100%;
   position: relative;
   z-index: 99;
   transition: all 0.5s cubic-bezier(0.4, 0.43, 0.54, 0.54);
+  cursor: pointer;
 }
 
-.navItems li:hover .dropdownMenu li a {
+.navItems li:hover .dropdownMenu li a, .dropdownMenu li small {
   color: white !important;
 }
 
-.navItems li:hover .dropdownMenu li a {
+.navItems li:hover .dropdownMenu li a , .dropdownMenu li small {
   color: black !important;
 }
 
-.dropdownMenu li:hover a span {
+.dropdownMenu li:hover a span , .dropdownMenu li small {
   color: white !important;
 }
 
@@ -51,7 +52,7 @@
   height: 204px;
   border-radius: 5px;
   position: absolute;
-  top: 59px;
+  top: 80px;
   box-shadow: 0 5px 15px #00000026;
   transform-origin: top;
   transition: all .5s cubic-bezier(.44, .47, .64, .65);

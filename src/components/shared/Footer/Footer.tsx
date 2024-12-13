@@ -92,7 +92,7 @@ const Footer = ({ language, sectionData }: LanguageProps) => {
                       alt="logo"
                       className="w-24 h-24 object-cover rounded-full mx-auto"
                     />
-                    <h3 className="text-lg font-semibold mt-3"> {language === 'ENG' ? 'We are BNP family' : 'আমরা বিএনপি পরিবার '} </h3>
+                    <h3 className="text-lg font-semibold mt-3"> {language === 'ENG' ? 'We BNP family' : 'আমরা বিএনপি পরিবার '} </h3>
 
 
                   </div>

@@ -85,7 +85,7 @@
 
     .leftContent,
     .upcomingNewsCard,
-    .upcommingNewsCardWrap {
+    .upcommingNewsCardWrap, .hoverCard {
         width: 100%;
 
     }

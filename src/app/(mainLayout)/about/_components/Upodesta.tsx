@@ -29,10 +29,10 @@ const Upodesta: React.FC<UpodestProps> = ({ upodestaFilterData, language }) => {
 
         </div>
 
-        <div className=" mx-auto lg:p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className=" mx-auto lg:p-6 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-6">
           {upodestaFilterData.map((data, index: number) => (
             <div key={index} className="group relative">
-              <div className="lg:max-w-sm max-h-full bg-[#fdf7f4] shadow-lg rounded-xl overflow-hidden">
+              <div className="w-[90%] mx-auto lg:max-w-sm max-h-full bg-[#fdf7f4] shadow-lg rounded-xl overflow-hidden">
                 <div className="relative">
                   {data?.images.slice(0, 1)?.map((img: any) => {
                     return <Image src={img} alt="hero" width={500}

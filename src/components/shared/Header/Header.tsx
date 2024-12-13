@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./Header.css";
 import Link from "next/link";
 import Image from "next/image";
-import { Box,  Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import logo from "../../../assets/images/logo/logo.jpg";
 import Container from "../Container";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -90,10 +90,10 @@ const Header = () => {
                   <Link onClick={toggleMobileMenu} href="/">{language === 'ENG' ? 'Home' : 'প্রচ্ছদ'}</Link>
                 </li>
                 <li className="dropdownMenuWrap">
-                  <Link href="#">
+                  <small>
                     {language === 'ENG' ? 'Our Activities' : ' আমাদের কার্যক্রম'}
                     <KeyboardArrowDownIcon />
-                  </Link>
+                  </small>
                   <ul className="dropdownMenu submenu">
                     <li>
                       <Link onClick={toggleMobileMenu} href="/activity">
@@ -111,17 +111,18 @@ const Header = () => {
                   <Link onClick={toggleMobileMenu} href="/about"> {language === 'ENG' ? 'About Us' : ' আমাদের সম্পর্কে'} </Link>
                 </li>
                 <li className="dropdownMenuWrap">
-                  <Link href="/about">
-                    {language === 'ENG' ? "Oppressive Rule of Dictator Hasina" : 'স্বৈরাচার হাসিনার দুঃশাসন'} <KeyboardArrowDownIcon />
-                  </Link>
+                  <small>  {language === 'ENG' ? "Oppressive Rule of Dictator Hasina" : 'স্বৈরাচার হাসিনার দুঃশাসন'} <KeyboardArrowDownIcon /></small>
                   <ul className="dropdownMenu">
                     <li>
                       <Link onClick={toggleMobileMenu} href="/disappearances">
                         <span> {language === 'ENG' ? 'Disappeared List' : 'গুমের তালিকা'}  </span></Link>
                     </li>
                     <li className=" murterDropDown">
-                      <Link onClick={toggleMobileMenu} href="/murdered">
-                        <span> {language === 'ENG' ? 'Martyrs List' : 'শহীদদের তালিকা '}   </span> </Link>
+                      <Link href='#' onClick={(e) => e.preventDefault()} title="">
+                        <span> {language === 'ENG' ? 'Martyrs List' : 'শহীদদের তালিকা '} </span>
+                      </Link>
+
+
                       <ul className=" submenu3">
                         <li>
                           <Link onClick={toggleMobileMenu} href="/murdered">
@@ -130,7 +131,7 @@ const Header = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link onClick={toggleMobileMenu} href="/murdered"><span> {language === 'ENG' ? 'August Mass Uprising' : 'আগস্ট গণ-অভ্যুত্থান'}  </span></Link>
+                          <Link onClick={toggleMobileMenu} href="/august-mass-uprising"><span> {language === 'ENG' ? 'August Mass Uprising' : 'আগস্ট গণ-অভ্যুত্থান'}  </span></Link>
                         </li>
                       </ul>
                     </li>
@@ -156,10 +157,10 @@ const Header = () => {
 
 
                 <li className="dropdownMenuWrap">
-                  <Link href="#">
+                  <small>
                     {language === 'ENG' ? 'Reports' : 'রিপোর্ট'}
                     <KeyboardArrowDownIcon />
-                  </Link>
+                  </small>
                   <ul className="dropdownMenu submenu2">
                     <li>
                       <Link onClick={toggleMobileMenu} href="/international-report">

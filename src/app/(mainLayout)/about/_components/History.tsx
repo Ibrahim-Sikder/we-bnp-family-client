@@ -53,7 +53,7 @@ const History = () => {
             {filterHistoryData?.map((data) => (
                 <div key={data._id}>
                     <div className="shadow-lg rounded-lg lg:rounded-3xl overflow-hidden flex flex-col lg:flex-row my-10 border">
-                        <div className="lg:w-1/2 lg:h-[500px] p-3 lg:p-6 bg-[#fdf7f4] space-y-6">
+                        <div className="lg:w-1/2 lg:h-auto p-3 lg:p-6 bg-[#fdf7f4] space-y-6">
                             <div className="flex flex-row justify-center md:justify-start lg:justify-start lg:content-normal">
                                 <h2 className="bg-gradient-to-r from-red-600 to-green-600 bg-clip-text text-transparent text-base lg:mb-4 border rounded-full text-center w-[105px] bg-white">
                                     {language === 'ENG' ? 'History' : 'ইতিহাস'}

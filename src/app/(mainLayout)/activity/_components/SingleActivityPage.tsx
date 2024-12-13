@@ -40,7 +40,7 @@ export type TOppressed = {
 
 
 const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
-    const title = language === 'ENG' ? 'Recent Activity' : 'সাম্প্রতিক কার্যকলাপ'
+    const title = language === 'ENG' ? 'Recent Activity' : 'সাম্প্রতিক কার্যক্রম'
 
     const renderContent = (content: string) => {
         const parsedContent = ReactHtmlParser(content);

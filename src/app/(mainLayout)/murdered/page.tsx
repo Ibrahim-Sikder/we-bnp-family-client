@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '@/provider/LanguageProvider';
-import { TPrison } from '@/types/prison';
 import MurderPageCard from './_components/MurderPageCard';
 import { TDisappearance } from '@/types/disappearance';
 

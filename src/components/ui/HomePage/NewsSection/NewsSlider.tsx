@@ -91,13 +91,16 @@ const NewsSlider = () => {
           // }}
           // speed={4500}
 
+
           loop={true}
           breakpoints={{
             300: { slidesPerView: 1, spaceBetween: 10 },
             320: { slidesPerView: 1, spaceBetween: 10 },
             640: { slidesPerView: 1, spaceBetween: 10 },
             768: { slidesPerView: 2, spaceBetween: 20 },
-            1024: { slidesPerView: 3, spaceBetween: 30 },
+            1024: { slidesPerView: 2, spaceBetween: 30 },
+            1400: { slidesPerView: 2, spaceBetween: 30 },
+            1500: { slidesPerView: 3, spaceBetween: 30 },
           }}
         >
           {data?.programms?.map((news: TNews) => (

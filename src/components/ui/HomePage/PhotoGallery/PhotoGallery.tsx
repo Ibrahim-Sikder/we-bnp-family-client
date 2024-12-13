@@ -17,67 +17,23 @@ import PrisonCard from "./PrisonCard";
 import AwamiTortureCard from "./AwamiTortureCard";
 import { TPrison } from "@/types/prison";
 import { useLanguage } from "@/provider/LanguageProvider";
-import AughustFilterCard from "./AughustFilterCard";
 import Loading from "@/components/Loading/Loading";
 import { useSectionData } from "@/hooks/useSectionData";
+import AugustMassUprisingCard from "./AugustMassUprisingCard";
+import { usePrisonData } from "@/hooks/usePrisonData";
+import { useDisappearanceData } from "@/hooks/useDisappearanceData";
 
 export default function PhotoGallery() {
   const { language } = useLanguage()
-  const { sectionData } = useSectionData()
-  const [disappearanceData, setDisappearanceData] = React.useState<TDisappearance[]>([]);
-  const [prisonData, setPrisonData] = React.useState<TPrison[]>([]);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
+  const { sectionData, } = useSectionData()
+  const { prisonData, loading: prisonLoading } = usePrisonData()
+  const { disappearanceData, loading: disappearanceLoading, } = useDisappearanceData()
   const [value, setValue] = React.useState("1");
 
-  React.useEffect(() => {
-    const fetchAffiliationData = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/disappearance`, {
-          cache: 'no-store'
-        });
-        const data = await response.json();
-        setDisappearanceData(data.data?.disappearances || []);
-
-      } catch (err) {
-        setError('Failed to fetch disappearance data.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAffiliationData();
-  }, []);
-  React.useEffect(() => {
-    const fetchPrisonData = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/prison?limit=1000`, {
-          cache: 'no-store'
-        });
-        const data = await response.json();
-        setPrisonData(data.data?.prisons || []);
-
-      } catch (err) {
-        setError('Failed to fetch prison data.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPrisonData();
-  }, []);
-
-  if (loading) {
+  if (disappearanceLoading || prisonLoading) {
     return <Loading />;
   }
 
-  if (error) {
-    return (
-      <h1 className="mt-10 flex items-center justify-center text-3xl capitalize">
-        {error}
-      </h1>
-    );
-  }
 
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -150,20 +106,13 @@ export default function PhotoGallery() {
     alignItems: "center",
     flexDirection: "column",
   };
-  const buttonStyle = {
-    width: { xs: "70px", md: "120px", sm: "120px" },
-    height: { md: "30px", xs: "30px", lg: "50px" },
-    fontSize: { md: "12px", xs: "10px", xl: "13px" },
-    borderRadius: "30px",
-    background: "#2B8444",
-    padding: "0px",
-  };
+
 
   const disappearanceFilterData = disappearanceData.filter((item) => item.category === 'গুমের তালিকা')
   const murtyreFilterData = disappearanceData.filter((item) => item.category === 'শহীদদের তালিকা')
   const prisonFilterData = prisonData.filter((item) => item.category === 'কারাগারে নির্যাতন')
   const tortureFilterData = prisonData.filter((item) => item.category === 'আওয়ামী লীগের নির্যাতন')
-  const augostilterData = prisonData.filter((item) => item.category === 'আগস্ট গণ-অভ্যুত্থান')
+  const augostilterData = disappearanceData.filter((item) => item.category === 'আগস্ট গণ-অভ্যুত্থান')
 
 
   return (
@@ -230,7 +179,7 @@ export default function PhotoGallery() {
                   <MurtyreCard language={language} murtyreFilterData={murtyreFilterData} />
                 </TabPanel>
                 <TabPanel value="3">
-                  <AughustFilterCard language={language} augostilterData={augostilterData} />
+                  <AugustMassUprisingCard language={language} augostilterData={augostilterData} />
                 </TabPanel>
                 <TabPanel value="4">
                   <PrisonCard language={language} prisonData={prisonFilterData} />

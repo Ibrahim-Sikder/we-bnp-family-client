@@ -29,31 +29,37 @@ const CommitteeCard: React.FC<CommitteeProp> = ({ committeeFilterData, language 
 
         </div>
 
-        <div className=" mx-auto lg:p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mx-auto lg:p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {committeeFilterData?.map((data, index: number) => (
             <div key={index} className="group relative">
-
-              <div className="lg:max-w-sm max-h-full bg-[#fdf7f4] shadow-lg rounded-xl overflow-hidden">
+              <div className="w-[90%] mx-auto max-w-full lg:max-w-sm max-h-full bg-[#fdf7f4] shadow-lg rounded-xl overflow-hidden">
                 <div className="relative">
-
-
-
-                  {data?.images.slice(0, 1)?.map((img: any) => {
-
-                    return <Image src={img} alt="hero" width={500}
-                      height={500} className=" h-[250px] md:h-[400px] w-full" key={img} />
-                  })}
-
+                  {data?.images.slice(0, 1)?.map((img: any) => (
+                    <Image
+                      src={img}
+                      alt="hero"
+                      width={500}
+                      height={500}
+                      className=" sm:h-[300px] md:h-[350px] lg:h-[400px] w-full object-cover"
+                      key={img}
+                    />
+                  ))}
                 </div>
-                <div className="p-6">
-                  <h2 className="text-xl font-bold mb-2">{language === 'ENG' ? data.english_name : data.bangla_name}</h2>
-                  <p className="text-gray-700">{language === 'ENG' ? data.designation_english : data.designation_bangla}</p>
+                <div className="p-4 sm:p-6">
+                  <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-2">
+                    {language === "ENG" ? data.english_name : data.bangla_name}
+                  </h2>
+                  <p className="text-gray-700 text-sm sm:text-base">
+                    {language === "ENG"
+                      ? data.designation_english
+                      : data.designation_bangla}
+                  </p>
                 </div>
               </div>
-
             </div>
           ))}
         </div>
+
       </div>
     </>
   );

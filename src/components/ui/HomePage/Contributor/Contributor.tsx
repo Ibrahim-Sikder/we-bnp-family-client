@@ -61,7 +61,7 @@ const Contributor = ({ language, sectionData }: LanguageProps) => {
             sectionData.map((data) => (
               <div key={data._id} className="contributeContent">
                 <div className="lg:max-w-3xl mx-auto ">
-                  <h1 className=" text-center text-xl md:text-3xl lg:text-5xl text-[#CB2D2E]">
+                  <h1 className=" text-center text-xl md:text-3xl lg:text-4xl text-[#CB2D2E]">
                     {language === 'ENG' ? data.information_title_english : data.information_title_bangla}
                   </h1>
                   <p className="mt-5 text-sm md:text-xl text-center ">

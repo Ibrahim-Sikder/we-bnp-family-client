@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
 import Container from "@/components/shared/Container";
 import React from "react";
@@ -43,6 +44,18 @@ const renderContent = (content: string) => {
                     {element.props.children}
                 </p>
             );
+        } else if (element.type === "img") {
+            return (
+                <div key={index} className="w-[700px] h-[400px]">
+                    <img
+
+                        src={element.props.src}
+                        alt="this is image"
+                        className="mb-2"
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                </div>
+            );
         }
 
 
@@ -85,7 +98,7 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
 
     const title = language === 'ENG' ? 'Information published in the media' : 'মিডিয়ায় প্রকাশিত তথ্য'
 
-
+    console.log(singleReportData)
     return (
         <div>
             <CommonBanner title={title} />
@@ -94,12 +107,21 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
                     <div className="w-full grid grid-cols-1">
 
                         <div className="h-full w-full">
-                            <div className="relative overflow-hidden">
-                                {singleReportData?.bng_Images?.slice(0, 1)?.map((img: any) => {
-                                    return <Image src={img} alt="hero" width={1000}
-                                        height={500} className="object-cover w-full h-full"
-                                        layout="responsive" key={img} />
-                                })}
+
+                            <div className="relative w-full h-[200px] md:h-[400px] lg:h-[500px] mb-6">
+                                {
+                                    singleReportData.bng_Images?.slice(0, 1).map((img) => (
+                                        <Image
+                                            width={500}
+                                            height={500}
+                                            key={img}
+                                            src={img}
+                                            alt="Top Image"
+
+                                            className="rounded-lg w-full h-full object-cover"
+                                        />
+                                    ))
+                                }
                             </div>
 
                             <div className="md:p-5 mt-5 ">
@@ -114,9 +136,9 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
                             </div>
 
 
-                           
 
-                           
+
+
                         </div>
 
                     </div>

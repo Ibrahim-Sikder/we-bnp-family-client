@@ -13,10 +13,11 @@ import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
 import { LanguageProps, TCommitte } from "@/types";
 import Loading from "@/components/Loading/Loading";
 import History from "./History";
+import { useSectionData } from "@/hooks/useSectionData";
 
 
 const About = ({ language }: LanguageProps) => {
-
+  const { sectionData } = useSectionData()
   const [committeeData, setCommitteeData] = React.useState<TCommitte[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -83,14 +84,21 @@ const About = ({ language }: LanguageProps) => {
             <div className="flex flex-row items-center justify-center content-center">
 
             </div>
-            <div className="w-full text-center space-y-2">
-              <h1 className="text-3xl lg:text-5xl">
-                {language === 'ENG' ? 'Our means of sending information' : 'আমাদের তথ্য পাঠানোর মাধ্যম'}
-              </h1>
-              <h5>
-                {language === 'ENG' ? 'Send us pictures, video documents of you and your partner. So that we can easily stand by our brothers.' : ' আপনার ও আপনার পাশের নির্যাতিত তথ্য চিত্র, ভিডিও ডকুমেন্টস পাঠান আমাদেরকে। যেন আমরা সহজেই আমাদের ভাইদের পাশে দাঁড়াতে পারি।'}
-              </h5>
-            </div>
+            {
+              sectionData.map((data) => (
+                <div key={data._id} className="w-full text-center space-y-2">
+                  <h1 className=" text-center text-xl md:text-3xl lg:text-5xl text-[#CB2D2E]">
+                    {language === 'ENG' ? data.information_title_english : data.information_title_bangla}
+                  </h1>
+                  <p className="mt-5 text-sm md:text-xl text-center ">
+
+                    {language === 'ENG' ? data.information_description_english : data.information_description_bangla}
+                  </p>
+                </div>
+              ))
+            }
+
+
             <div className="">
               <Button href="/information" className="bg-gradient-to-r from-red-600 to-green-600">
                 {language === 'ENG' ? 'Send Information' : 'তথ্য পাঠান'} <ArrowRightAltIcon />
@@ -98,6 +106,7 @@ const About = ({ language }: LanguageProps) => {
             </div>
           </div>
         </div>
+
       </Container>
     </>
   );

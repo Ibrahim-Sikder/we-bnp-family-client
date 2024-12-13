@@ -26,9 +26,9 @@ const Founder = ({ language }: LanguageProps) => {
 
             </div>
             <div className="shadow-lg rounded-lg lg:rounded-3xl overflow-hidden grid grid-cols-12 my-10 border place-items-center ">
-              <div className="col-span-12 md:col-span-4">
+              <div className="col-span-12 lg:col-span-4">
                 <div className=" bg-[#fdf7f4] shadow-lg rounded-xl ">
-                  <div className=" ">
+                  <div className="w-full  ">
                     {
                       data.images?.slice(0, 1).map((img) => (
                         <Image
@@ -37,7 +37,7 @@ const Founder = ({ language }: LanguageProps) => {
                           key={img}
                           src={img}
                           alt={" তারেক রহমান"}
-                          className="w-[300px] h-full lg:h-[500px] md:w-full"
+                          
                         />
                       ))
                     }
@@ -46,7 +46,7 @@ const Founder = ({ language }: LanguageProps) => {
               </div>
               {/* Right Part */}
 
-              <div className="col-span-12 md:col-span-8 lg:h-[500px] p-3 lg:p-6 bg-[#fdf7f4] space-y-6">
+              <div className="col-span-12 lg:col-span-8 lg:h-[500px] p-3 lg:p-6 bg-[#fdf7f4] space-y-6">
                 <p className="text-justify text-xl">
                   {
                     language === 'ENG' ? data.english_description : data.bangla_description

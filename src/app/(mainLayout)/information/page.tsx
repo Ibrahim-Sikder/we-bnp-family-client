@@ -26,6 +26,7 @@ import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/provider/LanguageProvider';
 import { useSectionData } from '@/hooks/useSectionData';
+import { FieldValues } from 'react-hook-form';
 
 const informationSchema = z.object({
     name: z.string().min(1, 'Name is required'),
@@ -33,42 +34,42 @@ const informationSchema = z.object({
     email: z.string().email('Invalid email format').min(1, 'Email is required'),
     address: z.string().min(1, 'Address is required'),
     video_url: z.string().url('Invalid URL format').optional(),
-    message: z.string().min(1, 'Message is required'),
-    images: z.array(z.instanceof(File)).optional(),
+    message: z.string().min(1, 'Message is required').optional(),
+    images: z.union([
+        z.array(z.string().url()), 
+        z.string() 
+    ]).transform(value => {
+        if (Array.isArray(value)) {
+            return value;
+        } else {
+            return value.split(',').map(url => url.trim());  
+        }
+    })
 });
 
-type InformationFormData = z.infer<typeof informationSchema>;
+
 
 const Information = () => {
     const { language } = useLanguage()
     const { sectionData } = useSectionData()
     const router = useRouter()
-    const handleSubmit = async (data: any) => {
-        const formData = new FormData();
-        formData.append('name', data.name || '');
-        formData.append('phone', data.phone.replace(/\D/g, '') || '');
-        formData.append('email', data.email || '');
-        formData.append('address', data.address || '');
-        formData.append('video_url', data.video_url || '');
-        formData.append('message', data.message || '');
+    const handleSubmit = async (data: FieldValues) => {
+        console.log('raw data', data)
 
-        if (data.images && data.images.length > 0) {
-            const imageNames = data.images.map((image: File) => image.name).join(', ');
-            formData.append('images', imageNames);
-        } else {
-            formData.append('images', '');
+        const imageUrl = Array.isArray(data.images) ? data.images[0] : data.images;
+        const submitData = {
+            ...data,
+            images: imageUrl,
+
         }
-
+        console.log('submit data', submitData)
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/information`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/information`, submitData);
+            console.log(res)
 
             if (res.status === 200 || res.status === 201) {
                 toast.success('Your document submitted successfully!');
-                router.push('/')
+                router.push('/');
             }
         } catch (err) {
             toast.error('Something went wrong!');
@@ -79,12 +80,19 @@ const Information = () => {
 
 
 
+
     return (
         <>
             <div className="bannerWrap">
-                <div className="bannerContent">
-                    <h3 className="text-4xl font-semibold ">{language === 'ENG' ? 'Our means of sending information' : 'আমাদের তথ্য পাঠানোর মাধ্যম'}  </h3>
-                </div>
+
+                {
+                    sectionData.map((data) => (
+                        <div key={data._id} className="bannerContent">
+                            <h3 className="text-4xl font-semibold ">{language === 'ENG' ? data.information_title_english : data.information_title_bangla} </h3>
+                        </div>
+                    ))
+                }
+
             </div>
             <Container >
                 {
@@ -142,7 +150,9 @@ const Information = () => {
                                             <BNPInput name='video_url' label={language === 'ENG' ? 'Video Link' : 'ভিডিও লিংক'} size='medium' fullWidth />
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={6}>
-                                            <BNPFileUpload name='images' sx={{ marginTop: '15px', height: '55px', width: '100%' }} />
+                                            <BNPFileUpload
+                                                name="images"
+                                                label="Upload Docs" />
                                         </Grid>
                                         <Grid item xs={12} md={12} lg={12}>
                                             <BNPTextArea placeholder={language === 'ENG' ? 'Give details' : 'বিস্তারিত তথ্য দিন'} sx={{ color: 'black', padding: '10px', height: '300px', border: '1px solid #111', borderRadius: '3px' }} name='message' />

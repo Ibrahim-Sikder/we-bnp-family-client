@@ -60,7 +60,7 @@ const VictimizedSection = () => {
   const tabBtnStyle = {
     padding: "0px",
     fontSize: {
-      md: "15px",
+      md: "14px",
       xs: "12px",
     },
   };
@@ -163,8 +163,8 @@ const VictimizedSection = () => {
                   aria-label="lab API tabs example"
                   centered
                 >
-                  <Tab sx={tabBtnStyle} label="সর্বশেষ" value="1" />
-                  <Tab sx={tabBtnStyle} label="গুরুত্বপূ্র্ণ" value="2" />
+                  <Tab sx={tabBtnStyle} label={language === 'ENG' ? 'Latest' : 'সর্বশেষ'} value="1" />
+                  <Tab sx={tabBtnStyle} label={language === 'ENG' ? 'Important' : 'গুরুত্বপূ্র্ণ'} value="2" />
                 </TabList>
               </Box>
               <TabPanel sx={{ padding: "0px" }} value="1">

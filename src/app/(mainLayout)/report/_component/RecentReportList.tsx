@@ -9,7 +9,7 @@ import React from 'react';
 const RecentReportList = () => {
     const { reportData, loading } = useReportData()
     const { language } = useLanguage()
-    console.log(reportData)
+
     return (
         <div className="flex flex-col gap-8 mt-5">
             <h3>{language === 'ENG' ? 'Recent Post ' : 'সাম্প্রতিক পোস্ট'}</h3>

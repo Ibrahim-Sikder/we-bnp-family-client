@@ -1,6 +1,5 @@
 'use client';
 import { TPrison } from "@/types/prison";
-import { THistory, TSection } from "@/types/type";
 import { useEffect, useState } from "react";
 
 

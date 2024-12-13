@@ -17,7 +17,7 @@ const Subscribe = () => {
                 id: 'success-toast',
                 duration: 1000,
             });
-            console.log(response);
+          
             reset();
         } catch (error) {
             console.error(error);

@@ -40,7 +40,7 @@ const Category = () => {
     if (error) {
         return <div>{error}</div>;
     }
-    console.log(metaData)
+
     return (
         <div className='-[300px]'>
             <Link href='/disappearances'>

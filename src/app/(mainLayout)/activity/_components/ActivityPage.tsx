@@ -13,8 +13,9 @@ type LanguageProps = {
 }
 
 
+
 function ActivityPage({ language, activityData }: LanguageProps) {
-    const title = language === 'ENG' ? 'Recent Activity' : 'সাম্প্রতিক কার্যকলাপ'
+    const title = language === 'ENG' ? 'Recent Activity' : 'সাম্প্রতিক কার্যক্রম'
 
     return (
         <>
