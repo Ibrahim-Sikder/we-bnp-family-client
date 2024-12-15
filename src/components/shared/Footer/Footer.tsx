@@ -70,7 +70,7 @@ const Footer = ({ language, sectionData }: LanguageProps) => {
                     <a href="#" className="bg-white text-red-600 p-1 rounded-md">
                       <InstagramIcon />
                     </a>
-                    <a href="#" className="bg-white text-red-600 p-1 rounded-md">
+                    <a href="https://www.youtube.com/@webnpfamily" className="bg-white text-red-600 p-1 rounded-md">
                       <YouTubeIcon />
                     </a>
                     <a href="#" className="bg-white text-red-600 p-1 rounded-md">

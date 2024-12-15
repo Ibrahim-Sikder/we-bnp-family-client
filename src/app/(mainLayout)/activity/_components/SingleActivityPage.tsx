@@ -10,11 +10,11 @@ import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
 
 
 type Idprops = {
-    singleActivity: TOppressed,
+    singleActivity: TActivity,
     language: string
 }
 
-export type TOppressed = {
+export type TActivity = {
     img_tagline_bangla: string;
     img_tagline_english: string;
     admin_name: string;
@@ -42,25 +42,26 @@ export type TOppressed = {
 const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
     const title = language === 'ENG' ? 'Recent Activity' : 'সাম্প্রতিক কার্যক্রম'
 
+   
     const renderContent = (content: string) => {
         const parsedContent = ReactHtmlParser(content);
 
         return parsedContent.map((element, index) => {
             if (element.type === "h1") {
                 return (
-                    <h1 key={index} className="text-2xl font-bold mb-2 ">
+                    <h1 key={index} className="text-2xl font-bold mb-2">
                         {element.props.children}
                     </h1>
                 );
             } else if (element.type === "h2") {
                 return (
-                    <h2 key={index} className="text-xl font-bold mb-2 ">
+                    <h2 key={index} className="text-xl font-bold mb-2">
                         {element.props.children}
                     </h2>
                 );
             } else if (element.type === "h3") {
                 return (
-                    <h3 key={index} className="text-xl font-bold mb-2 ">
+                    <h3 key={index} className="text-lg font-bold mb-2">
                         {element.props.children}
                     </h3>
                 );
@@ -70,19 +71,30 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                         {element.props.children}
                     </p>
                 );
-            }
-
-            // else if (element.type === "img") {
-            //   return (
-            //     <img
-            //       key={index}
-            //       className="w-full h-auto object-cover mb-4 hidden "
-            //       src={element.props.src}
-            //       alt="Blog Image"
-            //     />
-            //   );
-            // }
-            else if (
+            } else if (element.type === "video") {
+                return (
+                    <video
+                        key={index}
+                        className="w-full h-auto mb-4"
+                        controls
+                        src={element.props.src}
+                    >
+                        Your browser does not support the video tag.
+                    </video>
+                );
+            } else if (element.type === "iframe") {
+                return (
+                    <iframe
+                        key={index}
+                        className="w-full h-[500px] mb-4"
+                        src={element.props.src}
+                        title={`iframe-${index}`}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
+                );
+            } else if (
                 element.type === "div" &&
                 element.props.className === "ql-align-center"
             ) {
@@ -115,6 +127,8 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
         });
     };
 
+
+
     return (
         <>
             <div>
@@ -124,17 +138,23 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                         <div className="col-span-12 xl:col-span-9">
                             <div className="h-full text-base sm:text-lg">
                                 <div className="space-y-4 sm:space-y-6 lg:space-y-8">
-                                    {singleActivity?.bng_Images?.slice(0, 1)?.map((img) => (
-                                        <Image
-                                            key={img}
-                                            src={img}
-                                            width={500}
-                                            height={500}
-                                            className="w-full h-auto sm:h-[300px] md:h-[350px] lg:h-[400px] object-contain rounded-lg"
-                                            alt="Cover Image"
-                                            layout="responsive"
-                                        />
-                                    ))}
+
+
+                                    <div className="relative w-full h-[200px] md:h-[400px] lg:h-[500px] mb-6">
+                                        {
+                                            singleActivity?.bng_Images?.slice(0, 1).map((img) => (
+                                                <Image
+                                                    width={500}
+                                                    height={500}
+                                                    key={img}
+                                                    src={img}
+                                                    alt="Top Image"
+
+                                                    className="rounded-lg w-full h-full object-cover"
+                                                />
+                                            ))
+                                        }
+                                    </div>
 
 
                                     <h3 className="text-xl md:text-2xl font-semibold">

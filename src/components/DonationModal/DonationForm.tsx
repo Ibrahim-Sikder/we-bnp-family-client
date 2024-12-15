@@ -21,8 +21,10 @@ import './Donation.css'
 import { useRouter } from 'next/navigation';
 import BNPTextArea from '@/components/Forms/TextArea';
 import { useLanguage } from '@/provider/LanguageProvider';
-
-const DonationForm = () => {
+interface DonationFormProps {
+    onClose: () => void;
+}
+const DonationForm: React.FC<DonationFormProps> = ({ onClose }) => {
     const [phone, setPhone] = useState('');
     const [isPhoneValid, setIsPhoneValid] = useState(false);
     const { language } = useLanguage()
@@ -49,11 +51,13 @@ const DonationForm = () => {
             return;
         }
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/donation`, { ...data, phone });
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/donation`, { ...data, phone });
             if (res.status === 200 || res.status === 201) {
                 toast.success('Donation pay successfully!');
                 router.push('/')
             }
+            onClose()
+
         } catch (err) {
             toast.error('Something went wrong!!!');
             console.error(err);
@@ -69,17 +73,17 @@ const DonationForm = () => {
     };
     const buttonStyle = {
         width: {
-          md: '45px',
-          sm: '30px',
-          xs: '30px',
+            md: '45px',
+            sm: '30px',
+            xs: '30px',
         },
         height: {
-          md: '50px',
-          xs: '48px',
+            md: '50px',
+            xs: '48px',
         },
         fontSize: {
-          md: '12px',
-          xs: '9px',
+            md: '12px',
+            xs: '9px',
         },
         padding: '0px',
         backgroundImage: 'linear-gradient(to right, #DC2626, #16A34A)',
@@ -87,10 +91,10 @@ const DonationForm = () => {
         borderRadius: '5px',
         textTransform: 'none',
         '&:hover': {
-          backgroundImage: 'linear-gradient(to right, #B91C1C, #15803D)',
+            backgroundImage: 'linear-gradient(to right, #B91C1C, #15803D)',
         },
-      };
-      
+    };
+
 
     const textStyle = {
         fontSize: {
@@ -186,7 +190,7 @@ const DonationForm = () => {
                                         <BNPInput name="amount" label={language === 'ENG' ? 'Amount' : 'পরিমাণ'} size="medium" fullWidth />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <BNPTextArea minRows={5} name="comment" placeholder={language === 'ENG' ? 'মন্তব্য করুন' : 'পরিমাণ'} sx={{ border: '1px solid black', padding: '5px' }} />
+                                        <BNPTextArea minRows={5} name="comment" placeholder={language === 'ENG' ? 'Comment' : 'মন্তব্য করুন'} sx={{ border: '1px solid black', padding: '5px' }} />
                                     </Grid>
 
                                 </Grid>

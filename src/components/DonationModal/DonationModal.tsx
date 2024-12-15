@@ -22,7 +22,7 @@ const DonationModal: React.FC<DonationModalProps> = ({ onClose }) => {
                     <Close />
                 </button>
 
-                <DonationForm />
+                <DonationForm onClose={onClose}/>
 
 
             </div>

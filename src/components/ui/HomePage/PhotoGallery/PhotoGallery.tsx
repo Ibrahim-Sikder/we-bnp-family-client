@@ -120,7 +120,7 @@ export default function PhotoGallery() {
       {
         sectionData.map((data) => (
           <div key={data._id} className="md:w-full px-5 text-center mb-10 ">
-            <h3 className="text-xl md:text-3xl"> {language === 'ENG' ? data.history_title_english : data.history_title_english} </h3>
+            <h3 className="text-xl md:text-3xl"> {language === 'ENG' ? data.history_title_english : data.history_description_bangla} </h3>
             <Divider
               sx={{
                 width: "200px",

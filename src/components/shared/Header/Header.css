@@ -162,9 +162,9 @@
     width: 40px;
     height: 40px;
     position: absolute;
-    top: 50px;
-    right: 14px;
-    transition: all 0.5s cubic-bezier(0.43, 0.38, 0.68, 0.63);
+    top: 36px;
+    right: 8px;
+    transition: all .5s cubic-bezier(.43, .38, .68, .63);
   }
 
   .bar2 {
@@ -212,6 +212,12 @@
   }
 
 
+}
+@media only screen and (width <= 425px) {
+  .activeBar, .bar1 {
+      top: 21px;
+      right: -2px;
+  }
 }
 
 @media only screen and (max-width:375px) {

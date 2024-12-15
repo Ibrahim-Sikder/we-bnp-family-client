@@ -1,16 +1,8 @@
 import Image from "next/image";
 import React from "react";
-
-import flood from "../../../../assets/images/flood/flood7.jpeg";
-import flood2 from "../../../../assets/images/flood/flood8.jpeg";
-import flood3 from "../../../../assets/images/flood/flood9.jpeg";
-
 import Container from "@/components/shared/Container";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
-import Sidebar from "@/components/ui/HomePage/Sidebar/Sidebar";
 import ShareLink from "@/components/ShareLink/ShareLink";
-import Link from "next/link";
-import PublishInfo from "@/components/PublishInfo/PublishInfo";
 import ReactHtmlParser from "react-html-parser";
 
 interface victimId {
@@ -37,78 +29,93 @@ const DetailsPage = async ({ params }: victimId) => {
     };
   }
 
-  const renderContent = (content: string) => {
-    const parsedContent = ReactHtmlParser(content);
 
-    return parsedContent.map((element, index) => {
-      if (element.type === "h1") {
-        return (
-          <h1 key={index} className="text-2xl font-bold mb-2 ">
-            {element.props.children}
-          </h1>
-        );
-      } else if (element.type === "h2") {
-        return (
-          <h2 key={index} className="text-xl font-bold mb-2 ">
-            {element.props.children}
-          </h2>
-        );
-      } else if (element.type === "h3") {
-        return (
-          <h3 key={index} className="text-xl font-bold mb-2 ">
-            {element.props.children}
-          </h3>
-        );
-      } else if (element.type === "p") {
-        return (
-          <p key={index} className="mb-2">
-            {element.props.children}
-          </p>
-        );
-      }
+    
+        const renderContent = (content: string) => {
+            const parsedContent = ReactHtmlParser(content);
+    
+            return parsedContent.map((element, index) => {
+                if (element.type === "h1") {
+                    return (
+                        <h1 key={index} className="text-2xl font-bold mb-2">
+                            {element.props.children}
+                        </h1>
+                    );
+                } else if (element.type === "h2") {
+                    return (
+                        <h2 key={index} className="text-xl font-bold mb-2">
+                            {element.props.children}
+                        </h2>
+                    );
+                } else if (element.type === "h3") {
+                    return (
+                        <h3 key={index} className="text-lg font-bold mb-2">
+                            {element.props.children}
+                        </h3>
+                    );
+                } else if (element.type === "p") {
+                    return (
+                        <p key={index} className="mb-2">
+                            {element.props.children}
+                        </p>
+                    );
+                } else if (element.type === "video") {
+                    return (
+                        <video
+                            key={index}
+                            className="w-full h-auto mb-4"
+                            controls
+                            src={element.props.src}
+                        >
+                            Your browser does not support the video tag.
+                        </video>
+                    );
+                } else if (element.type === "iframe") {
+                    return (
+                        <iframe
+                            key={index}
+                            className="w-full h-[500px] mb-4"
+                            src={element.props.src}
+                            title={`iframe-${index}`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    );
+                } else if (
+                    element.type === "div" &&
+                    element.props.className === "ql-align-center"
+                ) {
+                    return (
+                        <div key={index} className="text-center mb-2">
+                            {element.props.children}
+                        </div>
+                    );
+                } else if (
+                    element.type === "div" &&
+                    element.props.className === "ql-align-right"
+                ) {
+                    return (
+                        <div key={index} className="text-right mb-2">
+                            {element.props.children}
+                        </div>
+                    );
+                } else if (
+                    element.type === "div" &&
+                    element.props.className === "ql-align-left"
+                ) {
+                    return (
+                        <div key={index} className="text-left mb-2">
+                            {element.props.children}
+                        </div>
+                    );
+                } else {
+                    return null;
+                }
+            });
+        };
+    
 
-      // else if (element.type === "img") {
-      //   return (
-      //     <img
-      //       key={index}
-      //       className="w-full h-auto object-cover mb-4 hidden "
-      //       src={element.props.src}
-      //       alt="Blog Image"
-      //     />
-      //   );
-      // }
-      else if (
-        element.type === "div" &&
-        element.props.className === "ql-align-center"
-      ) {
-        return (
-          <div key={index} className="text-center mb-2">
-            {element.props.children}
-          </div>
-        );
-      } else if (
-        element.type === "div" &&
-        element.props.className === "ql-align-right"
-      ) {
-        return (
-          <div key={index} className="text-right mb-2">
-            {element.props.children}
-          </div>
-        );
-      } else if (
-        element.type === "div" &&
-        element.props.className === "ql-align-left"
-      ) {
-        return (
-          <div key={index} className="text-left mb-2">
-            {element.props.children}
-          </div>
-        );
-      } else {
-        return null;
-      }
-    });
-  };
 
   return (
     <>

@@ -71,7 +71,7 @@ const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData, language }) 
             ))}
           </div>
           <Box display="flex" justifyContent="center" alignItems="center">
-            <Button component={Link} href="/international-report" sx={buttonStyle}>
+            <Button component={Link} href="/media-info" sx={buttonStyle}>
               {" "}
               <span>  {language === 'ENG' ? 'See All' : 'সবগুলো দেখুন'}  </span>{" "}
             </Button>
