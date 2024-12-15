@@ -190,7 +190,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ onClose }) => {
                                         <BNPInput name="amount" label={language === 'ENG' ? 'Amount' : 'পরিমাণ'} size="medium" fullWidth />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <BNPTextArea minRows={5} name="comment" placeholder={language === 'ENG' ? 'Comment' : 'মন্তব্য করুন'} sx={{ border: '1px solid black', padding: '5px' }} />
+                                        <BNPTextArea minRows={5} name="comment" placeholder={language === 'ENG' ? 'Comment' : 'মন্তব্য করুন'} sx={{ border: '1px solid black', color: 'black', padding: '5px' }} />
                                     </Grid>
 
                                 </Grid>
