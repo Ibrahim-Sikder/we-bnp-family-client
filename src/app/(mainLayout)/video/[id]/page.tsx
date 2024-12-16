@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import Container from "@/components/shared/Container";
 
 import Link from "next/link";
-import Banner from "../_components/Banner";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 const videos = [

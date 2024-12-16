@@ -7,7 +7,6 @@ import Link from "next/link";
 import Container from "@/components/shared/Container";
 import cases from "../../../assets/images/gum/gum.jpg";
 import "./Murder.css";
-import { AccountCircle, Bookmark, ChatBubble } from "@mui/icons-material";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 export default function PhotoGallery() {
