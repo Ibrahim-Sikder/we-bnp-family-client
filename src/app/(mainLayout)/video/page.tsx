@@ -13,7 +13,7 @@ const VideoGallery = () => {
   const [videoData, setVideoData] = useState<TVideo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(3)
+  const [visibleCount, setVisibleCount] = useState(6)
   useEffect(() => {
     const fetchVideoData = async () => {
       try {
@@ -34,7 +34,7 @@ const VideoGallery = () => {
 
   const title = language === 'ENG' ? 'Video Gallery' : 'ভিডিও গ্যালারি'
   const loadMore = () => {
-    setVisibleCount((preveCount) => preveCount + 3)
+    setVisibleCount((preveCount) => preveCount + 6)
   }
 
 
