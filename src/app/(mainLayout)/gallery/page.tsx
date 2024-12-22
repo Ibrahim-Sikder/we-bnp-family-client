@@ -1,16 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import Container from "@/components/shared/Container";
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
+import LightGallery from "lightgallery/react";
+import "lightgallery/css/lightgallery.css";  // Import lightgallery CSS
 import Image from "next/image";
 import { TImgGallery } from "@/types/prison";
 import { useLanguage } from "@/provider/LanguageProvider";
 import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
 
 const Page = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const { language } = useLanguage();
   const [galleryData, setGalleryData] = React.useState<TImgGallery[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -21,12 +19,12 @@ const Page = () => {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_API_URL}/image-gallery?limit=10000`,
-          { cache: 'no-store' }
+          { cache: "no-store" }
         );
         const data = await response.json();
         setGalleryData(data.data?.galleries || []);
       } catch (err) {
-        setError('Failed to fetch gallery data.');
+        setError("Failed to fetch gallery data.");
       } finally {
         setLoading(false);
       }
@@ -35,65 +33,38 @@ const Page = () => {
     fetchAffiliationData();
   }, []);
 
-  const openLightbox = (index: number) => {
-    setCurrentIndex(index);
-    setIsOpen(true);
-  };
-
-  const nextImage = () =>
-    setCurrentIndex((currentIndex + 1) % galleryData.length);
-  const prevImage = () =>
-    setCurrentIndex(
-      (currentIndex + galleryData.length - 1) % galleryData.length
-    );
-
-  const title = language === 'ENG' ? 'Image Gallery' : 'ইমেজ গ্যালারি'
+  const title = language === "ENG" ? "Image Gallery" : "ফটো  গ্যালারি";
 
   return (
     <>
       <CommonBanner title={title} />
       <div className="App my-10">
         <Container>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-            {galleryData?.map((data, index) => (
-              <div
-                key={data._id}
-                className="cursor-pointer"
-                onClick={() => openLightbox(index)}
-              >
-
-                {data.images.length > 0 && (
-                  <Image
-                    className="w-full h-[300px] object-cover transition-transform duration-300 transform group-hover:scale-110"
-                    src={data.images[0]}
-                    alt={data.bng_title}
-                    width={500}
-                    height={500}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
+          {/* Using LightGallery for image gallery */}
+          <LightGallery speed={500}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+              {galleryData?.map((data, index) => (
+                <div key={data._id} className="cursor-pointer">
+                  {data.images.length > 0 && (
+                    <a
+                      href={data.images[0]} // Set the image source for the lightbox
+                      data-lightbox="gallery"
+                    >
+                      <Image
+                        className="w-full h-[300px] object-cover transition-transform duration-300 transform group-hover:scale-110"
+                        src={data.images[0]}
+                        alt={data.bng_title}
+                        width={500}
+                        height={500}
+                      />
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          </LightGallery>
         </Container>
       </div>
-
-      {/* Lightbox for full-screen image viewing */}
-      {isOpen && galleryData[currentIndex].images.length > 0 && (
-        <Lightbox
-          mainSrc={galleryData[currentIndex].images[0]}
-          nextSrc={
-            galleryData[(currentIndex + 1) % galleryData.length].images[0]
-          }
-          prevSrc={
-            galleryData[
-              (currentIndex + galleryData.length - 1) % galleryData.length
-            ].images[0]
-          }
-          onCloseRequest={() => setIsOpen(false)}
-          onMovePrevRequest={prevImage}
-          onMoveNextRequest={nextImage}
-        />
-      )}
     </>
   );
 };
