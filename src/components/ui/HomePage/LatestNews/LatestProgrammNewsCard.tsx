@@ -26,8 +26,8 @@ type LanguageProps = {
 }
 function LatestProgrammNewsCard({ language, programmData }: LanguageProps) {
 
-  const importantNewsFilterData = programmData.filter((item) =>
-    item.category.includes('সর্বশেষ')
+  const importantNewsFilterData = programmData?.filter((item) =>
+    item?.category?.includes('সর্বশেষ')
   );
 
   return (

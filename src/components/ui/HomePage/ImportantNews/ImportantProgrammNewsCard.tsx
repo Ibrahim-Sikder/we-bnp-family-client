@@ -26,8 +26,8 @@ type LanguageProps = {
 }
 function LatestNews({ language, programmData }: LanguageProps) {
 
-  const importantNewsFilterData = programmData.filter((item) =>
-    item.category.includes('গুরুত্বপূ্র্ণ')
+  const importantNewsFilterData = programmData?.filter((item) =>
+    item?.category?.includes('গুরুত্বপূ্র্ণ')
   );
 
   return (
