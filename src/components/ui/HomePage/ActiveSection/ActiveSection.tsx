@@ -7,7 +7,7 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { Button, Divider, useMediaQuery } from "@mui/material";
+import { Button} from "@mui/material";
 import React from "react";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import Link from "next/link";
@@ -16,39 +16,17 @@ import dynamic from "next/dynamic";
 import ActivityCard from "./ActivityCard";
 import { TActivity } from "@/types";
 import { useLanguage } from "@/provider/LanguageProvider";
-import ImportantNews from "../ImportantNews/ImportantProgrammNews";
 import ImportantMediaNews from "../ImportantNews/ImportantMediaNews";
 import LatestMediaNews from "../LatestNews/LatestMediaNews";
-import LatestProgrammNews from "../LatestNews/LatestProgrammNews";
 import Loading from "@/components/Loading/Loading";
-import { useSectionData } from "@/hooks/useSectionData";
 import ActiveSectionTitle from "./ActiveSectionTitle";
+import { useActivityData } from "@/hooks/useActivityData";
 
 const VictimCard = dynamic(() => import("./VictimCard"), { ssr: false });
 const VictimizedSection = () => {
   const { language } = useLanguage();
-  const [activityData, setActivityData] = React.useState<TActivity[]>([]);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
+const {activityData, loading, error} = useActivityData()
   const [value, setValue] = React.useState("1");
-  React.useEffect(() => {
-    const fetchAffiliationData = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/activity`, {
-          cache: 'no-store'
-        });
-        const data = await response.json();
-        setActivityData(data.data?.activities || []);
-
-      } catch (err) {
-        setError('Failed to fetch activity data.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAffiliationData();
-  }, []);
 
 
 
@@ -122,6 +100,9 @@ const VictimizedSection = () => {
   if (loading) {
     return <Loading />
   }
+  if (error) {
+    return <p>Something went to wrong !</p>
+  }
 
 
   return (
@@ -169,15 +150,14 @@ const VictimizedSection = () => {
               </Box>
               <TabPanel sx={{ padding: "0px" }} value="1">
                 <div className="mt-10 lg:mt-0">
-                  <ImportantNews />
-                  <ImportantMediaNews />
+                <LatestMediaNews />
+                 
                 </div>
               </TabPanel>
               <TabPanel sx={{ padding: "0px" }} value="2">
                 <div className="mt-10 lg:mt-0">
-                  <LatestMediaNews />
-                  <LatestProgrammNews />
-
+                <ImportantMediaNews />
+                 
                 </div>
               </TabPanel>
             </TabContext>

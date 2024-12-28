@@ -27,15 +27,15 @@ type LanguageProps = {
 function LatestMediaNewsCard({ language, reportData }: LanguageProps) {
 
     const importantNewsFilterData = reportData.filter((item) => item.newsCategory == 'সর্বশেষ')
-
+    console.log('reported data ', importantNewsFilterData)
     return (
         <div className="-mt-16">
             <div className="grid grid-cols-1 gap-y-[10px] mt-[80px] md:mt-[105px] ">
-                {importantNewsFilterData.slice(0, 3).map((data) => (
+                {importantNewsFilterData.slice(0, 8).map((data) => (
                     <div key={data._id} className="newsCard">
                         <div className="flex md:flex-row items-center justify-between">
                             <div className="newsContent text-sm">
-                                <small className="text-[12px] font-bold ">{language === 'ENG' ? data.english_title : data.bangla_title} </small>
+                                <small className="text-[12px] font-bold ">{language === 'ENG' ? data.english_title?.slice(0, 5) : data.bangla_title} </small>
                                 <div className="bnpBtnStyle">
                                     <Button component={Link} href={`/report/${data._id}`} sx={buttonStyle}>
                                         <span>
@@ -47,9 +47,13 @@ function LatestMediaNewsCard({ language, reportData }: LanguageProps) {
                             <div className="newsImgWrap">
                                 {data?.bng_Images.slice(0, 1)?.map((img: any) => {
 
-                                    return <Image layout="responsive" src={img} alt="image no found" width={100}
-                                        height={100}
-                                        className="rounded-md object-cover w-full h-full" key={img} />
+                                    return (
+                                        <div className="w-[150px] h-[90px] " key={img}>
+                                            <Image src={img} alt="image no found" width={100}
+                                                height={100}
+                                                className="rounded-md object-cover w-full " key={img} />
+                                        </div>
+                                    )
                                 })}
                             </div>
                         </div>

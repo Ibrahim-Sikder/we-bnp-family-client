@@ -5,6 +5,7 @@ import { TReport } from '@/types/report';
 import LatestMediaNewsCard from './LatestMediaNewsCard';
 
 
+
 const LatestMediaNews = () => {
     const { language } = useLanguage();
     const [reportData, setReportData] = useState<TReport[]>([]);

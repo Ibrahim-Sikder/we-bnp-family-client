@@ -5,7 +5,6 @@ import { Button } from "@mui/material";
 import { ArrowRightAlt } from "@mui/icons-material";
 import Link from "next/link";
 import { TReport } from "@/types/report";
-
 const buttonStyle = {
     width: "90px",
     height: "25px",
@@ -25,17 +24,18 @@ type LanguageProps = {
     reportData: TReport[]
 }
 function ImportantMediaNewsCard({ language, reportData }: LanguageProps) {
+    console.log(reportData)
 
     const importantNewsFilterData = reportData.filter((item) => item.newsCategory == 'গুরুত্বপূ্র্ণ')
 
     return (
         <div className="-mt-16">
             <div className="grid grid-cols-1 gap-y-[10px] mt-[80px] ">
-                {importantNewsFilterData.slice(0, 3).map((data) => (
+                {importantNewsFilterData.slice(0, 8).map((data) => (
                     <div key={data._id} className="newsCard">
                         <div className="flex md:flex-row items-center justify-between">
                             <div className="newsContent text-sm">
-                                <small className="text-[12px] font-bold ">{language === 'ENG' ? data.english_title : data.bangla_title} </small>
+                                <small className="text-[12px] font-bold ">{language === 'ENG' ? data?.english_title?.slice(0, 70) : data?.bangla_title?.slice(0, 70)}... </small>
                                 <div className="bnpBtnStyle">
                                     <Button component={Link} href={`/report/${data._id}`} sx={buttonStyle}>
                                         <span>
