@@ -31,7 +31,7 @@ const VictimCard: React.FC<MurtyreCardProps> = ({ activityData, language }) => {
   return (
     <>
       <div className="grid grid-cols-1 gap-y-8 xl:gap-y-0 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-x-3 ">
-        {activityData?.slice(1, 3).map((data) => (
+        {activityData?.slice(1, 4).map((data) => (
           <div key={data._id}>
             <div className="cardBox">
               <div className="lg:h-28 h-40 md:h-52">

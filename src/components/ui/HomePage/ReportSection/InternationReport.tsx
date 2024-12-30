@@ -6,14 +6,14 @@ import Link from 'next/link';
 import React from 'react';
 
 
-  
+
 interface MurtyreCardProps {
   internationReportData: TReport[];
-  language:string,
+  language: string,
 }
 
 
-const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData,language }) => {
+const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData, language }) => {
 
   const buttonStyle = {
     width: { xs: "120px", md: "140px", sm: "140px" },
@@ -54,12 +54,12 @@ const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData,l
                 </div>
                 <div className="blogCardContent">
 
-                  <h4 className="font-semibold ">
-                  {language === 'ENG' ? report.english_title : report.bangla_title}
+                  <h5 className="font-semibold md:text-xl text-[16px] mb-2 ">
+                    {language === 'ENG' ? report?.english_title?.slice(0, 50) : report?.bangla_title?.slice(0, 50)}...
 
-                  </h4>
+                  </h5>
                   <p>
-                  {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}...
+                    {language === 'ENG' ? report?.english_short_description?.slice(0, 80) : report?.bangla_short_description?.slice(0, 80)}...
                   </p>
                   <Link href={`/report/${report._id}`}>
                     <Button sx={smallBtnStyle}>

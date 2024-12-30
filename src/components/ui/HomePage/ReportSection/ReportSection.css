@@ -1,100 +1,90 @@
 .blogCard {
-    width: 400px;
-    margin: 0 auto;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
-    border-radius: 3px;
-
+  width: 400px;
+  margin: 0 auto;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  border-radius: 3px;
 }
 
 .blogCardContent {
-    width: 333px;
-    box-shadow: 0 0 0 1px #0000000d;
-    padding: 12px;
-    border-radius: 4px;
-    position: relative;
-    top: -58px;
-    background: #fff;
-    margin: 0 auto;
-    text-align: center;
-    z-index: 5 !important;
-    height: 183px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 333px;
+  box-shadow: 0 0 0 1px #0000000d;
+  padding: 12px;
+  border-radius: 4px;
+  position: relative;
+  top: -58px;
+  background: #fff;
+  margin: 0 auto;
+  text-align: center;
+  z-index: 5 !important;
+  height: 183px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .recentBlogImgwrap {
-    width: 80px;
-    height: 80px;
-    border-radius: 100%;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
 }
 
 .recentBlogImgwrap img {
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  object-fit: cover;
 }
 
 .blogImgWrap {
-    width: 100%;
-    height: 300px;
-    border-radius: 5px;
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
 }
 
 .blogImgWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 1024px) {
+  .blogCard,
+  .blogCardContent {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+  }
+
+  .blogCardContent {
+    top: -19px;
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .blogImgWrap img {
+    width: 100%;
+  }
 }
 
-@media only screen and (max-width:1024px) {
+@media only screen and (max-width: 600px) {
+  .blogCard {
+    overflow: hidden;
+  }
 
-    .blogCard,
-    .blogCardContent {
-        width: 100%;
-    }
+  .blogCard,
+  .blogCardContent {
+    width: 90%;
+  }
 
-    .blogCardContent {
-        top: -19px;
-        padding: 5px;
-        font-size: 14px;
-    }
+  .blogCardContent {
+    top: -19px;
+    padding: 20px !important;
+    height: auto;
+  }
 
+  .blogImgWrap img {
+    width: 100%;
+  }
 
-
-    .blogImgWrap img {
-        width: 100%;
-    }
-
-
-
-}
-
-@media only screen and (max-width:600px) {
-    .blogCard {
-        overflow: hidden;
-    }
-
-    .blogCard, .blogCardContent {
-        width: 90%;
-    }
-
-    .blogCardContent {
-        top: -19px;
- 
-        padding: 20px !important;
-    }
-
-
-
-    .blogImgWrap img {
-        width: 100%;
-    }
-
-    .blogImgWrap {
-        height: 192px;
-    }
-
-
+  .blogImgWrap {
+    height: 192px;
+  }
 }

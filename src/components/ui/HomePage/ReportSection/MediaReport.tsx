@@ -41,9 +41,6 @@ const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData, language }) 
             {mediaReportData?.slice(0, 3)?.map((report) => (
               <div key={report._id} className="blogCard mt-5">
                 <div className="blogImgWrap">
-
-
-
                   {report?.bng_Images?.slice(0, 1)?.map((img) => {
 
                     return <Image src={img} alt="hero" width={1000}
@@ -52,10 +49,10 @@ const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData, language }) 
                 </div>
                 <div className="blogCardContent spacy-y-3 ">
 
-                  <h4 className="font-semibold ">
-                    {language === 'ENG' ? report.english_title : report.bangla_title}
+                  <h5 className="font-semibold md:text-xl text-[16px] mb-2 ">
+                    {language === 'ENG' ? report?.english_title?.slice(0, 50) : report?.bangla_title?.slice(0, 50)}...
 
-                  </h4>
+                  </h5>
                   <p className='text-sm'>
                     {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}...
                   </p>
