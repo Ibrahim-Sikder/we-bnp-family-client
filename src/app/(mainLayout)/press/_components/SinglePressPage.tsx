@@ -1,8 +1,7 @@
 import Container from "@/components/shared/Container";
 import React from "react";
-import "../../human-rights/Blog.css";
-import { TextField } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+
 import ShareLink from "@/components/ShareLink/ShareLink";
 import Banner from "../_components/Banner";
 import ReactHtmlParser from "react-html-parser";
@@ -10,6 +9,7 @@ import { TProgramm } from "@/types";
 import Category from "@/components/shared/Category/Category";
 import RecentPressPost from "./RecentPressPost";
 import Image from "next/image";
+import Link from "next/link";
 
 type SinglePressProps = {
     singlePressData: TProgramm,
@@ -19,9 +19,6 @@ type SinglePressProps = {
 
 
 const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
-
-
-
 
     const renderContent = (content: string) => {
         const parsedContent = ReactHtmlParser(content);
@@ -53,16 +50,7 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
                 );
             }
 
-            // else if (element.type === "img") {
-            //   return (
-            //     <img
-            //       key={index}
-            //       className="w-full h-auto object-cover mb-4 hidden "
-            //       src={element.props.src}
-            //       alt="Blog Image"
-            //     />
-            //   );
-            // }
+
             else if (
                 element.type === "div" &&
                 element.props.className === "ql-align-center"
@@ -97,8 +85,17 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
     };
     const bannerTitle = language === "ENG" ? "Program and Notice" : "প্রোগ্রাম ও নোটিশ";
     const bannerText = language === "ENG" ? "Notice" : "নোটিশ";
-
-
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+    const boxStyle = {
+        display: 'flex', alignItems: 'left', gap: {
+            md: 2,
+            xs: 1
+        }, flexDirection: 'column'
+    }
+    const typegraphyStyle = { fontWeight: 'bold', fontSize: isMobile ? '0.7rem' : '1rem', }
+    const typegraphyStyle2 = { fontSize: isMobile ? '0.6rem' : '1rem', }
+    console.log(singlePressData)
     return (
         <div>
             <Banner title={bannerTitle} text={bannerText} />
@@ -115,6 +112,7 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
                                         height={500} src={img} alt="hero" className="object-cover w-full h-[340px]"
                                         layout="responsive" key={img} />
                                 })}
+                                <span className="mt-3 block"> {language === 'ENG' ? singlePressData?.img_tagline_english : singlePressData?.img_tagline_bangla}</span>
                             </div>
 
                             <div className="mt-5  md:mt-10 ">
@@ -128,53 +126,91 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
                                     </div>
                                 </div>
                             </div>
-               
-                            <ShareLink />
-               
-                            <div className="p-5 bg-gray-100  rounded mt-5 ">
-                                <div className="flex items-center gap-2">
-                                    <AccountCircleIcon fontSize="large" />
-                                    <p className="font-medium">John Doe</p>
-                                </div>
-                                <p className="mt-3">
-                                    কারাগারে নির্যাতনের শিকার ব্যক্তিদের কষ্টের কথা বলে শেষ করা
-                                    যায় না।
-                                </p>
-                            </div>
+                            <Box
+                                sx={{
+                                    display: 'flex',
 
-                  
-                            <div className="flex flex-col gap-5 mt-5  ">
-                                <TextField
-                                    label="Add a comment"
-                                    variant="outlined"
-                                    fullWidth
-                                    multiline
-                                    rows={4}
-                                />
-                                <div className="flex justify-end mt-5">
-                                    <button className="bg-gradient-to-r from-red-600 to-green-600 px-7 py-2 text-white font-medium rounded">
-                                        Submit
-                                    </button>
-                                </div>
-                            </div>
+                                    gap: {
+                                        md: 1.5,
+                                        xs: 1
+                                    },
+                                    p: {
+                                        md: 1,
+                                        xs: 0
+                                    },
+                                    fontFamily: 'Noto Sans Bengali, sans-serif',
+                                }}
+                            >
+
+                                <Box sx={boxStyle}>
+                                    <Typography
+                                        component="b"
+                                        sx={typegraphyStyle}
+                                    >
+                                        {language === 'ENG' ? 'Name of the published newspaper' : 'প্রকাশিত পত্রিকার নাম'}
+                                    </Typography>
+                                    <Typography
+                                        component="b"
+                                        sx={typegraphyStyle}
+                                    >
+                                        {language === 'ENG' ? 'News release date' : 'সংবাদ প্রকাশের তারিখ'}
+                                    </Typography>
+                                    <Typography
+                                        component="b"
+                                        sx={typegraphyStyle}
+                                    >
+                                        {language === 'ENG' ? 'Newspaper published link' : 'পত্রিকার প্রকাশিত লিংক'}
+                                    </Typography>
+                                </Box>
+
+
+                                <Box sx={boxStyle}>
+                                    <Typography
+                                        component="span"
+                                        sx={typegraphyStyle2}
+                                    >
+                                        <span className=" mr-2 ">:</span> {singlePressData?.news_release_date}
+                                    </Typography>
+                                    <Typography
+                                        component="span"
+                                        sx={typegraphyStyle2}
+                                    >
+                                        <span className=" mr-2 ">:</span> {singlePressData?.name_published_newspaper}
+                                    </Typography>
+                                    {singlePressData?.Link_published_newspaper ? (
+                                        <Link target="_blank" href={singlePressData?.Link_published_newspaper}>
+                                            <span className="mr-2">:</span>
+                                            <button className="bg-gradient-to-r from-red-600 to-green-600 p-1 text-[9px] md:text-sm md:px-3 rounded text-white">
+                                                লিংক দেখুন
+                                            </button>
+                                        </Link>
+                                    ) : (
+                                        <Typography component="span" sx={typegraphyStyle2}>
+                                            <span className="mr-2">:</span> {language === 'ENG' ? 'Link not available' : 'লিংক পাওয়া যায়নি'}
+                                        </Typography>
+                                    )}
+
+
+                                </Box>
+                            </Box>
+
+                            <ShareLink />
+
+
+
+
                         </div>
                     </div>
                     <div className="xl:col-span-3">
-                        <div className="mb-10">
-                            <TextField
-                                id="outlined-basic"
-                                label="Search Here"
-                                variant="outlined"
-                                fullWidth
-                                size="small"
-                            />
-                        </div>
 
-                        <Category />
-                        <div className="mt-16">
-                            <h3>{language === 'ENG' ? 'Recent Post ' : 'সাম্প্রতিক পোস্ট'}</h3>
-                            <hr className="w-16 h-1 bg-gradient-to-r from-red-600 to-green-600 border-0 rounded-full mb-5" />
-                            <RecentPressPost />
+
+                        <div className="top-32 sticky">
+                            <Category />
+                            <div className="mt-16">
+                                <h3>{language === 'ENG' ? 'Recent Post ' : 'সাম্প্রতিক পোস্ট'}</h3>
+                                <hr className="w-16 h-1 bg-gradient-to-r from-red-600 to-green-600 border-0 rounded-full mb-5" />
+                                <RecentPressPost />
+                            </div>
                         </div>
                     </div>
                 </div>

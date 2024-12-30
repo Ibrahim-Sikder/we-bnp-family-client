@@ -1,19 +1,22 @@
+'use client'
+
 import Container from "@/components/shared/Container";
 import React from "react";
 import Image from "next/image";
-
 import Link from "next/link";
+import bannerImage from "../../../../../src/assets/images/banner/newSlider.jpeg";
 import { Button } from "@mui/material";
 import { East } from "@mui/icons-material";
-import '../../media-info/_components/Media.css'
+import './Media.css'
 import { TReport } from "@/types/report";
-import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
-type LanguageProps = {
-    language: string,
-    internationalData: TReport[]
-}
-export default function InternationalReportCard({ language, internationalData }: LanguageProps) {
-    const [visibleCount, setVisibleCount] = React.useState(5);
+import { useReportData } from "@/hooks/useReportData";
+import { useLanguage } from "@/provider/LanguageProvider";
+const MediaPage = () => {
+    const { reportData } = useReportData()
+    const { language } = useLanguage()
+
+    
+    const mediaReportData = reportData.filter((item: any) => item.category === 'মিডিয়ায় প্রকাশিত তথ্য')
 
     const smallBtnStyle = {
         background: "#2B8444",
@@ -24,24 +27,34 @@ export default function InternationalReportCard({ language, internationalData }:
         height: "25px",
         padding: '0px'
     }
-    const filterInnternationReportData = internationalData.filter((item: any) => item.category === 'আর্ন্তজাতিক সংস্থার রিপোর্ট')
 
-
-
-    const title = language === 'ENG' ? 'International report' : 'আন্তর্জাতিক রিপোর্ট'
-    const handleLoadMore = () => {
-        setVisibleCount(prevCount => prevCount + 5);
-    };
     return (
         <div>
-            <CommonBanner title={title} />
+            <div className="relative h-80 md:h-96 lg:h-[350px] bg-gray-800 overflow-hidden">
+                <Image
+                    src={bannerImage}
+                    alt="Blog Banner"
+                    layout="fill"
+                    objectFit="cover"
+                    className="opacity-75"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-50"></div>
+                <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-5">
+                    <h1 className="text-4xl md:text-6xl font-bold text-center">
+                        মিডিয়ায় প্রকাশিত তথ্য
+                    </h1>
+                    <p className="text-lg md:text-2xl mt-3 text-center">
+
+                    </p>
+                </div>
+            </div>
             <Container>
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-x-5 mt-10">
-                    {filterInnternationReportData?.slice(0, visibleCount)?.map((report: TReport) => (
+                    {mediaReportData?.slice(0, 3)?.map((report: TReport) => (
                         <div key={report._id} className="blogCard mt-5">
                             <div className="blogImgWrap">
-
-                                {report?.bng_Images?.slice(0, 1)?.map((img: any) => {
+                                {report?.bng_Images?.slice(0, 1)?.map((img) => {
 
                                     return <Image src={img} alt="hero" width={1000}
                                         height={500} key={img} />
@@ -49,8 +62,8 @@ export default function InternationalReportCard({ language, internationalData }:
                             </div>
                             <div className="blogCardContent">
 
-                                <h5 className="font-semibold md:text-xl text-[16px] mb-2 ">
-                                    {language === 'ENG' ? report?.english_title?.slice(0, 45) : report?.bangla_title?.slice(0, 45)}...
+                                <h5 className="font-semibold ">
+                                    {language === 'ENG' ? report?.english_title?.slice(0, 50) : report?.bangla_title?.slice(0, 50)}...
 
                                 </h5>
                                 <p>
@@ -68,16 +81,15 @@ export default function InternationalReportCard({ language, internationalData }:
                     ))}
 
                 </div>
-                {visibleCount < filterInnternationReportData.length && (
-                    <div className="flex items-center justify-center mt-5">
-                        <Button onClick={handleLoadMore}>
-                            {language === 'ENG' ? 'Load More' : 'আরো লোড'}
-                        </Button>
-                    </div>
-                )}
+
+
+
+
+
 
             </Container>
         </div>
     );
 };
 
+export default MediaPage;

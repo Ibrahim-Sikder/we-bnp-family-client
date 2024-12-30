@@ -8,7 +8,6 @@ import MediaReport from "./MediaReport";
 import { useLanguage } from "@/provider/LanguageProvider";
 import { useEffect, useState } from "react";
 import { TReport } from "@/types/report";
-import Loading from "@/components/Loading/Loading";
 import { useSectionData } from "@/hooks/useSectionData";
 
 const ReportSection = () => {

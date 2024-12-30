@@ -11,6 +11,7 @@ import { LocalPhone, LocalPostOffice, LocationOn } from "@mui/icons-material";
 import { TSection } from "@/types/type";
 import DonationButton from "./DonationButton";
 import Subscribe from "./Subscribe";
+import Link from "next/link";
 
 
 
@@ -51,7 +52,7 @@ const Footer = ({ language, sectionData }: LanguageProps) => {
                 <div className="bg-red-600 p-5 text-center rounded">
 
                   <h2 className="text-2xl font-bold"> {language === 'ENG' ? data.subscribe_title_english : data.subscribe_title_bangla}  </h2>
-                  <Subscribe/>
+                  <Subscribe />
                 </div>
 
                 <div className="bg-red-600 p-5 text-center rounded">
@@ -118,7 +119,9 @@ const Footer = ({ language, sectionData }: LanguageProps) => {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">  {language === 'ENG' ? 'About Us' : 'আমাদের সম্পর্কে'} </h3>
+                    <Link href='/about'>
+                      <h3 className="text-lg font-semibold mb-2">  {language === 'ENG' ? 'About Us' : 'আমাদের সম্পর্কে'} </h3>
+                    </Link>
                     <ul className="space-y-2">
                       <li>
                         <a href="#" className="hover:underline">

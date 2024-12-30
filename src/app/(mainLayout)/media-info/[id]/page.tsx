@@ -2,7 +2,6 @@
 import Container from "@/components/shared/Container";
 import React from "react";
 import Image from "next/image";
-import "../../human-rights/Blog.css";
 import Banner from "../_components/Banner";
 import { TextField } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";

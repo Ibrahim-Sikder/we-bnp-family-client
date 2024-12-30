@@ -15,7 +15,7 @@ const NewsSection = ({ language }: LanguageProps) => {
   const { sectionData } = useSectionData()
   return (
     <div className="sectionMargin">
-      <div className="grid grid-cols-12 gap-x-5 ">
+      <div className="grid grid-cols-12 gap-x-5 md:gap-x-0 ">
         <div className="hidden xl:block col-span-12 xl:col-span-5 ">
           <div className="newsLeftSide bg-gradient-to-r from-red-600 to-green-600 ">
             {

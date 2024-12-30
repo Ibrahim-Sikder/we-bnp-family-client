@@ -78,18 +78,18 @@ const NewsSlider = () => {
   const arrowStyle = { fontSize: "13px", marginLeft: "3px" };
 
   return (
-    <div className="">
+    <div className=" px-3 md:px-5 ">
       <div className="newsRightSide">
         <Swiper
           modules={[Autoplay, Navigation]}
           spaceBetween={10}
           slidesPerView={3}
-          // // navigation
-          // autoplay={{
-          //   delay: 3500,
-          //   disableOnInteraction: false,
-          // }}
-          // speed={4500}
+          // navigation
+          autoplay={{
+            delay: 3500,
+            disableOnInteraction: false,
+          }}
+          speed={4500}
 
 
           loop={true}
@@ -97,7 +97,7 @@ const NewsSlider = () => {
             300: { slidesPerView: 1, spaceBetween: 10 },
             320: { slidesPerView: 1, spaceBetween: 10 },
             640: { slidesPerView: 1, spaceBetween: 10 },
-            768: { slidesPerView: 2, spaceBetween: 20 },
+            768: { slidesPerView: 2, spaceBetween: 10 },
             1024: { slidesPerView: 2, spaceBetween: 30 },
             1400: { slidesPerView: 2, spaceBetween: 30 },
             1500: { slidesPerView: 3, spaceBetween: 30 },

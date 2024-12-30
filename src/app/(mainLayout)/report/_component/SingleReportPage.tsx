@@ -3,13 +3,14 @@
 import Container from "@/components/shared/Container";
 import React from "react";
 import Image from "next/image";
-import "../../human-rights/Blog.css";
 import ReactHtmlParser from "react-html-parser";
 import CommonBanner from "../_component/Banner";
 import { TReport } from "@/types/report";
 import Category from "@/components/shared/Category/Category";
 import ShareLink from "@/components/ShareLink/ShareLink";
 import RecentReportList from "./RecentReportList";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import Link from "next/link";
 type SinglePrisonProps = {
     singleReportData: TReport,
     language: string
@@ -118,8 +119,16 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
 
 
     const title = language === 'ENG' ? 'Information published in the media' : 'মিডিয়ায় প্রকাশিত তথ্য'
-
-    console.log(singleReportData)
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+    const boxStyle = {
+        display: 'flex', alignItems: 'left', gap: {
+            md: 2,
+            xs: 1
+        }, flexDirection: 'column'
+    }
+    const typegraphyStyle = { fontWeight: 'bold', fontSize: isMobile ? '0.7rem' : '1rem', }
+    const typegraphyStyle2 = { fontSize: isMobile ? '0.6rem' : '1rem', }
     return (
         <div>
             <CommonBanner title={title} />
@@ -144,13 +153,75 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
                                     ))
                                 }
                             </div>
-
+                            <span className="mt-3  block ">{language === 'ENG' ? singleReportData?.img_tagline_english : singleReportData?.img_tagline_bangla}</span>
                             <div className="md:p-5 mt-5 ">
                                 <h3 className="text-xl md:text-3xl font-semibold">{language === 'ENG' ? singleReportData?.english_title : singleReportData?.bangla_title}</h3>
                                 <div className="space-y-5">
                                     <div> {language === 'ENG' ? renderContent(singleReportData?.english_description) : renderContent(singleReportData?.bangla_description)} </div>
                                 </div>
                             </div>
+
+
+                            <Box
+                                sx={{
+                                    display: 'flex',
+
+                                    gap: {
+                                        md: 1.5,
+                                        xs: 1
+                                    },
+                                    p: {
+                                        md: 1,
+                                        xs: 0
+                                    },
+                                    fontFamily: 'Noto Sans Bengali, sans-serif',
+                                }}
+                            >
+
+                                <Box sx={boxStyle}>
+                                    <Typography
+                                        component="b"
+                                        sx={typegraphyStyle}
+                                    >
+                                        {language === 'ENG' ? 'Name of the published newspaper' : 'প্রকাশিত পত্রিকার নাম'}
+                                    </Typography>
+                                    <Typography
+                                        component="b"
+                                        sx={typegraphyStyle}
+                                    >
+                                        {language === 'ENG' ? 'News release date' : 'সংবাদ প্রকাশের তারিখ'}
+                                    </Typography>
+                                    <Typography
+                                        component="b"
+                                        sx={typegraphyStyle}
+                                    >
+                                        {language === 'ENG' ? 'Newspaper published link' : 'পত্রিকার প্রকাশিত লিংক'}
+                                    </Typography>
+                                </Box>
+
+
+                                <Box sx={boxStyle}>
+
+                                    <Typography
+                                        component="span"
+                                        sx={typegraphyStyle2}
+                                    >
+                                        <span className=" mr-2 ">:</span> {singleReportData?.name_published_newspaper}
+                                    </Typography>
+                                    <Typography
+                                        component="span"
+                                        sx={typegraphyStyle2}
+                                    >
+                                        <span className=" mr-2 ">:</span> {singleReportData?.news_release_date}
+                                    </Typography>
+                                    <Link target="_blank" href={singleReportData?.Link_published_newspaper}> <span className=" mr-2 ">:</span><button
+                                        className="bg-gradient-to-r from-red-600 to-green-600 p-1 text-[9px] md:text-sm  md:px-3 rounded text-white"
+                                    >
+                                        লিংক দেখুন
+                                    </button></Link>
+
+                                </Box>
+                            </Box>
                             {/* share section */}
                             <div className="my-5">
                                 <ShareLink />

@@ -104,7 +104,6 @@ const {activityData, loading, error} = useActivityData()
     return <p>Something went to wrong !</p>
   }
 
-
   return (
     <Container className="sectionMargin">
       <ActiveSectionTitle />
