@@ -19,29 +19,29 @@ const Header = () => {
   const toggleMobileMenu = () => {
     setOpen((open) => !open)
   }
-  useEffect(() => {
-    const checkZoom = () => {
-      const zoomLevel = Math.round(window.devicePixelRatio * 100);
-      const menu = document.querySelector('.navItems') as HTMLElement | null;
+  // useEffect(() => {
+  //   const checkZoom = () => {
+  //     const zoomLevel = Math.round(window.devicePixelRatio * 100);
+  //     const menu = document.querySelector('.navItems') as HTMLElement | null;
 
-      if (menu) {
-        if (zoomLevel >= 175) {
-          menu.style.display = 'none';
-        } else {
-          menu.style.display = 'flex';
-        }
-      }
-    };
+  //     if (menu) {
+  //       if (zoomLevel >= 175) {
+  //         menu.style.display = 'none';
+  //       } else {
+  //         menu.style.display = 'flex';
+  //       }
+  //     }
+  //   };
 
 
-    checkZoom();
+  //   checkZoom();
 
-    window.addEventListener('resize', checkZoom);
+  //   window.addEventListener('resize', checkZoom);
 
-    return () => {
-      window.removeEventListener('resize', checkZoom);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('resize', checkZoom);
+  //   };
+  // }, []);
 
 
   return (

@@ -56,8 +56,7 @@
   box-shadow: 0 5px 15px #00000026;
   transform-origin: top;
   transition: all .5s cubic-bezier(.44, .47, .64, .65);
-  display: flex
-;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   border-top: 3px solid red;
