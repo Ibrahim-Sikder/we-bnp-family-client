@@ -112,7 +112,7 @@ const Header = () => {
                   <Link onClick={toggleMobileMenu} href="/">{language === 'ENG' ? 'Home' : 'প্রচ্ছদ'}</Link>
                 </li>
                 <li className="dropdownMenuWrap">
-                  <small>
+                  <small className="text-[17px] font-[500]">
                     {language === 'ENG' ? 'Our Activities' : ' আমাদের কার্যক্রম'}
                     <KeyboardArrowDownIcon />
                   </small>
@@ -133,7 +133,7 @@ const Header = () => {
                   <Link onClick={toggleMobileMenu} href="/about"> {language === 'ENG' ? 'About Us' : ' আমাদের সম্পর্কে'} </Link>
                 </li>
                 <li className="dropdownMenuWrap">
-                  <small>  {language === 'ENG' ? "Oppressive Rule of Dictator Hasina" : 'স্বৈরাচার হাসিনার দুঃশাসন'} <KeyboardArrowDownIcon /></small>
+                  <small className="text-[17px] font-[500]">  {language === 'ENG' ? "Oppressive Rule of Dictator Hasina" : 'স্বৈরাচার হাসিনার দুঃশাসন'} <KeyboardArrowDownIcon /></small>
                   <ul className="dropdownMenu">
                     <li>
                       <Link onClick={toggleMobileMenu} href="/disappearances">
@@ -157,12 +157,8 @@ const Header = () => {
                         </li>
                       </ul>
                     </li>
-
-
                     <li>
                       <Link onClick={toggleMobileMenu} href="/torture"><span>
-
-
                         {language === 'ENG' ? 'Awami League Torture' : ' আওয়ামী লীগের নির্যাতন '}
                       </span></Link>
                     </li>
@@ -179,7 +175,7 @@ const Header = () => {
 
 
                 <li className="dropdownMenuWrap">
-                  <small>
+                  <small className="text-[17px] font-[500]">
                     {language === 'ENG' ? 'Reports' : 'রিপোর্ট'}
                     <KeyboardArrowDownIcon />
                   </small>

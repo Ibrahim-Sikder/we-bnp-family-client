@@ -11,10 +11,8 @@ import { Button} from "@mui/material";
 import React from "react";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import Link from "next/link";
-
 import dynamic from "next/dynamic";
 import ActivityCard from "./ActivityCard";
-import { TActivity } from "@/types";
 import { useLanguage } from "@/provider/LanguageProvider";
 import ImportantMediaNews from "../ImportantNews/ImportantMediaNews";
 import LatestMediaNews from "../LatestNews/LatestMediaNews";
@@ -142,8 +140,7 @@ const {activityData, loading, error} = useActivityData()
                   sx={tabStyle}
                   aria-label="lab API tabs example"
                   centered
-                >
-                  <Tab sx={tabBtnStyle} label={language === 'ENG' ? 'Latest' : 'সর্বশেষ'} value="1" />
+                >                  <Tab sx={tabBtnStyle} label={language === 'ENG' ? 'Latest' : 'সর্বশেষ'} value="1" />
                   <Tab sx={tabBtnStyle} label={language === 'ENG' ? 'Important' : 'গুরুত্বপূ্র্ণ'} value="2" />
                 </TabList>
               </Box>

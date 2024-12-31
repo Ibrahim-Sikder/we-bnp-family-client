@@ -22,7 +22,8 @@
   color: #fff;
 }
 
-.navItems li:hover a, .navItems li:hover small {
+.navItems li:hover a,
+.navItems li:hover small {
   color: #fff;
   width: 100%;
   position: relative;
@@ -31,22 +32,26 @@
   cursor: pointer;
 }
 
-.navItems li:hover .dropdownMenu li a, .dropdownMenu li small {
+.navItems li:hover .dropdownMenu li a,
+.dropdownMenu li small {
   color: white !important;
 }
 
-.navItems li:hover .dropdownMenu li a , .dropdownMenu li small {
+.navItems li:hover .dropdownMenu li a,
+.dropdownMenu li small {
   color: black !important;
 }
 
-.dropdownMenu li:hover a span , .dropdownMenu li small {
+.dropdownMenu li:hover a span,
+.dropdownMenu li small {
   color: white !important;
 }
 
 
 
 
-.dropdownMenu, .submenu3 {
+.dropdownMenu,
+.submenu3 {
   background: #fff;
   width: 290px;
   height: 204px;
@@ -141,10 +146,13 @@
     transition: all 0.5s cubic-bezier(0.43, 0.38, 0.68, 0.63);
     z-index: 999;
   }
+
+
+
   .navItems li {
     padding-bottom: 16px;
     border-bottom: none;
-}
+  }
 
   .activeMenu {
     left: 0px;
@@ -212,10 +220,13 @@
 
 
 }
-@media only screen and (width <= 425px) {
-  .activeBar, .bar1 {
-      top: 21px;
-      right: -2px;
+
+@media only screen and (width <=425px) {
+
+  .activeBar,
+  .bar1 {
+    top: 21px;
+    right: -2px;
   }
 }
 
@@ -233,18 +244,20 @@
     left: 0px;
     width: 100%;
   }
+
   .submenu2 {
     width: 240px;
 
-}
+  }
 
   .navItems li {
     padding: 10px 0px;
     border: none;
   }
+
   .navItems {
     width: 250px;
-}
+  }
 
 }
 

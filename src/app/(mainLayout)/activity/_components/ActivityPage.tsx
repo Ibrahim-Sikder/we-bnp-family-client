@@ -5,7 +5,7 @@ import Container from "@/components/shared/Container";
 import { TActivity } from "@/types";
 import icon from "../../../../../src/assets/images/logo/logo.jpg";
 import CommonBanner from "../../report/_component/Banner";
-
+import './Activity.css'
 
 type LanguageProps = {
     language: string,
@@ -21,21 +21,24 @@ function ActivityPage({ language, activityData }: LanguageProps) {
         <>
             <CommonBanner title={title} />
 
-            <Container>
+            <Container className="sectionMargin">
 
-                <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 my-2 py-10 items-center ">
+                <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 my-2  items-center ">
                     {activityData?.map((card: TActivity) => (
                         <div key={card._id}>
                             <Link href={`/activity/${card._id}`}>
-                                <div key={card._id} className="max-w-lg ">
-                                    {/* {activityData?.bng_Images?.slice(0, 1)?.map((img: any) => {
-                      return <Image layout="responsive" src={img} alt="hero" width={500}
-                        height={500}
-                        className="h-[300px] w-full" key={img} />
-                    })} */}
+                                <div key={card._id} className="max-w-lg activityCard ">
+                                    <div className=" h-[200px] md:h-[250px] w-full ">
+                                        {card?.bng_Images?.slice(0, 1)?.map((img: any) => {
+                                            return <Image layout="" src={img} alt="hero" width={500}
+                                                height={500}
+                                                className="h-full object-contain w-full" key={img} />
+                                        })}
+                                    </div>
 
-                                    <div className="relative group text-black hover:text-white">
-                                        <div className="relative group w-16 h-16 z-10 ml-[50px]  transition-transform duration-600 group-hover:-translate-y-5 ">
+                                    <div className="-top-20 relative group text-black hover:text-white">
+
+                                        <div className="relative group h-10 md:w-16 w-10  md:h-16 z-10 ml-[50px] transition-transform duration-600 group-hover:-translate-y-5 ">
                                             <div className="bg-red-500 rounded-full p-3 w-[110px] h-[110px] flex items-center justify-center ">
                                                 <Image
                                                     src={icon}
@@ -49,13 +52,13 @@ function ActivityPage({ language, activityData }: LanguageProps) {
                                         </div>
 
                                         <div className="flex items-center content-center justify-center  ">
-                                            <div className="max-w-sm h-auto px-6 py-4 shadow-lg border bg-white hover:bg-gradient-to-r hover:from-red-600 hover:to-green-600 custom-clip-path transition-transform duration-300 group-hover:-translate-y-5 ">
-                                                <div className="font-bold text-xl mb-2 mt-20">
-                                                    {language === 'ENG' ? card?.english_title : card?.bangla_title}
-                                                </div>
+                                            <div className="max-w-sm h-auto md:px-6 p-2 md:py-4 shadow-lg  bg-white hover:bg-gradient-to-r hover:from-red-600 hover:to-green-600 custom-clip-path transition-transform duration-300 group-hover:-translate-y-5 ">
+                                                <h3 className="font-bold text-xl mb-2 mt-16 md:mt-10 rounded-md  ">
+                                                    {language === 'ENG' ? card?.english_title?.slice(0, 45) : card?.bangla_title?.slice(0, 45)}...
+                                                </h3>
                                                 <p className=" text-sm mb-2 ">{card?.date}</p>
                                                 <p className=" text-base text-justify">
-                                                    {language === 'ENG' ? card?.english_short_description.slice(0, 200) : card?.bangla_short_description.slice(0, 200)}
+                                                    {language === 'ENG' ? card?.english_short_description.slice(0, 100) : card?.bangla_short_description.slice(0, 100)}
 
                                                     <span
 
