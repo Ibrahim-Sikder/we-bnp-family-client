@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Header.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -19,7 +19,29 @@ const Header = () => {
   const toggleMobileMenu = () => {
     setOpen((open) => !open)
   }
+  useEffect(() => {
+    const checkZoom = () => {
+      const zoomLevel = Math.round(window.devicePixelRatio * 100);
+      const menu = document.querySelector('.navItems') as HTMLElement | null;
 
+      if (menu) {
+        if (zoomLevel >= 175) {
+          menu.style.display = 'none';
+        } else {
+          menu.style.display = 'flex';
+        }
+      }
+    };
+
+
+    checkZoom();
+
+    window.addEventListener('resize', checkZoom);
+
+    return () => {
+      window.removeEventListener('resize', checkZoom);
+    };
+  }, []);
 
 
   return (
