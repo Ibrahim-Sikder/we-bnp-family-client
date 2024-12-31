@@ -142,74 +142,70 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
                             </div>
 
                         </div>
-                        <Box
-                            sx={{
-                                display: 'flex',
-
-                                gap: {
-                                    md: 1.5,
-                                    xs: 1
-                                },
-                                p: {
-                                    md: 1,
-                                    xs: 0
-                                },
-                                fontFamily: 'Noto Sans Bengali, sans-serif',
-                            }}
-                        >
-
-                            <Box sx={boxStyle}>
-                                <Typography
-                                    component="b"
-                                    sx={typegraphyStyle}
+                        {singleTortureData?.name_published_newspaper && singleTortureData?.news_release_date && singleTortureData?.Link_published_newspaper ? (
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        gap: {
+                                            md: 1.5,
+                                            xs: 1
+                                        },
+                                        p: {
+                                            md: 1,
+                                            xs: 0
+                                        },
+                                        fontFamily: 'Noto Sans Bengali, sans-serif',
+                                    }}
                                 >
-                                    {language === 'ENG' ? 'Name of the published newspaper' : 'প্রকাশিত পত্রিকার নাম'}
-                                </Typography>
-                                <Typography
-                                    component="b"
-                                    sx={typegraphyStyle}
-                                >
-                                    {language === 'ENG' ? 'News release date' : 'সংবাদ প্রকাশের তারিখ'}
-                                </Typography>
-                                <Typography
-                                    component="b"
-                                    sx={typegraphyStyle}
-                                >
-                                    {language === 'ENG' ? 'Newspaper published link' : 'পত্রিকার প্রকাশিত লিংক'}
-                                </Typography>
-                            </Box>
+                                    <Box sx={boxStyle}>
+                                        <Typography
+                                            component="b"
+                                            sx={typegraphyStyle}
+                                        >
+                                            {language === 'ENG' ? 'Name of the published newspaper' : 'প্রকাশিত পত্রিকার নাম'}
+                                        </Typography>
+                                        <Typography
+                                            component="b"
+                                            sx={typegraphyStyle}
+                                        >
+                                            {language === 'ENG' ? 'News release date' : 'সংবাদ প্রকাশের তারিখ'}
+                                        </Typography>
+                                        <Typography
+                                            component="b"
+                                            sx={typegraphyStyle}
+                                        >
+                                            {language === 'ENG' ? 'Newspaper published link' : 'পত্রিকার প্রকাশিত লিংক'}
+                                        </Typography>
+                                    </Box>
 
-
-                            <Box sx={boxStyle}>
-
-                                <Typography
-                                    component="span"
-                                    sx={typegraphyStyle2}
-                                >
-                                    <span className=" mr-2 ">:</span> {singleTortureData?.name_published_newspaper}
-                                </Typography>
-                                <Typography
-                                    component="span"
-                                    sx={typegraphyStyle2}
-                                >
-                                    <span className=" mr-2 ">:</span> {singleTortureData?.news_release_date}
-                                </Typography>
-                                {singleTortureData?.Link_published_newspaper ? (
-                                    <Link target="_blank" href={singleTortureData?.Link_published_newspaper}>
-                                        <span className="mr-2">:</span>
-                                        <button className="bg-gradient-to-r from-red-600 to-green-600 p-1 text-[9px] md:text-sm md:px-3 rounded text-white">
-                                            লিংক দেখুন
-                                        </button>
-                                    </Link>
-                                ) : (
-                                    <Typography component="span" sx={typegraphyStyle2}>
-                                        <span className="mr-2">:</span> {language === 'ENG' ? 'Link not available' : 'লিংক পাওয়া যায়নি'}
-                                    </Typography>
-                                )}
-
-
-                            </Box>
-                        </Box>
+                                    <Box sx={boxStyle}>
+                                        <Typography
+                                            component="span"
+                                            sx={typegraphyStyle2}
+                                        >
+                                            <span className="mr-2">:</span> {singleTortureData?.name_published_newspaper}
+                                        </Typography>
+                                        <Typography
+                                            component="span"
+                                            sx={typegraphyStyle2}
+                                        >
+                                            <span className="mr-2">:</span> {singleTortureData?.news_release_date}
+                                        </Typography>
+                                        {singleTortureData?.Link_published_newspaper ? (
+                                            <Link target="_blank" href={singleTortureData?.Link_published_newspaper}>
+                                                <span className="mr-2">:</span>
+                                                <button className="bg-gradient-to-r from-red-600 to-green-600 p-1 text-[9px] md:text-sm md:px-3 rounded text-white">
+                                                    লিংক দেখুন
+                                                </button>
+                                            </Link>
+                                        ) : (
+                                            <Typography component="span" sx={typegraphyStyle2}>
+                                                <span className="mr-2">:</span> {language === 'ENG' ? 'Link not available' : 'লিংক পাওয়া যায়নি'}
+                                            </Typography>
+                                        )}
+                                    </Box>
+                                </Box>
+                            ) : null}
                         <ShareLink />
                     </div>
                     <div className="xl:col-span-3  ">
