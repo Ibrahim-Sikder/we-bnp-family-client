@@ -102,23 +102,34 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
             <Container>
                 <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 my-5 md:my-20">
                     <div className="xl:col-span-9">
+                        <h3 className="text-xl md:text-3xl font-semibold mb-5 ">
+                            {language === 'ENG' ? singlePressData?.english_title : singlePressData?.bangla_title}
+                        </h3>
                         <div key={singlePressData?._id} className="h-full w-full">
-                            <div className="relative overflow-hidden">
-
-
-                                {singlePressData?.bng_Images?.slice(0, 1)?.map((img: any) => {
-
-                                    return <Image width={500}
-                                        height={500} src={img} alt="hero" className="object-cover w-full h-[340px]"
-                                        layout="responsive" key={img} />
-                                })}
-                                <span className="mt-3 block"> {language === 'ENG' ? singlePressData?.img_tagline_english : singlePressData?.img_tagline_bangla}</span>
+                            <div className="relative overflow-hidden shadow-sm rounded-lg border border-gray-200">
+                                {singlePressData?.bng_Images?.slice(0, 1)?.map((img: any) => (
+                                    <Image
+                                        width={500}
+                                        height={500}
+                                        src={img}
+                                        alt="hero"
+                                        className="object-cover w-full h-[340px] rounded-t-lg"
+                                        layout="responsive"
+                                        key={img}
+                                    />
+                                ))}
+                                <span className="mt-3 block px-4 py-2 text-center bg-white shadow-inner rounded-b-lg"> 
+                                    {language === 'ENG'
+                                        ? singlePressData?.img_tagline_english
+                                        : singlePressData?.img_tagline_bangla}
+                                </span>
                             </div>
 
+                            {/* <div className="mt-10 h-3 ">
+
+                            </div> */}
                             <div className="mt-5  md:mt-10 ">
-                                <h3 className="text-xl md:text-3xl font-semibold">
-                                    {language === 'ENG' ? singlePressData?.english_title : singlePressData?.bangla_title}
-                                </h3>
+
                                 <div className="mt-5 space-y-5">
                                     <div>
                                         {language === 'ENG' ? renderContent(singlePressData?.english_description) : renderContent(singlePressData?.bangla_description)}

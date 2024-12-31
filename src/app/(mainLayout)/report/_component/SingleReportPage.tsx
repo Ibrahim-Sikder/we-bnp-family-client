@@ -138,24 +138,28 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
 
                         <div className="h-full w-full">
 
-                            <div className="relative w-full h-[200px] md:h-[400px] lg:h-[500px] mb-6">
-                                {
-                                    singleReportData.bng_Images?.slice(0, 1).map((img) => (
-                                        <Image
-                                            width={500}
-                                            height={500}
-                                            key={img}
-                                            src={img}
-                                            alt="Top Image"
+                            <h3 className="text-xl md:text-3xl font-semibold mb-5 ">{language === 'ENG' ? singleReportData?.english_title : singleReportData?.bangla_title}</h3>
+                            <div className="relative rounded-md border border-gray-200 shadow-sm w-full  mb-6 overflow-hidden">
+                                {singleReportData?.bng_Images?.slice(0, 1).map((img) => (
+                                    <Image
+                                        width={500}
+                                        height={500}
+                                        key={img}
+                                        src={img}
+                                        alt="Top Image"
+                                        className="w-full h-full object-cover rounded-t-lg"
+                                    />
+                                ))}
 
-                                            className="rounded-lg w-full h-full object-cover"
-                                        />
-                                    ))
-                                }
+                                <span className="mt-1 block px-4  py-2 text-center">
+                                    {language === 'ENG'
+                                        ? singleReportData?.img_tagline_english
+                                        : singleReportData?.img_tagline_bangla}
+                                </span>
                             </div>
-                            <span className="mt-3  block ">{language === 'ENG' ? singleReportData?.img_tagline_english : singleReportData?.img_tagline_bangla}</span>
+
                             <div className="md:p-5 mt-5 ">
-                                <h3 className="text-xl md:text-3xl font-semibold">{language === 'ENG' ? singleReportData?.english_title : singleReportData?.bangla_title}</h3>
+
                                 <div className="space-y-5">
                                     <div> {language === 'ENG' ? renderContent(singleReportData?.english_description) : renderContent(singleReportData?.bangla_description)} </div>
                                 </div>

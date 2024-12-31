@@ -162,36 +162,34 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                     <div className="grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 my-8 md:my-12 lg:my-16 xl:my-20">
                         <div className="col-span-12 xl:col-span-9">
                             <div className="h-full text-base sm:text-lg">
+
+                                <h3 className="text-xl md:text-2xl font-semibold mb-5 ">
+                                    {language === 'ENG' ? singleActivity?.english_title : singleActivity?.bangla_title}
+                                </h3>
                                 <div className="space-y-4 sm:space-y-6 lg:space-y-8">
 
 
-                                    <div className="relative w-full h-[200px] md:h-[400px] lg:h-[500px] mb-6">
-                                        {
-                                            singleActivity?.bng_Images?.slice(0, 1).map((img) => (
-                                                <Image
-                                                    width={500}
-                                                    height={500}
-                                                    key={img}
-                                                    src={img}
-                                                    alt="Top Image"
+                                    <div className="relative rounded-md border border-gray-200 shadow-sm w-full  mb-6 overflow-hidden">
+                                        {singleActivity?.bng_Images?.slice(0, 1).map((img) => (
+                                            <Image
+                                                width={500}
+                                                height={500}
+                                                key={img}
+                                                src={img}
+                                                alt="Top Image"
+                                                className="w-full h-full object-cover rounded-t-lg"
+                                            />
+                                        ))}
 
-                                                    className="rounded-lg w-full h-full object-cover"
-                                                />
-                                            ))
-                                        }
-
+                                        <span className="mt-1 block px-4  py-2 text-center">
+                                            {language === 'ENG'
+                                                ? singleActivity?.img_tagline_english
+                                                : singleActivity?.img_tagline_bangla}
+                                        </span>
                                     </div>
-                                    <span> {language === 'ENG' ? singleActivity?.img_tagline_english : singleActivity?.img_tagline_bangla}</span>
-
-                                    <h3 className="text-xl md:text-2xl font-semibold">
-                                        {language === 'ENG' ? singleActivity?.english_title : singleActivity?.bangla_title}
-                                    </h3>
-
-
-                                    <div className="text-justify">
+                                    <div className="text-justify ">
                                         {language === 'ENG' ? renderContent(singleActivity?.english_description) : renderContent(singleActivity?.bangla_description)}
                                     </div>
-
 
 
                                     <div className="flex flex-col md:flex-row md:gap-4 lg:gap-5 space-y-4 md:space-y-0">

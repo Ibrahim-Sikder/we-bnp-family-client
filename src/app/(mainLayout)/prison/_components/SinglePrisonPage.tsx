@@ -126,6 +126,9 @@ const SinglePrisonPage = ({ singlePrisonData, language }: SinglePrisonProps) => 
                 <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 my-20">
                     <div className="xl:col-span-9">
                         <div className="murderRightSide">
+                            <h2 className="mb-5 ">
+                                {language === 'ENG' ? singlePrisonData.english_title : singlePrisonData.bangla_title}
+                            </h2>
                             <div className="imgWrap">
 
 
@@ -135,11 +138,10 @@ const SinglePrisonPage = ({ singlePrisonData, language }: SinglePrisonProps) => 
                                         height={500} key={img} />
                                 })}
                             </div>
+
                             <span className="mt-3  block ">{language === 'ENG' ? singlePrisonData?.img_tagline_english : singlePrisonData?.img_tagline_bangla}</span>
                             <div className="my-10">
-                                <h2>
-                                    {language === 'ENG' ? singlePrisonData.english_title : singlePrisonData.bangla_title}
-                                </h2>
+
                                 <div className="space-y-5 mt-5 ">
 
                                     {language === 'ENG' ? renderContent(singlePrisonData.english_description) : renderContent(singlePrisonData.bangla_description)}
