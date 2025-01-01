@@ -11,8 +11,6 @@ import { TReport } from "@/types/report";
 import { useSectionData } from "@/hooks/useSectionData";
 
 const ReportSection = () => {
-
-
     const { language } = useLanguage();
     const { sectionData } = useSectionData()
     const [reportData, setReportData] = useState<TReport[]>([]);
@@ -40,8 +38,13 @@ const ReportSection = () => {
         return <div>{error}</div>;
     }
 
-    const internationReportData = reportData.filter((item: any) => item.category === 'আর্ন্তজাতিক সংস্থার রিপোর্ট')
-    const mediaReportData = reportData.filter((item: any) => item.category === 'মিডিয়ায় প্রকাশিত তথ্য')
+    const sortedReportData = reportData?.sort((a: TReport, b: TReport) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return dateB - dateA;
+    });
+    const internationReportData = sortedReportData.filter((item: any) => item.category === 'আর্ন্তজাতিক সংস্থার রিপোর্ট')
+    const mediaReportData = sortedReportData.filter((item: any) => item.category === 'মিডিয়ায় প্রকাশিত তথ্য')
 
     const dividerStyle = {
         width: "150px",

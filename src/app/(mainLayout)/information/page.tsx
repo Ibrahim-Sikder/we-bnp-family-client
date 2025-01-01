@@ -54,7 +54,6 @@ const Information = () => {
     const { sectionData } = useSectionData()
     const router = useRouter()
     const handleSubmit = async (data: FieldValues) => {
-        console.log('raw data', data)
 
         const imageUrl = Array.isArray(data.images) ? data.images[0] : data.images;
         const submitData = {
@@ -62,10 +61,10 @@ const Information = () => {
             images: imageUrl,
 
         }
-        console.log('submit data', submitData)
+  
         try {
             const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/information`, submitData);
-            console.log(res)
+         
 
             if (res.status === 200 || res.status === 201) {
                 toast.success('Your document submitted successfully!');

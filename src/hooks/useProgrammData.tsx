@@ -1,8 +1,9 @@
 'use client';
+import { TProgramm } from "@/types";
 import { TPrison } from "@/types/prison";
 import { useEffect, useState } from "react";
 export const useProgrammData = () => {
-    const [programmData, setProgrammData] = useState<TPrison[]>([]);
+    const [programmData, setProgrammData] = useState<TProgramm[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 

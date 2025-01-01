@@ -9,7 +9,7 @@ const ImportantMediaNews = () => {
     const { language } = useLanguage();
     const [reportData, setReportData] = useState<TReport[]>([]);
     const [error, setError] = useState<string | null>(null);
-    console.log(reportData)
+
     useEffect(() => {
         const fetchData = async () => {
             try {

@@ -15,6 +15,8 @@ import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import { useGetAllProgrammeQuery } from "@/redux/api/programmeApi";
 import { useLanguage } from "@/provider/LanguageProvider";
 import Loading from "@/components/Loading/Loading";
+import { useProgrammData } from "@/hooks/useProgrammData";
+import { TProgramm } from "@/types";
 
 export type TNews = {
   _id: string,
@@ -45,12 +47,13 @@ export type TNews = {
 const NewsSlider = () => {
   const { language } = useLanguage();
 
-  const { data, isLoading } = useGetAllProgrammeQuery({});
-  if (isLoading) {
-    return <Loading />;
-  }
+  const { programmData, loading } = useProgrammData();
 
-
+  const sortedProgrammData = programmData?.sort((a: TProgramm, b: TProgramm) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+    return dateB - dateA;
+  });
 
   const btnStyle = {
     background: "#fff",
@@ -103,7 +106,7 @@ const NewsSlider = () => {
             1500: { slidesPerView: 3, spaceBetween: 30 },
           }}
         >
-          {data?.programms?.map((news: TNews) => (
+          {sortedProgrammData?.map((news: TNews) => (
             <SwiperSlide key={news._id} className="">
               <div className="upcommingNewsCardWrap ">
                 <div className="upcomingNewsCard relative ">

@@ -107,12 +107,23 @@ export default function PhotoGallery() {
     flexDirection: "column",
   };
 
+  const sortedDisappearanceData = disappearanceData?.sort((a: TDisappearance, b: TDisappearance) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+    return dateB - dateA;
+  });
+  const sortedPrisonData = prisonData?.sort((a: TPrison, b: TPrison) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+    return dateB - dateA;
+  });
 
-  const disappearanceFilterData = disappearanceData.filter((item) => item.category === 'গুমের তালিকা')
-  const murtyreFilterData = disappearanceData.filter((item) => item.category === 'শহীদদের তালিকা')
-  const prisonFilterData = prisonData.filter((item) => item.category === 'কারাগারে নির্যাতন')
-  const tortureFilterData = prisonData.filter((item) => item.category === 'আওয়ামী লীগের নির্যাতন')
-  const augostilterData = disappearanceData.filter((item) => item.category === 'আগস্ট গণ-অভ্যুত্থান')
+
+  const disappearanceFilterData = sortedDisappearanceData.filter((item) => item.category === 'গুমের তালিকা')
+  const murtyreFilterData = sortedDisappearanceData.filter((item) => item.category === 'শহীদদের তালিকা')
+  const prisonFilterData = sortedPrisonData.filter((item) => item.category === 'কারাগারে নির্যাতন')
+  const tortureFilterData = sortedPrisonData.filter((item) => item.category === 'আওয়ামী লীগের নির্যাতন')
+  const augostilterData = sortedDisappearanceData.filter((item) => item.category === 'আগস্ট গণ-অভ্যুত্থান')
 
 
   return (

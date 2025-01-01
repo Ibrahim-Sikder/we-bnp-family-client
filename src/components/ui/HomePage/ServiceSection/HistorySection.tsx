@@ -22,7 +22,7 @@ type TLeader = {
   images: string[];
   createdAt: string,
 }
-const HistorySection = () => {
+const  HistorySection = () => {
   const { language, setLanguage } = useLanguage();
 
   const [bannerData, setBannerData] = React.useState<TLeader[]>([]);

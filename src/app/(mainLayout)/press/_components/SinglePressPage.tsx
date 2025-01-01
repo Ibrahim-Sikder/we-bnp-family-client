@@ -95,7 +95,7 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
     }
     const typegraphyStyle = { fontWeight: 'bold', fontSize: isMobile ? '0.7rem' : '1rem', }
     const typegraphyStyle2 = { fontSize: isMobile ? '0.6rem' : '1rem', }
-    console.log(singlePressData)
+
     return (
         <div>
             <Banner title={bannerTitle} text={bannerText} />
