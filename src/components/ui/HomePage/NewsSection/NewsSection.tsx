@@ -13,6 +13,8 @@ type LanguageProps = {
 const NewsSection = ({ language }: LanguageProps) => {
 
   const { sectionData } = useSectionData()
+
+
   return (
     <div className="sectionMargin">
       <div className="grid grid-cols-12 gap-x-5 md:gap-x-0 ">

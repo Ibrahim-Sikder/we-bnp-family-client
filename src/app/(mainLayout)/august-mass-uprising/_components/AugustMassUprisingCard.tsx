@@ -8,7 +8,8 @@ import '../../../../components/ui/HomePage/PhotoGallery/PhotoGallery.css'
 import { Search } from '@mui/icons-material';
 import { TDisappearance } from '@/types/disappearance';
 import '../../murdered//Murder.css'
-
+import { loadBtnStyle } from '@/utils/customStyle';
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 type LanguageProps = {
     language: string,
@@ -16,6 +17,19 @@ type LanguageProps = {
 }
 export default function AugustMassUprisingCard({ language, disappearanceData }: LanguageProps) {
     const AugustFilterData = disappearanceData.filter((item) => item.category === 'আগস্ট গণ-অভ্যুত্থান')
+
+    const sortedAugustData = AugustFilterData?.sort(
+        (a: TDisappearance, b: TDisappearance) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return dateA - dateB;
+        },
+    );
+
+    const [visibleCount, setVisibleCount] = React.useState(6);
+    const loadMore = () => {
+        setVisibleCount((prevCount) => prevCount + 6);
+    };
     return (
         <>
             <div className='bannerWrap'>
@@ -25,11 +39,11 @@ export default function AugustMassUprisingCard({ language, disappearanceData }: 
             </div>
             <Container className='my-10'>
                 <div className='mb-10 flex gap-2  '>
-                    <TextField label=' সার্চ করুন' size='small' />
+                    <TextField label={language === 'ENG' ? 'Search here' : 'সার্চ করুন'} size='small' />
                     <Button><Search /></Button>
                 </div>
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
-                    {AugustFilterData?.map((data: TDisappearance) => (
+                    {sortedAugustData?.slice(0, visibleCount)?.map((data: TDisappearance) => (
                         <div key={data._id} className="disappeareCard">
                             <div className="flex gap-x-5 items-end justify-between flex-col md:flex-row ">
                                 <div className="disappeareImgWrap ">
@@ -87,9 +101,17 @@ export default function AugustMassUprisingCard({ language, disappearanceData }: 
                         </div>
                     ))}
                 </div>
-                <div className="flex items-center justify-center mt-5 ">
-                    <Button> {language === 'ENG' ? 'Load More' : 'আরো লোড'}  </Button>
-                </div>
+                {visibleCount < sortedAugustData?.length && (
+                    <div className="flex items-center justify-center mt-5">
+                        <Button
+                            onClick={loadMore}
+                            variant="contained"
+                            sx={loadBtnStyle}
+                        >
+                            {language === 'ENG' ? 'Load More' : 'আরো লোড'} <ArrowRightAltIcon />
+                        </Button>
+                    </div>
+                )}
             </Container>
         </>
     );

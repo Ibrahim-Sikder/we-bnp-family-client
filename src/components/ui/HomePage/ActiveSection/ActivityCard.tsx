@@ -1,5 +1,6 @@
 
 import { TActivity } from "@/types";
+import truncateText from "@/utils/truncate";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import Image from "next/image";
@@ -44,8 +45,8 @@ const ActivityCard: React.FC<MurtyreCardProps> = ({ activityData, language }) =>
 
           <div className="p-2 md:p-3 space-y-1 md:space-y-2">
             <h3 className="text-xl md:text-2xl">{language === 'ENG' ? data?.english_title : data?.bangla_title}</h3>
-            <p className="hidden md:block">{language === 'ENG' ? data?.english_short_description?.slice(0, 200) : data.bangla_short_description?.slice(0, 200)}...</p>
-            <p className="md:hidden block">{language === 'ENG' ? data?.english_short_description?.slice(0, 100) : data.bangla_short_description?.slice(0, 100)}...</p>
+            <p className="hidden md:block">{language === 'ENG' ? truncateText(data?.english_short_description,200) : truncateText(data?.bangla_short_description,200)}</p>
+           
             <Button component={Link} href={`/activity/${data._id}`} sx={buttonStyle}>
               {
                 language === 'ENG' ? 'Read More' : 'আরও পড়ুন'

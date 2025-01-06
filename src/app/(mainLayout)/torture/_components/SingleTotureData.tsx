@@ -124,7 +124,7 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
                 <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 my-5 md:my-20  ">
                     <div className="xl:col-span-9">
                         <div className="murderRightSide">
-                        <h3 className="text-xl md:text-3xl font-semibold  mb-5 ">{language === 'ENG' ? singleTortureData?.english_title : singleTortureData?.bangla_title}</h3>
+                            <h3 className="text-xl md:text-3xl font-semibold  mb-5 ">{language === 'ENG' ? singleTortureData?.english_title : singleTortureData?.bangla_title}</h3>
                             <div className="relative rounded-md border border-gray-200 shadow-sm w-full  mb-6 overflow-hidden">
                                 {singleTortureData?.bng_Images?.slice(0, 1).map((img) => (
                                     <Image
@@ -145,7 +145,7 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
                             </div>
 
                             <div className="mt-10 md:mt-16 ">
-                               
+
                                 <div className="mt-5">
                                     <div> {language === 'ENG' ? renderContent(singleTortureData?.english_description) : renderContent(singleTortureData?.bangla_description)} </div>
                                 </div>
@@ -222,7 +222,7 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
 
                         <div className="sticky top-32">
                             <div >
-                                <h3>সাম্প্রতিক পোস্ট</h3>
+                                <h3>{language === 'ENG' ? 'Recent Posts' : 'সাম্প্রতিক পোস্ট'}</h3>
                                 <hr className="w-16 h-1 bg-gradient-to-r from-red-600 to-green-600 border-0 rounded-full mb-5" />
                                 <RecentTorturePost />
                             </div>

@@ -18,7 +18,7 @@ export default function DisappearanceCard({ language, disappearanceData }: Langu
   const disappearanceFilterData = disappearanceData.filter((item) => item.category === 'গুমের তালিকা');
 
   const handleLoadMore = () => {
-    setVisibleCount(prevCount => prevCount + 5); 
+    setVisibleCount(prevCount => prevCount + 5);
   };
 
   return (
@@ -26,7 +26,7 @@ export default function DisappearanceCard({ language, disappearanceData }: Langu
       <div className='bannerWrap'>
         <div className="bannerContent">
           <h3 className='text-3xl md:text-4xl font-semibold '>
-            {language === 'ENG' ? 'Martyre List 2009-2024/August Uprising' : 'গুম তালিকা'}
+            {language === 'ENG' ? 'Disappeared List' : 'গুম তালিকা'}
           </h3>
         </div>
       </div>

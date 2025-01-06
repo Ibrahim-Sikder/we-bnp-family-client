@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import Image from "next/image";
 import { Button } from "@mui/material";
 import Link from "next/link";
@@ -6,8 +6,12 @@ import Container from "@/components/shared/Container";
 import "../../press/Press.css";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import icon from "../../../../assets/images/logo/logo.jpg";
-
+import EastIcon from "@mui/icons-material/East";
 import { TProgramm } from "@/types";
+import truncateText from "@/utils/truncate";
+import { useState } from "react";
+import { formatDate } from "@/utils/formatedate";
+import { btnStyle, loadBtnStyle } from "@/utils/customStyle";
 type ProgrammProps = {
     programmData: TProgramm[],
     language: string,
@@ -15,40 +19,38 @@ type ProgrammProps = {
 
 export default function PressPage({ programmData, language }: ProgrammProps) {
 
-
-    const btnStyle = {
-        background: "#fff",
-        padding: "5px",
-        color: "black",
-        fontSize: "12px",
-        borderRadius: "5px",
-        width: "100px",
-        transition: "background 0.3s ease",
-
-        "&:hover": {
-            background: "linear-gradient(45deg, red, green)",
-            color: "#fff",
+    const sortedProgrammData = programmData?.sort(
+        (a: TProgramm, b: TProgramm) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return dateA - dateB;
         },
+    );
+
+    const [visibleCount, setVisibleCount] = useState(6);
+    const loadMore = () => {
+        setVisibleCount((prevCount) => prevCount + 6);
     };
+
+  
+
     return (
         <>
             <div className="bannerWrap">
                 <div className="bannerContent">
                     <h3 className="text-xl md:text-4xl font-semibold text-center ">
                         {
-                            language === 'ENG' ? 'Program & Notice' : ' প্রোগ্রাম ও নোটিশ'
+                            language === 'ENG' ? 'Programs & Notices' : ' প্রোগ্রাম ও নোটিশ'
                         }
                     </h3>
                 </div>
             </div>
             <Container className="my-10 ">
                 <div className=" grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-3 gap-5  lg:gap-x-5">
-                    {programmData?.map((programm: TProgramm) => (
+                    {sortedProgrammData?.slice(0, visibleCount)?.map((programm: TProgramm) => (
                         <div key={programm._id} className="upcommingNewsCardWrap ">
                             <div className="upcomingNewsCard relative ">
                                 <div className="imgWrap">
-
-
                                     {programm?.bng_Images.slice(0, 1)?.map((img: any) => {
 
                                         return <Image src={img} alt="hero" width={500}
@@ -57,34 +59,47 @@ export default function PressPage({ programmData, language }: ProgrammProps) {
                                     })}
 
                                 </div>
-                                <div className="flex items-center w-full gap-3 mt-5">
-                                    <Image className="w-10" src={icon} alt="news" />
-                                    <h4> {
-                                        language === 'ENG' ? programm.english_title : programm.bangla_title
+                                <div className="p-3 ">
+
+                                    <h4 className="text-sm md:text-xl"> {
+                                        language === 'ENG' ? truncateText(programm.english_title, 80) : truncateText(programm.bangla_title, 80)
                                     } </h4>
                                 </div>
                                 <div className="hoverCard">
                                     <div className="hoverContent">
-                                        <div className="space-y-3">
-                                            <div className="flex items-center gap-3">
-                                                <Image
-                                                    className="w-10 rounded-full"
-                                                    src={icon}
-                                                    alt="news"
-                                                />
-                                                <h4> {
-                                                    language === 'ENG' ? programm.english_title : programm.bangla_title
-                                                } ...</h4>
+                                        <div className="flex  flex-col justify-between ">
+                                            <div className="space-y-3">
+                                                <div className="flex items-center gap-3">
+                                                    <Image
+                                                        className="w-10 rounded-full"
+                                                        src={icon}
+                                                        alt="news"
+                                                    />
+                                                    <h4> {
+                                                        language === 'ENG' ? truncateText(programm.english_title, 80) : truncateText(programm.bangla_title, 80)
+                                                    } </h4>
+                                                </div>
+                                                <span className="block text-justify">
+                                                    {
+                                                        language === 'ENG' ? truncateText(programm.english_short_description, 100) : truncateText(programm.bangla_short_description, 100)
+                                                    }
+                                                </span>
                                             </div>
-                                            <span className="block text-justify">
-                                                {
-                                                    language === 'ENG' ? programm.english_short_description.slice(0, 100) : programm.bangla_short_description.slice(0, 100)
-                                                }...
-                                            </span>
-                                            <Button component={Link} href={`/press/${programm._id}`} sx={btnStyle}>
-                                                {
-                                                    language === 'ENG' ? 'Read More' : 'আরও পড়ুন'}
-                                            </Button>
+
+                                            <div className="">
+                                                <div className="flex justify-between mt-8 w-full items-center ">
+                                                    <b>
+                                                        {formatDate(programm.date)}
+                                                    </b>
+                                                    <Link href={`/press/${programm._id}`}>
+                                                        <Button sx={btnStyle}>
+                                                            {language === "ENG" ? "Read More" : "আরও পড়ুন"}{" "}
+                                                            <EastIcon sx={{ fontSize: { md: '20px', xs: '20px' } }} />
+                                                        </Button>
+                                                    </Link>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -92,11 +107,19 @@ export default function PressPage({ programmData, language }: ProgrammProps) {
                         </div>
                     ))}
                 </div>
-                <div className="flex items-center justify-center mt-5 ">
-                    <Button className="bg-gradient-to-r from-red-600 to-green-600">
-                        {language === 'ENG' ? 'Load More' : 'আরো লোড'}   <ArrowRightAltIcon />
-                    </Button>
-                </div>
+
+                {visibleCount < sortedProgrammData?.length && (
+                    <div className="flex items-center justify-center mt-5">
+                        <Button
+                            onClick={loadMore}
+                            variant="contained"
+                            sx={loadBtnStyle}
+                        >
+                            {language === 'ENG' ? 'Load More' : 'আরো লোড'} <ArrowRightAltIcon />
+                        </Button>
+                    </div>
+                )}
+
             </Container>
         </>
     );

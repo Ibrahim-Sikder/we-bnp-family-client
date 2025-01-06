@@ -17,6 +17,7 @@ import { useLanguage } from "@/provider/LanguageProvider";
 import Loading from "@/components/Loading/Loading";
 import { useProgrammData } from "@/hooks/useProgrammData";
 import { TProgramm } from "@/types";
+import truncateText from "@/utils/truncate";
 
 export type TNews = {
   _id: string,
@@ -88,12 +89,11 @@ const NewsSlider = () => {
           spaceBetween={10}
           slidesPerView={3}
           // navigation
-          autoplay={{
-            delay: 3500,
-            disableOnInteraction: false,
-          }}
-          speed={4500}
-
+          // autoplay={{
+          //   delay: 3500,
+          //   disableOnInteraction: false,
+          // }}
+          // speed={4500}
 
           loop={true}
           breakpoints={{
@@ -122,10 +122,10 @@ const NewsSlider = () => {
                   </div>
                   <div className="flex items-center justify-center w-full gap-3 px-2 mt-5">
                     <Image className="w-10" src={icon} alt="news" />
-                    <h2 className="text-xl md:text-xl ">
+                    <h2 className="text-sm md:text-xl ">
                       {
-                        language === 'ENG' ? news?.english_title?.slice(0, 30) : news?.bangla_title?.slice(0, 30)
-                      }...
+                        language === 'ENG' ? truncateText(news?.english_title, 50) : truncateText(news?.bangla_title, 50)
+                      }
                     </h2>
                   </div>
                 </div>
@@ -139,12 +139,14 @@ const NewsSlider = () => {
                           alt="news"
                         />
                         <h2 className="text-xl md:text-2xl ">
-                          {news?.bangla_title?.slice(0, 30)}...
+                          {
+                            language === 'ENG' ? truncateText(news?.english_title, 50) : truncateText(news?.bangla_title, 50)
+                          }
                         </h2>
                       </div>
                       <p className="text-justify text-sm md:text-balance">
                         {
-                          language === 'ENG' ? news?.english_short_description?.slice(0, 200) : news?.bangla_short_description?.slice(0, 200)
+                          language === 'ENG' ? truncateText(news?.english_short_description, 200) : truncateText(news?.bangla_short_description, 200)
                         }...
                       </p>
                       <Button

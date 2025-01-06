@@ -8,12 +8,15 @@ import { East } from "@mui/icons-material";
 import '../../media-info/_components/Media.css'
 import { TReport } from "@/types/report";
 import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import { loadBtnStyle } from "@/utils/customStyle";
+import { formatDate } from "@/utils/formatedate";
+import truncateText from "@/utils/truncate";
 type LanguageProps = {
     language: string,
     internationalData: TReport[]
 }
 export default function InternationalReportCard({ language, internationalData }: LanguageProps) {
-    const [visibleCount, setVisibleCount] = React.useState(5);
 
     const smallBtnStyle = {
         background: "#2B8444",
@@ -24,20 +27,28 @@ export default function InternationalReportCard({ language, internationalData }:
         height: "25px",
         padding: '0px'
     }
+
+    const title = language === 'ENG' ? 'International Report' : 'আন্তর্জাতিক রিপোর্ট'
+
     const filterInnternationReportData = internationalData.filter((item: any) => item.category === 'আর্ন্তজাতিক সংস্থার রিপোর্ট')
+    const sortedInternationalData = filterInnternationReportData?.sort(
+        (a: TReport, b: TReport) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return dateA - dateB;
+        },
+    );
 
-
-
-    const title = language === 'ENG' ? 'International report' : 'আন্তর্জাতিক রিপোর্ট'
-    const handleLoadMore = () => {
-        setVisibleCount(prevCount => prevCount + 5);
+    const [visibleCount, setVisibleCount] = React.useState(6);
+    const loadMore = () => {
+        setVisibleCount((prevCount) => prevCount + 6);
     };
     return (
         <div>
             <CommonBanner title={title} />
             <Container>
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-x-5 mt-10">
-                    {filterInnternationReportData?.slice(0, visibleCount)?.map((report: TReport) => (
+                    {sortedInternationalData?.slice(0, visibleCount)?.map((report: TReport) => (
                         <div key={report._id} className="blogCard mt-5">
                             <div className="blogImgWrap">
 
@@ -49,29 +60,37 @@ export default function InternationalReportCard({ language, internationalData }:
                             </div>
                             <div className="blogCardContent">
 
-                                <h5 className="font-semibold md:text-xl text-[16px] mb-2 ">
-                                    {language === 'ENG' ? report?.english_title?.slice(0, 45) : report?.bangla_title?.slice(0, 45)}...
+                                <h5 className="font-semibold md:text-xl text-[16px] mb-1 ">
+                                    {language === 'ENG' ? truncateText(report?.english_title, 45) : truncateText(report?.bangla_title, 45)}
 
                                 </h5>
                                 <p>
-                                    {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}...
+                                    {language === 'ENG' ? truncateText(report?.english_short_description, 100) : truncateText(report?.bangla_short_description, 100)}
                                 </p>
-                                <Link href={`/report/${report._id}`}>
-                                    <Button sx={smallBtnStyle}>
-                                        <span>
-                                            <East sx={{ fontSize: "15px" }} />
-                                        </span>
-                                    </Button>
-                                </Link>
+                                <div className="flex iems-cener justify-between mt-5 ">
+
+                                    <b>{formatDate(report.date)}</b>
+                                    <Link href={`/report/${report._id}`}>
+                                        <Button sx={smallBtnStyle}>
+                                            <span>
+                                                <East sx={{ fontSize: "15px" }} />
+                                            </span>
+                                        </Button>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     ))}
 
                 </div>
-                {visibleCount < filterInnternationReportData.length && (
+                {visibleCount < sortedInternationalData?.length && (
                     <div className="flex items-center justify-center mt-5">
-                        <Button onClick={handleLoadMore}>
-                            {language === 'ENG' ? 'Load More' : 'আরো লোড'}
+                        <Button
+                            onClick={loadMore}
+                            variant="contained"
+                            sx={loadBtnStyle}
+                        >
+                            {language === 'ENG' ? 'Load More' : 'আরো লোড'} <ArrowRightAltIcon />
                         </Button>
                     </div>
                 )}

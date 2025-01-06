@@ -141,7 +141,7 @@ export default function PhotoGallery() {
                 background: "linear-gradient(to right, #2B8444, #CB2D2E)",
               }}
             />
-            <p className="mt-5 md:w-[780px] mx-auto text-sm md:text-base">
+            <p className="mt-5 lg:w-[780px] mx-auto text-sm md:text-base">
               {
                 language === 'ENG' ? data.history_description_english : data.history_description_bangla
               }

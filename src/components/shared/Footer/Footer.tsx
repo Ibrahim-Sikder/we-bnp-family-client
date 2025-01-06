@@ -48,10 +48,10 @@ const Footer = ({ language, sectionData }: LanguageProps) => {
         {
           sectionData.map((data) => (
             <footer key={data._id} className="lg:relative w-full ">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 py-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-5 py-8">
                 <div className="bg-red-600 p-5 text-center rounded">
 
-                  <h2 className="text-2xl font-bold"> {language === 'ENG' ? data.subscribe_title_english : data.subscribe_title_bangla}  </h2>
+                  <h2 className="md:text-2xl font-bold"> {language === 'ENG' ? data.subscribe_title_english : data.subscribe_title_bangla}  </h2>
                   <Subscribe />
                 </div>
 

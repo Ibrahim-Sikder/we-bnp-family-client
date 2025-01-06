@@ -8,7 +8,9 @@ import '../../prison/prison.css'
 import { Search } from '@mui/icons-material';
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { TPrison } from '@/types/prison';
-
+import { btnStyle, loadBtnStyle } from '@/utils/customStyle';
+import { formatDate } from '@/utils/formatedate';
+import EastIcon from "@mui/icons-material/East";
 type LanguageProps = {
     language: string,
     prisonData: TPrison[]
@@ -30,8 +32,21 @@ export default function PrisonPage({ language, prisonData }: LanguageProps) {
         alignItems: 'center',
         justifyContent: 'center',
     };
-
     const prisonFilterData = prisonData?.filter((item: any) => item.category === 'কারাগারে নির্যাতন')
+    const sortedPrisonData = prisonFilterData?.sort(
+        (a: TPrison, b: TPrison) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return dateA - dateB;
+        },
+    );
+
+    const [visibleCount, setVisibleCount] = React.useState(6);
+    const loadMore = () => {
+        setVisibleCount((prevCount) => prevCount + 6);
+    };
+
+
     return (
         <>
             <div className='bannerWrap'>
@@ -46,7 +61,7 @@ export default function PrisonPage({ language, prisonData }: LanguageProps) {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {prisonFilterData?.slice(0, 3).map((data: TPrison, index: number) => (
+                    {sortedPrisonData?.slice(0, visibleCount).map((data: TPrison, index: number) => (
                         <div key={data._id} className="imgGalleryImgWraps ">
                             <div className="murtyreImgWraps">
 
@@ -70,17 +85,32 @@ export default function PrisonPage({ language, prisonData }: LanguageProps) {
                                 <p>
                                     {language === 'ENG' ? data.english_short_description : data.bangla_short_description}
                                 </p>
-                                <Button component={Link} href={`/prison/${data._id}`} sx={buttonStyle}> {
-                                    language === 'ENG' ? 'Read More' : 'আরও পড়ুন'}</Button>
+                                <div className="flex justify-between mt-10 w-full items-center ">
+                                    <b>
+                                        {formatDate(data.date)}
+                                    </b>
+                                    <Link href={`/prison/${data._id}`}>
+                                        <Button sx={btnStyle}>
+                                            {language === "ENG" ? "Read More" : "আরও পড়ুন"}{" "}
+                                            <EastIcon sx={{ fontSize: { md: '20px', xs: '20px' } }} />
+                                        </Button>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     ))}
                 </div>
-                <div className="flex items-center justify-center mt-5 ">
-                    <Button className="bg-gradient-to-r from-red-600 to-green-600">
-                        {language === 'ENG' ? 'Load More' : 'আরো লোড'} <ArrowRightAltIcon />
-                    </Button>
-                </div>
+                {visibleCount < sortedPrisonData?.length && (
+                    <div className="flex items-center justify-center mt-5">
+                        <Button
+                            onClick={loadMore}
+                            variant="contained"
+                            sx={loadBtnStyle}
+                        >
+                            {language === 'ENG' ? 'Load More' : 'আরো লোড'} <ArrowRightAltIcon />
+                        </Button>
+                    </div>
+                )}
             </Container>
 
 

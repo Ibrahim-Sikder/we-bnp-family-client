@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { TReport } from '@/types/report';
+import truncateText from '@/utils/truncate';
 
 interface MurtyreCardProps {
   mediaReportData: TReport[];
@@ -31,6 +32,14 @@ const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData, language }) 
     height: "25px",
     padding: "0px",
   };
+
+  const sortedMediaData = mediaReportData?.sort(
+    (a: TReport, b: TReport) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateA - dateB;
+    },
+  );
   return (
     <>
       <div className="bnpBtnStyle">
@@ -38,7 +47,7 @@ const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData, language }) 
         <div>
           {/* frontend data */}
           <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
-            {mediaReportData?.slice(0, 3)?.map((report) => (
+            {sortedMediaData?.slice(0, 3)?.map((report) => (
               <div key={report._id} className="blogCard mt-5">
                 <div className="blogImgWrap">
                   {report?.bng_Images?.slice(0, 1)?.map((img) => {
@@ -50,11 +59,11 @@ const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData, language }) 
                 <div className="blogCardContent spacy-y-3 ">
 
                   <h5 className="font-semibold md:text-xl text-[16px] mb-2 ">
-                    {language === 'ENG' ? report?.english_title?.slice(0, 50) : report?.bangla_title?.slice(0, 50)}...
+                    {language === 'ENG' ? truncateText(report?.english_title, 50) : truncateText(report?.bangla_title, 50)}
 
                   </h5>
                   <p className='text-sm'>
-                    {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}...
+                    {language === 'ENG' ? truncateText(report?.english_short_description, 100) : truncateText(report?.bangla_short_description, 100)}
                   </p>
                   <Link href={`/report/${report._id}`}>
                     <Button sx={smallBtnStyle}>

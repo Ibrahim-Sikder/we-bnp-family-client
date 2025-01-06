@@ -11,11 +11,15 @@ import './Media.css'
 import { TReport } from "@/types/report";
 import { useReportData } from "@/hooks/useReportData";
 import { useLanguage } from "@/provider/LanguageProvider";
+import { loadBtnStyle } from "@/utils/customStyle";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import truncateText from "@/utils/truncate";
+import { formatDate } from "@/utils/formatedate";
 const MediaPage = () => {
     const { reportData } = useReportData()
     const { language } = useLanguage()
 
-    
+
     const mediaReportData = reportData.filter((item: any) => item.category === 'মিডিয়ায় প্রকাশিত তথ্য')
 
     const smallBtnStyle = {
@@ -27,6 +31,19 @@ const MediaPage = () => {
         height: "25px",
         padding: '0px'
     }
+
+    const sortedMediaData = mediaReportData?.sort(
+        (a: TReport, b: TReport) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return dateA - dateB;
+        },
+    );
+
+    const [visibleCount, setVisibleCount] = React.useState(6);
+    const loadMore = () => {
+        setVisibleCount((prevCount) => prevCount + 6);
+    };
 
     return (
         <div>
@@ -42,7 +59,7 @@ const MediaPage = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-50"></div>
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-5">
                     <h1 className="text-4xl md:text-6xl font-bold text-center">
-                        মিডিয়ায় প্রকাশিত তথ্য
+                        {language === 'ENG' ? 'Media Published Informations' : ' মিডিয়ায় প্রকাশিত তথ্য'}
                     </h1>
                     <p className="text-lg md:text-2xl mt-3 text-center">
 
@@ -51,7 +68,7 @@ const MediaPage = () => {
             </div>
             <Container>
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-x-5 mt-10">
-                    {mediaReportData?.slice(0, 3)?.map((report: TReport) => (
+                    {sortedMediaData?.slice(0, visibleCount)?.map((report: TReport) => (
                         <div key={report._id} className="blogCard mt-5">
                             <div className="blogImgWrap">
                                 {report?.bng_Images?.slice(0, 1)?.map((img) => {
@@ -63,25 +80,39 @@ const MediaPage = () => {
                             <div className="blogCardContent">
 
                                 <h5 className="font-semibold ">
-                                    {language === 'ENG' ? report?.english_title?.slice(0, 50) : report?.bangla_title?.slice(0, 50)}...
+                                    {language === 'ENG' ? truncateText(report?.english_title, 50) : truncateText(report?.bangla_title, 50)}
 
                                 </h5>
                                 <p>
-                                    {language === 'ENG' ? report?.english_short_description?.slice(0, 100) : report?.bangla_short_description?.slice(0, 100)}...
+                                    {language === 'ENG' ? truncateText(report?.english_short_description, 100) : truncateText(report?.bangla_short_description, 100)}
                                 </p>
-                                <Link href={`/report/${report._id}`}>
-                                    <Button sx={smallBtnStyle}>
-                                        <span>
-                                            <East sx={{ fontSize: "15px" }} />
-                                        </span>
-                                    </Button>
-                                </Link>
+                                <div className="flex iems-cener justify-between mt-5 ">
+
+                                    <b>{formatDate(report.date)}</b>
+                                    <Link href={`/report/${report._id}`}>
+                                        <Button sx={smallBtnStyle}>
+                                            <span>
+                                                <East sx={{ fontSize: "15px" }} />
+                                            </span>
+                                        </Button>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     ))}
 
                 </div>
-
+                {visibleCount < sortedMediaData?.length && (
+                    <div className="flex items-center justify-center mt-5">
+                        <Button
+                            onClick={loadMore}
+                            variant="contained"
+                            sx={loadBtnStyle}
+                        >
+                            {language === 'ENG' ? 'Load More' : 'আরো লোড'} <ArrowRightAltIcon />
+                        </Button>
+                    </div>
+                )}
 
 
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Container from "@/components/shared/Container";
@@ -6,16 +6,35 @@ import { TActivity } from "@/types";
 import icon from "../../../../../src/assets/images/logo/logo.jpg";
 import CommonBanner from "../../report/_component/Banner";
 import './Activity.css'
-
+import { Button } from "@mui/material";
+import { loadBtnStyle } from "@/utils/customStyle";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import truncateText from "@/utils/truncate";
+import { formatDate } from "@/utils/formatedate";
 type LanguageProps = {
     language: string,
     activityData: TActivity[]
 }
 
 
-
 function ActivityPage({ language, activityData }: LanguageProps) {
+
+
+    const sortedActivityData = activityData?.sort(
+        (a: TActivity, b: TActivity) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return dateA - dateB;
+        },
+    );
+
+
+    const [visibleCount, setVisibleCount] = useState(6);
+    const loadMore = () => {
+        setVisibleCount((prevCount) => prevCount + 6);
+    };
     const title = language === 'ENG' ? 'Recent Activity' : 'সাম্প্রতিক কার্যক্রম'
+
 
     return (
         <>
@@ -24,7 +43,7 @@ function ActivityPage({ language, activityData }: LanguageProps) {
             <Container className="sectionMargin">
 
                 <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 my-2  items-center ">
-                    {activityData?.map((card: TActivity) => (
+                    {sortedActivityData?.slice(0, visibleCount)?.map((card: TActivity) => (
                         <div key={card._id}>
                             <Link href={`/activity/${card._id}`}>
                                 <div key={card._id} className="max-w-lg activityCard ">
@@ -54,11 +73,11 @@ function ActivityPage({ language, activityData }: LanguageProps) {
                                         <div className="flex items-center content-center justify-center  ">
                                             <div className="max-w-sm h-auto md:px-6 p-2 md:py-4 shadow-lg  bg-white hover:bg-gradient-to-r hover:from-red-600 hover:to-green-600 custom-clip-path transition-transform duration-300 group-hover:-translate-y-5 ">
                                                 <h3 className="font-bold text-xl mb-2 mt-16 md:mt-10 rounded-md  ">
-                                                    {language === 'ENG' ? card?.english_title?.slice(0, 45) : card?.bangla_title?.slice(0, 45)}...
+                                                    {language === 'ENG' ? truncateText(card?.english_title, 45) : truncateText(card?.bangla_title, 45)}
                                                 </h3>
-                                                <p className=" text-sm mb-2 ">{card?.date}</p>
+                                                <p className=" text-sm mb-2 ">{formatDate(card?.date)}</p>
                                                 <p className=" text-base text-justify">
-                                                    {language === 'ENG' ? card?.english_short_description.slice(0, 100) : card?.bangla_short_description.slice(0, 100)}
+                                                    {language === 'ENG' ? truncateText(card?.english_short_description, 100) : truncateText(card?.bangla_short_description, 100)}
 
                                                     <span
 
@@ -77,6 +96,18 @@ function ActivityPage({ language, activityData }: LanguageProps) {
                         </div>
                     ))}
                 </div >
+
+                {visibleCount < sortedActivityData?.length && (
+                    <div className="flex items-center justify-center mt-5">
+                        <Button
+                            onClick={loadMore}
+                            variant="contained"
+                            sx={loadBtnStyle}
+                        >
+                            {language === 'ENG' ? 'Load More' : 'আরো লোড'} <ArrowRightAltIcon />
+                        </Button>
+                    </div>
+                )}
             </Container >
 
         </>

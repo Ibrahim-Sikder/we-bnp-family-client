@@ -5,6 +5,7 @@ import { KeyboardDoubleArrowRight } from "@mui/icons-material";
 import Link from "next/link";
 import { TActivity } from "@/types";
 import { useMediaQuery, useTheme } from "@mui/material";
+import truncateText from "@/utils/truncate";
 
 interface MurtyreCardProps {
   activityData: TActivity[];
@@ -51,9 +52,8 @@ const VictimCard: React.FC<MurtyreCardProps> = ({ activityData, language }) => {
               <div className="mt-3 text-center flex flex-col p-3">
                 <b className="text-[10px] md:text-[12px] text-left ">
                   {language === "ENG"
-                    ? data.english_title?.slice(0, 70)
-                    : data.bangla_title?.slice(0, 70)}
-                  ...
+                    ? truncateText(data.english_title, 70)
+                    : truncateText(data.bangla_title, 70)}
                 </b>
                 <Button component={Link} href={`/activity/${data._id}`} sx={smallBtnStyle}>
                   {language === "ENG" ? "Read More" : "আরও পড়ুন"}

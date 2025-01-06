@@ -33,6 +33,14 @@ const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData, 
     height: "25px",
     padding: "0px",
   };
+
+  const sortedInternationalData = internationReportData?.sort(
+    (a: TReport, b: TReport) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateA - dateB;
+    },
+  );
   return (
     <>
       <div className="bnpBtnStyle">
@@ -40,7 +48,7 @@ const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData, 
         <div>
           {/* frontend data */}
           <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
-            {internationReportData?.slice(0, 3)?.map((report) => (
+            {sortedInternationalData?.slice(0, 3)?.map((report) => (
               <div key={report._id} className="blogCard mt-5">
                 <div className="blogImgWrap">
 

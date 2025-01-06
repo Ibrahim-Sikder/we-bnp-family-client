@@ -25,7 +25,7 @@
 }
 
 .upcomingNewsCard {
-    width: 364px;
+    width: 350px;
     height: 360px;
     background: #fff;
     box-shadow: 0 2px 8px #63636333;
@@ -49,7 +49,7 @@
 .hoverCard {
     position: absolute;
     content: "";
-    width: 364px;
+    width: 350px;
     height: 100%;
     background: #CB2D2E;
     z-index: 5;

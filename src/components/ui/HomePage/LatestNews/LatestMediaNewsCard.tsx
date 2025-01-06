@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import { ArrowRightAlt } from "@mui/icons-material";
 import Link from "next/link";
 import { TReport } from "@/types/report";
+import truncateText from "@/utils/truncate";
 
 const buttonStyle = {
     width: "90px",
@@ -40,7 +41,7 @@ function LatestMediaNewsCard({ language, reportData }: LanguageProps) {
                     <div key={data._id} className="newsCard">
                         <div className="flex md:flex-row items-center justify-between">
                             <div className="newsContent text-sm">
-                                <small className="text-[12px] font-bold ">{language === 'ENG' ? data.english_title.slice(0, 70) : data.bangla_title.slice(0, 70)}... </small>
+                                <small className="text-[12px] font-bold ">{language === 'ENG' ? truncateText(data.english_title, 70) : truncateText(data.bangla_title, 70)} </small>
                                 <div className="bnpBtnStyle">
                                     <Button component={Link} href={`/report/${data._id}`} sx={buttonStyle}>
                                         <span>
