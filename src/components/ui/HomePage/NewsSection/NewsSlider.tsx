@@ -89,11 +89,11 @@ const NewsSlider = () => {
           spaceBetween={10}
           slidesPerView={3}
           // navigation
-          // autoplay={{
-          //   delay: 3500,
-          //   disableOnInteraction: false,
-          // }}
-          // speed={4500}
+          autoplay={{
+            delay: 3500,
+            disableOnInteraction: false,
+          }}
+          speed={4500}
 
           loop={true}
           breakpoints={{
@@ -103,7 +103,7 @@ const NewsSlider = () => {
             768: { slidesPerView: 2, spaceBetween: 10 },
             1024: { slidesPerView: 2, spaceBetween: 30 },
             1400: { slidesPerView: 2, spaceBetween: 30 },
-            1500: { slidesPerView: 3, spaceBetween: 30 },
+            1500: { slidesPerView: 2, spaceBetween: 30 },
           }}
         >
           {sortedProgrammData?.map((news: TNews) => (

@@ -25,7 +25,6 @@ type LanguageProps = {
 }
 function ImportantMediaNewsCard({ language, reportData }: LanguageProps) {
 
-
     const importantNewsFilterData = reportData.filter((item) => item.newsCategory == 'গুরুত্বপূ্র্ণ')
     const sortedReportData = importantNewsFilterData?.sort((a: TReport, b: TReport) => {
         const dateA = new Date(a.date).getTime();
@@ -34,7 +33,7 @@ function ImportantMediaNewsCard({ language, reportData }: LanguageProps) {
     });
     return (
         <div className="-mt-16">
-            <div className="grid grid-cols-1 gap-y-[10px] mt-[80px] ">
+            <div className="grid grid-cols-1 lg:grid-cols-1 md:grid-cols-2 gap-x-5  gap-y-[10px] mt-[80px] ">
                 {sortedReportData.slice(0, 8).map((data) => (
                     <div key={data._id} className="newsCard">
                         <div className="flex md:flex-row items-center justify-between">

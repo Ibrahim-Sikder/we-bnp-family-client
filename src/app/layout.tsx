@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_Bengali } from "next/font/google";
+import { Noto_Sans_Bengali, Baloo_Da_2 } from "next/font/google";
 import "./globals.css";
 import Providers from "@/lib/Providers";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
@@ -12,7 +12,11 @@ const notoSansBengali = Noto_Sans_Bengali({
   weight: ["400", "700"],
   display: "swap",
 });
-
+const balooDa2 = Baloo_Da_2({
+  subsets: ["latin", "bengali"], // Include "bengali" if the font supports it
+  weight: ["400", "500", "700"], // Add required font weights
+  display: "swap",
+});
 export const metadata: Metadata = {
   title: "We BNP Family | Home",
   description: "WE BNP FAMILY",
@@ -71,7 +75,7 @@ export default function RootLayout({
       </head>
       <LanguageProvider>
         <Providers>
-          <body className={notoSansBengali.className}>
+          <body className={balooDa2.className}>
             <Toaster position="bottom-right" richColors />
             <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
           </body>

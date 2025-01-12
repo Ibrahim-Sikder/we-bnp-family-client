@@ -25,7 +25,7 @@ const NewsSection = ({ language }: LanguageProps) => {
                 <div key={data._id}>
 
                   <div className="leftContent">
-                    <h2 className="text-5xl">
+                    <h2 className="text-2xl xxl:text-3xl">
                       {
                         language === 'ENG' ? data.programm_title_english : data.programm_title_bangla
                       }  </h2>

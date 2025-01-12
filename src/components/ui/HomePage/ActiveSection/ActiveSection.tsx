@@ -150,7 +150,6 @@ const VictimizedSection = () => {
               <TabPanel sx={{ padding: "0px" }} value="1">
                 <div className="mt-10 lg:mt-0">
                   <LatestMediaNews />
-
                 </div>
               </TabPanel>
               <TabPanel sx={{ padding: "0px" }} value="2">
