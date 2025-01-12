@@ -57,7 +57,7 @@ const HistoryCard = async ({ language }:TLeaderProps) => {
                             <FaQuoteRight size={30} />
                           </div>
                           <div>
-                            <h4 className="leading-8 ">
+                            <h4 className="leading-8 text-sm ">
                               {language === 'ENG' ? leader.eng_qoute : leader.bng_qoute}
                             </h4>
                             <div className="flex items-center">

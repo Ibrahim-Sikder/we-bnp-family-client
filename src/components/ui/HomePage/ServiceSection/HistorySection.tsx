@@ -1,7 +1,7 @@
 'use client'
 
 /* eslint-disable react/no-unescaped-entities */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./history.css";
 import Container from "@/components/shared/Container";
 
@@ -22,7 +22,7 @@ type TLeader = {
   images: string[];
   createdAt: string,
 }
-const  HistorySection = () => {
+const HistorySection = () => {
   const { language, setLanguage } = useLanguage();
 
   const [bannerData, setBannerData] = React.useState<TLeader[]>([]);
@@ -52,12 +52,38 @@ const  HistorySection = () => {
     return <Loading />
   }
 
+  const ResponsiveIcon = () => {
+    const [iconSize, setIconSize] = useState(30);
+  
+    useEffect(() => {
+      const handleResize = () => {
+        const width = window.innerWidth;
+        if (width < 640) {
+          setIconSize(20); 
+        } else if (width < 768) {
+          setIconSize(20); 
+        } else if (width < 1024) {
+          setIconSize(20);
+        } else {
+          setIconSize(50); 
+        }
+      };
+      handleResize();
+      window.addEventListener("resize", handleResize);
+
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+  
+    return <FaQuoteRight size={iconSize} />;
+  };
+  
+
 
   return (
     <div className="historyWrap">
       <Container>
         <div className="historyContent">
-          <div className="grid grid-cols-1  xl:grid-cols-3 xl:-mt-16 z-10 gap-5 ">
+          <div className="grid grid-cols-1 md:grid-cols-3 xl:-mt-16 z-10 gap-5 ">
             {
               bannerData?.map((leader: TLeader) => (
                 <div key={leader._id}>
@@ -68,26 +94,18 @@ const  HistorySection = () => {
                         return <Image src={img} alt="hero" width={300} height={300} key={img} />
                       })}
 
-                      {/* <div className="absolute arrowBtn ">
-                  <div>
-                    <Link href="">
-                      <button>
-                        <East sx={{ fontSize: "30px" }} />
-                      </button>
-                    </Link>
-                  </div>
-                </div> */}
+                     
                     </div>
                     <div className="mt-5 block xl:hidden">
                       <div className="historyContents text-white                                                 ">
-                        <div className="flex gap-x-2 md:gap-5">
+                        <div className="flex lg:gap-x-2 md:gap-5">
                           <div>
-                            <FaQuoteRight size={30} />
+                            <ResponsiveIcon />
                           </div>
                           <div>
-                            <h4  className="leading-8 text-[18px] md:text-[20px]">
+                            <h5 className="leading-8 text-[18px] xl:text-[20px] md:text-[18px] font-bold ">
                               {language === 'ENG' ? leader.eng_qoute : leader.bng_qoute}
-                            </h4>
+                            </h5>
                             <div className="flex items-center">
                               <div className="dahsed"></div>
                               <p className="ml-2 text-[12px] md:text-sm">
@@ -115,7 +133,7 @@ const  HistorySection = () => {
                   <div className="historyContents hidden xl:block                                                ">
                     <div className="flex gap-5">
                       <div>
-                        <FaQuoteRight size={30} />
+                        <ResponsiveIcon />
                       </div>
                       <div>
                         <h4 className="leading-8 ">

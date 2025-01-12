@@ -25,7 +25,7 @@
 
 @media only screen and (max-width:1024px) {
     .newsCard {
-        width: 54%;
+        width: 100%;
         margin: 0 auto;
         height: 150px;
     }

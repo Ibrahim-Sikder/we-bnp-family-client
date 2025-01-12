@@ -43,16 +43,16 @@ const VideoGallery = () => {
     background: "#2B8444",
   };
 
-  if (loading) return <Loading/>;
+  if (loading) return <Loading />;
   if (error) return <div>{error}</div>;
   const title = language === 'ENG' ? 'Video Gallery' : 'ভিডিও গ্যালারি'
 
 
-  
+
   return (
     <Container className="sectionMargin">
       <SectionTitle title={title} subtitle="" />
-      <div className="grid grid-cols-1 gap-y-5 xl:grid-cols-2 gap-5 mt-10 ">
+      <div className="grid grid-cols-1 gap-y-5 md:grid-cols-2 gap-5 mt-10 ">
         {videoData.length > 0 ? (
           videoData.slice(0, 2).map((video: TVideo) => (
             <div key={video._id} className="videoCard">

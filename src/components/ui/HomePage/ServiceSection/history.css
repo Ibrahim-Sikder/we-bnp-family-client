@@ -105,8 +105,10 @@
         margin: 0auto;
     }
 
+
     .heroImgWrap {
-        margin: auto;
+
+        width: 100%;
     }
 
 }
@@ -116,6 +118,14 @@
         height: auto;
     }
 
+    .historyContents {
+        width: 250px;
+        margin: 0 auto;
+    }
+
+    .heroImgWrap {
+        height: 256px;
+    }
 
 }
 
@@ -128,14 +138,17 @@
 
     .heroImgWrap {
         height: 330px;
+        margin: 0 auto;
     }
 }
+
 @media only screen and (max-width:400px) {
 
     .heroImgWrap {
         height: 300px;
     }
 }
+
 @media only screen and (max-width:350px) {
 
     .heroImgWrap {

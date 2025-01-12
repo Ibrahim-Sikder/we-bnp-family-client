@@ -2,7 +2,7 @@ import { East } from '@mui/icons-material';
 import { Box, Button } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TReport } from '@/types/report';
 import truncateText from '@/utils/truncate';
 
@@ -13,7 +13,17 @@ interface MurtyreCardProps {
 
 
 const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData, language }) => {
+  const [itemsToShow, setItemsToShow] = useState(3);
 
+  useEffect(() => {
+    const updateItemsToShow = () => {
+      setItemsToShow(window.innerWidth < 769 ? 2 : 3);
+    };
+
+    updateItemsToShow();
+    window.addEventListener("resize", updateItemsToShow);
+    return () => window.removeEventListener("resize", updateItemsToShow);
+  }, []);
   const buttonStyle = {
     width: { xs: "120px", md: "140px", sm: "140px" },
     height: { md: "40px", xs: "30px" },
@@ -45,9 +55,8 @@ const MediaReport: React.FC<MurtyreCardProps> = ({ mediaReportData, language }) 
       <div className="bnpBtnStyle">
 
         <div>
-          {/* frontend data */}
           <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
-            {sortedMediaData?.slice(0, 3)?.map((report) => (
+            {sortedMediaData?.slice(0, itemsToShow)?.map((report) => (
               <div key={report._id} className="blogCard mt-5">
                 <div className="blogImgWrap">
                   {report?.bng_Images?.slice(0, 1)?.map((img) => {

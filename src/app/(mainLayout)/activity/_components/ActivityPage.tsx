@@ -33,7 +33,7 @@ function ActivityPage({ language, activityData }: LanguageProps) {
     const loadMore = () => {
         setVisibleCount((prevCount) => prevCount + 6);
     };
-    const title = language === 'ENG' ? 'Recent Activity' : 'সাম্প্রতিক কার্যক্রম'
+    const title = language === 'ENG' ? 'Recent Activities' : 'সাম্প্রতিক কার্যক্রম'
 
 
     return (

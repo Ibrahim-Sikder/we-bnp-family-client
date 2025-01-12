@@ -38,6 +38,7 @@ function LatestMediaNewsCard({ language, reportData }: LanguageProps) {
     return () => window.removeEventListener("resize", updateItemsToShow);
   }, []);
 
+  
   const importantNewsFilterData = reportData.filter(
     (item) => item.newsCategory === "সর্বশেষ"
   );
@@ -51,7 +52,7 @@ function LatestMediaNewsCard({ language, reportData }: LanguageProps) {
 
   return (
     <div className="-mt-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-x-5 gap-y-[10px] mt-[80px] md:mt-[105px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-[10px] xl:grid-cols-1 mt-[80px] md:mt-[105px]">
         {sortedReportData.slice(0, itemsToShow).map((data) => (
           <div key={data._id} className="newsCard">
             <div className="flex md:flex-row items-center justify-between">

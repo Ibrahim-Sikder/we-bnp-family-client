@@ -33,12 +33,38 @@ const VictimizedSection = () => {
 
   const tabBtnStyle = {
     padding: "0px",
-    fontSize: {
-      md: "14px",
-      xs: "12px",
+    flex: 1,
+    height: {
+      lg: '40px',
+      xs: '30px'
     },
-  };
-
+    minHeight: {
+      lg: '40px',
+      xs: '30px'
+    },
+    width: "100%",
+    textAlign: "center",
+    fontSize: "14px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textTransform: "none",
+    lineHeight: "1.2",
+    "@media (max-width: 600px)": {
+      width: "100%",
+      fontSize: "12px",
+      padding: "0 4px",
+    },
+    "@media (min-width: 600px)": {
+      width: "auto",
+    },
+    "& .MuiTab-wrapper": {
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }
+  }
   const tabStyle = {
     "& .MuiTabs-indicator": {
       display: "none",
@@ -51,9 +77,23 @@ const VictimizedSection = () => {
       position: "relative",
       transition: "all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57)",
       zIndex: 1,
-      width: "70px",
+      width: {
+        lg: '70px',
+        sm: '100%',
+        xs: '100%'
+      },
       padding: "0px",
-      height: "20px",
+      height: {
+        lg: '40px',
+        xs: '30px'
+      },
+      minHeight: {
+        lg: '40px',
+        xs: '30px'
+      },
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: "center",
       "&.Mui-selected": {
         backgroundColor: "#CB2D2E",
         color: "white",
@@ -81,6 +121,8 @@ const VictimizedSection = () => {
       },
     },
   };
+
+
   const buttonStyle = {
     width: "100px",
     height: "25px",
@@ -140,11 +182,26 @@ const VictimizedSection = () => {
               >
                 <TabList
                   onChange={handleChange}
-                  sx={tabStyle}
+                  sx={{
+                    ...tabStyle,
+                    display: 'flex',
+                    width: {
+                      sm: '100%',
+                      md: 'auto',
+                      xs: '100%'
+                    },
+
+
+                  }}
                   aria-label="lab API tabs example"
                   centered
-                >                  <Tab sx={tabBtnStyle} label={language === 'ENG' ? 'Latest' : 'সর্বশেষ'} value="1" />
-                  <Tab sx={tabBtnStyle} label={language === 'ENG' ? 'Important' : 'গুরুত্বপূ্র্ণ'} value="2" />
+                >
+                  <Tab sx={{
+                    ...tabBtnStyle,
+                  }} label={language === 'ENG' ? 'Latest' : 'সর্বশেষ'} value="1" />
+                  <Tab sx={{
+                    ...tabBtnStyle,
+                  }} label={language === 'ENG' ? 'Important' : 'গুরুত্বপূ্র্ণ'} value="2" />
                 </TabList>
               </Box>
               <TabPanel sx={{ padding: "0px" }} value="1">

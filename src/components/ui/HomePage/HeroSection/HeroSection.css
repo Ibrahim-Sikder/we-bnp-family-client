@@ -14,16 +14,6 @@
   position: relative;
 }
 
-/* 
-.heroSectionWrap.secondSlide {
-    background-image: url(../../../../assets/images/banner/banner.jpeg);
-}
-
-.heroSectionWrap.thirdSlide {
-    background-image: url(../../../../assets/images/banner/banner.jpeg);
-
-} */
-
 .heroContent {
   position: absolute;
   z-index: 5;
@@ -111,9 +101,17 @@
 
 @media only screen and (max-width: 1024px) {
   .heroContent {
-    top: 38%;
-    left: 36%;
-  }
+    top: 42%;
+    left: 27%;
+}
+  .bannerImgWrap {
+    position: absolute;
+    right: 45%;
+    top: 51%;
+    transform: translate(82%, -53%);
+    transition: opacity .5s cubic-bezier(.45, .43, .58, .61);
+    width: 513px;
+}
 }
 
 @media only screen and (max-width: 768px) {
@@ -141,7 +139,7 @@
 
   .bannerImgWrap {
     right: 38%;
-    top: 30%;
+    top: 25%;
     width: 300px;
     z-index: -9;
   }

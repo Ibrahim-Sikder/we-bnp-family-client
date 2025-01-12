@@ -2,7 +2,6 @@
 import Image from "next/image";
 import React from "react";
 
-import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import ReactHtmlParser from "react-html-parser";
 import Container from "@/components/shared/Container";
 import ShareLink from "@/components/ShareLink/ShareLink";
@@ -42,8 +41,9 @@ export type TActivity = {
 };
 
 
+
 const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
-    const title = language === 'ENG' ? 'Recent Activity' : 'সাম্প্রতিক কার্যক্রম'
+    const title = language === 'ENG' ? 'Recent Activities' : 'সাম্প্রতিক কার্যক্রম'
 
 
     const renderContent = (content: string) => {

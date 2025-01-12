@@ -83,7 +83,7 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
             }
         });
     };
-    const bannerTitle = language === "ENG" ? "Program and Notice" : "প্রোগ্রাম ও নোটিশ";
+    const bannerTitle = language === "ENG" ? "Program and Notices" : "প্রোগ্রাম ও নোটিশ";
     const bannerText = language === "ENG" ? "Notice" : "নোটিশ";
     const theme = useTheme()
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'))

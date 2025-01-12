@@ -2,12 +2,14 @@ import React from "react";
 import Image from "next/image";
 import bannerImage from "../../../../../src/assets/images/banner/banner1.jpeg";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { useLanguage } from "@/provider/LanguageProvider";
 
 type TProps = {
-  title:string,
-  text:string,
+  title: string,
+  text: string,
 }
-const Banner = ({title,text}:TProps) => {
+const Banner = ({ title, text }: TProps) => {
+  const { language } = useLanguage()
   return (
     <div className="relative h-80 md:h-96 lg:h-[350px] bg-gray-800 overflow-hidden">
       <Image
@@ -20,10 +22,10 @@ const Banner = ({title,text}:TProps) => {
       <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-30"></div>
       <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-5">
         <h1 className="text-4xl md:text-6xl font-bold text-center">
-         {title}
+          {title}
         </h1>
         <p className="text-lg mt-3 text-center bg-gradient-to-r from-red-600 to-green-600 px-7 py-2 rounded">
-          বিএনপি <KeyboardDoubleArrowRightIcon /> {text}
+          {language === 'ENG' ? 'BNP' : 'বিএনপি'} <KeyboardDoubleArrowRightIcon /> {text}
         </p>
       </div>
     </div>

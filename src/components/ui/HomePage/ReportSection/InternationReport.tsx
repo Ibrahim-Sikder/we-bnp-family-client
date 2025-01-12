@@ -3,7 +3,7 @@ import { East } from '@mui/icons-material';
 import { Box, Button, Divider } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 
@@ -15,6 +15,19 @@ interface MurtyreCardProps {
 
 const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData, language }) => {
 
+
+
+  const [itemsToShow, setItemsToShow] = useState(3);
+
+  useEffect(() => {
+    const updateItemsToShow = () => {
+      setItemsToShow(window.innerWidth < 769 ? 2 : 3);
+    };
+
+    updateItemsToShow();
+    window.addEventListener("resize", updateItemsToShow);
+    return () => window.removeEventListener("resize", updateItemsToShow);
+  }, []);
   const buttonStyle = {
     width: { xs: "120px", md: "140px", sm: "140px" },
     height: { md: "40px", xs: "30px" },
@@ -41,14 +54,15 @@ const InternationReport: React.FC<MurtyreCardProps> = ({ internationReportData, 
       return dateA - dateB;
     },
   );
+
   return (
     <>
       <div className="bnpBtnStyle">
 
         <div>
-          {/* frontend data */}
+
           <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
-            {sortedInternationalData?.slice(0, 3)?.map((report) => (
+            {sortedInternationalData?.slice(0, itemsToShow)?.map((report) => (
               <div key={report._id} className="blogCard mt-5">
                 <div className="blogImgWrap">
 

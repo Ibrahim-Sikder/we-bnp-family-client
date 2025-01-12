@@ -16,7 +16,7 @@ const MurtyreCard: React.FC<MurtyreCardProps> = ({ murtyreFilterData, language }
 
     return (
         <>
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                 {murtyreFilterData?.map((data: TDisappearance) => (
                     <div key={data._id} className="disappeareCard">
                         <div className="flex gap-x-5 items-end justify-between flex-col md:flex-row ">
