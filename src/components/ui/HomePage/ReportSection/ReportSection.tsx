@@ -9,17 +9,18 @@ import { useLanguage } from "@/provider/LanguageProvider";
 import { useEffect, useState } from "react";
 import { TReport } from "@/types/report";
 import { useSectionData } from "@/hooks/useSectionData";
+import { reportedFields } from "@/utils/fields";
 
 const ReportSection = () => {
     const { language } = useLanguage();
     const { sectionData } = useSectionData()
     const [reportData, setReportData] = useState<TReport[]>([]);
     const [error, setError] = useState<string | null>(null);
-
+  
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/report?limit=10000`);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/report?limit=6&fields=${reportedFields}`);
                 const result = await res.json();
                 if (result?.data) {
                     setReportData(result.data?.reports);

@@ -11,6 +11,7 @@ import { TPrison } from '@/types/prison';
 import { btnStyle, loadBtnStyle } from '@/utils/customStyle';
 import { formatDate } from '@/utils/formatedate';
 import EastIcon from "@mui/icons-material/East";
+import { sortByDate } from '@/utils/sort';
 type LanguageProps = {
     language: string,
     prisonData: TPrison[]
@@ -32,14 +33,7 @@ export default function PrisonPage({ language, prisonData }: LanguageProps) {
         alignItems: 'center',
         justifyContent: 'center',
     };
-    const prisonFilterData = prisonData?.filter((item: any) => item.category === 'কারাগারে নির্যাতন')
-    const sortedPrisonData = prisonFilterData?.sort(
-        (a: TPrison, b: TPrison) => {
-            const dateA = new Date(a.date).getTime();
-            const dateB = new Date(b.date).getTime();
-            return dateA - dateB;
-        },
-    );
+    const sortedPrisonData = sortByDate(prisonData, 'date');
 
     const [visibleCount, setVisibleCount] = React.useState(6);
     const loadMore = () => {
@@ -56,7 +50,7 @@ export default function PrisonPage({ language, prisonData }: LanguageProps) {
             </div>
             <Container className='my-10'>
                 <div className='mb-10 flex gap-2  '>
-                    <TextField label={language === 'ENG' ? 'Search here' : 'সার্চ করুন'}  size='small' />
+                    <TextField label={language === 'ENG' ? 'Search here' : 'সার্চ করুন'} size='small' />
                     <Button><Search /></Button>
                 </div>
 
@@ -65,11 +59,18 @@ export default function PrisonPage({ language, prisonData }: LanguageProps) {
                         <div key={data._id} className="imgGalleryImgWraps ">
                             <div className="murtyreImgWraps">
 
-                                {data?.bng_Images.slice(0, 1)?.map((img) => {
 
-                                    return <Image src={img} alt="hero" width={500}
-                                        height={500} key={img} />
-                                })}
+                                {language === 'ENG'
+                                    ? data?.eng_iamges?.slice(0, 1)?.map((img: any) => (
+                                        <Image src={img} alt="hero" width={500}
+                                            height={500} key={img} />
+                                    ))
+                                    : data?.bng_Images?.slice(0, 1)?.map((img: any) => (
+                                        <Image src={img} alt="hero" width={500}
+                                            height={500} key={img} />
+                                    ))}
+
+
                             </div>
                             <div className="imgGalleryContent">
                                 <h3 className='text-xl mb-2 '>  {language === 'ENG' ? data.english_title : data.bangla_title}</h3>

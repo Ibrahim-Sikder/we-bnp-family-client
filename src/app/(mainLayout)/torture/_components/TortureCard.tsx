@@ -10,6 +10,7 @@ import { btnStyle, loadBtnStyle } from '@/utils/customStyle';
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { formatDate } from '@/utils/formatedate';
 import EastIcon from "@mui/icons-material/East";
+import { sortByDate } from '@/utils/sort';
 type LanguageProps = {
     language: string,
     tortureData: TPrison[]
@@ -33,20 +34,12 @@ export default function TortureCard({ language, tortureData }: LanguageProps) {
         justifyContent: 'center',
     };
 
-    const tortureFilterData = tortureData.filter((item: any) => item.category === 'আওয়ামী লীগের নির্যাতন')
 
+    const sortedTorTureData = sortByDate(tortureData, 'date');
 
-    const sortedTorTureData = tortureFilterData?.sort(
-        (a: TPrison, b: TPrison) => {
-            const dateA = new Date(a.date).getTime();
-            const dateB = new Date(b.date).getTime();
-            return dateA - dateB;
-        },
-    );
-
-    const [visibleCount, setVisibleCount] = React.useState(1);
+    const [visibleCount, setVisibleCount] = React.useState(6);
     const loadMore = () => {
-        setVisibleCount((prevCount) => prevCount + 1);
+        setVisibleCount((prevCount) => prevCount + 6);
     };
     return (
         <>
@@ -60,12 +53,15 @@ export default function TortureCard({ language, tortureData }: LanguageProps) {
                     {sortedTorTureData?.slice(0, visibleCount)?.map((data: TPrison, index: number) => (
                         <div key={data._id} className="imgGalleryImgWraps ">
                             <div className="murtyreImgWraps">
-
-                                {data?.bng_Images.slice(0, 1)?.map((img) => {
-
-                                    return <Image src={img} alt="hero" width={500}
-                                        height={500} key={img} />
-                                })}
+                                {language === 'ENG'
+                                    ? data?.eng_iamges?.slice(0, 1)?.map((img: any) => (
+                                        <Image src={img} alt="hero" width={500}
+                                            height={500} key={img} />
+                                    ))
+                                    : data?.bng_Images?.slice(0, 1)?.map((img: any) => (
+                                        <Image src={img} alt="hero" width={500}
+                                            height={500} key={img} />
+                                    ))}
                             </div>
                             <div className="imgGalleryContent">
                                 <h3 className='text-[18px] md:text-xl'>{language === 'ENG' ? data.english_title : data.bangla_title} </h3>

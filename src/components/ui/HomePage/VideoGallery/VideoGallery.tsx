@@ -20,7 +20,7 @@ const VideoGallery = () => {
   useEffect(() => {
     const fetchVideoData = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/video`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/video?limit=2`, {
           cache: "no-store",
         });
         const data = await res.json();

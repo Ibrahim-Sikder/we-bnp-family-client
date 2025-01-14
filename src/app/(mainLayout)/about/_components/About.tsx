@@ -5,27 +5,23 @@ import Container from "@/components/shared/Container";
 import { Button } from "@mui/material";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import CommitteeCard from "./CommitteeCard";
-
 import Founder from "./Founder";
 import Upodesta from "./Upodesta";
-
 import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
 import { LanguageProps, TCommitte } from "@/types";
 import Loading from "@/components/Loading/Loading";
 import History from "./History";
 import { useSectionData } from "@/hooks/useSectionData";
-
-
 const About = ({ language }: LanguageProps) => {
   const { sectionData } = useSectionData()
   const [committeeData, setCommitteeData] = React.useState<TCommitte[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
-
+  console.log('section data', sectionData)
   React.useEffect(() => {
     const fetchPrisonData = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/committee?limit=1000`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/committee`, {
           cache: 'no-store'
         });
         const data = await response.json();

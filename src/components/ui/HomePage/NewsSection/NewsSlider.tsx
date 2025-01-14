@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./NewsSection.css";
 import icon from "../../../../assets/images/logo/logo.jpg";
 import Image from "next/image";
@@ -12,45 +12,39 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Link from "next/link";
 import { KeyboardDoubleArrowRight } from "@mui/icons-material";
-import { useGetAllProgrammeQuery } from "@/redux/api/programmeApi";
 import { useLanguage } from "@/provider/LanguageProvider";
 import Loading from "@/components/Loading/Loading";
-import { useProgrammData } from "@/hooks/useProgrammData";
 import { TProgramm } from "@/types";
 import truncateText from "@/utils/truncate";
+import { activityFields } from "@/utils/fields";
+import { TNews } from "@/types/type";
 
-export type TNews = {
-  _id: string,
-  img_tagline_bangla: string;
-  img_tagline_english: string;
-  admin_name: string;
-  date: string;
-  bangla_title: string;
-  english_title: string;
-  category: string[];
-  bangla_short_description: string;
-  english_short_description: string;
-  bangla_description: string;
-  english_description: string;
-  name_published_newspaper: string;
-  news_release_date: string;
-  Link_published_newspaper: string;
-  meta_title: string;
-  meta_keywords: string[];
-  meta_description: string;
-  thumnail_images: string[],
-  eng_iamges: string[],
-  bng_Images: string[],
-  slug: string,
 
-}
 
 const NewsSlider = () => {
   const { language } = useLanguage();
+  const [programData, setProgramData] = useState<TProgramm[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchReportData = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/programm?limit=10&fields=${activityFields}`, {
+          cache: "no-store",
+        });
+        const data = await response.json();
+        setProgramData(data.data?.programms || []);
+      } catch (err) {
+        setError("Failed to fetch report data!");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const { programmData, loading } = useProgrammData();
+    fetchReportData();
+  }, []);
 
-  const sortedProgrammData = programmData?.sort((a: TProgramm, b: TProgramm) => {
+  const sortedProgrammData = programData?.sort((a: TProgramm, b: TProgramm) => {
     const dateA = new Date(a.date).getTime();
     const dateB = new Date(b.date).getTime();
     return dateB - dateA;
@@ -80,7 +74,12 @@ const NewsSlider = () => {
     color: "white",
   };
   const arrowStyle = { fontSize: "13px", marginLeft: "3px" };
-
+  if (loading) {
+    return <Loading />
+  }
+  if (loading) {
+    return <h1>Oops! press data not found.</h1>
+  }
   return (
     <div className=" px-3 md:px-5 ">
       <div className="newsRightSide">

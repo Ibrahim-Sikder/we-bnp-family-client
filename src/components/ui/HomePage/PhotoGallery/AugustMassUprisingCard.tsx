@@ -23,12 +23,16 @@ const AugustMassUprisingCard: React.FC<AugustMassCardProps> = ({ augostilterData
                         <div className="flex gap-x-5 items-end justify-between flex-col md:flex-row ">
                             <div className="disappeareImgWrap ">
 
+                                {
+                                    language === 'ENG' ? data.bng_Images?.slice(0, 1).map((img) => (
+                                        <Image src={img} alt="hero" width={500}
+                                            height={500} key={img} />
+                                    )) : data.eng_iamges?.slice(0, 1).map((img) => (
+                                        <Image src={img} alt="hero" width={500}
+                                            height={500} key={img} />
+                                    ))
+                                }
 
-                                {data?.bng_Images.slice(0, 1)?.map((img) => {
-
-                                    return <Image src={img} alt="hero" width={500}
-                                        height={500} key={img} />
-                                })}
                             </div>
                             <div className="disappeareContent text-left items-end  justify-end ">
                                 <div className="flex text-left gap-x-8 items-center">

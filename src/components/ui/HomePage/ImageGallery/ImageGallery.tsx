@@ -88,7 +88,7 @@ const ImageGallery = () => {
                     })}
                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded flex justify-center items-end p-5 cursor-pointer">
                       <div className="text-white text-center">
-                        <p className="text-sm">{formatDate(data.createdAt)}</p>
+                       
                         <h3 className="text-xl font-bold">{language === 'ENG' ? data.eng_title : data.bng_title}</h3>
                       </div>
                     </div>

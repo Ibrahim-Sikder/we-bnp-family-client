@@ -52,11 +52,15 @@ export default function InternationalReportCard({ language, internationalData }:
                         <div key={report._id} className="blogCard mt-5">
                             <div className="blogImgWrap">
 
-                                {report?.bng_Images?.slice(0, 1)?.map((img: any) => {
-
-                                    return <Image src={img} alt="hero" width={1000}
-                                        height={500} key={img} />
-                                })}
+                                {
+                                    language === 'ENG' ? report.bng_Images?.slice(0, 1).map((img) => (
+                                        <Image src={img} alt="hero" width={1000}
+                                            height={500} key={img} />
+                                    )) : report.eng_iamges?.slice(0, 1).map((img) => (
+                                        <Image src={img} alt="hero" width={1000}
+                                            height={500} key={img} />
+                                    ))
+                                }
                             </div>
                             <div className="blogCardContent">
 

@@ -126,16 +126,28 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
                         <div className="murderRightSide">
                             <h3 className="text-xl md:text-3xl font-semibold  mb-5 ">{language === 'ENG' ? singleTortureData?.english_title : singleTortureData?.bangla_title}</h3>
                             <div className="relative rounded-md border border-gray-200 shadow-sm w-full  mb-6 overflow-hidden">
-                                {singleTortureData?.bng_Images?.slice(0, 1).map((img) => (
-                                    <Image
-                                        width={500}
-                                        height={500}
-                                        key={img}
-                                        src={img}
-                                        alt="Top Image"
-                                        className="w-full h-full object-cover rounded-t-lg"
-                                    />
-                                ))}
+
+                                {language === 'ENG'
+                                    ? singleTortureData?.eng_iamges?.slice(0, 1)?.map((img: any) => (
+                                        <Image
+                                            width={500}
+                                            height={500}
+                                            key={img}
+                                            src={img}
+                                            alt="Top Image"
+                                            className="w-full h-full object-cover rounded-t-lg"
+                                        />
+                                    ))
+                                    : singleTortureData?.bng_Images?.slice(0, 1)?.map((img: any) => (
+                                        <Image
+                                            width={500}
+                                            height={500}
+                                            key={img}
+                                            src={img}
+                                            alt="Top Image"
+                                            className="w-full h-full object-cover rounded-t-lg"
+                                        />
+                                    ))}
 
                                 <span className="mt-1 block px-4  py-2 text-center">
                                     {language === 'ENG'

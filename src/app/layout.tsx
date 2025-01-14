@@ -13,8 +13,8 @@ const notoSansBengali = Noto_Sans_Bengali({
   display: "swap",
 });
 const balooDa2 = Baloo_Da_2({
-  subsets: ["latin", "bengali"], // Include "bengali" if the font supports it
-  weight: ["400", "500", "700"], // Add required font weights
+  subsets: ["latin", "bengali"],
+  weight: ["400", "500", "700"], 
   display: "swap",
 });
 export const metadata: Metadata = {

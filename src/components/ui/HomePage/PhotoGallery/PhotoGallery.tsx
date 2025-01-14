@@ -29,13 +29,13 @@ export default function PhotoGallery() {
   const { prisonData, loading: prisonLoading } = usePrisonData()
   const { disappearanceData, loading: disappearanceLoading, } = useDisappearanceData()
   const [value, setValue] = React.useState("1");
-
   if (disappearanceLoading || prisonLoading) {
     return <Loading />;
   }
 
 
 
+  
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };

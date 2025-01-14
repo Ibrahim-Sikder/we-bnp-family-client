@@ -29,11 +29,15 @@ const AwamiTortureCard: React.FC<AwamiTortureCardProps> = ({ tortureData, langua
                     <div key={data._id} className="imgGalleryImgWraps ">
                         <div className="murtyreImgWraps">
 
-                            {data?.bng_Images.slice(0, 1)?.map((img) => {
-
-                                return <Image src={img} alt="hero" width={500}
-                                    height={500} key={img} />
-                            })}
+                            {
+                                language === 'ENG' ? data.bng_Images?.slice(0, 1).map((img) => (
+                                    <Image src={img} alt="hero" width={500}
+                                        height={500} key={img} />
+                                )) : data.eng_iamges?.slice(0, 1).map((img) => (
+                                    <Image src={img} alt="hero" width={500}
+                                        height={500} key={img} />
+                                ))
+                            }
                         </div>
                         <div className="imgGalleryContent">
                             <h3>{language === 'ENG' ? data.english_title : data.bangla_title} </h3>

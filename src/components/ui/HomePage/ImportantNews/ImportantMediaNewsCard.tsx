@@ -24,6 +24,7 @@ type LanguageProps = {
     reportData: TReport[]
 }
 function ImportantMediaNewsCard({ language, reportData }: LanguageProps) {
+
     const importantNewsFilterData = reportData.filter((item) => item.newsCategory == 'গুরুত্বপূ্র্ণ')
     const sortedReportData = importantNewsFilterData?.sort((a: TReport, b: TReport) => {
         const dateA = new Date(a.date).getTime();

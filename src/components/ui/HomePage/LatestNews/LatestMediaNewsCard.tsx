@@ -33,12 +33,12 @@ function LatestMediaNewsCard({ language, reportData }: LanguageProps) {
       setItemsToShow(window.innerWidth < 768 ? 2 : 8);
     };
 
-    updateItemsToShow(); 
+    updateItemsToShow();
     window.addEventListener("resize", updateItemsToShow);
     return () => window.removeEventListener("resize", updateItemsToShow);
   }, []);
 
-  
+
   const importantNewsFilterData = reportData.filter(
     (item) => item.newsCategory === "সর্বশেষ"
   );

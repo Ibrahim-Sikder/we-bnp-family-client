@@ -131,12 +131,16 @@ const SinglePrisonPage = ({ singlePrisonData, language }: SinglePrisonProps) => 
                             </h2>
                             <div className="imgWrap">
 
+                                {language === 'ENG'
+                                    ? singlePrisonData?.eng_iamges?.slice(0, 1)?.map((img: any) => (
+                                        <Image src={img} alt="hero" className="w-full object-contain " width={500}
+                                            height={500} key={img} />
+                                    ))
+                                    : singlePrisonData?.bng_Images?.slice(0, 1)?.map((img: any) => (
+                                        <Image src={img} alt="hero" className="w-full object-contain " width={500}
+                                            height={500} key={img} />
+                                    ))}
 
-                                {singlePrisonData.bng_Images.slice(0, 1)?.map((img: any) => {
-
-                                    return <Image src={img} alt="hero" className="w-full object-contain " width={500}
-                                        height={500} key={img} />
-                                })}
                             </div>
 
                             <span className="mt-3  block ">{language === 'ENG' ? singlePrisonData?.img_tagline_english : singlePrisonData?.img_tagline_bangla}</span>

@@ -4,7 +4,7 @@ import MediaPage from './_components/MediaPage';
 const page = () => {
   return (
     <div>
-      <MediaPage/>
+      <MediaPage />
     </div>
   );
 };

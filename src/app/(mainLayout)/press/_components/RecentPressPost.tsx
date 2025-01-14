@@ -18,15 +18,20 @@ const RecentPressPost = () => {
                             <div className="">
                                 <div className="">
                                     {
-                                        data.bng_Images?.slice(0, 1).map((img) => (
-                                            <Image
-                                                key={img}
+                                        language === 'ENG' ? data.eng_iamges?.slice(0, 1).map((img) => (
+                                            <Image key={img}
                                                 src={img}
                                                 width={50}
                                                 height={30}
                                                 alt="victime"
-                                                className="w-44 h-16 object-fill rounded-sm"
-                                            />
+                                                className="w-44 h-16 object-fill rounded-sm" />
+                                        )) : data.bng_Images?.slice(0, 1).map((img) => (
+                                            <Image key={img}
+                                                src={img}
+                                                width={50}
+                                                height={30}
+                                                alt="victime"
+                                                className="w-44 h-16 object-fill rounded-sm" />
                                         ))
                                     }
                                 </div>

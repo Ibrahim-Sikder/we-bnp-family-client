@@ -11,6 +11,7 @@ import { loadBtnStyle } from "@/utils/customStyle";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import truncateText from "@/utils/truncate";
 import { formatDate } from "@/utils/formatedate";
+import { sortByDate } from "@/utils/sort";
 type LanguageProps = {
     language: string,
     activityData: TActivity[]
@@ -20,13 +21,7 @@ type LanguageProps = {
 function ActivityPage({ language, activityData }: LanguageProps) {
 
 
-    const sortedActivityData = activityData?.sort(
-        (a: TActivity, b: TActivity) => {
-            const dateA = new Date(a.date).getTime();
-            const dateB = new Date(b.date).getTime();
-            return dateA - dateB;
-        },
-    );
+    const sortedActivityData = sortByDate(activityData, 'date');
 
 
     const [visibleCount, setVisibleCount] = useState(6);
@@ -48,11 +43,21 @@ function ActivityPage({ language, activityData }: LanguageProps) {
                             <Link href={`/activity/${card._id}`}>
                                 <div key={card._id} className="max-w-lg activityCard ">
                                     <div className=" h-[200px] md:h-[250px] w-full ">
-                                        {card?.bng_Images?.slice(0, 1)?.map((img: any) => {
-                                            return <Image layout="" src={img} alt="hero" width={500}
-                                                height={500}
-                                                className="h-full object-contain w-full" key={img} />
-                                        })}
+
+                                        <div className="w-full rounded-sm overflow-hidden">
+                                            {language === 'ENG'
+                                                ? card?.eng_iamges?.slice(0, 1)?.map((img: any) => (
+                                                    <Image layout="" src={img} alt="hero" width={500}
+                                                        height={500}
+                                                        className="h-full object-contain w-full" key={img} />
+                                                ))
+                                                : card?.bng_Images?.slice(0, 1)?.map((img: any) => (
+                                                    <Image layout="" src={img} alt="hero" width={500}
+                                                        height={500}
+                                                        className="h-full object-contain w-full" key={img} />
+                                                ))}
+                                        </div>
+
                                     </div>
 
                                     <div className="-top-20 relative group text-black hover:text-white">

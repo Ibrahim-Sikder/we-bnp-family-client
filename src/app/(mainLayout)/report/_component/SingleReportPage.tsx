@@ -140,16 +140,24 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
 
                             <h3 className="text-xl md:text-3xl font-semibold mb-5 ">{language === 'ENG' ? singleReportData?.english_title : singleReportData?.bangla_title}</h3>
                             <div className="relative rounded-md border border-gray-200 shadow-sm w-full  mb-6 overflow-hidden">
-                                {singleReportData?.bng_Images?.slice(0, 1).map((img) => (
-                                    <Image
-                                        width={500}
-                                        height={500}
-                                        key={img}
-                                        src={img}
-                                        alt="Top Image"
-                                        className="w-full h-full object-cover rounded-t-lg"
-                                    />
-                                ))}
+                               
+                                {
+                                    language === 'ENG' ? singleReportData.bng_Images?.slice(0, 1).map((img) => (
+                                        <Image width={500}
+                                            height={500}
+                                            key={img}
+                                            src={img}
+                                            alt="Top Image"
+                                            className="w-full h-full object-cover rounded-t-lg" />
+                                    )) : singleReportData.eng_iamges?.slice(0, 1).map((img) => (
+                                        <Image width={500}
+                                            height={500}
+                                            key={img}
+                                            src={img}
+                                            alt="Top Image"
+                                            className="w-full h-full object-cover rounded-t-lg" />
+                                    ))
+                                }
 
                                 <span className="mt-1 block px-4  py-2 text-center">
                                     {language === 'ENG'

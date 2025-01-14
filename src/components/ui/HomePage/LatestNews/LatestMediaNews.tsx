@@ -1,36 +1,21 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLanguage } from '@/provider/LanguageProvider';
-import { TReport } from '@/types/report';
 import LatestMediaNewsCard from './LatestMediaNewsCard';
+import { useReportData } from '@/hooks/useReportData';
+import Loading from '@/app/loading';
 
 
 
 const LatestMediaNews = () => {
     const { language } = useLanguage();
-    const [reportData, setReportData] = useState<TReport[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const { reportData, loading, error } = useReportData()
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/report?limit=10000`);
-                const result = await res.json();
-                if (result?.data) {
-                    setReportData(result.data?.reports);
-                } else {
-                    setError("Programm data not found");
-                }
-            } catch (error) {
-                setError("An error occurred while fetching data.");
-            }
-        };
-
-        fetchData();
-    }, []);
-
+    if (loading) {
+        return <Loading />
+    }
     if (error) {
-        return <div>{error}</div>;
+        return <p>Oops report data not found</p>
     }
     return (
         <>

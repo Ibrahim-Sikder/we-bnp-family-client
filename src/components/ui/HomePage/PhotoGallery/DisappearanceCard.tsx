@@ -17,49 +17,40 @@ const DisappearanceCard: React.FC<AwamiTortureCardProps> = ({ disappearanceData,
 
     return (
         <>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
                 {disappearanceData?.map((data: TDisappearance) => (
                     <div key={data._id} className="disappeareCard">
                         <div className="flex gap-x-5 items-end justify-between flex-col md:flex-row ">
                             <div className="disappeareImgWrap ">
+                                {
+                                    language === 'ENG' ? data.bng_Images?.slice(0, 1).map((img) => (
+                                        <Image src={img} alt="hero" width={500}
+                                            height={500} key={img} />
+                                    )) : data.eng_iamges?.slice(0, 1).map((img) => (
+                                        <Image src={img} alt="hero" width={500}
+                                            height={500} key={img} />
+                                    ))
+                                }
 
-
-                                {data?.bng_Images.slice(0, 1)?.map((img) => {
-
-                                    return <Image src={img} alt="hero" width={500}
-                                        height={500} key={img} />
-                                })}
                             </div>
                             <div className="disappeareContent text-left items-end  justify-end ">
-                                <div className="flex text-left gap-x-8 items-center">
-                                    <div className="flex items-center justify-between w-[60px]">
-                                        <div className="flex flex-col  gap-y-2 text-sm ">
-                                            <b> {language === 'ENG' ? 'Name' : 'নাম'}  </b>
-                                        </div>
-                                        <div className="flex flex-col ">
-                                            <b> : </b>
-                                        </div>
+                                <div className="flex items-center justify-between ">
+
+                                    <div className=' flex flex-col lg:w-[100px] space-y-1 '>
+                                        <b>{language === 'ENG' ? 'Name' : 'নাম'}</b>
+                                        <b>{language === 'ENG' ? 'Designation' : 'পদবী'}</b>
+                                        <b>{language === 'ENG' ? 'Address' : 'ঠিকানা'}</b>
                                     </div>
-                                    <div className="flex flex-col">
-                                        {/* <small> {data.name_bangla}</small> */}
-                                        <small>{language === "ENG" ? data.name_english : data.name_bangla}</small>
-                                    </div>
-                                </div>
-                               
-                                <div className="flex text-left gap-x-10 ">
-                                    <div className="flex text-left items-center justify-between  w-[60px]">
-                                        <div className=" text-sm ">
-                                            <b>{language === 'ENG' ? 'Address' : 'ঠিকানা'}</b>
-                                        </div>
-                                        <div>
-                                            <b>: </b>
-                                        </div>
-                                    </div>
-                                    <div className="text-left ">
+                                    <div className='flex flex-col  space-y-1 '>
+                                        <small>: {language === "ENG" ? data.name_english : data.name_bangla}</small>
+                                        <small className="text-justify">
+                                            : {language === 'ENG' ? data.designation_english : data.designation_bangla}
+                                        </small>
                                         <small className="text-left">
-                                            {language === "ENG" ? data.address_english : data.address_bangla}
+                                            : {language === "ENG" ? data.address_english : data.address_bangla}
                                         </small>
                                     </div>
+
                                 </div>
 
                                 <span className="mt-3 block text-sm ">

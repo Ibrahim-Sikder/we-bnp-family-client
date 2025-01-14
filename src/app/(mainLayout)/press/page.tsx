@@ -3,16 +3,19 @@ import React, { useEffect, useState } from 'react';
 import PressPage from './_components/PressPage';
 import { useLanguage } from '@/provider/LanguageProvider';
 import { TProgramm } from '@/types';
+import { activityFields } from '@/utils/fields';
+import Loading from '@/app/loading';
 
 const Press = () => {
   const { language } = useLanguage();
   const [programmData, setProgrammData] = useState<TProgramm[]>([]);
   const [error, setError] = useState<string | null>(null);
-
+  const [loading, setLoading] = useState<boolean>(false)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/programm?limit=10000`);
+        setLoading(true)
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/programm?fields=${activityFields}`);
         const result = await res.json();
         if (result?.data) {
           setProgrammData(result.data?.programms);
@@ -21,6 +24,8 @@ const Press = () => {
         }
       } catch (error) {
         setError("An error occurred while fetching data.");
+      } finally {
+        setLoading(false)
       }
     };
 
@@ -28,7 +33,10 @@ const Press = () => {
   }, []);
 
   if (error) {
-    return <div>{error}</div>;
+    return <h1>Oops! data not found </h1>;
+  }
+  if (loading) {
+    return <Loading />;
   }
 
   return (

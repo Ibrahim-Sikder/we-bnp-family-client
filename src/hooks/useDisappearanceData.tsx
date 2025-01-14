@@ -1,5 +1,6 @@
 'use client';
 import { TDisappearance } from "@/types/disappearance";
+import { activityFields, prisonFields } from "@/utils/fields";
 import { useEffect, useState } from "react";
 
 
@@ -13,7 +14,7 @@ export const useDisappearanceData = () => {
     useEffect(() => {
         const fetchDisappearanceData = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/disappearance?limit=1000`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/disappearance?limit=4&fields=${prisonFields}`, {
                     cache: "no-store",
                 });
                 const data = await response.json();

@@ -1,6 +1,5 @@
 'use client';
 import { TActivity } from "@/types";
-import { TPrison } from "@/types/prison";
 import { useEffect, useState } from "react";
 
 
@@ -9,12 +8,10 @@ export const useActivityData = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-
-
     useEffect(() => {
         const fetchActivityData = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/activity?limit=1000`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/activity?limit=4`, {
                     cache: "no-store",
                 });
                 const data = await response.json();

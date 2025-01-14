@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '@/provider/LanguageProvider';
 import SingleReportPage from '../_component/SingleReportPage';
+import Loading from '@/app/loading';
 
 interface pressId {
   params: {
@@ -15,10 +16,11 @@ const Prison = ({ params }: pressId) => {
 
   const [data, setData] = useState(null);
   const [error, setError] = useState<string | null>(null);
-
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/report/${id}`);
         const result = await res.json();
         if (result?.data) {
@@ -28,6 +30,8 @@ const Prison = ({ params }: pressId) => {
         }
       } catch (error) {
         setError("An error occurred while fetching data.");
+      } finally {
+        setLoading(false)
       }
     };
 
@@ -35,7 +39,10 @@ const Prison = ({ params }: pressId) => {
   }, [id]);
 
   if (error) {
-    return <div>{error}</div>;
+    return <h1>Oops! data not found.</h1>;
+  }
+  if (loading) {
+    return <Loading />;
   }
   return (
     <>

@@ -9,6 +9,7 @@ import { Search } from '@mui/icons-material';
 import { TDisappearance } from '@/types/disappearance';
 import '../../murdered//Murder.css'
 import { loadBtnStyle } from '@/utils/customStyle';
+import { sortByDate } from '@/utils/sort';
 
 
 type LanguageProps = {
@@ -17,16 +18,7 @@ type LanguageProps = {
 }
 export default function MurderPageCard({ language, murderData }: LanguageProps) {
 
-
-
-    const murtyreFilterData = murderData.filter((item) => item.category === 'শহীদদের তালিকা')
-    const sortedProgrammData = murtyreFilterData?.sort(
-        (a: TDisappearance, b: TDisappearance) => {
-            const dateA = new Date(a.date).getTime();
-            const dateB = new Date(b.date).getTime();
-            return dateA - dateB;
-        },
-    );
+    const sortedMurderData = sortByDate(murderData, 'date');
 
     const [visibleCount, setVisibleCount] = React.useState(6);
     const loadMore = () => {
@@ -46,7 +38,7 @@ export default function MurderPageCard({ language, murderData }: LanguageProps) 
                     <Button><Search /></Button>
                 </div>
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
-                    {murtyreFilterData?.slice(0, visibleCount)?.map((data: TDisappearance) => (
+                    {sortedMurderData?.slice(0, visibleCount)?.map((data: TDisappearance) => (
                         <div key={data._id} className="disappeareCard">
                             <div className="flex gap-x-5 items-end justify-between flex-col md:flex-row ">
                                 <div className="disappeareImgWrap ">
@@ -59,50 +51,22 @@ export default function MurderPageCard({ language, murderData }: LanguageProps) 
                                     })}
                                 </div>
                                 <div className="disappeareContent text-left items-end  justify-end ">
-                                    <div className="flex text-left gap-x-8 items-center">
-                                        <div className="flex items-center justify-between w-[60px]">
-                                            <div className="flex flex-col  gap-y-2 text-sm ">
-                                                <b> {language === 'ENG' ? 'Name' : 'নাম'}  </b>
-                                            </div>
-                                            <div className="flex flex-col ">
-                                                <b> : </b>
-                                            </div>
+                                    <div className="flex items-center justify-between ">
+                                        <div className=' flex flex-col w-[40px] space-y-1 '>
+                                            <b>{language === 'ENG' ? 'Name' : 'নাম'}</b>
+                                            <b>{language === 'ENG' ? 'Designation' : 'পদবী'}</b>
+                                            <b>{language === 'ENG' ? 'Address' : 'ঠিকানা'}</b>
                                         </div>
-                                        <div className="flex flex-col">
-                                            {/* <small> {data.name_bangla}</small> */}
-                                            <small>{language === "ENG" ? data.name_english : data.name_bangla}</small>
-                                        </div>
-                                    </div>
-                                    <div className="flex text-left gap-x-8 items-center ">
-                                        <div className="flex items-center justify-between w-[60px]">
-                                            <div className=" text-sm ">
-                                                <b>{language === 'ENG' ? 'Designation' : 'পদবী'}  </b>
-                                            </div>
-                                            <div>
-                                                <b>:</b>
-                                            </div>
-                                        </div>
-                                        <div>
+                                        <div className='flex flex-col  space-y-1 '>
+                                            <small>: {language === "ENG" ? data.name_english : data.name_bangla}</small>
                                             <small className="text-justify">
-                                                {language === 'ENG' ? data.designation_english : data.designation_bangla}
-
+                                                : {language === 'ENG' ? data.designation_english : data.designation_bangla}
                                             </small>
-                                        </div>
-                                    </div>
-                                    <div className="flex text-left gap-x-10 ">
-                                        <div className="flex text-left items-center justify-between  w-[60px]">
-                                            <div className=" text-sm ">
-                                                <b>{language === 'ENG' ? 'Address' : 'ঠিকানা'}</b>
-                                            </div>
-                                            <div>
-                                                <b>: </b>
-                                            </div>
-                                        </div>
-                                        <div className="text-left ">
                                             <small className="text-left">
-                                                {language === "ENG" ? data.address_english : data.address_bangla}
+                                                : {language === "ENG" ? data.address_english : data.address_bangla}
                                             </small>
                                         </div>
+
                                     </div>
 
                                     <span className="mt-3 block text-sm ">
@@ -124,7 +88,7 @@ export default function MurderPageCard({ language, murderData }: LanguageProps) 
                         </div>
                     ))}
                 </div>
-                {visibleCount < sortedProgrammData?.length && (
+                {visibleCount < sortedMurderData?.length && (
                     <div className="flex items-center justify-center mt-5">
                         <Button
                             onClick={loadMore}

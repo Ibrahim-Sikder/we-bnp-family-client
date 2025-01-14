@@ -1,7 +1,7 @@
 'use client'
 
 import Container from "@/components/shared/Container";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import bannerImage from "../../../../../src/assets/images/banner/newSlider.jpeg";
@@ -15,12 +15,36 @@ import { loadBtnStyle } from "@/utils/customStyle";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import truncateText from "@/utils/truncate";
 import { formatDate } from "@/utils/formatedate";
+import { reportedFields } from "@/utils/fields";
+import Loading from "@/app/loading";
 const MediaPage = () => {
-    const { reportData } = useReportData()
-    const { language } = useLanguage()
+    // const { reportData } = useReportData()
+    // const { language } = useLanguage()
+    const { language } = useLanguage();
+    const [mediaReportData, setMediaData] = useState<TReport[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>()
+    const category = `মিডিয়ায় প্রকাশিত তথ্য`
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true)
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/report?category=${category}&fields=${reportedFields}`);
+                const result = await res.json();
+                if (result?.data) {
+                    setMediaData(result.data?.reports);
+                } else {
+                    setError("Data not found");
+                }
+            } catch (error) {
+                setError("An error occurred while fetching data.");
+            } finally {
+                setLoading(false)
+            }
+        };
 
-
-    const mediaReportData = reportData.filter((item: any) => item.category === 'মিডিয়ায় প্রকাশিত তথ্য')
+        fetchData();
+    }, [category]);
 
     const smallBtnStyle = {
         background: "#2B8444",
@@ -40,11 +64,16 @@ const MediaPage = () => {
         },
     );
 
-    const [visibleCount, setVisibleCount] = React.useState(6);
+    const [visibleCount, setVisibleCount] = useState(6);
     const loadMore = () => {
         setVisibleCount((prevCount) => prevCount + 6);
     };
-
+    if (loading) {
+        return <Loading />;
+    }
+    if (error) {
+        return <h2>Oops! data not founds.</h2>;
+    }
     return (
         <div>
             <div className="relative h-80 md:h-96 lg:h-[350px] bg-gray-800 overflow-hidden">
@@ -71,11 +100,15 @@ const MediaPage = () => {
                     {sortedMediaData?.slice(0, visibleCount)?.map((report: TReport) => (
                         <div key={report._id} className="blogCard mt-5">
                             <div className="blogImgWrap">
-                                {report?.bng_Images?.slice(0, 1)?.map((img) => {
-
-                                    return <Image src={img} alt="hero" width={1000}
-                                        height={500} key={img} />
-                                })}
+                                {
+                                    language === 'ENG' ? report.bng_Images?.slice(0, 1).map((img) => (
+                                        <Image src={img} alt="hero" width={1000}
+                                            height={500} key={img} />
+                                    )) : report.eng_iamges?.slice(0, 1).map((img) => (
+                                        <Image src={img} alt="hero" width={1000}
+                                            height={500} key={img} />
+                                    ))
+                                }
                             </div>
                             <div className="blogCardContent">
 

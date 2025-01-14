@@ -12,6 +12,7 @@ import truncateText from "@/utils/truncate";
 import { useState } from "react";
 import { formatDate } from "@/utils/formatedate";
 import { btnStyle, loadBtnStyle } from "@/utils/customStyle";
+import { sortByDate } from "@/utils/sort";
 type ProgrammProps = {
     programmData: TProgramm[],
     language: string,
@@ -19,20 +20,16 @@ type ProgrammProps = {
 
 export default function PressPage({ programmData, language }: ProgrammProps) {
 
-    const sortedProgrammData = programmData?.sort(
-        (a: TProgramm, b: TProgramm) => {
-            const dateA = new Date(a.date).getTime();
-            const dateB = new Date(b.date).getTime();
-            return dateA - dateB;
-        },
-    );
+
+
+    const sortedProgrammData = sortByDate(programmData, 'date');
 
     const [visibleCount, setVisibleCount] = useState(6);
     const loadMore = () => {
         setVisibleCount((prevCount) => prevCount + 6);
     };
 
-  
+
 
     return (
         <>
@@ -51,12 +48,18 @@ export default function PressPage({ programmData, language }: ProgrammProps) {
                         <div key={programm._id} className="upcommingNewsCardWrap ">
                             <div className="upcomingNewsCard relative ">
                                 <div className="imgWrap">
-                                    {programm?.bng_Images.slice(0, 1)?.map((img: any) => {
 
-                                        return <Image src={img} alt="hero" width={500}
-                                            height={500}
-                                            className="rounded-md" key={img} />
-                                    })}
+                                    {
+                                        language === 'ENG' ? programm.eng_iamges?.slice(0, 1).map((img) => (
+                                            <Image src={img} alt="hero" width={500}
+                                                height={500}
+                                                className="rounded-md" key={img} />
+                                        )) : programm.bng_Images?.slice(0, 1).map((img) => (
+                                            <Image src={img} alt="hero" width={500}
+                                                height={500}
+                                                className="rounded-md" key={img} />
+                                        ))
+                                    }
 
                                 </div>
                                 <div className="p-3 ">

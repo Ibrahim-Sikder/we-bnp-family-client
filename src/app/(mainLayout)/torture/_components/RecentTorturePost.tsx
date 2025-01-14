@@ -15,8 +15,10 @@ const RecentTorturePost = () => {
                         <div key={data._id} className="flex gap-5">
                             <div className="">
                                 <div className="">
-                                    {
-                                        data.bng_Images?.slice(0, 1).map((img) => (
+                             
+
+                                    {language === 'ENG'
+                                        ? data?.eng_iamges?.slice(0, 1)?.map((img: any) => (
                                             <Image
                                                 key={img}
                                                 src={img}
@@ -26,7 +28,16 @@ const RecentTorturePost = () => {
                                                 className="w-44 h-16 object-fill rounded-sm"
                                             />
                                         ))
-                                    }
+                                        : data?.bng_Images?.slice(0, 1)?.map((img: any) => (
+                                            <Image
+                                                key={img}
+                                                src={img}
+                                                width={50}
+                                                height={30}
+                                                alt="victime"
+                                                className="w-44 h-16 object-fill rounded-sm"
+                                            />
+                                        ))}
                                 </div>
                             </div>
                             <p>

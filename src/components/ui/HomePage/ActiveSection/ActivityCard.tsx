@@ -33,8 +33,6 @@ const ActivityCard: React.FC<MurtyreCardProps> = ({ activityData, language }) =>
       {activityData?.slice(0, 1).map((data) => (
         <div key={data._id} className="victimCard">
           <div className="imgWrap">
-
-
             {data?.bng_Images.slice(0, 1)?.map((img: any) => {
 
               return <Image layout="responsive" src={img} alt="hero" width={500}
@@ -45,8 +43,8 @@ const ActivityCard: React.FC<MurtyreCardProps> = ({ activityData, language }) =>
 
           <div className="p-2 md:p-3 space-y-1 md:space-y-2">
             <h3 className="text-xl md:text-2xl">{language === 'ENG' ? data?.english_title : data?.bangla_title}</h3>
-            <p className="hidden md:block">{language === 'ENG' ? truncateText(data?.english_short_description,200) : truncateText(data?.bangla_short_description,200)}</p>
-           
+            <p className="hidden md:block">{language === 'ENG' ? truncateText(data?.english_short_description, 200) : truncateText(data?.bangla_short_description, 200)}</p>
+
             <Button component={Link} href={`/activity/${data._id}`} sx={buttonStyle}>
               {
                 language === 'ENG' ? 'Read More' : 'আরও পড়ুন'

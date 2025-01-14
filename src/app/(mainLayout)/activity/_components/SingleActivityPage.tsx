@@ -9,6 +9,7 @@ import Category from "@/components/shared/Category/Category";
 import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Link from "next/link";
+import ActivitySidebar from "./ActivitySidebar";
 
 
 type Idprops = {
@@ -170,16 +171,25 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
 
 
                                     <div className="relative rounded-md border border-gray-200 shadow-sm w-full  mb-6 overflow-hidden">
-                                        {singleActivity?.bng_Images?.slice(0, 1).map((img) => (
-                                            <Image
-                                                width={500}
-                                                height={500}
-                                                key={img}
-                                                src={img}
-                                                alt="Top Image"
-                                                className="w-full h-full object-cover rounded-t-lg"
-                                            />
-                                        ))}
+
+
+                                        {
+                                            language === 'ENG' ? singleActivity.eng_iamges?.slice(0, 1).map((img) => (
+                                                <Image key={img}
+                                                    width={500}
+                                                    height={500}
+                                                    src={img}
+                                                    alt="Top Image"
+                                                    className="w-full h-full object-cover rounded-t-lg" />
+                                            )) : singleActivity.bng_Images?.slice(0, 1).map((img) => (
+                                                <Image key={img}
+                                                    width={500}
+                                                    height={500}
+                                                    src={img}
+                                                    alt="Top Image"
+                                                    className="w-full h-full object-cover rounded-t-lg" />
+                                            ))
+                                        }
 
                                         <span className="mt-1 block px-4  py-2 text-center">
                                             {language === 'ENG'
@@ -279,6 +289,7 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                         <div className="col-span-12 xl:col-span-3 mt-8 xl:mt-0">
                             <div className="sticky top-32">
                                 <Category />
+                                <ActivitySidebar />
                             </div>
                         </div>
                     </div>
