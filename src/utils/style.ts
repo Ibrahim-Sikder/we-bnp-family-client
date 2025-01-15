@@ -99,3 +99,11 @@ export const tabBtnStyle = {
     background: "linear-gradient(to right, #2B8444, #CB2D2E)",
     color: "white",
   };
+ export const boxStyle = {
+    display: 'flex', alignItems: 'left', gap: {
+        md: 2,
+        xs: 1
+    }, flexDirection: 'column'
+}
+
+

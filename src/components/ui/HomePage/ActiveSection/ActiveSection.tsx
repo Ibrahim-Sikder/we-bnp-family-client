@@ -21,6 +21,7 @@ import ActiveSectionTitle from "./ActiveSectionTitle";
 import { TActivity } from "@/types";
 import { buttonStyle, tabBtnStyle, tabStyle } from "@/utils/style";
 import { activityFields } from "@/utils/fields";
+import { sortByDate } from "@/utils/sort";
 
 
 const VictimCard = dynamic(() => import("./VictimCard"), { ssr: false });
@@ -64,12 +65,7 @@ const VictimizedSection = () => {
   if (error) {
     return <p>Oops! activity data not found!</p>
   }
-  const sortedActivityData = activityData?.sort((a: TActivity, b: TActivity) => {
-    const dateA = new Date(a.date).getTime();
-    const dateB = new Date(b.date).getTime();
-    return dateB - dateA;
-  });
-
+  const sortedActivityData = sortByDate(activityData, 'date')
   return (
     <Container className="sectionMargin">
       <ActiveSectionTitle />

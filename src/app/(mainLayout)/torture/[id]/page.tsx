@@ -1,46 +1,56 @@
-'use client'
-
-import React, { useEffect, useState } from 'react';
-import { useLanguage } from '@/provider/LanguageProvider';
+import React from 'react';
 import SingleTotureData from '../_components/SingleTotureData';
+import { Metadata } from 'next';
 
-interface pressId {
+
+interface ActivityParams {
   params: {
     id: string;
   };
 }
 
-const Torture = ({ params }: pressId) => {
-  const { language } = useLanguage();
-  const { id } = params;
+export async function generateMetadata({ params }: ActivityParams): Promise<Metadata> {
+  const baseApi = process.env.NEXT_PUBLIC_BASE_API_URL;
+  const id = params.id;
+  const res = await fetch(`${baseApi}/prison/${id}`, { next: { revalidate: 60 } });
+  const data = await res.json();
+  const prisonData = data.data;
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  const title = prisonData.bangla_title || prisonData.english_title || 'report';
+  const description = prisonData.bangla_description || prisonData.english_description || '';
+  const imgUrl = prisonData.bng_Images?.[0] || prisonData.eng_images?.[0] || '';
 
-  const [data, setData] = useState(null);
-  const [error, setError] = useState<string | null>(null);
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: imgUrl,
+          width: 800,
+          height: 600,
+          alt: title,
+        },
+      ],
+      type: 'article',
+      url: shareUrl,
+    },
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/prison/${id}`);
-        const result = await res.json();
-        if (result?.data) {
-          setData(result.data);
-        } else {
-          setError("Report data not found");
-        }
-      } catch (error) {
-        setError("An error occurred while fetching data.");
-      }
-    };
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imgUrl],
+    },
+  };
+}
+const Torture = () => {
 
-    fetchData();
-  }, [id]);
-
-  if (error) {
-    return <div>{error}</div>;
-  }
   return (
     <>
-      <>{data && <SingleTotureData language={language} singleTortureData={data} />}</>
+      <SingleTotureData />
 
     </>
   );

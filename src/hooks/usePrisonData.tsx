@@ -1,6 +1,6 @@
 'use client';
 import { TPrison } from "@/types/prison";
-import { activityFields, prisonFields } from "@/utils/fields";
+import { activityFields, prisonFields, programFields } from "@/utils/fields";
 import { useEffect, useState } from "react";
 
 
@@ -11,7 +11,7 @@ export const usePrisonData = () => {
     useEffect(() => {
         const fetchPrisonData = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/prison?limit=6&fields=${prisonFields}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/prison?limit=6&fields=${programFields}`, {
                     cache: "no-store",
                 });
                 const data = await response.json();

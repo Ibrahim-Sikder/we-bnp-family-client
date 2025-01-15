@@ -3,13 +3,12 @@ import React, { useEffect, useState } from 'react';
 import PrisonPage from './_components/PrisonPage';
 import { useLanguage } from '@/provider/LanguageProvider';
 import { TPrison } from '@/types/prison';
-import { prisonFields, programFields } from '@/utils/fields';
+import { programFields } from '@/utils/fields';
 
 const Prison = () => {
   const { language } = useLanguage();
   const [prisonData, setPrisonData] = useState<TPrison[]>([]);
   const [error, setError] = useState<string | null>(null);
-  console.log('from prison page ', prisonData)
   const category = `কারাগারে নির্যাতন`
   useEffect(() => {
     const fetchData = async () => {

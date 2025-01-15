@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
+'use client'
+
 import Container from "@/components/shared/Container";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ReactHtmlParser from "react-html-parser";
 import CommonBanner from "../_component/Banner";
@@ -11,10 +13,11 @@ import ShareLink from "@/components/ShareLink/ShareLink";
 import RecentReportList from "./RecentReportList";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Link from "next/link";
-type SinglePrisonProps = {
-    singleReportData: TReport,
-    language: string
-}
+import Loading from "@/app/loading";
+import { TProgramm } from "@/types";
+import { useParams } from "next/navigation";
+import { useLanguage } from "@/provider/LanguageProvider";
+import { boxStyle } from "@/utils/style";
 
 
 const renderContent = (content: string) => {
@@ -115,18 +118,55 @@ const renderContent = (content: string) => {
 };
 
 
-const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => {
+const SingleReportPage = () => {
 
 
-    const title = language === 'ENG' ? 'Information published in the media' : 'মিডিয়ায় প্রকাশিত তথ্য'
     const theme = useTheme()
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-    const boxStyle = {
-        display: 'flex', alignItems: 'left', gap: {
-            md: 2,
-            xs: 1
-        }, flexDirection: 'column'
+    const { language } = useLanguage();
+    const bannerTitle = language === "ENG" ? "Program and Notices" : "প্রোগ্রাম ও নোটিশ";
+    const bannerText = language === "ENG" ? "Notice" : "নোটিশ";
+    const title = language === 'ENG' ? 'Information published in the media' : 'মিডিয়ায় প্রকাশিত তথ্য'
+    const { id } = useParams();
+    const [singleReportData, setSingleReportData] = useState<TProgramm>();
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true)
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/report/${id}`);
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const result = await res.json();
+                console.log("Fetched report data:", result);
+                if (result?.data) {
+                    setSingleReportData(result.data);
+                } else {
+                    setError("Data not found");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setError("An error occurred while fetching data.");
+            } finally {
+                setLoading(false)
+            }
+        };
+
+        fetchData();
+    }, [id]);
+
+
+    if (loading) {
+        return <Loading />;
     }
+    if (error) {
+        return <h1>Oops! data not found.</h1>;
+    }
+    const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+
     const typegraphyStyle = { fontWeight: 'bold', fontSize: isMobile ? '0.7rem' : '1rem', }
     const typegraphyStyle2 = { fontSize: isMobile ? '0.6rem' : '1rem', }
     return (
@@ -140,16 +180,16 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
 
                             <h3 className="text-xl md:text-3xl font-semibold mb-5 ">{language === 'ENG' ? singleReportData?.english_title : singleReportData?.bangla_title}</h3>
                             <div className="relative rounded-md border border-gray-200 shadow-sm w-full  mb-6 overflow-hidden">
-                               
+
                                 {
-                                    language === 'ENG' ? singleReportData.bng_Images?.slice(0, 1).map((img) => (
+                                    language === 'ENG' ? singleReportData?.bng_Images?.slice(0, 1).map((img) => (
                                         <Image width={500}
                                             height={500}
                                             key={img}
                                             src={img}
                                             alt="Top Image"
                                             className="w-full h-full object-cover rounded-t-lg" />
-                                    )) : singleReportData.eng_iamges?.slice(0, 1).map((img) => (
+                                    )) : singleReportData?.eng_iamges?.slice(0, 1).map((img) => (
                                         <Image width={500}
                                             height={500}
                                             key={img}
@@ -169,7 +209,11 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
                             <div className="md:p-5 mt-5 ">
 
                                 <div className="space-y-5">
-                                    <div> {language === 'ENG' ? renderContent(singleReportData?.english_description) : renderContent(singleReportData?.bangla_description)} </div>
+                                    <div>
+
+
+                                        {language === 'ENG' ? renderContent(singleReportData?.english_description ?? '') : renderContent(singleReportData?.bangla_description ?? '')}
+                                    </div>
                                 </div>
                             </div>
 
@@ -241,7 +285,11 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
 
                             {/* share section */}
                             <div className="my-5">
-                                {/* <ShareLink /> */}
+                                <ShareLink
+                                    shareUrl={shareUrl}
+                                    title={title}
+                                    hashtag={`#${singleReportData?.bangla_title}`}
+                                />
                             </div>
 
 

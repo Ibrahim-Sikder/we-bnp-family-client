@@ -21,7 +21,7 @@ import { Button } from "@mui/material";
 
 type TProps = {
     close: () => void;
-    title: string,
+    title: string ,
     shareUrl: string,
     hashtag: string
 };

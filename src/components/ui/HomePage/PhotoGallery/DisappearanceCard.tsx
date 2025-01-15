@@ -12,9 +12,6 @@ interface AwamiTortureCardProps {
 
 const DisappearanceCard: React.FC<AwamiTortureCardProps> = ({ disappearanceData, language }) => {
 
-
-
-
     return (
         <>
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
@@ -26,7 +23,7 @@ const DisappearanceCard: React.FC<AwamiTortureCardProps> = ({ disappearanceData,
                                     ? data.bng_Images?.slice(0, 1).map((img) => (
                                         <Image src={img || "/placeholder.svg"} alt="hero" width={500} height={500} key={img} />
                                     ))
-                                    : data.eng_iamges?.slice(0, 1).map((img) => (
+                                    : data.bng_Images?.slice(0, 1).map((img) => (
                                         <Image src={img || "/placeholder.svg"} alt="hero" width={500} height={500} key={img} />
                                     ))
                                 }

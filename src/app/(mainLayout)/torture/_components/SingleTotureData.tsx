@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-
+'use client'
 import Container from "@/components/shared/Container";
 import "../../murdered/Murder.css";
 import ReactHtmlParser from "react-html-parser";
@@ -9,11 +9,11 @@ import ShareLink from "@/components/ShareLink/ShareLink";
 import { TPrison } from "@/types/prison";
 import RecentTorturePost from "./RecentTorturePost";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-
-type SingleTortureProps = {
-    singleTortureData: TPrison,
-    language: string
-}
+import Loading from "@/app/loading";
+import { boxStyle } from "@/utils/style";
+import { useEffect, useState } from "react";
+import { useLanguage } from "@/provider/LanguageProvider";
+import { useParams } from "next/navigation";
 
 
 const renderContent = (content: string) => {
@@ -101,15 +101,54 @@ const renderContent = (content: string) => {
 };
 
 
-const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) => {
+const SingleTotureData = () => {
+
     const theme = useTheme()
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-    const boxStyle = {
-        display: 'flex', alignItems: 'left', gap: {
-            md: 2,
-            xs: 1
-        }, flexDirection: 'column'
+    const { language } = useLanguage();
+    const bannerTitle = language === "ENG" ? "Program and Notices" : "প্রোগ্রাম ও নোটিশ";
+    const bannerText = language === "ENG" ? "Notice" : "নোটিশ";
+    const title = language === 'ENG' ? 'Information published in the media' : 'মিডিয়ায় প্রকাশিত তথ্য'
+    const { id } = useParams();
+    const [singleTortureData, setTortureData] = useState<TPrison>();
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true)
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/prison/${id}`);
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const result = await res.json();
+                console.log("Fetched report data:", result);
+                if (result?.data) {
+                    setTortureData(result.data);
+                } else {
+                    setError("Data not found");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setError("An error occurred while fetching data.");
+            } finally {
+                setLoading(false)
+            }
+        };
+
+        fetchData();
+    }, [id]);
+
+
+    if (loading) {
+        return <Loading />;
     }
+    if (error) {
+        return <h1>Oops! data not found.</h1>;
+    }
+    const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+
     const typegraphyStyle = { fontWeight: 'bold', fontSize: isMobile ? '0.7rem' : '1rem', }
     const typegraphyStyle2 = { fontSize: isMobile ? '0.6rem' : '1rem', }
 
@@ -159,7 +198,11 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
                             <div className="mt-10 md:mt-16 ">
 
                                 <div className="mt-5">
-                                    <div> {language === 'ENG' ? renderContent(singleTortureData?.english_description) : renderContent(singleTortureData?.bangla_description)} </div>
+                                    <div>
+
+
+                                        {language === 'ENG' ? renderContent(singleTortureData?.english_description ?? '') : renderContent(singleTortureData?.bangla_description ?? '')}
+                                    </div>
                                 </div>
                             </div>
 
@@ -228,7 +271,11 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
                                 </Box>
                             </Box>
                         ) : null}
-                        {/* <ShareLink /> */}
+                        <ShareLink
+                            shareUrl={shareUrl}
+                            title={title}
+                            hashtag={`#${singleTortureData?.bangla_title}`}
+                        />
                     </div>
                     <div className="xl:col-span-3  ">
 

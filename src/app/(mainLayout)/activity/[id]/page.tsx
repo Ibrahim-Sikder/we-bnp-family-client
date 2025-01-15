@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: ActivityParams): Promise<Meta
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
   const title = activity.bangla_title || activity.english_title || 'Activity';
   const description = activity.bangla_description || activity.english_description || '';
-  const image = activity.bng_Images?.[0] || activity.eng_images?.[0] || '';
+  const imgUrl = activity.bng_Images?.[0] || activity.eng_images?.[0] || '';
 
   return {
     title,
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: ActivityParams): Promise<Meta
       description,
       images: [
         {
-          url: image,
+          url: imgUrl,
           width: 800,
           height: 600,
           alt: title,
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: ActivityParams): Promise<Meta
       card: 'summary_large_image',
       title,
       description,
-      images: [image],
+      images: [imgUrl],
     },
   };
 }

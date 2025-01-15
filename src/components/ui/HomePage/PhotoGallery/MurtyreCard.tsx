@@ -21,7 +21,7 @@ const MurtyreCard: React.FC<MurtyreCardProps> = ({ murtyreFilterData, language }
                                     ? data.bng_Images?.slice(0, 1).map((img) => (
                                         <Image src={img || "/placeholder.svg"} alt="hero" width={500} height={500} key={img} />
                                     ))
-                                    : data.eng_iamges?.slice(0, 1).map((img) => (
+                                    : data.bng_Images?.slice(0, 1).map((img) => (
                                         <Image src={img || "/placeholder.svg"} alt="hero" width={500} height={500} key={img} />
                                     ))
                                 }

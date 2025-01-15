@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-
+'use client'
 import Container from "@/components/shared/Container";
 import "../../murdered/Murder.css";
 import ReactHtmlParser from "react-html-parser";
@@ -9,11 +9,12 @@ import { TPrison } from "@/types/prison";
 import Category from "@/components/shared/Category/Category";
 import { useMediaQuery, useTheme } from "@mui/system";
 import { Box, Typography } from "@mui/material";
-
-type SinglePrisonProps = {
-    singlePrisonData: TPrison,
-    language: string
-}
+import Loading from "@/app/loading";
+import { useEffect, useState } from "react";
+import { useLanguage } from "@/provider/LanguageProvider";
+import { useParams } from "next/navigation";
+import { boxStyle } from "@/utils/style";
+import ShareLink from "@/components/ShareLink/ShareLink";
 
 
 const renderContent = (content: string) => {
@@ -102,16 +103,54 @@ const renderContent = (content: string) => {
 
 
 
-const SinglePrisonPage = ({ singlePrisonData, language }: SinglePrisonProps) => {
+const SinglePrisonPage = () => {
 
     const theme = useTheme()
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-    const boxStyle = {
-        display: 'flex', alignItems: 'left', gap: {
-            md: 2,
-            xs: 1
-        }, flexDirection: 'column'
+    const { language } = useLanguage();
+    const bannerTitle = language === "ENG" ? "Program and Notices" : "প্রোগ্রাম ও নোটিশ";
+    const bannerText = language === "ENG" ? "Notice" : "নোটিশ";
+    const title = language === 'ENG' ? 'Information published in the media' : 'মিডিয়ায় প্রকাশিত তথ্য'
+    const { id } = useParams();
+    const [singlePrisonData, setSinglePrisonData] = useState<TPrison>();
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true)
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/prison/${id}`);
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const result = await res.json();
+                console.log("Fetched prison data:", result);
+                if (result?.data) {
+                    setSinglePrisonData(result.data);
+                } else {
+                    setError("Data not found");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setError("An error occurred while fetching data.");
+            } finally {
+                setLoading(false)
+            }
+        };
+
+        fetchData();
+    }, [id]);
+
+
+    if (loading) {
+        return <Loading />;
     }
+    if (error) {
+        return <h1>Oops! data not found.</h1>;
+    }
+    const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+
     const typegraphyStyle = { fontWeight: 'bold', fontSize: isMobile ? '0.7rem' : '1rem', }
     const typegraphyStyle2 = { fontSize: isMobile ? '0.6rem' : '1rem', }
 
@@ -127,7 +166,7 @@ const SinglePrisonPage = ({ singlePrisonData, language }: SinglePrisonProps) => 
                     <div className="xl:col-span-9">
                         <div className="murderRightSide">
                             <h2 className="mb-5 ">
-                                {language === 'ENG' ? singlePrisonData.english_title : singlePrisonData.bangla_title}
+                                {language === 'ENG' ? singlePrisonData?.english_title : singlePrisonData?.bangla_title}
                             </h2>
                             <div className="imgWrap">
 
@@ -148,8 +187,8 @@ const SinglePrisonPage = ({ singlePrisonData, language }: SinglePrisonProps) => 
 
                                 <div className="space-y-5 mt-5 ">
 
-                                    {language === 'ENG' ? renderContent(singlePrisonData.english_description) : renderContent(singlePrisonData.bangla_description)}
 
+                                    {language === 'ENG' ? renderContent(singlePrisonData?.english_description ?? '') : renderContent(singlePrisonData?.bangla_description ?? '')}
 
                                 </div>
 
@@ -220,7 +259,11 @@ const SinglePrisonPage = ({ singlePrisonData, language }: SinglePrisonProps) => 
                                 </Box>
                             ) : null}
 
-
+                            <ShareLink
+                                shareUrl={shareUrl}
+                                title={title}
+                                hashtag={`#${singlePrisonData?.bangla_title}`}
+                            />
                         </div>
                     </div>
                     <div className="xl:col-span-3">

@@ -15,6 +15,9 @@ import ActivitySidebar from "./ActivitySidebar";
 import { useLanguage } from "@/provider/LanguageProvider";
 import { useParams } from "next/navigation";
 import { TActivity } from "@/types";
+import Loading from "@/app/loading";
+import { boxStyle } from "@/utils/style";
+
 
 
 
@@ -24,18 +27,15 @@ const SingleActivityPage = () => {
     const { id } = useParams();
     const { language } = useLanguage();
     const [singleActivity, setSingleActivity] = useState<TActivity>();
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null);
     const theme = useTheme()
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-    const boxStyle = {
-        display: 'flex', alignItems: 'left', gap: {
-            md: 2,
-            xs: 1
-        }, flexDirection: 'column'
-    }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true)
                 const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/activity/${id}`);
                 if (!res.ok) {
                     throw new Error(`HTTP error! status: ${res.status}`);
@@ -50,6 +50,8 @@ const SingleActivityPage = () => {
             } catch (error) {
                 console.error("Error fetching data:", error);
                 setError("An error occurred while fetching data.");
+            } finally {
+                setLoading(false)
             }
         };
 
@@ -57,8 +59,11 @@ const SingleActivityPage = () => {
     }, [id]);
 
 
+    if (loading) {
+        return <Loading />;
+    }
     if (error) {
-        return <div>{error}</div>;
+        return <h1>Oops! data not found.</h1>;
     }
 
 
@@ -162,7 +167,6 @@ const SingleActivityPage = () => {
 
 
     const title = language === 'ENG' ? 'Recent Activities' : 'সাম্প্রতিক কার্যক্রম'
-    // const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/activity/${id}`;
     const typegraphyStyle = { fontWeight: 'bold', fontSize: isMobile ? '0.7rem' : '1rem', }
     const typegraphyStyle2 = { fontSize: isMobile ? '0.6rem' : '1rem', }
     const shareUrl = typeof window !== "undefined" ? window.location.href : "";
@@ -209,7 +213,7 @@ const SingleActivityPage = () => {
                                         </span>
                                     </div>
                                     <div className="text-justify ">
-                                    {language === 'ENG' ? renderContent(singleActivity?.english_description ?? '') : renderContent(singleActivity?.bangla_description ?? '')}
+                                        {language === 'ENG' ? renderContent(singleActivity?.english_description ?? '') : renderContent(singleActivity?.bangla_description ?? '')}
                                     </div>
 
 

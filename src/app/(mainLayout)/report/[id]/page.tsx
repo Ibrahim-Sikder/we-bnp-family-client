@@ -1,55 +1,60 @@
-'use client'
 
-import React, { useEffect, useState } from 'react';
-import { useLanguage } from '@/provider/LanguageProvider';
+
+import React from 'react';
 import SingleReportPage from '../_component/SingleReportPage';
-import Loading from '@/app/loading';
+import { Metadata } from 'next';
 
-interface pressId {
+interface TortureParams {
   params: {
     id: string;
   };
 }
-const Prison = ({ params }: pressId) => {
-  const { language } = useLanguage();
-  const { id } = params;
 
-  const [data, setData] = useState(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false)
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/report/${id}`);
-        const result = await res.json();
-        if (result?.data) {
-          setData(result.data);
-        } else {
-          setError("Report data not found");
-        }
-      } catch (error) {
-        setError("An error occurred while fetching data.");
-      } finally {
-        setLoading(false)
-      }
-    };
+export async function generateMetadata({ params }: TortureParams): Promise<Metadata> {
+  const baseApi = process.env.NEXT_PUBLIC_BASE_API_URL;
+  const id = params.id;
+  const res = await fetch(`${baseApi}/report/${id}`, { next: { revalidate: 60 } });
+  const data = await res.json();
+  const reportData = data.data;
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  const title = reportData.bangla_title || reportData.english_title || 'report';
+  const description = reportData.bangla_description || reportData.english_description || '';
+  const imgUrl = reportData.bng_Images?.[0] || reportData.eng_images?.[0] || '';
 
-    fetchData();
-  }, [id]);
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: imgUrl,
+          width: 800,
+          height: 600,
+          alt: title,
+        },
+      ],
+      type: 'article',
+      url: shareUrl,
+    },
 
-  if (error) {
-    return <h1>Oops! data not found.</h1>;
-  }
-  if (loading) {
-    return <Loading />;
-  }
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imgUrl],
+    },
+  };
+}
+const Torture = () => {
+
   return (
     <>
-      <>{data && <SingleReportPage language={language} singleReportData={data} />}</>
+      <SingleReportPage />
 
     </>
   );
 };
 
-export default Prison;
+export default Torture;
