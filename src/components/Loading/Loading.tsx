@@ -1,18 +1,22 @@
-import * as React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+"use client";
 
-export default function CircularIndeterminate() {
+import dynamic from "next/dynamic";
+
+const Player = dynamic(() => import("@lottiefiles/react-lottie-player").then(mod => mod.Player), { ssr: false });
+
+const Loader = () => {
+  const loadingSrc = "/loading.json"; 
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}
-    >
-      <CircularProgress />
-    </Box>
+    <div className="fixed inset-0 h-screen flex items-center justify-center bg-white z-50">
+      <Player
+        autoplay
+        loop
+        src={loadingSrc}
+        className="w-[150px] h-[150px] md:w-[250px] md:h-[150px]"
+      />
+    </div>
   );
-}
+};
+
+export default Loader;

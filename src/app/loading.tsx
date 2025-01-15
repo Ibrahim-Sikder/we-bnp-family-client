@@ -1,20 +1,22 @@
+"use client";
 
-'use client'
-import React from 'react';
-import Lottie from 'lottie-react';
-import loadingAnimation from '../../public/loading.json';
+import dynamic from "next/dynamic";
 
-const Loading = () => {
-    return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-            <Lottie
-                animationData={loadingAnimation}
-                loop={true}
-                style={{ width: '200px', height: '150px' }}
-            />
+const Player = dynamic(() => import("@lottiefiles/react-lottie-player").then(mod => mod.Player), { ssr: false });
 
-        </div>
-    );
+const Loader = () => {
+  const loadingSrc = "/loading.json"; 
+
+  return (
+    <div className="fixed inset-0 h-screen flex items-center justify-center bg-white z-50">
+      <Player
+        autoplay
+        loop
+        src={loadingSrc}
+        className="w-[150px] h-[150px] md:w-[250px] md:h-[150px]"
+      />
+    </div>
+  );
 };
 
-export default Loading;
+export default Loader;
