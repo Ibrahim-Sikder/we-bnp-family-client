@@ -18,6 +18,7 @@ import { TActivity } from "@/types";
 
 
 
+
 const SingleActivityPage = () => {
 
     const { id } = useParams();
@@ -161,10 +162,10 @@ const SingleActivityPage = () => {
 
 
     const title = language === 'ENG' ? 'Recent Activities' : 'সাম্প্রতিক কার্যক্রম'
-    const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/activity/${id}`;
+    // const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/activity/${id}`;
     const typegraphyStyle = { fontWeight: 'bold', fontSize: isMobile ? '0.7rem' : '1rem', }
     const typegraphyStyle2 = { fontSize: isMobile ? '0.6rem' : '1rem', }
-
+    const shareUrl = typeof window !== "undefined" ? window.location.href : "";
     return (
         <>
             <div>
@@ -294,7 +295,7 @@ const SingleActivityPage = () => {
 
 
                                 <ShareLink
-                                    shareUrl={`${process.env.NEXT_PUBLIC_BASE_LOCAL_URL}/activity/${id}`}
+                                    shareUrl={shareUrl}
                                     title={title}
                                     hashtag={`#${singleActivity?.bangla_title}`}
                                 />

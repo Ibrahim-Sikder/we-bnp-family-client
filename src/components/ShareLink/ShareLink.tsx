@@ -4,7 +4,10 @@ import { Share } from '@mui/icons-material';
 import { useState } from 'react';
 import ShareModal from './ShareModal';
 
-const ShareLink = ({ shareUrl, title, hashtag }: { shareUrl: string, title: string; hashtag: string }) => {
+type ShareProps = {
+    shareUrl: string, title: string; hashtag: string,
+}
+const ShareLink = ({ shareUrl, title, hashtag }: ShareProps) => {
     const [open, setOpen] = useState(false);
     // const fullShareUrl = `${process.env.NEXT_PUBLIC_BASE_LOCAL_URL}${shareUrl}`;
 

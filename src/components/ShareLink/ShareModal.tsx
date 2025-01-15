@@ -44,6 +44,7 @@ const ShareModal = ({ close, shareUrl, title, hashtag }: TProps) => {
                         onClick={close}
                         size={30}
                     />
+
                 </div>
             </div>
             <div className="mt-16 md:mt-20 w-full md:w-[450px] mx-auto">
@@ -69,7 +70,7 @@ const ShareModal = ({ close, shareUrl, title, hashtag }: TProps) => {
                 >
                     <SwiperSlide>
                         <div className="text-center">
-                            <WhatsappShareButton url={shareUrl} title={title}>
+                            <WhatsappShareButton  url={shareUrl} title={title}>
                                 <Image className="w-10 md:w-14 mx-auto" src={whatsapp || "/placeholder.svg"} alt="WhatsApp" width={56} height={56} />
                                 <small className="text-sm text-[12px]">WhatsApp</small>
                             </WhatsappShareButton>

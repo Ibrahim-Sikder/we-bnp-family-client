@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: ActivityParams): Promise<Meta
   const res = await fetch(`${baseApi}/activity/${id}`, { next: { revalidate: 60 } });
   const data = await res.json();
   const activity = data.data;
-
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
   const title = activity.bangla_title || activity.english_title || 'Activity';
   const description = activity.bangla_description || activity.english_description || '';
   const image = activity.bng_Images?.[0] || activity.eng_images?.[0] || '';
@@ -27,14 +27,15 @@ export async function generateMetadata({ params }: ActivityParams): Promise<Meta
       images: [
         {
           url: image,
-          width: 1200,
-          height: 630,
+          width: 800,
+          height: 600,
           alt: title,
         },
       ],
       type: 'article',
-      url: `${process.env.NEXT_PUBLIC_BASE_API_URL}/activity/${id}`,
+      url: shareUrl,
     },
+
     twitter: {
       card: 'summary_large_image',
       title,
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }: ActivityParams): Promise<Meta
   };
 }
 
-export default function Page({ params }: ActivityParams) {
+export default function Page() {
   return (
     <div>
       <SingleActivityPage />
