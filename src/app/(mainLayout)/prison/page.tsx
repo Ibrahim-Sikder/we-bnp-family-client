@@ -27,7 +27,7 @@ const Prison = () => {
     };
 
     fetchData();
-  }, []);
+  }, [category]);
 
   if (error) {
     return <div>{error}</div>;

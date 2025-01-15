@@ -241,7 +241,7 @@ const SingleReportPage = ({ singleReportData, language }: SinglePrisonProps) => 
 
                             {/* share section */}
                             <div className="my-5">
-                                <ShareLink />
+                                {/* <ShareLink /> */}
                             </div>
 
 

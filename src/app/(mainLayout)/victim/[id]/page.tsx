@@ -189,7 +189,7 @@ const DetailsPage = async ({ params }: victimId) => {
                   {/* <PublishInfo name={singleData?.name_published_newspaper} time={singleData?.news_release_date} link={singleData?.Link_published_newspaper} /> */}
                 </div>
 
-                <ShareLink />
+                {/* <ShareLink /> */}
               </div>
             </div>
 

@@ -1,48 +1,54 @@
-'use client'
-import React, { useEffect, useState } from 'react';
+import { Metadata } from 'next';
 import SingleActivityPage from '../_components/SingleActivityPage';
-import { useLanguage } from '@/provider/LanguageProvider';
 
-interface victimId {
+interface ActivityParams {
   params: {
     id: string;
   };
 }
-const ActivityPage = ({ params }: victimId) => {
-  const { language } = useLanguage();
-  const { id } = params;
 
-  const [data, setData] = useState(null);
-  const [error, setError] = useState<string | null>(null);
+export async function generateMetadata({ params }: ActivityParams): Promise<Metadata> {
+  const baseApi = process.env.NEXT_PUBLIC_BASE_API_URL;
+  const id = params.id;
+  const res = await fetch(`${baseApi}/activity/${id}`, { next: { revalidate: 60 } });
+  const data = await res.json();
+  const activity = data.data;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/activity/${id}`);
-        const result = await res.json();
-        if (result?.data) {
-          setData(result.data);
-        } else {
-          setError("Data not found");
-        }
-      } catch (error) {
-        setError("An error occurred while fetching data.");
-      }
-    };
+  const title = activity.bangla_title || activity.english_title || 'Activity';
+  const description = activity.bangla_description || activity.english_description || '';
+  const image = activity.bng_Images?.[0] || activity.eng_images?.[0] || '';
 
-    fetchData();
-  }, [id]);
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      type: 'article',
+      url: `${process.env.NEXT_PUBLIC_BASE_API_URL}/activity/${id}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
 
-  if (error) {
-    return <div>{error}</div>;
-  }
-
-
-
+export default function Page({ params }: ActivityParams) {
   return (
-    <>{data && <SingleActivityPage language={language} singleActivity={data} />}</>
+    <div>
+      <SingleActivityPage />
+    </div>
   );
-};
+}
 
-
-export default ActivityPage;

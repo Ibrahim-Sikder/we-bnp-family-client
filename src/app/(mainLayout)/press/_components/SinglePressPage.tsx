@@ -202,7 +202,7 @@ const SinglePressPage = ({ singlePressData, language }: SinglePressProps) => {
                                 </Box>
                             ) : null}
 
-                            <ShareLink />
+                            {/* <ShareLink /> */}
 
 
 

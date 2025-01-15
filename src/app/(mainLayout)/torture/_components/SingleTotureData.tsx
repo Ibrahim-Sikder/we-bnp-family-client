@@ -228,7 +228,7 @@ const SingleTotureData = ({ singleTortureData, language }: SingleTortureProps) =
                                 </Box>
                             </Box>
                         ) : null}
-                        <ShareLink />
+                        {/* <ShareLink /> */}
                     </div>
                     <div className="xl:col-span-3  ">
 

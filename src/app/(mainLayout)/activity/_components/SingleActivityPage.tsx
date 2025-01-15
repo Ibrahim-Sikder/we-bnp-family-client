@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
+'use client'
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import ReactHtmlParser from "react-html-parser";
 import Container from "@/components/shared/Container";
@@ -10,41 +12,53 @@ import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Link from "next/link";
 import ActivitySidebar from "./ActivitySidebar";
-
-
-type Idprops = {
-    singleActivity: TActivity,
-    language: string
-}
-
-export type TActivity = {
-    img_tagline_bangla: string;
-    img_tagline_english: string;
-    admin_name: string;
-    date: string;
-    bangla_title: string;
-    english_title: string;
-    category: string[];
-    bangla_short_description: string;
-    english_short_description: string;
-    bangla_description: string;
-    english_description: string;
-    name_published_newspaper: string;
-    news_release_date: string;
-    Link_published_newspaper: string;
-    meta_title: string;
-    meta_keywords: string[];
-    meta_description: string;
-    thumnail_images: string[],
-    eng_iamges: string[],
-    bng_Images: string[],
-    slug: string,
-};
+import { useLanguage } from "@/provider/LanguageProvider";
+import { useParams } from "next/navigation";
+import { TActivity } from "@/types";
 
 
 
-const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
-    const title = language === 'ENG' ? 'Recent Activities' : 'সাম্প্রতিক কার্যক্রম'
+const SingleActivityPage = () => {
+
+    const { id } = useParams();
+    const { language } = useLanguage();
+    const [singleActivity, setSingleActivity] = useState<TActivity>();
+    const [error, setError] = useState<string | null>(null);
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+    const boxStyle = {
+        display: 'flex', alignItems: 'left', gap: {
+            md: 2,
+            xs: 1
+        }, flexDirection: 'column'
+    }
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/activity/${id}`);
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const result = await res.json();
+                console.log("Fetched activity data:", result);
+                if (result?.data) {
+                    setSingleActivity(result.data);
+                } else {
+                    setError("Data not found");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setError("An error occurred while fetching data.");
+            }
+        };
+
+        fetchData();
+    }, [id]);
+
+
+    if (error) {
+        return <div>{error}</div>;
+    }
 
 
     const renderContent = (content: string) => {
@@ -74,7 +88,7 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                     <div key={index} className="w-[700px] h-[400px]">
                         <img
 
-                            src={element.props.src}
+                            src={element.props.src || "/placeholder.svg"}
                             alt="this is image"
                             className="mb-2"
                             style={{ width: "100%", height: "100%", objectFit: "cover" }}
@@ -144,14 +158,10 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
         });
     };
 
-    const theme = useTheme()
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-    const boxStyle = {
-        display: 'flex', alignItems: 'left', gap: {
-            md: 2,
-            xs: 1
-        }, flexDirection: 'column'
-    }
+
+
+    const title = language === 'ENG' ? 'Recent Activities' : 'সাম্প্রতিক কার্যক্রম'
+    const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/activity/${id}`;
     const typegraphyStyle = { fontWeight: 'bold', fontSize: isMobile ? '0.7rem' : '1rem', }
     const typegraphyStyle2 = { fontSize: isMobile ? '0.6rem' : '1rem', }
 
@@ -174,18 +184,18 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
 
 
                                         {
-                                            language === 'ENG' ? singleActivity.eng_iamges?.slice(0, 1).map((img) => (
+                                            language === 'ENG' ? singleActivity?.eng_iamges?.slice(0, 1).map((img) => (
                                                 <Image key={img}
                                                     width={500}
                                                     height={500}
-                                                    src={img}
+                                                    src={img || "/placeholder.svg"}
                                                     alt="Top Image"
                                                     className="w-full h-full object-cover rounded-t-lg" />
-                                            )) : singleActivity.bng_Images?.slice(0, 1).map((img) => (
+                                            )) : singleActivity?.bng_Images?.slice(0, 1).map((img) => (
                                                 <Image key={img}
                                                     width={500}
                                                     height={500}
-                                                    src={img}
+                                                    src={img || "/placeholder.svg"}
                                                     alt="Top Image"
                                                     className="w-full h-full object-cover rounded-t-lg" />
                                             ))
@@ -198,7 +208,7 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                                         </span>
                                     </div>
                                     <div className="text-justify ">
-                                        {language === 'ENG' ? renderContent(singleActivity?.english_description) : renderContent(singleActivity?.bangla_description)}
+                                    {language === 'ENG' ? renderContent(singleActivity?.english_description ?? '') : renderContent(singleActivity?.bangla_description ?? '')}
                                     </div>
 
 
@@ -206,7 +216,7 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                                         {singleActivity?.bng_Images?.slice(1, 4)?.map((img) => (
                                             <Image
                                                 key={img}
-                                                src={img}
+                                                src={img || "/placeholder.svg"}
                                                 width={500}
                                                 height={500}
                                                 className="w-full md:w-[48%] lg:w-[32%] h-auto object-cover rounded-lg"
@@ -283,7 +293,11 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
                                 ) : null}
 
 
-                                <ShareLink />
+                                <ShareLink
+                                    shareUrl={`${process.env.NEXT_PUBLIC_BASE_LOCAL_URL}/activity/${id}`}
+                                    title={title}
+                                    hashtag={`#${singleActivity?.bangla_title}`}
+                                />
                             </div>
                         </div>
                         <div className="col-span-12 xl:col-span-3 mt-8 xl:mt-0">
@@ -301,3 +315,4 @@ const SingleActivityPage = ({ singleActivity, language }: Idprops) => {
 };
 
 export default SingleActivityPage;
+
