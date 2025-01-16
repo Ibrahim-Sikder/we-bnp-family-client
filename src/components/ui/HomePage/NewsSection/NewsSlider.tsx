@@ -112,12 +112,19 @@ const NewsSlider = () => {
                   <div className="newsImgcardWrap">
 
 
-                    {news?.bng_Images?.slice(0, 1)?.map((img: any) => {
+                    
 
-                      return <Image src={img} alt="hero" width={500}
+                    {language === 'ENG'
+                      ? news?.eng_iamges?.slice(0, 1)?.map((img: any) => (
+                        <Image src={img} alt="hero" width={500}
                         height={500}
                         className="rounded-md" key={img} />
-                    })}
+                      ))
+                      : news?.bng_Images?.slice(0, 1)?.map((img: any) => (
+                        <Image src={img} alt="hero" width={500}
+                        height={500}
+                        className="rounded-md" key={img} />
+                      ))}
                   </div>
                   <div className="flex items-center justify-center w-full gap-3 px-2 mt-5">
                     <Image className="w-10" src={icon} alt="news" />

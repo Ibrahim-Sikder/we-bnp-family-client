@@ -6,7 +6,6 @@ import Container from '@/components/shared/Container';
 import BNPForm from '@/components/Forms/Form';
 import { Button, Grid } from '@mui/material';
 import BNPInput from '@/components/Forms/Input';
-import '../../../components/ui/HomePage/DonationSection/DonationSection.css'
 import Iframe from "react-iframe";
 import BNPTextArea from '@/components/Forms/TextArea';
 import {

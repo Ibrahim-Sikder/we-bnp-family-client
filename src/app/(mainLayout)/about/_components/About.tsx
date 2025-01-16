@@ -8,11 +8,13 @@ import CommitteeCard from "./CommitteeCard";
 import Founder from "./Founder";
 import Upodesta from "./Upodesta";
 import CommonBanner from "@/components/shared/CommonBanner/CommonBanner";
-import { LanguageProps, TCommitte } from "@/types";
+import { TCommitte } from "@/types";
 import Loading from "@/components/Loading/Loading";
 import History from "./History";
 import { useSectionData } from "@/hooks/useSectionData";
-const About = ({ language }: LanguageProps) => {
+import { useLanguage } from "@/provider/LanguageProvider";
+const About = () => {
+  const { language } = useLanguage()
   const { sectionData } = useSectionData()
   const [committeeData, setCommitteeData] = React.useState<TCommitte[]>([]);
   const [loading, setLoading] = React.useState(true);

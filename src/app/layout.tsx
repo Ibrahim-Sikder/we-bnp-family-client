@@ -6,6 +6,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Toaster } from "sonner";
 import BackTopButton from "@/components/BackTopButton/BackTopButton";
 import { LanguageProvider } from "@/provider/LanguageProvider";
+import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 
 const notoSansBengali = Noto_Sans_Bengali({
   subsets: ["bengali"],
@@ -76,6 +77,7 @@ export default function RootLayout({
       <LanguageProvider>
         <Providers>
           <body className={balooDa2.className}>
+            <ScrollToTop/>
             <Toaster position="bottom-right" richColors />
             <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
           </body>
