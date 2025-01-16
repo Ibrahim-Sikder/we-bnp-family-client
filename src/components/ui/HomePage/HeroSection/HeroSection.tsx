@@ -14,6 +14,7 @@ import Container from '@/components/shared/Container';
 import { TBanner } from '@/types';
 import { useLanguage } from '@/provider/LanguageProvider';
 import Loading from '@/components/Loading/Loading';
+import { sortByDate } from '@/utils/sort';
 
 const HeroSection = () => {
     const { language } = useLanguage();
@@ -22,7 +23,7 @@ const HeroSection = () => {
     const [error, setError] = React.useState<string | null>(null);
 
     React.useEffect(() => {
-        const fetchAffiliationData = async () => {
+        const fetchBannerData = async () => {
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/banner`, {
                     cache: 'no-store',
@@ -36,7 +37,7 @@ const HeroSection = () => {
             }
         };
 
-        fetchAffiliationData();
+        fetchBannerData();
     }, []);
 
     const swiperRef = useRef<any>(null);
@@ -69,10 +70,10 @@ const HeroSection = () => {
         transition: 'background-color 0.3s, color 0.3s', // Smooth transition for hover
         '&:hover': {
             backgroundColor: 'red',
-            color: 'white',         
+            color: 'white',
         },
     };
-    
+
 
     const handleSlideChange = (index: number) => {
         if (swiperRef.current) {
@@ -82,9 +83,11 @@ const HeroSection = () => {
                 setFadeOut(false);
             }, 500);
         }
-        setActiveSlide(index); 
+        setActiveSlide(index);
     };
 
+    const sortedBannerData = sortByDate(bannerData, 'createdAt');
+console.log(sortedBannerData)
     return (
         <>
             {loading ? (
@@ -105,18 +108,16 @@ const HeroSection = () => {
                         modules={[Autoplay, Navigation]}
                         className="mySwiper"
                     >
-                        {bannerData?.map((slide: TBanner, index: number) => (
+                        {sortedBannerData?.map((slide: TBanner, index: number) => (
                             <SwiperSlide key={index}>
                                 <Container>
                                     <div
-                                        className={`sliderWraps fade-in ${
-                                            index === 1 ? 'secondSlide' : ''
-                                        } ${index === 2 ? 'thirdSlide' : ''}`}
+                                        className={`sliderWraps fade-in ${index === 1 ? 'secondSlide' : ''
+                                            } ${index === 2 ? 'thirdSlide' : ''}`}
                                     >
                                         <div
-                                            className={`heroContent ${
-                                                fadeOut ? 'fade-out zoom-out' : ''
-                                            }`}
+                                            className={`heroContent ${fadeOut ? 'fade-out zoom-out' : ''
+                                                }`}
                                         >
                                             <div className="spacey-y-1 md:space-y-5">
                                                 <h1 className="capitalize text-[15px] md:text-[20px] lg:text-[50px] w-[850px] font-bold leading-[7px]  lg:leading-[70px]">
@@ -169,9 +170,8 @@ const HeroSection = () => {
                         {[...Array(3)].map((_, index) => (
                             <div
                                 key={index}
-                                className={`slide ${
-                                    activeSlide === index ? 'bg-red-500 text-white' : ''
-                                }`}
+                                className={`slide ${activeSlide === index ? 'bg-red-500 text-white' : ''
+                                    }`}
                                 onClick={() => handleSlideChange(index)}
                             >
                                 {`0${index + 1}`}
