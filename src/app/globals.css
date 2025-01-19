@@ -98,3 +98,29 @@ body {
   border-radius: 100%;
   object-fit: cover;
 }
+
+
+
+
+.cursor-dot,
+.cursor-outline {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #CB2D2E;
+  border-radius: 50%;
+}
+
+.cursor-outline {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #CB2D2E;
+  border-radius: 50%;
+  transition: transform 0.2s ease-out;
+}

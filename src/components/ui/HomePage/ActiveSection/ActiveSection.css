@@ -4,13 +4,13 @@
   height: 600px;
 }
 
-.imgWrap {
+.activeCardImgWrap {
   width: 100%;
   height: 421px;
   overflow: hidden;
 }
 
-.imgWrap img {
+.activeCardImgWrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -18,7 +18,7 @@
   transition: all 0.5s ease-in-out;
 }
 
-.imgWrap img:hover {
+.activeCardImgWrap img:hover {
   scale: 1.2;
 }
 
@@ -41,14 +41,14 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .imgWrap {
+  .activeCardImgWrap {
     top: 72%;
     left: 31%;
   }
 }
 
 @media only screen and (max-width: 500px) {
-  .imgWrap {
+  .activeCardImgWrap {
     height: 150px;
   }
 

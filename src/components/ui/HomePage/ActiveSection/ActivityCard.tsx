@@ -32,7 +32,7 @@ const ActivityCard: React.FC<MurtyreCardProps> = ({ activityData, language }) =>
     <>
       {activityData?.slice(0, 1).map((data) => (
         <div key={data._id} className="victimCard">
-          <div className="imgWrap">
+          <div className="activeCardImgWrap">
             {data?.bng_Images.slice(0, 1)?.map((img: any) => {
 
               return <Image layout="responsive" src={img} alt="hero" width={500}
@@ -40,6 +40,7 @@ const ActivityCard: React.FC<MurtyreCardProps> = ({ activityData, language }) =>
                 className="rounded-md object-cover w-full h-full" key={img} />
             })}
           </div>
+
 
           <div className="p-2 md:p-3 space-y-1 md:space-y-2">
             <h3 className="text-xl md:text-2xl">{language === 'ENG' ? data?.english_title : data?.bangla_title}</h3>

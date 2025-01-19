@@ -52,23 +52,29 @@ const Page = () => {
   const onInit = (detail: { instance: LightGalleryType }) => {
     if (detail) {
       lightGalleryRef.current = detail.instance
-      const closeButton = document.createElement('button')
-      closeButton.classList.add('lg-close-custom')
-      closeButton.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    `
-      closeButton.onclick = () => {
-        if (lightGalleryRef.current) {
-          lightGalleryRef.current.closeGallery()
+
+      const addCustomCloseButton = () => {
+        const closeButton = document.createElement('button')
+        closeButton.classList.add('lg-close-custom')
+        closeButton.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6"1="6" x2="18" y2="18"></line>
+          </svg>
+        `
+        closeButton.onclick = () => {
+          if (lightGalleryRef.current) {
+            lightGalleryRef.current.closeGallery()
+          }
+        }
+
+        const lgContainer = document.querySelector('.lg-container')
+        if (lgContainer && !lgContainer.querySelector('.lg-close-custom')) {
+          lgContainer.appendChild(closeButton)
         }
       }
-      const lgContainer = document.querySelector('.lg-container')
-      if (lgContainer) {
-        lgContainer.appendChild(closeButton)
-      }
+
+      setTimeout(addCustomCloseButton, 100)
     }
   }
 
@@ -88,7 +94,7 @@ const Page = () => {
                 key={data._id}
                 className="gallery-item cursor-pointer"
                 data-src={data.images[0]}
-                data-sub-html={`<h4>${language === "ENG" ? data.eng_title : data.bng_title}</h4><p>${formatDate(data.createdAt)}</p>`}
+                data-sub-html={`<h4>${language === "ENG" ? data.eng_title : data.bng_title}</h4>`}
               >
                 <div className="relative group">
                   <Image
@@ -98,44 +104,45 @@ const Page = () => {
                     width={500}
                     height={300}
                   />
-                  <div className="absolute w-full h-full inset-0 flex justify-center items-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="text-white text-center">
-                      <p className="text-sm">{formatDate(data.createdAt)}</p>
-                      <h3 className="text-xl font-bold">
-                        {language === "ENG" ? data.eng_title : data.bng_title}
-                      </h3>
-                    </div>
+                  <div
+                    className="absolute w-full bottom-0 bg-black bg-opacity-75 py-2 px-4 text-white opacity-0 translate-y-full group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 text-center "
+                  >
+                    <h3 className="text-base font-semibold truncate">
+                      {language === "ENG" ? data.eng_title : data.bng_title}
+                    </h3>
                   </div>
                 </div>
               </a>
             ))}
           </LightGallery>
+
           <style jsx global>{`
-  .lg-close-custom {
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    z-index: 1050;
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.45);
-    border: none;
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-  }
-  .lg-close-custom:hover {
-    background: rgba(0, 0, 0, 0.6);
-  }
-  .lg-close-custom svg {
-    width: 24px;
-    height: 24px;
-  }
-`}</style>
+            .lg-close-custom {
+              position: fixed;
+              right: 20px;
+              top: 20px;
+              z-index: 1050;
+              cursor: pointer;
+              background: rgba(0, 0, 0, 0.7);
+              border: none;
+              color: white;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+            .lg-close-custom:hover {
+              background: rgba(0, 0, 0, 0.9);
+              transform: scale(1.1);
+            }
+            .lg-close-custom svg {
+              width: 24px;
+              height: 24px;
+            }
+          `}</style>
         </Container>
       </div>
     </>

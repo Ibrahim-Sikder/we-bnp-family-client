@@ -1,4 +1,5 @@
 
+import CursorCustomize from "@/components/CursorCustomize/CursorCustomize";
 import Loading from "@/components/Loading/Loading";
 import FooterSection from "@/components/shared/Footer/FooterSection";
 import Header from "@/components/shared/Header/Header";
@@ -11,6 +12,7 @@ const layout = ({ children }: { children: ReactNode }) => {
       <Suspense fallback={<div><Loading/></div>}>
         <Header />
         {children}
+        <CursorCustomize/>
      <FooterSection/>
       </Suspense>
     </LandingPageProvider>
