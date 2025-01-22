@@ -12,6 +12,7 @@ import Image from "next/image"
 import { TImgGallery } from "@/types/prison"
 import { useLanguage } from "@/provider/LanguageProvider"
 import CommonBanner from "@/components/shared/CommonBanner/CommonBanner"
+import { sortByDate } from "@/utils/sort"
 
 const Page = () => {
   const { language } = useLanguage()
@@ -41,13 +42,7 @@ const Page = () => {
 
   const title = language === "ENG" ? "Image Gallery" : "ফটো  গ্যালারি"
 
-  const formatDate = (dateString: string | number | Date) => {
-    const date = new Date(dateString)
-    const day = date.getDate().toString().padStart(2, "0")
-    const month = (date.getMonth() + 1).toString().padStart(2, "0")
-    const year = date.getFullYear()
-    return `${day}-${month}-${year}`
-  }
+
 
   const onInit = (detail: { instance: LightGalleryType }) => {
     if (detail) {
@@ -78,6 +73,9 @@ const Page = () => {
     }
   }
 
+
+  const sortedGalleryData = sortByDate(galleryData, 'date');
+
   return (
     <>
       <CommonBanner title={title} />
@@ -89,7 +87,7 @@ const Page = () => {
             elementClassNames="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5"
             onInit={onInit}
           >
-            {galleryData?.map((data) => (
+            {sortedGalleryData?.map((data) => (
               <a
                 key={data._id}
                 className="gallery-item cursor-pointer"

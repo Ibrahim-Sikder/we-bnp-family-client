@@ -116,6 +116,7 @@ export type TCommitte = {
   images: string[];
   category: string; 
   createdAt:string,
+  date:string;
 };
 export type LanguageProps = {
   language:string

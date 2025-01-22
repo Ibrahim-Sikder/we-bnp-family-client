@@ -1,4 +1,5 @@
 import { TCommitte } from "@/types";
+import { sortByDate } from "@/utils/sort";
 import Image from "next/image";
 import React from "react";
 
@@ -11,7 +12,7 @@ interface UpodestProps {
 
 const Upodesta: React.FC<UpodestProps> = ({ upodestaFilterData, language }) => {
 
-
+  const sortedUpodestaData = sortByDate(upodestaFilterData, 'date');
 
   return (
     <>
@@ -30,7 +31,7 @@ const Upodesta: React.FC<UpodestProps> = ({ upodestaFilterData, language }) => {
         </div>
 
         <div className=" mx-auto lg:p-6 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-6">
-          {upodestaFilterData.map((data, index: number) => (
+          {sortedUpodestaData.map((data, index: number) => (
             <div key={index} className="group relative">
               <div className="w-[90%] mx-auto lg:max-w-sm max-h-full bg-[#fdf7f4] shadow-lg rounded-xl overflow-hidden">
                 <div className="relative">

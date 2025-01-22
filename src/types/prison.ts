@@ -28,5 +28,6 @@ export type TPrison = {
     eng_title:string,
     slug:string,
     images:string[],
-    createdAt:string
+    createdAt:string,
+    date:string,
 }
