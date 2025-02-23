@@ -55,6 +55,7 @@ const Torture = () => {
 
     </>
   );
+  
 };
 
 export default Torture;

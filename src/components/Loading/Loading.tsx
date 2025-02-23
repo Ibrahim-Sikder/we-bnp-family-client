@@ -8,7 +8,7 @@ const Loader = () => {
   const loadingSrc = "/loading.json"; 
 
   return (
-    <div className="fixed inset-0 h-screen flex items-center justify-center bg-white z-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
       <Player
         autoplay
         loop

@@ -9,11 +9,11 @@ import React, { ReactNode, Suspense } from "react";
 const layout = ({ children }: { children: ReactNode }) => {
   return (
     <LandingPageProvider>
-      <Suspense fallback={<div><Loading/></div>}>
+      <Suspense fallback={false}>
         <Header />
         {children}
-        <CursorCustomize/>
-     <FooterSection/>
+        <CursorCustomize />
+        <FooterSection />
       </Suspense>
     </LandingPageProvider>
   );
