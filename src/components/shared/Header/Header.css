@@ -217,7 +217,12 @@
     top: 29px;
     right: 9px;
   }
-
+  .navItems li {
+    padding: 5px 0px;
+}
+.navItems {
+  width: 327px;
+}
 
 }
 
@@ -236,6 +241,8 @@
   .bar1 {
     top: 22px;
     right: -5px;
+    z-index: 999999;
+    color:white;
   }
 
   .dropdownMenu,
@@ -246,7 +253,7 @@
   }
 
   .submenu2 {
-    width: 240px;
+    width: 250px;
 
   }
 
@@ -256,8 +263,12 @@
   }
 
   .navItems {
-    width: 250px;
-  }
+    width: 100%;
+}
+.navItems ul li a, .navItems small{
+  font-size: 16px;
+}
+
 
 }
 

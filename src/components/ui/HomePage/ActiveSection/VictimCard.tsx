@@ -14,7 +14,7 @@ interface MurtyreCardProps {
 
 const VictimCard: React.FC<MurtyreCardProps> = ({ activityData, language }) => {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const smallBtnStyle = {
     width: "75px",
@@ -33,7 +33,7 @@ const VictimCard: React.FC<MurtyreCardProps> = ({ activityData, language }) => {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-y-8 xl:gap-y-0 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-x-3 ">
+      <div className="grid grid-cols-2 gap-y-8 xl:gap-y-0 md:grid-cols-3 xl:grid-cols-3 mt-5 gap-x-3 ">
         {activityData?.slice(1, itemsToShow).map((data) => (
           <div key={data._id}>
             <div className="cardBox">

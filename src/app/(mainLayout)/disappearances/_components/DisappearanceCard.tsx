@@ -25,8 +25,8 @@ export default function DisappearanceCard({ language, disappearanceData }: Langu
     <>
       <div className='bannerWrap'>
         <div className="bannerContent">
-          <h3 className='text-3xl md:text-4xl font-semibold '>
-            {language === 'ENG' ? 'Disappeared List' : 'গুম তালিকা'}
+          <h3 className='text-xl md:text-4xl font-semibold '>
+            {language === 'ENG' ? 'Disappeared List' : 'গুমের তালিকা'}
           </h3>
         </div>
       </div>
@@ -44,7 +44,7 @@ export default function DisappearanceCard({ language, disappearanceData }: Langu
                     ? data.bng_Images?.slice(0, 1).map((img) => (
                       <Image src={img || "/placeholder.svg"} alt="hero" width={500} height={500} key={img} />
                     ))
-                    : data.eng_iamges?.slice(0, 1).map((img) => (
+                    : data.bng_Images?.slice(0, 1).map((img) => (
                       <Image src={img || "/placeholder.svg"} alt="hero" width={500} height={500} key={img} />
                     ))
                   }

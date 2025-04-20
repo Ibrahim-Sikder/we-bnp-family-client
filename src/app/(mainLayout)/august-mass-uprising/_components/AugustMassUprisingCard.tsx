@@ -34,7 +34,7 @@ export default function AugustMassUprisingCard({ language, disappearanceData }: 
         <>
             <div className='bannerWrap'>
                 <div className="bannerContent">
-                    <h3 className='text-3xl md:text-4xl font-semibold '>{language === 'ENG' ? 'August Mass Uprising' : 'আগস্ট গণ-অভ্যুত্থান'} </h3>
+                    <h3 className='text-2xl md:text-4xl font-semibold '>{language === 'ENG' ? 'August Mass Uprising' : 'আগস্ট গণ-অভ্যুত্থান'} </h3>
                 </div>
             </div>
             <Container className='my-10'>

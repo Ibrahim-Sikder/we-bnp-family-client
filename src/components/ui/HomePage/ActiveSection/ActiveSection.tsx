@@ -83,6 +83,7 @@ const VictimizedSection = () => {
               }  <KeyboardDoubleArrowRight sx={arrowStyle} />
             </Button>
           </div>
+          
         </div>
         <div className="col-span-12 xl:col-span-4 mt-10   xl:-mt-[87px] ">
           <Box sx={{ width: "100%", typography: "body1" }}>

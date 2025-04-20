@@ -108,11 +108,11 @@ const Header = () => {
                     </Typography>
                   </div>
                 </li>
-                <li className="lg:border-none border-b lg:py-0 py-2">
+                <li className="lg:border-none border-b lg:py-0">
                   <Link onClick={toggleMobileMenu} href="/">{language === 'ENG' ? 'Home' : 'প্রচ্ছদ'}</Link>
                 </li>
                 <li className="dropdownMenuWrap">
-                  <small className="text-[17px] font-[500]">
+                  <small className="">
                     {language === 'ENG' ? 'Our Activities' : ' আমাদের কার্যক্রম'}
                     <KeyboardArrowDownIcon />
                   </small>
@@ -133,7 +133,7 @@ const Header = () => {
                   <Link onClick={toggleMobileMenu} href="/about"> {language === 'ENG' ? 'About Us' : ' আমাদের সম্পর্কে'} </Link>
                 </li>
                 <li className="dropdownMenuWrap">
-                  <small className="text-[17px] font-[500]">  {language === 'ENG' ? "Oppressive Rule of Dictator Hasina" : 'স্বৈরাচার হাসিনার দুঃশাসন'} <KeyboardArrowDownIcon /></small>
+                  <small className="">  {language === 'ENG' ? "Oppressive Rule of Dictator Hasina" : 'স্বৈরাচার হাসিনার দুঃশাসন'} <KeyboardArrowDownIcon /></small>
                   <ul className="dropdownMenu">
                     <li>
                       <Link onClick={toggleMobileMenu} href="/disappearances">
@@ -175,7 +175,7 @@ const Header = () => {
 
 
                 <li className="dropdownMenuWrap">
-                  <small className="text-[17px] font-[500]">
+                  <small className="">
                     {language === 'ENG' ? 'Reports' : 'রিপোর্ট'}
                     <KeyboardArrowDownIcon />
                   </small>
